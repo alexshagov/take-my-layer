@@ -1,0 +1,115 @@
+{
+ "n_total": 300,
+ "readout": {
+  "pooled": {
+   "n": 300,
+   "hits": 227,
+   "agreement": 0.7567,
+   "agreement_wilson95": [
+    0.705,
+    0.802
+   ],
+   "kappa": 0.593,
+   "kappa_by_type": {
+    "Choice": 0.667,
+    "Noul": 0.615,
+    "Score": 0.469
+   },
+   "agreement_by_type": {
+    "Choice": {
+     "n": 73,
+     "agreement": 0.753
+    },
+    "Noul": {
+     "n": 156,
+     "agreement": 0.808
+    },
+    "Score": {
+     "n": 71,
+     "agreement": 0.648
+    }
+   }
+  },
+  "v1": {
+   "n": 105,
+   "hits": 83,
+   "agreement": 0.7905,
+   "agreement_wilson95": [
+    0.703,
+    0.857
+   ],
+   "kappa": 0.653,
+   "kappa_by_type": {
+    "Choice": 0.839,
+    "Noul": 0.673,
+    "Score": 0.42
+   },
+   "agreement_by_type": {
+    "Choice": {
+     "n": 25,
+     "agreement": 0.88
+    },
+    "Noul": {
+     "n": 55,
+     "agreement": 0.836
+    },
+    "Score": {
+     "n": 25,
+     "agreement": 0.6
+    }
+   }
+  },
+  "v2": {
+   "n": 195,
+   "hits": 144,
+   "agreement": 0.7385,
+   "agreement_wilson95": [
+    0.673,
+    0.795
+   ],
+   "kappa": 0.56,
+   "kappa_by_type": {
+    "Choice": 0.577,
+    "Noul": 0.584,
+    "Score": 0.497
+   },
+   "agreement_by_type": {
+    "Choice": {
+     "n": 48,
+     "agreement": 0.688
+    },
+    "Noul": {
+     "n": 101,
+     "agreement": 0.792
+    },
+    "Score": {
+     "n": 46,
+     "agreement": 0.674
+    }
+   }
+  },
+  "note": "agreement with the real Jev API (fidelity), pooled over the stored runs; v2 items measured harder (new-item effect: different authoring batch, more multi-factor items)"
+ },
+ "readout_vs_greedy": {
+  "n": 300,
+  "readout_hits": 227,
+  "greedy_hits": 213,
+  "readout": 0.7567,
+  "greedy": 0.71,
+  "delta_points": 4.7,
+  "both_right": 210,
+  "neither_right": 70,
+  "only_readout": 17,
+  "only_greedy": 3,
+  "mcnemar_exact_p": 0.00258,
+  "note": "paired on identical questions; exact binomial McNemar over the discordant pairs"
+ },
+ "sources": {
+  "v1": "results/jev_compare.json",
+  "v2": "results/jev_compare.n300.json",
+  "bench": [
+   "results/bench_vs_generate.json",
+   "results/bench_vs_generate.n300.json"
+  ]
+ }
+}

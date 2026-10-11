@@ -1,0 +1,30 @@
+# local model cache (auto-download on first run)
+.hf/
+# python (any venv name: .venv, .venv-pip, ...)
+.venv*/
+.uv-cache/
+__pycache__/
+*.pyc
+.DS_Store
+# tool side-files seen next to local HF caches
+.agent_harnesses.json
+# nix/direnv local state (.envrc.local is sourced by .envrc: API keys etc.)
+.cache/
+.direnv/
+.envrc.local
+# live runtime logs: proxy shadow/observe rows (full rendered states) and the
+# endpoint telemetry. results/ holds frozen evidence; copy a log there
+# deliberately, never by default.
+/logs/
+# fresh benchmark / fitting / regeneration output (results/ is frozen evidence;
+# promote a run deliberately: cp runs/X results/X)
+/runs/
+# synthetic corpus, regenerated on demand by decide/adapt/synth_states.py
+/data/synth/
+# recorded agent sessions stay out of the repo; only the sandbox is a fixture
+data/repos/*
+!data/repos/qjev-sandbox/
+# locally archived dead weight (kept out of the public repo)
+archive/
+# local agent notes (the detailed local scratch version; the shipped AGENTS.md is the short guide)
+AGENTS.local.md

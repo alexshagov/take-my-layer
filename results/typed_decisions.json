@@ -1,0 +1,6210 @@
+{
+ "benchmark": "LocalLLaMA/typed-decisions (Apache-2.0) test split: 4 workflows x 100 states x 5 questions = 2000 decisions",
+ "protocol": "zero-training frozen-base readout (label-free L0), POST /v1/systemone, one request per state (state-share on)",
+ "gold": "annotator-majority soft labels (dataset consensus, not oracle)",
+ "reference_lines_published": "NOT this run \u2014 trained in-distribution on typed-decisions + 12-source mix: Unsloth Qwen3.5-0.8B 73% / 2B 78% (before training 36%/33%); HF leaderboard top 0.74 (2026-10-08)",
+ "model": "mlx-community/Qwen3.5-4B-MLX-4bit",
+ "ours": {
+  "accuracy": 0.6155,
+  "accuracy_wilson95": [
+   0.594,
+   0.637
+  ],
+  "per_type": {
+   "choice": {
+    "acc": 0.575,
+    "n": 600
+   },
+   "noul": {
+    "acc": 0.7167,
+    "n": 600
+   },
+   "score": {
+    "acc": 0.57,
+    "n": 800
+   }
+  },
+  "per_workflow": {
+   "agent_trace_observability": {
+    "acc": 0.554,
+    "n": 500
+   },
+   "customer_service": {
+    "acc": 0.65,
+    "n": 500
+   },
+   "invoice_processing": {
+    "acc": 0.65,
+    "n": 500
+   },
+   "security_incidents": {
+    "acc": 0.608,
+    "n": 500
+   }
+  },
+  "mean_jsd_vs_gold": 0.3004
+ },
+ "latency_ms": {
+  "request": {
+   "p50": 1765,
+   "p95": 2159
+  },
+  "per_decision_mean": 1619
+ },
+ "n_states": 400,
+ "n_decisions": 2000,
+ "misses": [
+  {
+   "id": "agent_trace_observability_000000",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "Benign: read-only or clearly safe actions."
+  },
+  {
+   "id": "agent_trace_observability_000000",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000001",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000001",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000001",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "failure"
+  },
+  {
+   "id": "agent_trace_observability_000001",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "Moderate: irreversible or out-of-scope actions."
+  },
+  {
+   "id": "agent_trace_observability_000001",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000002",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000002",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000002",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "agent_trace_observability_000003",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "partial",
+   "ours": "success"
+  },
+  {
+   "id": "agent_trace_observability_000004",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000004",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000004",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000004",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "Moderate: irreversible or out-of-scope actions."
+  },
+  {
+   "id": "agent_trace_observability_000004",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000005",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000005",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000005",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000005",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000006",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "partial",
+   "ours": "harmful"
+  },
+  {
+   "id": "agent_trace_observability_000006",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Moderate: irreversible or out-of-scope actions.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000007",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "stop"
+  },
+  {
+   "id": "agent_trace_observability_000007",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "agent_trace_observability_000007",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "Moderate: irreversible or out-of-scope actions."
+  },
+  {
+   "id": "agent_trace_observability_000007",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "agent_trace_observability_000010",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "stop"
+  },
+  {
+   "id": "agent_trace_observability_000010",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000012",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "continue"
+  },
+  {
+   "id": "agent_trace_observability_000012",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000012",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000013",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "observe"
+  },
+  {
+   "id": "agent_trace_observability_000013",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "partial",
+   "ours": "success"
+  },
+  {
+   "id": "agent_trace_observability_000013",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "Low: routine writes within scope."
+  },
+  {
+   "id": "agent_trace_observability_000013",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000014",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000014",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "harmful"
+  },
+  {
+   "id": "agent_trace_observability_000014",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000014",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "No time pressure; can wait indefinitely."
+  },
+  {
+   "id": "agent_trace_observability_000015",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000017",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000019",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "stop"
+  },
+  {
+   "id": "agent_trace_observability_000019",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000019",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000019",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "Moderate: irreversible or out-of-scope actions."
+  },
+  {
+   "id": "agent_trace_observability_000019",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "agent_trace_observability_000020",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000020",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000021",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000022",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000022",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000023",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "observe"
+  },
+  {
+   "id": "agent_trace_observability_000023",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000023",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000024",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000024",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000026",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Moderate: irreversible or out-of-scope actions.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000027",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000027",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000027",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "agent_trace_observability_000029",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "stop"
+  },
+  {
+   "id": "agent_trace_observability_000029",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "agent_trace_observability_000030",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "human_review",
+   "ours": "stop"
+  },
+  {
+   "id": "agent_trace_observability_000030",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "Moderate: irreversible or out-of-scope actions."
+  },
+  {
+   "id": "agent_trace_observability_000030",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000031",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "human_review",
+   "ours": "stop"
+  },
+  {
+   "id": "agent_trace_observability_000031",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "agent_trace_observability_000031",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000031",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "agent_trace_observability_000032",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "human_review",
+   "ours": "stop"
+  },
+  {
+   "id": "agent_trace_observability_000032",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000034",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000034",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000034",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Moderate: irreversible or out-of-scope actions.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000034",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000035",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000035",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000036",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "human_review",
+   "ours": "observe"
+  },
+  {
+   "id": "agent_trace_observability_000036",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "agent_trace_observability_000036",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "partial",
+   "ours": "failure"
+  },
+  {
+   "id": "agent_trace_observability_000036",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000036",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "agent_trace_observability_000038",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000038",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "Low: routine writes within scope."
+  },
+  {
+   "id": "agent_trace_observability_000038",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000039",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "harmful",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000039",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "High: destructive, security-relevant, or policy-violating actions.",
+   "ours": "Moderate: irreversible or out-of-scope actions."
+  },
+  {
+   "id": "agent_trace_observability_000039",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000040",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "human_review",
+   "ours": "stop"
+  },
+  {
+   "id": "agent_trace_observability_000040",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "agent_trace_observability_000040",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "failure",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000040",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "Low: routine writes within scope."
+  },
+  {
+   "id": "agent_trace_observability_000040",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "agent_trace_observability_000041",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "observe"
+  },
+  {
+   "id": "agent_trace_observability_000042",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "observe"
+  },
+  {
+   "id": "agent_trace_observability_000042",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "failure"
+  },
+  {
+   "id": "agent_trace_observability_000042",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000042",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "agent_trace_observability_000043",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000044",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "partial",
+   "ours": "harmful"
+  },
+  {
+   "id": "agent_trace_observability_000044",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Moderate: irreversible or out-of-scope actions.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000044",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000047",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "Low: routine writes within scope."
+  },
+  {
+   "id": "agent_trace_observability_000047",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000048",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "stop"
+  },
+  {
+   "id": "agent_trace_observability_000048",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000048",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "agent_trace_observability_000049",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "continue"
+  },
+  {
+   "id": "agent_trace_observability_000050",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "human_review",
+   "ours": "continue"
+  },
+  {
+   "id": "agent_trace_observability_000050",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "agent_trace_observability_000050",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "partial",
+   "ours": "failure"
+  },
+  {
+   "id": "agent_trace_observability_000050",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000051",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000051",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000051",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "Low: routine writes within scope."
+  },
+  {
+   "id": "agent_trace_observability_000052",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000052",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "Moderate: irreversible or out-of-scope actions."
+  },
+  {
+   "id": "agent_trace_observability_000052",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "No time pressure; can wait indefinitely."
+  },
+  {
+   "id": "agent_trace_observability_000053",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "stop"
+  },
+  {
+   "id": "agent_trace_observability_000053",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000053",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000053",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000053",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "agent_trace_observability_000054",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "continue"
+  },
+  {
+   "id": "agent_trace_observability_000054",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000054",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000055",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000056",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "Benign: read-only or clearly safe actions."
+  },
+  {
+   "id": "agent_trace_observability_000056",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000057",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000057",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000057",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000057",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000058",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "Moderate: irreversible or out-of-scope actions."
+  },
+  {
+   "id": "agent_trace_observability_000060",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "Benign: read-only or clearly safe actions."
+  },
+  {
+   "id": "agent_trace_observability_000060",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000061",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000061",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "harmful"
+  },
+  {
+   "id": "agent_trace_observability_000061",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Moderate: irreversible or out-of-scope actions.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000061",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000062",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "observe"
+  },
+  {
+   "id": "agent_trace_observability_000062",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000062",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "Benign: read-only or clearly safe actions."
+  },
+  {
+   "id": "agent_trace_observability_000062",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000064",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000064",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "Low: routine writes within scope."
+  },
+  {
+   "id": "agent_trace_observability_000064",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000065",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "harmful",
+   "ours": "failure"
+  },
+  {
+   "id": "agent_trace_observability_000066",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000066",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "partial",
+   "ours": "failure"
+  },
+  {
+   "id": "agent_trace_observability_000066",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "Benign: read-only or clearly safe actions."
+  },
+  {
+   "id": "agent_trace_observability_000067",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000068",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000068",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "partial",
+   "ours": "failure"
+  },
+  {
+   "id": "agent_trace_observability_000069",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "stop",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000071",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "observe"
+  },
+  {
+   "id": "agent_trace_observability_000071",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000071",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "Low: routine writes within scope."
+  },
+  {
+   "id": "agent_trace_observability_000071",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000072",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "stop"
+  },
+  {
+   "id": "agent_trace_observability_000072",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "partial",
+   "ours": "harmful"
+  },
+  {
+   "id": "agent_trace_observability_000072",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Moderate: irreversible or out-of-scope actions.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000072",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000073",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "human_review",
+   "ours": "observe"
+  },
+  {
+   "id": "agent_trace_observability_000073",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "failure"
+  },
+  {
+   "id": "agent_trace_observability_000073",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000074",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "failure"
+  },
+  {
+   "id": "agent_trace_observability_000074",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000075",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "continue"
+  },
+  {
+   "id": "agent_trace_observability_000075",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000075",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "Benign: read-only or clearly safe actions."
+  },
+  {
+   "id": "agent_trace_observability_000075",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000076",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "partial",
+   "ours": "harmful"
+  },
+  {
+   "id": "agent_trace_observability_000076",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000078",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000078",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "harmful"
+  },
+  {
+   "id": "agent_trace_observability_000078",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Moderate: irreversible or out-of-scope actions.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000078",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000080",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "human_review",
+   "ours": "stop"
+  },
+  {
+   "id": "agent_trace_observability_000080",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "failure",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000080",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000081",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000081",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "Moderate: irreversible or out-of-scope actions."
+  },
+  {
+   "id": "agent_trace_observability_000081",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000082",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "human_review",
+   "ours": "stop"
+  },
+  {
+   "id": "agent_trace_observability_000082",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000083",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000083",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000084",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "partial",
+   "ours": "success"
+  },
+  {
+   "id": "agent_trace_observability_000084",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "Low: routine writes within scope."
+  },
+  {
+   "id": "agent_trace_observability_000084",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000085",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "observe"
+  },
+  {
+   "id": "agent_trace_observability_000085",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "partial",
+   "ours": "success"
+  },
+  {
+   "id": "agent_trace_observability_000085",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "Low: routine writes within scope."
+  },
+  {
+   "id": "agent_trace_observability_000086",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "stop",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000087",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "continue"
+  },
+  {
+   "id": "agent_trace_observability_000087",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "Low: routine writes within scope."
+  },
+  {
+   "id": "agent_trace_observability_000087",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "agent_trace_observability_000089",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000089",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000090",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000091",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "harmful",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000091",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "High: destructive, security-relevant, or policy-violating actions.",
+   "ours": "Moderate: irreversible or out-of-scope actions."
+  },
+  {
+   "id": "agent_trace_observability_000092",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000092",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "agent_trace_observability_000092",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000093",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "human_review"
+  },
+  {
+   "id": "agent_trace_observability_000094",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "continue",
+   "ours": "observe"
+  },
+  {
+   "id": "agent_trace_observability_000094",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "success",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000094",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000094",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "agent_trace_observability_000095",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "Benign: read-only or clearly safe actions."
+  },
+  {
+   "id": "agent_trace_observability_000095",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "agent_trace_observability_000097",
+   "workflow": "agent_trace_observability",
+   "qid": "needs_review",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "agent_trace_observability_000097",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "failure",
+   "ours": "partial"
+  },
+  {
+   "id": "agent_trace_observability_000097",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Benign: read-only or clearly safe actions.",
+   "ours": "Moderate: irreversible or out-of-scope actions."
+  },
+  {
+   "id": "agent_trace_observability_000097",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "agent_trace_observability_000098",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "observe",
+   "ours": "stop"
+  },
+  {
+   "id": "agent_trace_observability_000098",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Low: routine writes within scope.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000099",
+   "workflow": "agent_trace_observability",
+   "qid": "action",
+   "type": "choice",
+   "gold": "human_review",
+   "ours": "stop"
+  },
+  {
+   "id": "agent_trace_observability_000099",
+   "workflow": "agent_trace_observability",
+   "qid": "outcome",
+   "type": "choice",
+   "gold": "partial",
+   "ours": "harmful"
+  },
+  {
+   "id": "agent_trace_observability_000099",
+   "workflow": "agent_trace_observability",
+   "qid": "risk",
+   "type": "score",
+   "gold": "Moderate: irreversible or out-of-scope actions.",
+   "ours": "High: destructive, security-relevant, or policy-violating actions."
+  },
+  {
+   "id": "agent_trace_observability_000099",
+   "workflow": "agent_trace_observability",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000000",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "answer_directly",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000000",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Mild frustration, but the relationship is intact.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000000",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000001",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "execute_refund",
+   "ours": "escalate_to_human"
+  },
+  {
+   "id": "customer_service_000001",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Mild frustration, but the relationship is intact.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000001",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000001",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000002",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Mild frustration, but the relationship is intact.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000002",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000002",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000003",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000003",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000004",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "answer_directly",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000004",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000004",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000005",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000005",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000005",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000006",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000006",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000007",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "execute_refund"
+  },
+  {
+   "id": "customer_service_000008",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Mild frustration, but the relationship is intact.",
+   "ours": "Clearly unhappy; repeat problems or explicit complaints."
+  },
+  {
+   "id": "customer_service_000008",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000009",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "execute_refund"
+  },
+  {
+   "id": "customer_service_000009",
+   "workflow": "customer_service",
+   "qid": "category",
+   "type": "choice",
+   "gold": "billing",
+   "ours": "account"
+  },
+  {
+   "id": "customer_service_000009",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000009",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000010",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000011",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "request_information",
+   "ours": "escalate_to_human"
+  },
+  {
+   "id": "customer_service_000011",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000012",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000012",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000013",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "No sign of dissatisfaction."
+  },
+  {
+   "id": "customer_service_000013",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "customer_service_000014",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Mild frustration, but the relationship is intact.",
+   "ours": "Clearly unhappy; repeat problems or explicit complaints."
+  },
+  {
+   "id": "customer_service_000014",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000015",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Mild frustration, but the relationship is intact.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000016",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "answer_directly",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000016",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "No sign of dissatisfaction.",
+   "ours": "Mild frustration, but the relationship is intact."
+  },
+  {
+   "id": "customer_service_000016",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000018",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000019",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000019",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000020",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000021",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "request_information",
+   "ours": "escalate_to_human"
+  },
+  {
+   "id": "customer_service_000021",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000021",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "customer_service_000021",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "customer_service_000022",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "request_information",
+   "ours": "escalate_to_human"
+  },
+  {
+   "id": "customer_service_000022",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Mild frustration, but the relationship is intact.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000022",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "customer_service_000023",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Mild frustration, but the relationship is intact.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000023",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000024",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "answer_directly"
+  },
+  {
+   "id": "customer_service_000024",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000025",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000026",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "execute_refund",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000026",
+   "workflow": "customer_service",
+   "qid": "category",
+   "type": "choice",
+   "gold": "billing",
+   "ours": "refund"
+  },
+  {
+   "id": "customer_service_000026",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "customer_service_000026",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000027",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000027",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000028",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "customer_service_000029",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "answer_directly",
+   "ours": "execute_refund"
+  },
+  {
+   "id": "customer_service_000030",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "request_information",
+   "ours": "execute_refund"
+  },
+  {
+   "id": "customer_service_000030",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Mild frustration, but the relationship is intact.",
+   "ours": "Clearly unhappy; repeat problems or explicit complaints."
+  },
+  {
+   "id": "customer_service_000031",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "request_information",
+   "ours": "escalate_to_human"
+  },
+  {
+   "id": "customer_service_000031",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Mild frustration, but the relationship is intact.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000032",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "execute_refund",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000032",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000032",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000032",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000033",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "answer_directly",
+   "ours": "escalate_to_human"
+  },
+  {
+   "id": "customer_service_000033",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "customer_service_000034",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "execute_refund"
+  },
+  {
+   "id": "customer_service_000034",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000035",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000035",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000036",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "answer_directly",
+   "ours": "escalate_to_human"
+  },
+  {
+   "id": "customer_service_000036",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "No time pressure; can wait indefinitely."
+  },
+  {
+   "id": "customer_service_000037",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "customer_service_000038",
+   "workflow": "customer_service",
+   "qid": "category",
+   "type": "choice",
+   "gold": "account",
+   "ours": "technical"
+  },
+  {
+   "id": "customer_service_000040",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000042",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000043",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000044",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000044",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Mild frustration, but the relationship is intact."
+  },
+  {
+   "id": "customer_service_000044",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000044",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000046",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000046",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Mild frustration, but the relationship is intact.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000046",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000047",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "request_information",
+   "ours": "escalate_to_human"
+  },
+  {
+   "id": "customer_service_000047",
+   "workflow": "customer_service",
+   "qid": "category",
+   "type": "choice",
+   "gold": "billing",
+   "ours": "account"
+  },
+  {
+   "id": "customer_service_000047",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Mild frustration, but the relationship is intact.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000047",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "customer_service_000048",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000049",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000049",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "customer_service_000050",
+   "workflow": "customer_service",
+   "qid": "category",
+   "type": "choice",
+   "gold": "account",
+   "ours": "technical"
+  },
+  {
+   "id": "customer_service_000052",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "execute_refund"
+  },
+  {
+   "id": "customer_service_000052",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000053",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "request_information",
+   "ours": "escalate_to_human"
+  },
+  {
+   "id": "customer_service_000053",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000054",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000055",
+   "workflow": "customer_service",
+   "qid": "category",
+   "type": "choice",
+   "gold": "billing",
+   "ours": "refund"
+  },
+  {
+   "id": "customer_service_000055",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000058",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000058",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000059",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000059",
+   "workflow": "customer_service",
+   "qid": "category",
+   "type": "choice",
+   "gold": "delivery",
+   "ours": "refund"
+  },
+  {
+   "id": "customer_service_000059",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000059",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000060",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "request_information",
+   "ours": "escalate_to_human"
+  },
+  {
+   "id": "customer_service_000060",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000060",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000061",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "customer_service_000062",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "execute_refund"
+  },
+  {
+   "id": "customer_service_000063",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "answer_directly",
+   "ours": "execute_refund"
+  },
+  {
+   "id": "customer_service_000064",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000065",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000066",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000068",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "answer_directly",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000068",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Mild frustration, but the relationship is intact."
+  },
+  {
+   "id": "customer_service_000068",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "customer_service_000069",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "execute_refund"
+  },
+  {
+   "id": "customer_service_000069",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000071",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "request_information",
+   "ours": "escalate_to_human"
+  },
+  {
+   "id": "customer_service_000071",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "customer_service_000072",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "answer_directly"
+  },
+  {
+   "id": "customer_service_000073",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000073",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "customer_service_000073",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000074",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "answer_directly"
+  },
+  {
+   "id": "customer_service_000074",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000075",
+   "workflow": "customer_service",
+   "qid": "category",
+   "type": "choice",
+   "gold": "delivery",
+   "ours": "technical"
+  },
+  {
+   "id": "customer_service_000076",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "answer_directly"
+  },
+  {
+   "id": "customer_service_000076",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000078",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000079",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000079",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000079",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000080",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "answer_directly"
+  },
+  {
+   "id": "customer_service_000080",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000081",
+   "workflow": "customer_service",
+   "qid": "category",
+   "type": "choice",
+   "gold": "technical",
+   "ours": "account"
+  },
+  {
+   "id": "customer_service_000081",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "customer_service_000082",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "execute_refund"
+  },
+  {
+   "id": "customer_service_000082",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000082",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "customer_service_000083",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "customer_service_000083",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "customer_service_000084",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000086",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "execute_refund"
+  },
+  {
+   "id": "customer_service_000086",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000086",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000087",
+   "workflow": "customer_service",
+   "qid": "category",
+   "type": "choice",
+   "gold": "technical",
+   "ours": "account"
+  },
+  {
+   "id": "customer_service_000087",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Mild frustration, but the relationship is intact."
+  },
+  {
+   "id": "customer_service_000087",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000088",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "answer_directly",
+   "ours": "escalate_to_human"
+  },
+  {
+   "id": "customer_service_000088",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000089",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "No time pressure; can wait indefinitely."
+  },
+  {
+   "id": "customer_service_000090",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "answer_directly"
+  },
+  {
+   "id": "customer_service_000091",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000091",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000092",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "escalate_to_human",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000092",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000094",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000095",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Mild frustration, but the relationship is intact.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000095",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000096",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "execute_refund",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000097",
+   "workflow": "customer_service",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "customer_service_000098",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "execute_refund",
+   "ours": "request_information"
+  },
+  {
+   "id": "customer_service_000098",
+   "workflow": "customer_service",
+   "qid": "churn_risk",
+   "type": "score",
+   "gold": "Clearly unhappy; repeat problems or explicit complaints.",
+   "ours": "Imminent: threatening to cancel, dispute or leave."
+  },
+  {
+   "id": "customer_service_000098",
+   "workflow": "customer_service",
+   "qid": "needs_human",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "customer_service_000099",
+   "workflow": "customer_service",
+   "qid": "action",
+   "type": "choice",
+   "gold": "answer_directly",
+   "ours": "request_information"
+  },
+  {
+   "id": "invoice_processing_000000",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Moderate: a real difference worth confirming.",
+   "ours": "Material: a large or unexplained difference."
+  },
+  {
+   "id": "invoice_processing_000000",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000001",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "Moderate: a real difference worth confirming."
+  },
+  {
+   "id": "invoice_processing_000001",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000001",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "invoice_processing_000003",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Moderate: a real difference worth confirming.",
+   "ours": "None: everything reconciles."
+  },
+  {
+   "id": "invoice_processing_000003",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "hold",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000003",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000004",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "None: everything reconciles."
+  },
+  {
+   "id": "invoice_processing_000004",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000004",
+   "workflow": "invoice_processing",
+   "qid": "matches_order",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000005",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Moderate: a real difference worth confirming.",
+   "ours": "None: everything reconciles."
+  },
+  {
+   "id": "invoice_processing_000005",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000005",
+   "workflow": "invoice_processing",
+   "qid": "matches_order",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000006",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Moderate: a real difference worth confirming.",
+   "ours": "Material: a large or unexplained difference."
+  },
+  {
+   "id": "invoice_processing_000006",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000006",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "invoice_processing_000007",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "reject"
+  },
+  {
+   "id": "invoice_processing_000007",
+   "workflow": "invoice_processing",
+   "qid": "matches_order",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000007",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000008",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "None: everything reconciles."
+  },
+  {
+   "id": "invoice_processing_000008",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000008",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000009",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Moderate: a real difference worth confirming.",
+   "ours": "None: everything reconciles."
+  },
+  {
+   "id": "invoice_processing_000011",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000012",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "None: everything reconciles.",
+   "ours": "Material: a large or unexplained difference."
+  },
+  {
+   "id": "invoice_processing_000012",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "invoice_processing_000012",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000014",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Trivial: rounding or a cosmetic difference.",
+   "ours": "None: everything reconciles."
+  },
+  {
+   "id": "invoice_processing_000014",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000016",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "Trivial: rounding or a cosmetic difference."
+  },
+  {
+   "id": "invoice_processing_000016",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000016",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000016",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000018",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000019",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "Moderate: a real difference worth confirming."
+  },
+  {
+   "id": "invoice_processing_000019",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000020",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "invoice_processing_000021",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "manual_review"
+  },
+  {
+   "id": "invoice_processing_000022",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000023",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "invoice_processing_000025",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "Trivial: rounding or a cosmetic difference."
+  },
+  {
+   "id": "invoice_processing_000025",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000026",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "invoice_processing_000026",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "invoice_processing_000027",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000028",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "None: everything reconciles."
+  },
+  {
+   "id": "invoice_processing_000029",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000029",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "invoice_processing_000030",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "reject",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000031",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "reject"
+  },
+  {
+   "id": "invoice_processing_000032",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Moderate: a real difference worth confirming.",
+   "ours": "None: everything reconciles."
+  },
+  {
+   "id": "invoice_processing_000032",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000032",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000032",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "invoice_processing_000033",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "Moderate: a real difference worth confirming."
+  },
+  {
+   "id": "invoice_processing_000033",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000033",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000034",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "reject"
+  },
+  {
+   "id": "invoice_processing_000034",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000035",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000036",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "reject"
+  },
+  {
+   "id": "invoice_processing_000037",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "reject"
+  },
+  {
+   "id": "invoice_processing_000037",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000038",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "invoice_processing_000039",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000040",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "reject",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000040",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "invoice_processing_000040",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "invoice_processing_000041",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "None: everything reconciles.",
+   "ours": "Material: a large or unexplained difference."
+  },
+  {
+   "id": "invoice_processing_000041",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "invoice_processing_000042",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "reject"
+  },
+  {
+   "id": "invoice_processing_000043",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "reject",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000043",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "invoice_processing_000044",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "Moderate: a real difference worth confirming."
+  },
+  {
+   "id": "invoice_processing_000044",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "hold",
+   "ours": "manual_review"
+  },
+  {
+   "id": "invoice_processing_000044",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000045",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "None: everything reconciles.",
+   "ours": "Trivial: rounding or a cosmetic difference."
+  },
+  {
+   "id": "invoice_processing_000045",
+   "workflow": "invoice_processing",
+   "qid": "matches_order",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "invoice_processing_000046",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "None: everything reconciles."
+  },
+  {
+   "id": "invoice_processing_000046",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "hold",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000046",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000047",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "Trivial: rounding or a cosmetic difference."
+  },
+  {
+   "id": "invoice_processing_000047",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000047",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000047",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "No time pressure; can wait indefinitely."
+  },
+  {
+   "id": "invoice_processing_000048",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Moderate: a real difference worth confirming.",
+   "ours": "Material: a large or unexplained difference."
+  },
+  {
+   "id": "invoice_processing_000048",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000049",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "None: everything reconciles.",
+   "ours": "Material: a large or unexplained difference."
+  },
+  {
+   "id": "invoice_processing_000049",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000050",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Moderate: a real difference worth confirming.",
+   "ours": "None: everything reconciles."
+  },
+  {
+   "id": "invoice_processing_000050",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000050",
+   "workflow": "invoice_processing",
+   "qid": "matches_order",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "invoice_processing_000051",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "reject"
+  },
+  {
+   "id": "invoice_processing_000053",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "invoice_processing_000054",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "Moderate: a real difference worth confirming."
+  },
+  {
+   "id": "invoice_processing_000054",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000054",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000056",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Moderate: a real difference worth confirming.",
+   "ours": "None: everything reconciles."
+  },
+  {
+   "id": "invoice_processing_000056",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000058",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000058",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "No time pressure; can wait indefinitely."
+  },
+  {
+   "id": "invoice_processing_000059",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "hold",
+   "ours": "reject"
+  },
+  {
+   "id": "invoice_processing_000060",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Moderate: a real difference worth confirming.",
+   "ours": "Trivial: rounding or a cosmetic difference."
+  },
+  {
+   "id": "invoice_processing_000060",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000061",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000061",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000063",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000065",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "None: everything reconciles.",
+   "ours": "Trivial: rounding or a cosmetic difference."
+  },
+  {
+   "id": "invoice_processing_000065",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000065",
+   "workflow": "invoice_processing",
+   "qid": "matches_order",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "invoice_processing_000066",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "None: everything reconciles.",
+   "ours": "Material: a large or unexplained difference."
+  },
+  {
+   "id": "invoice_processing_000066",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000066",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000067",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "reject"
+  },
+  {
+   "id": "invoice_processing_000067",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000068",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000069",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "reject"
+  },
+  {
+   "id": "invoice_processing_000069",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000070",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "Moderate: a real difference worth confirming."
+  },
+  {
+   "id": "invoice_processing_000070",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000071",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Moderate: a real difference worth confirming.",
+   "ours": "None: everything reconciles."
+  },
+  {
+   "id": "invoice_processing_000072",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "None: everything reconciles."
+  },
+  {
+   "id": "invoice_processing_000072",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "hold",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000073",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "Moderate: a real difference worth confirming."
+  },
+  {
+   "id": "invoice_processing_000073",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000073",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "invoice_processing_000074",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "None: everything reconciles.",
+   "ours": "Material: a large or unexplained difference."
+  },
+  {
+   "id": "invoice_processing_000074",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "reject"
+  },
+  {
+   "id": "invoice_processing_000074",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000074",
+   "workflow": "invoice_processing",
+   "qid": "matches_order",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "invoice_processing_000074",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000075",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000075",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "invoice_processing_000076",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "Trivial: rounding or a cosmetic difference."
+  },
+  {
+   "id": "invoice_processing_000076",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000076",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000076",
+   "workflow": "invoice_processing",
+   "qid": "matches_order",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000077",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "Moderate: a real difference worth confirming."
+  },
+  {
+   "id": "invoice_processing_000077",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000077",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000078",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000079",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "reject"
+  },
+  {
+   "id": "invoice_processing_000080",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "Trivial: rounding or a cosmetic difference."
+  },
+  {
+   "id": "invoice_processing_000080",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "hold",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000082",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "No time pressure; can wait indefinitely."
+  },
+  {
+   "id": "invoice_processing_000083",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "Moderate: a real difference worth confirming."
+  },
+  {
+   "id": "invoice_processing_000083",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000084",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000085",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "None: everything reconciles."
+  },
+  {
+   "id": "invoice_processing_000085",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000085",
+   "workflow": "invoice_processing",
+   "qid": "matches_order",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000086",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000087",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Material: a large or unexplained difference.",
+   "ours": "Trivial: rounding or a cosmetic difference."
+  },
+  {
+   "id": "invoice_processing_000087",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "hold",
+   "ours": "approve"
+  },
+  {
+   "id": "invoice_processing_000087",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000088",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Moderate: a real difference worth confirming.",
+   "ours": "Material: a large or unexplained difference."
+  },
+  {
+   "id": "invoice_processing_000090",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "reject"
+  },
+  {
+   "id": "invoice_processing_000090",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000090",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000091",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "invoice_processing_000092",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "Moderate: a real difference worth confirming.",
+   "ours": "None: everything reconciles."
+  },
+  {
+   "id": "invoice_processing_000092",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000092",
+   "workflow": "invoice_processing",
+   "qid": "matches_order",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000092",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000093",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "invoice_processing_000094",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "hold"
+  },
+  {
+   "id": "invoice_processing_000095",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "manual_review",
+   "ours": "reject"
+  },
+  {
+   "id": "invoice_processing_000095",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000095",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000096",
+   "workflow": "invoice_processing",
+   "qid": "discrepancy_severity",
+   "type": "score",
+   "gold": "None: everything reconciles.",
+   "ours": "Material: a large or unexplained difference."
+  },
+  {
+   "id": "invoice_processing_000096",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "manual_review"
+  },
+  {
+   "id": "invoice_processing_000096",
+   "workflow": "invoice_processing",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "invoice_processing_000098",
+   "workflow": "invoice_processing",
+   "qid": "duplicate",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "invoice_processing_000099",
+   "workflow": "invoice_processing",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "approve",
+   "ours": "hold"
+  },
+  {
+   "id": "security_incidents_000000",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "contain",
+   "ours": "investigate"
+  },
+  {
+   "id": "security_incidents_000001",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "contain",
+   "ours": "investigate"
+  },
+  {
+   "id": "security_incidents_000001",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000002",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000002",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Moderate: access to internal systems or non-public data.",
+   "ours": "High: access to production, secrets or customer data."
+  },
+  {
+   "id": "security_incidents_000002",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000003",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Moderate: access to internal systems or non-public data.",
+   "ours": "High: access to production, secrets or customer data."
+  },
+  {
+   "id": "security_incidents_000003",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000003",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000004",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "close_benign",
+   "ours": "investigate"
+  },
+  {
+   "id": "security_incidents_000004",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "No time pressure; can wait indefinitely.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000005",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "High: access to production, secrets or customer data.",
+   "ours": "Critical: active compromise of crown-jewel systems."
+  },
+  {
+   "id": "security_incidents_000005",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000006",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "contain",
+   "ours": "investigate"
+  },
+  {
+   "id": "security_incidents_000006",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000007",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000008",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "security_incidents_000008",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Moderate: access to internal systems or non-public data.",
+   "ours": "High: access to production, secrets or customer data."
+  },
+  {
+   "id": "security_incidents_000009",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000010",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "security_incidents_000010",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000011",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "security_incidents_000011",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "contain"
+  },
+  {
+   "id": "security_incidents_000011",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "High: access to production, secrets or customer data.",
+   "ours": "Critical: active compromise of crown-jewel systems."
+  },
+  {
+   "id": "security_incidents_000012",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "monitor"
+  },
+  {
+   "id": "security_incidents_000012",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000013",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "monitor",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000013",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "security_incidents_000015",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Low: limited access, easily reversed.",
+   "ours": "High: access to production, secrets or customer data."
+  },
+  {
+   "id": "security_incidents_000015",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000015",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000020",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000020",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000021",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000021",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000021",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000022",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "monitor"
+  },
+  {
+   "id": "security_incidents_000022",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Moderate: access to internal systems or non-public data.",
+   "ours": "Critical: active compromise of crown-jewel systems."
+  },
+  {
+   "id": "security_incidents_000022",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000023",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000024",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000024",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000026",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "contain"
+  },
+  {
+   "id": "security_incidents_000026",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Moderate: access to internal systems or non-public data.",
+   "ours": "Critical: active compromise of crown-jewel systems."
+  },
+  {
+   "id": "security_incidents_000026",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000026",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000027",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000028",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "contain",
+   "ours": "investigate"
+  },
+  {
+   "id": "security_incidents_000029",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000030",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "contain",
+   "ours": "investigate"
+  },
+  {
+   "id": "security_incidents_000031",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "contain",
+   "ours": "investigate"
+  },
+  {
+   "id": "security_incidents_000031",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Moderate: access to internal systems or non-public data.",
+   "ours": "High: access to production, secrets or customer data."
+  },
+  {
+   "id": "security_incidents_000032",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Moderate: access to internal systems or non-public data.",
+   "ours": "Negligible: no access to anything sensitive."
+  },
+  {
+   "id": "security_incidents_000033",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "monitor"
+  },
+  {
+   "id": "security_incidents_000033",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000033",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000034",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000034",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "High: access to production, secrets or customer data.",
+   "ours": "Critical: active compromise of crown-jewel systems."
+  },
+  {
+   "id": "security_incidents_000034",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000035",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000036",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000036",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000037",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000037",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000037",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000038",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "security_incidents_000038",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "High: access to production, secrets or customer data.",
+   "ours": "Critical: active compromise of crown-jewel systems."
+  },
+  {
+   "id": "security_incidents_000038",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000040",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000040",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Moderate: access to internal systems or non-public data.",
+   "ours": "Low: limited access, easily reversed."
+  },
+  {
+   "id": "security_incidents_000040",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000041",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "close_benign",
+   "ours": "monitor"
+  },
+  {
+   "id": "security_incidents_000042",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "monitor",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000042",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000042",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000044",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000044",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "monitor"
+  },
+  {
+   "id": "security_incidents_000044",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000045",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000045",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000047",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000047",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Moderate: access to internal systems or non-public data.",
+   "ours": "Negligible: no access to anything sensitive."
+  },
+  {
+   "id": "security_incidents_000047",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "security_incidents_000048",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000048",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000048",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Critical; requires action within the same day.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "security_incidents_000049",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "security_incidents_000049",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "contain"
+  },
+  {
+   "id": "security_incidents_000049",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Low: limited access, easily reversed.",
+   "ours": "Moderate: access to internal systems or non-public data."
+  },
+  {
+   "id": "security_incidents_000049",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000050",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000051",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "monitor"
+  },
+  {
+   "id": "security_incidents_000051",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Low: limited access, easily reversed.",
+   "ours": "Moderate: access to internal systems or non-public data."
+  },
+  {
+   "id": "security_incidents_000051",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000052",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000053",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000053",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000053",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000053",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Critical; requires action within the same day.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "security_incidents_000054",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "security_incidents_000054",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000055",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000055",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Low: limited access, easily reversed.",
+   "ours": "High: access to production, secrets or customer data."
+  },
+  {
+   "id": "security_incidents_000055",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "security_incidents_000056",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "monitor"
+  },
+  {
+   "id": "security_incidents_000056",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000058",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "High: access to production, secrets or customer data.",
+   "ours": "Critical: active compromise of crown-jewel systems."
+  },
+  {
+   "id": "security_incidents_000060",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "monitor",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000060",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Low: limited access, easily reversed.",
+   "ours": "Moderate: access to internal systems or non-public data."
+  },
+  {
+   "id": "security_incidents_000060",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "No time pressure; can wait indefinitely."
+  },
+  {
+   "id": "security_incidents_000061",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "contain",
+   "ours": "investigate"
+  },
+  {
+   "id": "security_incidents_000061",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Moderate: access to internal systems or non-public data.",
+   "ours": "High: access to production, secrets or customer data."
+  },
+  {
+   "id": "security_incidents_000062",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000062",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "High: access to production, secrets or customer data.",
+   "ours": "Moderate: access to internal systems or non-public data."
+  },
+  {
+   "id": "security_incidents_000063",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000065",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "contain"
+  },
+  {
+   "id": "security_incidents_000065",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000066",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "security_incidents_000066",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "High: access to production, secrets or customer data.",
+   "ours": "Critical: active compromise of crown-jewel systems."
+  },
+  {
+   "id": "security_incidents_000066",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000067",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "monitor",
+   "ours": "investigate"
+  },
+  {
+   "id": "security_incidents_000067",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Low: limited access, easily reversed.",
+   "ours": "Moderate: access to internal systems or non-public data."
+  },
+  {
+   "id": "security_incidents_000067",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "security_incidents_000068",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000068",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "High: access to production, secrets or customer data.",
+   "ours": "Moderate: access to internal systems or non-public data."
+  },
+  {
+   "id": "security_incidents_000070",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "monitor"
+  },
+  {
+   "id": "security_incidents_000070",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000070",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000071",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000071",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000072",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "monitor"
+  },
+  {
+   "id": "security_incidents_000072",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "High: access to production, secrets or customer data.",
+   "ours": "Critical: active compromise of crown-jewel systems."
+  },
+  {
+   "id": "security_incidents_000072",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000073",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000073",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "monitor"
+  },
+  {
+   "id": "security_incidents_000073",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Moderate: access to internal systems or non-public data.",
+   "ours": "High: access to production, secrets or customer data."
+  },
+  {
+   "id": "security_incidents_000073",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000074",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000074",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000075",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Moderate: access to internal systems or non-public data.",
+   "ours": "Negligible: no access to anything sensitive."
+  },
+  {
+   "id": "security_incidents_000076",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "contain",
+   "ours": "investigate"
+  },
+  {
+   "id": "security_incidents_000077",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "security_incidents_000078",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "contain",
+   "ours": "investigate"
+  },
+  {
+   "id": "security_incidents_000079",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000080",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "security_incidents_000080",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "High: access to production, secrets or customer data.",
+   "ours": "Critical: active compromise of crown-jewel systems."
+  },
+  {
+   "id": "security_incidents_000081",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000082",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000082",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000083",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "High: access to production, secrets or customer data.",
+   "ours": "Low: limited access, easily reversed."
+  },
+  {
+   "id": "security_incidents_000083",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000084",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000084",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "monitor"
+  },
+  {
+   "id": "security_incidents_000084",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000086",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000086",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000086",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Routine; handle within the normal queue."
+  },
+  {
+   "id": "security_incidents_000087",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "contain",
+   "ours": "investigate"
+  },
+  {
+   "id": "security_incidents_000087",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000088",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000088",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "High: access to production, secrets or customer data.",
+   "ours": "Moderate: access to internal systems or non-public data."
+  },
+  {
+   "id": "security_incidents_000088",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000090",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Moderate: access to internal systems or non-public data.",
+   "ours": "Low: limited access, easily reversed."
+  },
+  {
+   "id": "security_incidents_000090",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000091",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000091",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "High: access to production, secrets or customer data.",
+   "ours": "Critical: active compromise of crown-jewel systems."
+  },
+  {
+   "id": "security_incidents_000091",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000091",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000092",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000092",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000093",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "monitor"
+  },
+  {
+   "id": "security_incidents_000093",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Low: limited access, easily reversed.",
+   "ours": "Moderate: access to internal systems or non-public data."
+  },
+  {
+   "id": "security_incidents_000093",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Routine; handle within the normal queue.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "security_incidents_000095",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "security_incidents_000095",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "monitor",
+   "ours": "investigate"
+  },
+  {
+   "id": "security_incidents_000095",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000097",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000097",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000097",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000098",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "close_benign"
+  },
+  {
+   "id": "security_incidents_000098",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000098",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Critical; requires action within the same day.",
+   "ours": "Elevated; should be handled within the same week."
+  },
+  {
+   "id": "security_incidents_000099",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000099",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000016",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "security_incidents_000016",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "contain"
+  },
+  {
+   "id": "security_incidents_000016",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "High: access to production, secrets or customer data.",
+   "ours": "Critical: active compromise of crown-jewel systems."
+  },
+  {
+   "id": "security_incidents_000017",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Moderate: access to internal systems or non-public data.",
+   "ours": "Low: limited access, easily reversed."
+  },
+  {
+   "id": "security_incidents_000017",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Elevated; should be handled within the same week.",
+   "ours": "Critical; requires action within the same day."
+  },
+  {
+   "id": "security_incidents_000018",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": false,
+   "ours": true
+  },
+  {
+   "id": "security_incidents_000018",
+   "workflow": "security_incidents",
+   "qid": "severity",
+   "type": "score",
+   "gold": "Moderate: access to internal systems or non-public data.",
+   "ours": "High: access to production, secrets or customer data."
+  },
+  {
+   "id": "security_incidents_000018",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000019",
+   "workflow": "security_incidents",
+   "qid": "credential_compromise",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000019",
+   "workflow": "security_incidents",
+   "qid": "disposition",
+   "type": "choice",
+   "gold": "investigate",
+   "ours": "monitor"
+  },
+  {
+   "id": "security_incidents_000019",
+   "workflow": "security_incidents",
+   "qid": "true_positive",
+   "type": "noul",
+   "gold": true,
+   "ours": false
+  },
+  {
+   "id": "security_incidents_000019",
+   "workflow": "security_incidents",
+   "qid": "urgency",
+   "type": "score",
+   "gold": "Critical; requires action within the same day.",
+   "ours": "Elevated; should be handled within the same week."
+  }
+ ]
+}

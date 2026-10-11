@@ -1,0 +1,4618 @@
+{
+ "benchmark": "BANKING77 full-77-way live Jev leg \u2014 same 500 items, same 77 prettified options as banking77_full77{,.9b}.json; raw message text as state (mirrors the 10-way bench's Jev path and the published task form)",
+ "model": "~typesafe/jev-latest",
+ "jev": {
+  "accuracy": 0.786,
+  "accuracy_wilson95": [
+   0.748,
+   0.82
+  ],
+  "macro_f1": 0.77,
+  "unparsed_or_failed": 0,
+  "latency_ms": {
+   "p50": 802,
+   "p95": 1027
+  }
+ },
+ "context": "published full-77-way macro-F1 (Cloudflare Clef table): Clef 94.2 / Clef-flash 90.9 / Jev 79.7 \u2014 published harness/split, this run's number is the same-API same-items comparator",
+ "per_model": {
+  "4b": {
+   "agreement_jev_readout": 0.71,
+   "agreement_jev_greedy": 0.766,
+   "mcnemar_jev_vs_readout": {
+    "only_jev_right": 89,
+    "only_readout_right": 13,
+    "p": 0.0
+   },
+   "mcnemar_jev_vs_greedy": {
+    "only_jev_right": 70,
+    "only_greedy_right": 11,
+    "p": 0.0
+   },
+   "readout": {
+    "accuracy": 0.634,
+    "macro_f1": 0.6169
+   },
+   "greedy": {
+    "accuracy": 0.668,
+    "macro_f1": 0.649
+   }
+  },
+  "9b": {
+   "agreement_jev_readout": 0.778,
+   "agreement_jev_greedy": 0.714,
+   "mcnemar_jev_vs_readout": {
+    "only_jev_right": 71,
+    "only_readout_right": 10,
+    "p": 0.0
+   },
+   "mcnemar_jev_vs_greedy": {
+    "only_jev_right": 99,
+    "only_greedy_right": 10,
+    "p": 0.0
+   },
+   "readout": {
+    "accuracy": 0.664,
+    "macro_f1": 0.6468
+   },
+   "greedy": {
+    "accuracy": 0.608,
+    "macro_f1": 0.5822
+   }
+  }
+ },
+ "top_confusions_jev": [
+  [
+   "order physical card",
+   "get physical card",
+   5
+  ],
+  [
+   "atm support",
+   "card acceptance",
+   4
+  ],
+  [
+   "balance not updated after bank transfer",
+   "transfer timing",
+   3
+  ],
+  [
+   "direct debit payment not recognised",
+   "card payment not recognised",
+   3
+  ],
+  [
+   "exchange charge",
+   "exchange rate",
+   3
+  ],
+  [
+   "get physical card",
+   "change pin",
+   3
+  ],
+  [
+   "reverted card payment?",
+   "declined card payment",
+   3
+  ],
+  [
+   "top up by bank transfer charge",
+   "transfer fee charged",
+   3
+  ],
+  [
+   "virtual card not working",
+   "declined card payment",
+   3
+  ],
+  [
+   "apple pay or google pay",
+   "top up failed",
+   2
+  ]
+ ],
+ "rows": [
+  {
+   "text": "The refund isn't showing up on my account.",
+   "gold": "Refund not showing up",
+   "jev": "Refund not showing up",
+   "readout_4b": "Refund not showing up",
+   "greedy_4b": "Refund not showing up",
+   "readout_9b": "Refund not showing up",
+   "greedy_9b": "Refund not showing up"
+  },
+  {
+   "text": "My refund is missing from my statement.",
+   "gold": "Refund not showing up",
+   "jev": "Refund not showing up",
+   "readout_4b": "Refund not showing up",
+   "greedy_4b": "Refund not showing up",
+   "readout_9b": "Refund not showing up",
+   "greedy_9b": "Refund not showing up"
+  },
+  {
+   "text": "I requested a refund, and never received it. What can I do?",
+   "gold": "Refund not showing up",
+   "jev": "Refund not showing up",
+   "readout_4b": "Refund not showing up",
+   "greedy_4b": "request refund",
+   "readout_9b": "Refund not showing up",
+   "greedy_9b": "exchange charge"
+  },
+  {
+   "text": "I was supposed to get a purchase refunded but I don't see the money in my account",
+   "gold": "Refund not showing up",
+   "jev": "Refund not showing up",
+   "readout_4b": "Refund not showing up",
+   "greedy_4b": "Refund not showing up",
+   "readout_9b": "Refund not showing up",
+   "greedy_9b": "Refund not showing up"
+  },
+  {
+   "text": "There's a refund missing from my statement",
+   "gold": "Refund not showing up",
+   "jev": "Refund not showing up",
+   "readout_4b": "Refund not showing up",
+   "greedy_4b": "Refund not showing up",
+   "readout_9b": "Refund not showing up",
+   "greedy_9b": "Refund not showing up"
+  },
+  {
+   "text": "I need help. I asked for a refund from a merchant a while ago, but I have not gotten my money back. I keep checking my account, but nothing is showing up. What should I do now?",
+   "gold": "Refund not showing up",
+   "jev": "Refund not showing up",
+   "readout_4b": "Refund not showing up",
+   "greedy_4b": "Refund not showing up",
+   "readout_9b": "Refund not showing up",
+   "greedy_9b": "Refund not showing up"
+  },
+  {
+   "text": "I am awaiting my refund",
+   "gold": "Refund not showing up",
+   "jev": "Refund not showing up",
+   "readout_4b": "Refund not showing up",
+   "greedy_4b": "request refund",
+   "readout_9b": "request refund",
+   "greedy_9b": "request refund"
+  },
+  {
+   "text": "Could you please activate my card",
+   "gold": "activate my card",
+   "jev": "activate my card",
+   "readout_4b": "activate my card",
+   "greedy_4b": "activate my card",
+   "readout_9b": "activate my card",
+   "greedy_9b": "activate my card"
+  },
+  {
+   "text": "I need to activate my card can you do that now?",
+   "gold": "activate my card",
+   "jev": "activate my card",
+   "readout_4b": "activate my card",
+   "greedy_4b": "activate my card",
+   "readout_9b": "activate my card",
+   "greedy_9b": "activate my card"
+  },
+  {
+   "text": "What do I need to do to activate my new card?",
+   "gold": "activate my card",
+   "jev": "activate my card",
+   "readout_4b": "activate my card",
+   "greedy_4b": "activate my card",
+   "readout_9b": "activate my card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "Tell me how to go about activating my new card?",
+   "gold": "activate my card",
+   "jev": "activate my card",
+   "readout_4b": "activate my card",
+   "greedy_4b": "activate my card",
+   "readout_9b": "activate my card",
+   "greedy_9b": "activate my card"
+  },
+  {
+   "text": "How can I activate my card so I can start using it?",
+   "gold": "activate my card",
+   "jev": "activate my card",
+   "readout_4b": "activate my card",
+   "greedy_4b": "activate my card",
+   "readout_9b": "activate my card",
+   "greedy_9b": "activate my card"
+  },
+  {
+   "text": "How long will it take to activate my new card?",
+   "gold": "activate my card",
+   "jev": "activate my card",
+   "readout_4b": "activate my card",
+   "greedy_4b": "activate my card",
+   "readout_9b": "get physical card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "What's the right way to activate my card?",
+   "gold": "activate my card",
+   "jev": "activate my card",
+   "readout_4b": "activate my card",
+   "greedy_4b": "activate my card",
+   "readout_9b": "activate my card",
+   "greedy_9b": "activate my card"
+  },
+  {
+   "text": "how old do i need to be to get an account for myself",
+   "gold": "age limit",
+   "jev": "age limit",
+   "readout_4b": "age limit",
+   "greedy_4b": "age limit",
+   "readout_9b": "age limit",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "How young can I be to open my own account?",
+   "gold": "age limit",
+   "jev": "age limit",
+   "readout_4b": "age limit",
+   "greedy_4b": "age limit",
+   "readout_9b": "age limit",
+   "greedy_9b": "edit personal details"
+  },
+  {
+   "text": "How old do I have to be?",
+   "gold": "age limit",
+   "jev": "age limit",
+   "readout_4b": "age limit",
+   "greedy_4b": "age limit",
+   "readout_9b": "age limit",
+   "greedy_9b": "age limit"
+  },
+  {
+   "text": "Can I open an account for a child?",
+   "gold": "age limit",
+   "jev": "age limit",
+   "readout_4b": "age limit",
+   "greedy_4b": "disposable card limits",
+   "readout_9b": "get disposable virtual card",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "How old do we have to be?",
+   "gold": "age limit",
+   "jev": "age limit",
+   "readout_4b": "age limit",
+   "greedy_4b": "age limit",
+   "readout_9b": "age limit",
+   "greedy_9b": "age limit"
+  },
+  {
+   "text": "How do I go about setting up an account for my daughter?",
+   "gold": "age limit",
+   "jev": "age limit",
+   "readout_4b": "get physical card",
+   "greedy_4b": "get physical card",
+   "readout_9b": "getting virtual card",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "Is there an age minimum?",
+   "gold": "age limit",
+   "jev": "age limit",
+   "readout_4b": "age limit",
+   "greedy_4b": "age limit",
+   "readout_9b": "age limit",
+   "greedy_9b": "age limit"
+  },
+  {
+   "text": "Is the top up feature available on the Apple Watch?",
+   "gold": "apple pay or google pay",
+   "jev": "apple pay or google pay",
+   "readout_4b": "automatic top up",
+   "greedy_4b": "automatic top up",
+   "readout_9b": "verify top up",
+   "greedy_9b": "top up limits"
+  },
+  {
+   "text": "Can I use the system Google Pay for top-ups?",
+   "gold": "apple pay or google pay",
+   "jev": "apple pay or google pay",
+   "readout_4b": "apple pay or google pay",
+   "greedy_4b": "apple pay or google pay",
+   "readout_9b": "apple pay or google pay",
+   "greedy_9b": "apple pay or google pay"
+  },
+  {
+   "text": "My top-up for Google Pay isn't working",
+   "gold": "apple pay or google pay",
+   "jev": "top up failed",
+   "readout_4b": "top up failed",
+   "greedy_4b": "top up failed",
+   "readout_9b": "top up failed",
+   "greedy_9b": "top up failed"
+  },
+  {
+   "text": "Can I add money with Apple Pay?",
+   "gold": "apple pay or google pay",
+   "jev": "apple pay or google pay",
+   "readout_4b": "receiving money",
+   "greedy_4b": "topping up by card",
+   "readout_9b": "apple pay or google pay",
+   "greedy_9b": "apple pay or google pay"
+  },
+  {
+   "text": "Can I use my Apple Watch to to top up?",
+   "gold": "apple pay or google pay",
+   "jev": "apple pay or google pay",
+   "readout_4b": "apple pay or google pay",
+   "greedy_4b": "topping up by card",
+   "readout_9b": "top up limits",
+   "greedy_9b": "topping up by card"
+  },
+  {
+   "text": "Does Apple Pay give the option to top up?",
+   "gold": "apple pay or google pay",
+   "jev": "apple pay or google pay",
+   "readout_4b": "apple pay or google pay",
+   "greedy_4b": "automatic top up",
+   "readout_9b": "apple pay or google pay",
+   "greedy_9b": "apple pay or google pay"
+  },
+  {
+   "text": "Top up on my Google Pay isn't working.",
+   "gold": "apple pay or google pay",
+   "jev": "top up failed",
+   "readout_4b": "top up failed",
+   "greedy_4b": "top up failed",
+   "readout_9b": "top up failed",
+   "greedy_9b": "top up failed"
+  },
+  {
+   "text": "Do all ATMs take this card?",
+   "gold": "atm support",
+   "jev": "card acceptance",
+   "readout_4b": "card acceptance",
+   "greedy_4b": "card acceptance",
+   "readout_9b": "card acceptance",
+   "greedy_9b": "supported cards and currencies"
+  },
+  {
+   "text": "Which ATMs accept this card?",
+   "gold": "atm support",
+   "jev": "card acceptance",
+   "readout_4b": "atm support",
+   "greedy_4b": "card acceptance",
+   "readout_9b": "card acceptance",
+   "greedy_9b": "supported cards and currencies"
+  },
+  {
+   "text": "Where is the closest Mastercard ATM?",
+   "gold": "atm support",
+   "jev": "atm support",
+   "readout_4b": "atm support",
+   "greedy_4b": "atm support",
+   "readout_9b": "atm support",
+   "greedy_9b": "atm support"
+  },
+  {
+   "text": "Is there a list of ATM machines?",
+   "gold": "atm support",
+   "jev": "atm support",
+   "readout_4b": "atm support",
+   "greedy_4b": "atm support",
+   "readout_9b": "atm support",
+   "greedy_9b": "supported cards and currencies"
+  },
+  {
+   "text": "Are there any specific ATMs that this card can be used at?",
+   "gold": "atm support",
+   "jev": "atm support",
+   "readout_4b": "atm support",
+   "greedy_4b": "atm support",
+   "readout_9b": "atm support",
+   "greedy_9b": "atm support"
+  },
+  {
+   "text": "How do I know which ATMs will accept this card?",
+   "gold": "atm support",
+   "jev": "card acceptance",
+   "readout_4b": "atm support",
+   "greedy_4b": "card acceptance",
+   "readout_9b": "card acceptance",
+   "greedy_9b": "card acceptance"
+  },
+  {
+   "text": "Which ATM's accept my card?",
+   "gold": "atm support",
+   "jev": "card acceptance",
+   "readout_4b": "card acceptance",
+   "greedy_4b": "card acceptance",
+   "readout_9b": "card acceptance",
+   "greedy_9b": "card acceptance"
+  },
+  {
+   "text": "When traveling, can I auto top-up my card at certain times?",
+   "gold": "automatic top up",
+   "jev": "automatic top up",
+   "readout_4b": "automatic top up",
+   "greedy_4b": "automatic top up",
+   "readout_9b": "automatic top up",
+   "greedy_9b": "top up limits"
+  },
+  {
+   "text": "Is there a limit when using auto top-up?",
+   "gold": "automatic top up",
+   "jev": "automatic top up",
+   "readout_4b": "disposable card limits",
+   "greedy_4b": "top up limits",
+   "readout_9b": "top up limits",
+   "greedy_9b": "top up limits"
+  },
+  {
+   "text": "Will it automatically top-up or do I need to do that manually if there isn't much cash left?",
+   "gold": "automatic top up",
+   "jev": "automatic top up",
+   "readout_4b": "automatic top up",
+   "greedy_4b": "automatic top up",
+   "readout_9b": "automatic top up",
+   "greedy_9b": "automatic top up"
+  },
+  {
+   "text": "I'm running out of money, can I  auto top up?",
+   "gold": "automatic top up",
+   "jev": "automatic top up",
+   "readout_4b": "automatic top up",
+   "greedy_4b": "automatic top up",
+   "readout_9b": "automatic top up",
+   "greedy_9b": "automatic top up"
+  },
+  {
+   "text": "How do I use auto top up?",
+   "gold": "automatic top up",
+   "jev": "automatic top up",
+   "readout_4b": "automatic top up",
+   "greedy_4b": "automatic top up",
+   "readout_9b": "automatic top up",
+   "greedy_9b": "automatic top up"
+  },
+  {
+   "text": "Can it automatically top-up money if there isn't much left?",
+   "gold": "automatic top up",
+   "jev": "automatic top up",
+   "readout_4b": "automatic top up",
+   "greedy_4b": "automatic top up",
+   "readout_9b": "automatic top up",
+   "greedy_9b": "top up limits"
+  },
+  {
+   "text": "If there isn't much money left can it automatically top-up?",
+   "gold": "automatic top up",
+   "jev": "automatic top up",
+   "readout_4b": "automatic top up",
+   "greedy_4b": "automatic top up",
+   "readout_9b": "automatic top up",
+   "greedy_9b": "top up limits"
+  },
+  {
+   "text": "I made a transfer a few hours ago from a UK banking account.  I do not yet see the transfer.  Please check on this for me.",
+   "gold": "balance not updated after bank transfer",
+   "jev": "pending transfer",
+   "readout_4b": "balance not updated after bank transfer",
+   "greedy_4b": "balance not updated after bank transfer",
+   "readout_9b": "pending transfer",
+   "greedy_9b": "balance not updated after bank transfer"
+  },
+  {
+   "text": "the balance on my account didnt change when i transferred money",
+   "gold": "balance not updated after bank transfer",
+   "jev": "balance not updated after bank transfer",
+   "readout_4b": "balance not updated after bank transfer",
+   "greedy_4b": "balance not updated after bank transfer",
+   "readout_9b": "balance not updated after bank transfer",
+   "greedy_9b": "balance not updated after bank transfer"
+  },
+  {
+   "text": "How long will it take for my transferred money to show up?",
+   "gold": "balance not updated after bank transfer",
+   "jev": "transfer timing",
+   "readout_4b": "transfer timing",
+   "greedy_4b": "transfer timing",
+   "readout_9b": "transfer timing",
+   "greedy_9b": "transfer timing"
+  },
+  {
+   "text": "Why didn't my balance change after I transferred some money?",
+   "gold": "balance not updated after bank transfer",
+   "jev": "balance not updated after bank transfer",
+   "readout_4b": "balance not updated after bank transfer",
+   "greedy_4b": "balance not updated after bank transfer",
+   "readout_9b": "balance not updated after bank transfer",
+   "greedy_9b": "balance not updated after bank transfer"
+  },
+  {
+   "text": "When will my balance update after a transfer?",
+   "gold": "balance not updated after bank transfer",
+   "jev": "balance not updated after bank transfer",
+   "readout_4b": "balance not updated after bank transfer",
+   "greedy_4b": "balance not updated after bank transfer",
+   "readout_9b": "transfer timing",
+   "greedy_9b": "balance not updated after bank transfer"
+  },
+  {
+   "text": "How long does it take for an international transfer into my account?",
+   "gold": "balance not updated after bank transfer",
+   "jev": "transfer timing",
+   "readout_4b": "transfer timing",
+   "greedy_4b": "transfer timing",
+   "readout_9b": "transfer timing",
+   "greedy_9b": "transfer timing"
+  },
+  {
+   "text": "The amount of time that transfers usually take from a UK account is what?I just completed a transfer and it is not showing up at all. I'm wondering at this point if everything is actually okay.",
+   "gold": "balance not updated after bank transfer",
+   "jev": "transfer timing",
+   "readout_4b": "transfer timing",
+   "greedy_4b": "transfer not received by recipient",
+   "readout_9b": "transfer timing",
+   "greedy_9b": "transfer timing"
+  },
+  {
+   "text": "I tried making an update to my balance using cheque just yesterday but it doesn't appear to have worked. Should this not be a faster process? I need you to please check over my account because something has went wrong.",
+   "gold": "balance not updated after cheque or cash deposit",
+   "jev": "balance not updated after cheque or cash deposit",
+   "readout_4b": "balance not updated after cheque or cash deposit",
+   "greedy_4b": "balance not updated after cheque or cash deposit",
+   "readout_9b": "balance not updated after cheque or cash deposit",
+   "greedy_9b": "balance not updated after cheque or cash deposit"
+  },
+  {
+   "text": "How come I don't see my deposit in my account yet?",
+   "gold": "balance not updated after cheque or cash deposit",
+   "jev": "balance not updated after cheque or cash deposit",
+   "readout_4b": "balance not updated after cheque or cash deposit",
+   "greedy_4b": "balance not updated after cheque or cash deposit",
+   "readout_9b": "balance not updated after bank transfer",
+   "greedy_9b": "balance not updated after cheque or cash deposit"
+  },
+  {
+   "text": "Is there a reason why my account isn't updating because I used a check to  balance my account?",
+   "gold": "balance not updated after cheque or cash deposit",
+   "jev": "balance not updated after cheque or cash deposit",
+   "readout_4b": "balance not updated after cheque or cash deposit",
+   "greedy_4b": "balance not updated after cheque or cash deposit",
+   "readout_9b": "balance not updated after cheque or cash deposit",
+   "greedy_9b": "balance not updated after cheque or cash deposit"
+  },
+  {
+   "text": "I don't know why the deposit I made a week ago still hasn't showed up, I really need the money now.",
+   "gold": "balance not updated after cheque or cash deposit",
+   "jev": "balance not updated after cheque or cash deposit",
+   "readout_4b": "balance not updated after bank transfer",
+   "greedy_4b": "balance not updated after cheque or cash deposit",
+   "readout_9b": "balance not updated after bank transfer",
+   "greedy_9b": "balance not updated after bank transfer"
+  },
+  {
+   "text": "I made a cash deposit almost a week ago but it's still not there!! please sort this out asap I need the money",
+   "gold": "balance not updated after cheque or cash deposit",
+   "jev": "balance not updated after cheque or cash deposit",
+   "readout_4b": "balance not updated after cheque or cash deposit",
+   "greedy_4b": "balance not updated after cheque or cash deposit",
+   "readout_9b": "balance not updated after cheque or cash deposit",
+   "greedy_9b": "balance not updated after cheque or cash deposit"
+  },
+  {
+   "text": "Where is my cash deposit?",
+   "gold": "balance not updated after cheque or cash deposit",
+   "jev": "balance not updated after cheque or cash deposit",
+   "readout_4b": "balance not updated after cheque or cash deposit",
+   "greedy_4b": "balance not updated after cheque or cash deposit",
+   "readout_9b": "balance not updated after cheque or cash deposit",
+   "greedy_9b": "balance not updated after cheque or cash deposit"
+  },
+  {
+   "text": "How can I get the cash deposit to show up on my account?",
+   "gold": "balance not updated after cheque or cash deposit",
+   "jev": "balance not updated after cheque or cash deposit",
+   "readout_4b": "balance not updated after cheque or cash deposit",
+   "greedy_4b": "balance not updated after cheque or cash deposit",
+   "readout_9b": "balance not updated after cheque or cash deposit",
+   "greedy_9b": "balance not updated after cheque or cash deposit"
+  },
+  {
+   "text": "I've tried numerous times to submit a transfer of funds. Why isn't it going through?",
+   "gold": "beneficiary not allowed",
+   "jev": "failed transfer",
+   "readout_4b": "failed transfer",
+   "greedy_4b": "failed transfer",
+   "readout_9b": "failed transfer",
+   "greedy_9b": "balance not updated after bank transfer"
+  },
+  {
+   "text": "I've transferred money before without issue but now I am encountering an error stating that it isn't possible. Why is that?",
+   "gold": "beneficiary not allowed",
+   "jev": "declined transfer",
+   "readout_4b": "failed transfer",
+   "greedy_4b": "failed transfer",
+   "readout_9b": "failed transfer",
+   "greedy_9b": "failed transfer"
+  },
+  {
+   "text": "I am not able to do a transfer to an account",
+   "gold": "beneficiary not allowed",
+   "jev": "transfer into account",
+   "readout_4b": "unable to verify identity",
+   "greedy_4b": "transfer into account",
+   "readout_9b": "unable to verify identity",
+   "greedy_9b": "transfer fee charged"
+  },
+  {
+   "text": "I was unable to make a transfer to another account.",
+   "gold": "beneficiary not allowed",
+   "jev": "failed transfer",
+   "readout_4b": "unable to verify identity",
+   "greedy_4b": "failed transfer",
+   "readout_9b": "failed transfer",
+   "greedy_9b": "failed transfer"
+  },
+  {
+   "text": "I had a transfer blocked",
+   "gold": "beneficiary not allowed",
+   "jev": "declined transfer",
+   "readout_4b": "failed transfer",
+   "greedy_4b": "cancel transfer",
+   "readout_9b": "declined transfer",
+   "greedy_9b": "declined transfer"
+  },
+  {
+   "text": "Can you please help me with this exchange?  I am trying to get crypto and the app won't let me.",
+   "gold": "beneficiary not allowed",
+   "jev": "exchange via app",
+   "readout_4b": "exchange via app",
+   "greedy_4b": "exchange via app",
+   "readout_9b": "exchange via app",
+   "greedy_9b": "exchange via app"
+  },
+  {
+   "text": "How do I do a successful transfer to an account?",
+   "gold": "beneficiary not allowed",
+   "jev": "transfer into account",
+   "readout_4b": "transfer into account",
+   "greedy_4b": "transfer into account",
+   "readout_9b": "transfer into account",
+   "greedy_9b": "transfer into account"
+  },
+  {
+   "text": "I made a transaction this morning and would like to revert it.",
+   "gold": "cancel transfer",
+   "jev": "reverted card payment?",
+   "readout_4b": "reverted card payment?",
+   "greedy_4b": "top up reverted",
+   "readout_9b": "cancel transfer",
+   "greedy_9b": "cancel transfer"
+  },
+  {
+   "text": "Can i cancel a charge?",
+   "gold": "cancel transfer",
+   "jev": "request refund",
+   "readout_4b": "cancel transfer",
+   "greedy_4b": "request refund",
+   "readout_9b": "request refund",
+   "greedy_9b": "extra charge on statement"
+  },
+  {
+   "text": "Can I cancel my transaction?",
+   "gold": "cancel transfer",
+   "jev": "cancel transfer",
+   "readout_4b": "cancel transfer",
+   "greedy_4b": "cancel transfer",
+   "readout_9b": "cancel transfer",
+   "greedy_9b": "cancel transfer"
+  },
+  {
+   "text": "I made a transaction but did it to the wrong account.",
+   "gold": "cancel transfer",
+   "jev": "cancel transfer",
+   "readout_4b": "beneficiary not allowed",
+   "greedy_4b": "cancel transfer",
+   "readout_9b": "transfer not received by recipient",
+   "greedy_9b": "cancel transfer"
+  },
+  {
+   "text": "Tell me how to cancel a transfer.",
+   "gold": "cancel transfer",
+   "jev": "cancel transfer",
+   "readout_4b": "cancel transfer",
+   "greedy_4b": "cancel transfer",
+   "readout_9b": "cancel transfer",
+   "greedy_9b": "cancel transfer"
+  },
+  {
+   "text": "I need you to cancel a transfer that I made.  It is the wrong account number and the app won't let me stop the transaction.  Please stop it!",
+   "gold": "cancel transfer",
+   "jev": "cancel transfer",
+   "readout_4b": "cancel transfer",
+   "greedy_4b": "cancel transfer",
+   "readout_9b": "cancel transfer",
+   "greedy_9b": "cancel transfer"
+  },
+  {
+   "text": "I need to cancel my recent transfer immediately, I made a mistake there, please help quickly before it goes through",
+   "gold": "cancel transfer",
+   "jev": "cancel transfer",
+   "readout_4b": "cancel transfer",
+   "greedy_4b": "cancel transfer",
+   "readout_9b": "cancel transfer",
+   "greedy_9b": "cancel transfer"
+  },
+  {
+   "text": "Am I able to order a new card and have it sent to me in China?",
+   "gold": "card about to expire",
+   "jev": "order physical card",
+   "readout_4b": "get physical card",
+   "greedy_4b": "order physical card",
+   "readout_9b": "order physical card",
+   "greedy_9b": "order physical card"
+  },
+  {
+   "text": "Will you be able to send the new card to China?",
+   "gold": "card about to expire",
+   "jev": "country support",
+   "readout_4b": "card delivery estimate",
+   "greedy_4b": "card delivery estimate",
+   "readout_9b": "card delivery estimate",
+   "greedy_9b": "card acceptance"
+  },
+  {
+   "text": "When my card expires what happens to my account?",
+   "gold": "card about to expire",
+   "jev": "card about to expire",
+   "readout_4b": "card about to expire",
+   "greedy_4b": "card about to expire",
+   "readout_9b": "card about to expire",
+   "greedy_9b": "card about to expire"
+  },
+  {
+   "text": "What do I do when my card expires?",
+   "gold": "card about to expire",
+   "jev": "card about to expire",
+   "readout_4b": "card about to expire",
+   "greedy_4b": "card about to expire",
+   "readout_9b": "card about to expire",
+   "greedy_9b": "card about to expire"
+  },
+  {
+   "text": "The expiration date on my card is coming up",
+   "gold": "card about to expire",
+   "jev": "card about to expire",
+   "readout_4b": "card about to expire",
+   "greedy_4b": "card about to expire",
+   "readout_9b": "card about to expire",
+   "greedy_9b": "card about to expire"
+  },
+  {
+   "text": "My card's expiring, what happens now?",
+   "gold": "card about to expire",
+   "jev": "card about to expire",
+   "readout_4b": "card about to expire",
+   "greedy_4b": "card about to expire",
+   "readout_9b": "card about to expire",
+   "greedy_9b": "card about to expire"
+  },
+  {
+   "text": "My card is about to expire. What do I need to do?",
+   "gold": "card about to expire",
+   "jev": "card about to expire",
+   "readout_4b": "card about to expire",
+   "greedy_4b": "card about to expire",
+   "readout_9b": "card about to expire",
+   "greedy_9b": "card about to expire"
+  },
+  {
+   "text": "Will my card be accepted all over the world?",
+   "gold": "card acceptance",
+   "jev": "card acceptance",
+   "readout_4b": "card acceptance",
+   "greedy_4b": "card acceptance",
+   "readout_9b": "card acceptance",
+   "greedy_9b": "card acceptance"
+  },
+  {
+   "text": "Who accepts this card?",
+   "gold": "card acceptance",
+   "jev": "card acceptance",
+   "readout_4b": "card acceptance",
+   "greedy_4b": "card acceptance",
+   "readout_9b": "card acceptance",
+   "greedy_9b": "card acceptance"
+  },
+  {
+   "text": "Can I use my card for payment all over the world?",
+   "gold": "card acceptance",
+   "jev": "card acceptance",
+   "readout_4b": "country support",
+   "greedy_4b": "card acceptance",
+   "readout_9b": "country support",
+   "greedy_9b": "country support"
+  },
+  {
+   "text": "It will be fine to use at any establishment that accepts Mastercard.",
+   "gold": "card acceptance",
+   "jev": "card acceptance",
+   "readout_4b": "card acceptance",
+   "greedy_4b": "card acceptance",
+   "readout_9b": "card acceptance",
+   "greedy_9b": "card acceptance"
+  },
+  {
+   "text": "Where can the card be used?",
+   "gold": "card acceptance",
+   "jev": "card acceptance",
+   "readout_4b": "card not working",
+   "greedy_4b": "card acceptance",
+   "readout_9b": "card acceptance",
+   "greedy_9b": "card acceptance"
+  },
+  {
+   "text": "Can my card be used everywhere?",
+   "gold": "card acceptance",
+   "jev": "card acceptance",
+   "readout_4b": "card acceptance",
+   "greedy_4b": "card acceptance",
+   "readout_9b": "card acceptance",
+   "greedy_9b": "card acceptance"
+  },
+  {
+   "text": "Are there any limits on where I can use my card?",
+   "gold": "card acceptance",
+   "jev": "card acceptance",
+   "readout_4b": "card acceptance",
+   "greedy_4b": "card acceptance",
+   "readout_9b": "country support",
+   "greedy_9b": "country support"
+  },
+  {
+   "text": "How do I locate my card?",
+   "gold": "card arrival",
+   "jev": "lost or stolen card",
+   "readout_4b": "card arrival",
+   "greedy_4b": "card arrival",
+   "readout_9b": "lost or stolen card",
+   "greedy_9b": "lost or stolen card"
+  },
+  {
+   "text": "I still have not received my new card, I ordered over a week ago.",
+   "gold": "card arrival",
+   "jev": "card arrival",
+   "readout_4b": "card arrival",
+   "greedy_4b": "card arrival",
+   "readout_9b": "order physical card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "I ordered a card but it has not arrived. Help please!",
+   "gold": "card arrival",
+   "jev": "card arrival",
+   "readout_4b": "card arrival",
+   "greedy_4b": "card arrival",
+   "readout_9b": "card arrival",
+   "greedy_9b": "order physical card"
+  },
+  {
+   "text": "Is there a way to know when my card will arrive?",
+   "gold": "card arrival",
+   "jev": "card delivery estimate",
+   "readout_4b": "card delivery estimate",
+   "greedy_4b": "card delivery estimate",
+   "readout_9b": "card delivery estimate",
+   "greedy_9b": "card arrival"
+  },
+  {
+   "text": "My card has not arrived yet.",
+   "gold": "card arrival",
+   "jev": "card arrival",
+   "readout_4b": "card arrival",
+   "greedy_4b": "card arrival",
+   "readout_9b": "card arrival",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "When will I get my card?",
+   "gold": "card arrival",
+   "jev": "card delivery estimate",
+   "readout_4b": "card arrival",
+   "greedy_4b": "card arrival",
+   "readout_9b": "card delivery estimate",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "Do you know if there is a tracking number for the new card you sent me?",
+   "gold": "card arrival",
+   "jev": "card arrival",
+   "readout_4b": "get physical card",
+   "greedy_4b": "card arrival",
+   "readout_9b": "getting spare card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "I need my card now!",
+   "gold": "card delivery estimate",
+   "jev": "card arrival",
+   "readout_4b": "activate my card",
+   "greedy_4b": "get physical card",
+   "readout_9b": "card arrival",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "my card was not in the mail again can you advise?",
+   "gold": "card delivery estimate",
+   "jev": "card arrival",
+   "readout_4b": "card not working",
+   "greedy_4b": "card arrival",
+   "readout_9b": "card arrival",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "i need my card quick",
+   "gold": "card delivery estimate",
+   "jev": "card delivery estimate",
+   "readout_4b": "activate my card",
+   "greedy_4b": "get physical card",
+   "readout_9b": "get physical card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "How long will it take to get to me?",
+   "gold": "card delivery estimate",
+   "jev": "card delivery estimate",
+   "readout_4b": "get physical card",
+   "greedy_4b": "card delivery estimate",
+   "readout_9b": "transfer timing",
+   "greedy_9b": "card arrival"
+  },
+  {
+   "text": "I'm just wondering when my card will get here.",
+   "gold": "card delivery estimate",
+   "jev": "card delivery estimate",
+   "readout_4b": "card arrival",
+   "greedy_4b": "card arrival",
+   "readout_9b": "card delivery estimate",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "Can you get me my card fast?",
+   "gold": "card delivery estimate",
+   "jev": "get physical card",
+   "readout_4b": "activate my card",
+   "greedy_4b": "get physical card",
+   "readout_9b": "get physical card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "How long will it take to deliver something to US?",
+   "gold": "card delivery estimate",
+   "jev": "card delivery estimate",
+   "readout_4b": "card delivery estimate",
+   "greedy_4b": "card delivery estimate",
+   "readout_9b": "card delivery estimate",
+   "greedy_9b": "card delivery estimate"
+  },
+  {
+   "text": "Why won't my card show up on the app?",
+   "gold": "card linking",
+   "jev": "card linking",
+   "readout_4b": "card not working",
+   "greedy_4b": "card not working",
+   "readout_9b": "card not working",
+   "greedy_9b": "card arrival"
+  },
+  {
+   "text": "I would like to reactivate my card.",
+   "gold": "card linking",
+   "jev": "activate my card",
+   "readout_4b": "activate my card",
+   "greedy_4b": "activate my card",
+   "readout_9b": "activate my card",
+   "greedy_9b": "activate my card"
+  },
+  {
+   "text": "Where do I link the new card?",
+   "gold": "card linking",
+   "jev": "card linking",
+   "readout_4b": "card linking",
+   "greedy_4b": "card linking",
+   "readout_9b": "card linking",
+   "greedy_9b": "card linking"
+  },
+  {
+   "text": "I have received my card, can you help me put it in the app?",
+   "gold": "card linking",
+   "jev": "card linking",
+   "readout_4b": "activate my card",
+   "greedy_4b": "card linking",
+   "readout_9b": "card linking",
+   "greedy_9b": "card linking"
+  },
+  {
+   "text": "How do I link a card that I already have?",
+   "gold": "card linking",
+   "jev": "card linking",
+   "readout_4b": "card linking",
+   "greedy_4b": "card linking",
+   "readout_9b": "card linking",
+   "greedy_9b": "card linking"
+  },
+  {
+   "text": "I received my new card, but I don't see it in the app anywhere.  What do I do?",
+   "gold": "card linking",
+   "jev": "card linking",
+   "readout_4b": "card not working",
+   "greedy_4b": "card arrival",
+   "readout_9b": "card arrival",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "How do I re-add a card to the app?",
+   "gold": "card linking",
+   "jev": "card linking",
+   "readout_4b": "activate my card",
+   "greedy_4b": "get physical card",
+   "readout_9b": "get physical card",
+   "greedy_9b": "card linking"
+  },
+  {
+   "text": "I've tried my card a bunch of times and it never worked.",
+   "gold": "card not working",
+   "jev": "card not working",
+   "readout_4b": "card not working",
+   "greedy_4b": "card not working",
+   "readout_9b": "card not working",
+   "greedy_9b": "card not working"
+  },
+  {
+   "text": "I can't get my card to work.",
+   "gold": "card not working",
+   "jev": "card not working",
+   "readout_4b": "card not working",
+   "greedy_4b": "card not working",
+   "readout_9b": "card not working",
+   "greedy_9b": "card not working"
+  },
+  {
+   "text": "My card appears to be broken how can I fix it?",
+   "gold": "card not working",
+   "jev": "card not working",
+   "readout_4b": "card not working",
+   "greedy_4b": "card not working",
+   "readout_9b": "card not working",
+   "greedy_9b": "card not working"
+  },
+  {
+   "text": "How do I know why my card isn't working?",
+   "gold": "card not working",
+   "jev": "card not working",
+   "readout_4b": "card not working",
+   "greedy_4b": "card not working",
+   "readout_9b": "card not working",
+   "greedy_9b": "card not working"
+  },
+  {
+   "text": "My card broke.",
+   "gold": "card not working",
+   "jev": "card not working",
+   "readout_4b": "card not working",
+   "greedy_4b": "card not working",
+   "readout_9b": "card not working",
+   "greedy_9b": "card not working"
+  },
+  {
+   "text": "My card won't work.",
+   "gold": "card not working",
+   "jev": "card not working",
+   "readout_4b": "card not working",
+   "greedy_4b": "card not working",
+   "readout_9b": "card not working",
+   "greedy_9b": "card not working"
+  },
+  {
+   "text": "Why is my card not working?",
+   "gold": "card not working",
+   "jev": "card not working",
+   "readout_4b": "card not working",
+   "greedy_4b": "card not working",
+   "readout_9b": "card not working",
+   "greedy_9b": "card not working"
+  },
+  {
+   "text": "I payed with a card and was charged an extra fee",
+   "gold": "card payment fee charged",
+   "jev": "card payment fee charged",
+   "readout_4b": "card payment fee charged",
+   "greedy_4b": "card payment fee charged",
+   "readout_9b": "card payment fee charged",
+   "greedy_9b": "card payment fee charged"
+  },
+  {
+   "text": "I was charged a fee after using my card and I shouldn't have been.",
+   "gold": "card payment fee charged",
+   "jev": "card payment fee charged",
+   "readout_4b": "card payment fee charged",
+   "greedy_4b": "card payment fee charged",
+   "readout_9b": "card payment fee charged",
+   "greedy_9b": "card payment fee charged"
+  },
+  {
+   "text": "Is there a reason I was charged a fee for using my card as payment? I've never had an extra fee before.",
+   "gold": "card payment fee charged",
+   "jev": "card payment fee charged",
+   "readout_4b": "card payment fee charged",
+   "greedy_4b": "card payment fee charged",
+   "readout_9b": "card payment fee charged",
+   "greedy_9b": "card payment fee charged"
+  },
+  {
+   "text": "I show another charge on my card from when I used it, why?",
+   "gold": "card payment fee charged",
+   "jev": "extra charge on statement",
+   "readout_4b": "extra charge on statement",
+   "greedy_4b": "extra charge on statement",
+   "readout_9b": "extra charge on statement",
+   "greedy_9b": "transaction charged twice"
+  },
+  {
+   "text": "Why do I get charged additional fees on some payments, but not others?",
+   "gold": "card payment fee charged",
+   "jev": "extra charge on statement",
+   "readout_4b": "extra charge on statement",
+   "greedy_4b": "card payment fee charged",
+   "readout_9b": "transfer fee charged",
+   "greedy_9b": "extra charge on statement"
+  },
+  {
+   "text": "I used my card for a purchase and was charged a fee",
+   "gold": "card payment fee charged",
+   "jev": "card payment fee charged",
+   "readout_4b": "card payment fee charged",
+   "greedy_4b": "card payment fee charged",
+   "readout_9b": "card payment fee charged",
+   "greedy_9b": "card payment fee charged"
+  },
+  {
+   "text": "Why was I charged for card payment?",
+   "gold": "card payment fee charged",
+   "jev": "card payment fee charged",
+   "readout_4b": "card payment fee charged",
+   "greedy_4b": "card payment fee charged",
+   "readout_9b": "card payment fee charged",
+   "greedy_9b": "card payment fee charged"
+  },
+  {
+   "text": "I have a strange payment in my statement",
+   "gold": "card payment not recognised",
+   "jev": "card payment not recognised",
+   "readout_4b": "extra charge on statement",
+   "greedy_4b": "extra charge on statement",
+   "readout_9b": "extra charge on statement",
+   "greedy_9b": "extra charge on statement"
+  },
+  {
+   "text": "There is a charge on my card that I did not make",
+   "gold": "card payment not recognised",
+   "jev": "card payment not recognised",
+   "readout_4b": "card swallowed",
+   "greedy_4b": "extra charge on statement",
+   "readout_9b": "extra charge on statement",
+   "greedy_9b": "extra charge on statement"
+  },
+  {
+   "text": "I saw a payment i did not do",
+   "gold": "card payment not recognised",
+   "jev": "card payment not recognised",
+   "readout_4b": "disposable card limits",
+   "greedy_4b": "request refund",
+   "readout_9b": "pending card payment",
+   "greedy_9b": "Refund not showing up"
+  },
+  {
+   "text": "There is a payment that is not mine in the app.  Please advise/",
+   "gold": "card payment not recognised",
+   "jev": "card payment not recognised",
+   "readout_4b": "receiving money",
+   "greedy_4b": "receiving money",
+   "readout_9b": "receiving money",
+   "greedy_9b": "receiving money"
+  },
+  {
+   "text": "An unauthorized payment is in my app",
+   "gold": "card payment not recognised",
+   "jev": "card payment not recognised",
+   "readout_4b": "automatic top up",
+   "greedy_4b": "request refund",
+   "readout_9b": "pending card payment",
+   "greedy_9b": "card not working"
+  },
+  {
+   "text": "I did not make this card payment.",
+   "gold": "card payment not recognised",
+   "jev": "card payment not recognised",
+   "readout_4b": "card payment not recognised",
+   "greedy_4b": "card payment not recognised",
+   "readout_9b": "pending card payment",
+   "greedy_9b": "card payment not recognised"
+  },
+  {
+   "text": "What should I do if I see a payment I didn't make?",
+   "gold": "card payment not recognised",
+   "jev": "card payment not recognised",
+   "readout_4b": "receiving money",
+   "greedy_4b": "request refund",
+   "readout_9b": "request refund",
+   "greedy_9b": "card payment fee charged"
+  },
+  {
+   "text": "I purchased something in a foreign currency but the rate applied is wrong",
+   "gold": "card payment wrong exchange rate",
+   "jev": "card payment wrong exchange rate",
+   "readout_4b": "card payment wrong exchange rate",
+   "greedy_4b": "card payment wrong exchange rate",
+   "readout_9b": "card payment wrong exchange rate",
+   "greedy_9b": "card payment wrong exchange rate"
+  },
+  {
+   "text": "I made a currency exchange and think I was charged more than I should of been.",
+   "gold": "card payment wrong exchange rate",
+   "jev": "exchange charge",
+   "readout_4b": "exchange charge",
+   "greedy_4b": "card payment wrong exchange rate",
+   "readout_9b": "exchange charge",
+   "greedy_9b": "exchange charge"
+  },
+  {
+   "text": "the card payment exchange rate is wrong",
+   "gold": "card payment wrong exchange rate",
+   "jev": "card payment wrong exchange rate",
+   "readout_4b": "card payment wrong exchange rate",
+   "greedy_4b": "card payment wrong exchange rate",
+   "readout_9b": "card payment wrong exchange rate",
+   "greedy_9b": "card payment wrong exchange rate"
+  },
+  {
+   "text": "The exchange rate was wrong when I bought something outside the country.",
+   "gold": "card payment wrong exchange rate",
+   "jev": "card payment wrong exchange rate",
+   "readout_4b": "card payment wrong exchange rate",
+   "greedy_4b": "card payment wrong exchange rate",
+   "readout_9b": "card payment wrong exchange rate",
+   "greedy_9b": "card payment wrong exchange rate"
+  },
+  {
+   "text": "The exchange rate on my purchase is wrong.",
+   "gold": "card payment wrong exchange rate",
+   "jev": "card payment wrong exchange rate",
+   "readout_4b": "card payment wrong exchange rate",
+   "greedy_4b": "card payment wrong exchange rate",
+   "readout_9b": "card payment wrong exchange rate",
+   "greedy_9b": "card payment wrong exchange rate"
+  },
+  {
+   "text": "This rate is too low. Are you sure your using the right exchange rate.",
+   "gold": "card payment wrong exchange rate",
+   "jev": "exchange rate",
+   "readout_4b": "exchange rate",
+   "greedy_4b": "card payment wrong exchange rate",
+   "readout_9b": "exchange rate",
+   "greedy_9b": "card payment wrong exchange rate"
+  },
+  {
+   "text": "I bought something, but the exchange rate looks wrong.",
+   "gold": "card payment wrong exchange rate",
+   "jev": "card payment wrong exchange rate",
+   "readout_4b": "card payment wrong exchange rate",
+   "greedy_4b": "card payment wrong exchange rate",
+   "readout_9b": "card payment wrong exchange rate",
+   "greedy_9b": "card payment wrong exchange rate"
+  },
+  {
+   "text": "What do I do if an ATM \"stole\" my card?",
+   "gold": "card swallowed",
+   "jev": "card swallowed",
+   "readout_4b": "lost or stolen card",
+   "greedy_4b": "lost or stolen card",
+   "readout_9b": "lost or stolen card",
+   "greedy_9b": "card swallowed"
+  },
+  {
+   "text": "How do I retrieve my card from the machine?",
+   "gold": "card swallowed",
+   "jev": "card swallowed",
+   "readout_4b": "card swallowed",
+   "greedy_4b": "card swallowed",
+   "readout_9b": "card swallowed",
+   "greedy_9b": "card swallowed"
+  },
+  {
+   "text": "I was retrieving money and my card wouldn't remove.",
+   "gold": "card swallowed",
+   "jev": "card swallowed",
+   "readout_4b": "card swallowed",
+   "greedy_4b": "card swallowed",
+   "readout_9b": "card swallowed",
+   "greedy_9b": "declined cash withdrawal"
+  },
+  {
+   "text": "What do I do since the machine swallowed my card. I need one.",
+   "gold": "card swallowed",
+   "jev": "card swallowed",
+   "readout_4b": "card swallowed",
+   "greedy_4b": "card swallowed",
+   "readout_9b": "getting spare card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "HOw do I get my card back after the ATM has pulled it in?",
+   "gold": "card swallowed",
+   "jev": "card swallowed",
+   "readout_4b": "atm support",
+   "greedy_4b": "card swallowed",
+   "readout_9b": "card swallowed",
+   "greedy_9b": "card swallowed"
+  },
+  {
+   "text": "Atm took my card",
+   "gold": "card swallowed",
+   "jev": "card swallowed",
+   "readout_4b": "atm support",
+   "greedy_4b": "atm support",
+   "readout_9b": "card swallowed",
+   "greedy_9b": "card swallowed"
+  },
+  {
+   "text": "Is there a way I can get my ATM card back from the machine?",
+   "gold": "card swallowed",
+   "jev": "card swallowed",
+   "readout_4b": "atm support",
+   "greedy_4b": "card swallowed",
+   "readout_9b": "getting spare card",
+   "greedy_9b": "card swallowed"
+  },
+  {
+   "text": "I see some fees for cash withdraw.",
+   "gold": "cash withdrawal charge",
+   "jev": "cash withdrawal charge",
+   "readout_4b": "cash withdrawal charge",
+   "greedy_4b": "cash withdrawal charge",
+   "readout_9b": "cash withdrawal charge",
+   "greedy_9b": "cash withdrawal charge"
+  },
+  {
+   "text": "How come I was charged extra when I withdrew cash?",
+   "gold": "cash withdrawal charge",
+   "jev": "cash withdrawal charge",
+   "readout_4b": "cash withdrawal charge",
+   "greedy_4b": "cash withdrawal charge",
+   "readout_9b": "cash withdrawal charge",
+   "greedy_9b": "cash withdrawal charge"
+  },
+  {
+   "text": "Why am I being charged when I withdraw cash?",
+   "gold": "cash withdrawal charge",
+   "jev": "cash withdrawal charge",
+   "readout_4b": "cash withdrawal charge",
+   "greedy_4b": "cash withdrawal charge",
+   "readout_9b": "cash withdrawal charge",
+   "greedy_9b": "cash withdrawal charge"
+  },
+  {
+   "text": "What is this charge on my account for a cash withdrawl?",
+   "gold": "cash withdrawal charge",
+   "jev": "cash withdrawal charge",
+   "readout_4b": "cash withdrawal charge",
+   "greedy_4b": "cash withdrawal charge",
+   "readout_9b": "cash withdrawal charge",
+   "greedy_9b": "cash withdrawal charge"
+  },
+  {
+   "text": "Why are fees charged on cash withdrawals? I went to withdraw some money earlier today after shopping. There's a fee that wasn't there before.",
+   "gold": "cash withdrawal charge",
+   "jev": "cash withdrawal charge",
+   "readout_4b": "cash withdrawal charge",
+   "greedy_4b": "cash withdrawal charge",
+   "readout_9b": "cash withdrawal charge",
+   "greedy_9b": "cash withdrawal charge"
+  },
+  {
+   "text": "How come you charge for cash withdrawals? I withdrew cash after buying groceries today, and there seems to be a new fee",
+   "gold": "cash withdrawal charge",
+   "jev": "cash withdrawal charge",
+   "readout_4b": "cash withdrawal charge",
+   "greedy_4b": "cash withdrawal charge",
+   "readout_9b": "cash withdrawal charge",
+   "greedy_9b": "cash withdrawal charge"
+  },
+  {
+   "text": "It looks like I was charged a withdrawal fee for going to my ATM. Why is that because I haven't been charged previously for doing so?",
+   "gold": "cash withdrawal charge",
+   "jev": "cash withdrawal charge",
+   "readout_4b": "atm support",
+   "greedy_4b": "cash withdrawal charge",
+   "readout_9b": "cash withdrawal charge",
+   "greedy_9b": "cash withdrawal charge"
+  },
+  {
+   "text": "Think someone has took money out with my card. What shall I do?",
+   "gold": "cash withdrawal not recognised",
+   "jev": "compromised card",
+   "readout_4b": "compromised card",
+   "greedy_4b": "compromised card",
+   "readout_9b": "compromised card",
+   "greedy_9b": "declined cash withdrawal"
+  },
+  {
+   "text": "There is a withdrawal that isn't mind in the app.",
+   "gold": "cash withdrawal not recognised",
+   "jev": "pending cash withdrawal",
+   "readout_4b": "balance not updated after bank transfer",
+   "greedy_4b": "Refund not showing up",
+   "readout_9b": "pending cash withdrawal",
+   "greedy_9b": "pending cash withdrawal"
+  },
+  {
+   "text": "I just lost my wallet and I see that they are already withdrawing money from my account. How can I stop this?",
+   "gold": "cash withdrawal not recognised",
+   "jev": "lost or stolen card",
+   "readout_4b": "lost or stolen card",
+   "greedy_4b": "lost or stolen card",
+   "readout_9b": "lost or stolen card",
+   "greedy_9b": "lost or stolen card"
+  },
+  {
+   "text": "I didn't get cash from an ATM, but the app says I did",
+   "gold": "cash withdrawal not recognised",
+   "jev": "cash withdrawal not recognised",
+   "readout_4b": "cash withdrawal not recognised",
+   "greedy_4b": "request refund",
+   "readout_9b": "cash withdrawal not recognised",
+   "greedy_9b": "cash withdrawal not recognised"
+  },
+  {
+   "text": "My app shows some cash I didn't get.",
+   "gold": "cash withdrawal not recognised",
+   "jev": "wrong amount of cash received",
+   "readout_4b": "wrong amount of cash received",
+   "greedy_4b": "wrong amount of cash received",
+   "readout_9b": "wrong amount of cash received",
+   "greedy_9b": "wrong amount of cash received"
+  },
+  {
+   "text": "Why is there a random withdrawal in my app?",
+   "gold": "cash withdrawal not recognised",
+   "jev": "cash withdrawal not recognised",
+   "readout_4b": "automatic top up",
+   "greedy_4b": "transaction charged twice",
+   "readout_9b": "pending cash withdrawal",
+   "greedy_9b": "declined cash withdrawal"
+  },
+  {
+   "text": "There is a suspicious cash withdraw on the account.",
+   "gold": "cash withdrawal not recognised",
+   "jev": "cash withdrawal not recognised",
+   "readout_4b": "cash withdrawal not recognised",
+   "greedy_4b": "declined cash withdrawal",
+   "readout_9b": "declined cash withdrawal",
+   "greedy_9b": "cash withdrawal not recognised"
+  },
+  {
+   "text": "What kind of cash machines would allow me to change my PIN?",
+   "gold": "change pin",
+   "jev": "change pin",
+   "readout_4b": "change pin",
+   "greedy_4b": "change pin",
+   "readout_9b": "change pin",
+   "greedy_9b": "change pin"
+  },
+  {
+   "text": "Where do I change my PIN?",
+   "gold": "change pin",
+   "jev": "change pin",
+   "readout_4b": "change pin",
+   "greedy_4b": "change pin",
+   "readout_9b": "change pin",
+   "greedy_9b": "change pin"
+  },
+  {
+   "text": "Is the bank the only place I can change my PIN>",
+   "gold": "change pin",
+   "jev": "change pin",
+   "readout_4b": "change pin",
+   "greedy_4b": "change pin",
+   "readout_9b": "change pin",
+   "greedy_9b": "change pin"
+  },
+  {
+   "text": "If I am overseas, how do I change my pin?",
+   "gold": "change pin",
+   "jev": "change pin",
+   "readout_4b": "change pin",
+   "greedy_4b": "change pin",
+   "readout_9b": "change pin",
+   "greedy_9b": "change pin"
+  },
+  {
+   "text": "Can i change my PIN at the ATM?",
+   "gold": "change pin",
+   "jev": "change pin",
+   "readout_4b": "change pin",
+   "greedy_4b": "change pin",
+   "readout_9b": "change pin",
+   "greedy_9b": "change pin"
+  },
+  {
+   "text": "How might  I change my PIN?",
+   "gold": "change pin",
+   "jev": "change pin",
+   "readout_4b": "change pin",
+   "greedy_4b": "change pin",
+   "readout_9b": "change pin",
+   "greedy_9b": "change pin"
+  },
+  {
+   "text": "I would like to change my PIN but I am not currently in the country.",
+   "gold": "change pin",
+   "jev": "change pin",
+   "readout_4b": "change pin",
+   "greedy_4b": "change pin",
+   "readout_9b": "change pin",
+   "greedy_9b": "change pin"
+  },
+  {
+   "text": "I think someone is using my card to make transactions I don't remember.",
+   "gold": "compromised card",
+   "jev": "compromised card",
+   "readout_4b": "compromised card",
+   "greedy_4b": "compromised card",
+   "readout_9b": "compromised card",
+   "greedy_9b": "compromised card"
+  },
+  {
+   "text": "someone is using my account",
+   "gold": "compromised card",
+   "jev": "compromised card",
+   "readout_4b": "verify my identity",
+   "greedy_4b": "unable to verify identity",
+   "readout_9b": "lost or stolen phone",
+   "greedy_9b": "lost or stolen card"
+  },
+  {
+   "text": "Someone I don't know has used my card without permission.",
+   "gold": "compromised card",
+   "jev": "compromised card",
+   "readout_4b": "compromised card",
+   "greedy_4b": "compromised card",
+   "readout_9b": "compromised card",
+   "greedy_9b": "lost or stolen card"
+  },
+  {
+   "text": "My card was used without my permission.",
+   "gold": "compromised card",
+   "jev": "compromised card",
+   "readout_4b": "compromised card",
+   "greedy_4b": "compromised card",
+   "readout_9b": "compromised card",
+   "greedy_9b": "lost or stolen card"
+  },
+  {
+   "text": "Can I freeze my card right now?",
+   "gold": "compromised card",
+   "jev": "compromised card",
+   "readout_4b": "get physical card",
+   "greedy_4b": "get physical card",
+   "readout_9b": "get disposable virtual card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "Freeze my account it's been hacked.",
+   "gold": "compromised card",
+   "jev": "compromised card",
+   "readout_4b": "compromised card",
+   "greedy_4b": "compromised card",
+   "readout_9b": "terminate account",
+   "greedy_9b": "lost or stolen card"
+  },
+  {
+   "text": "There are transactions I didn't make, someone else must have used my card.",
+   "gold": "compromised card",
+   "jev": "compromised card",
+   "readout_4b": "compromised card",
+   "greedy_4b": "compromised card",
+   "readout_9b": "compromised card",
+   "greedy_9b": "compromised card"
+  },
+  {
+   "text": "Are contactless payments enabled on my new card?",
+   "gold": "contactless not working",
+   "jev": "contactless not working",
+   "readout_4b": "contactless not working",
+   "greedy_4b": "apple pay or google pay",
+   "readout_9b": "contactless not working",
+   "greedy_9b": "apple pay or google pay"
+  },
+  {
+   "text": "My contanctless has stopped working",
+   "gold": "contactless not working",
+   "jev": "contactless not working",
+   "readout_4b": "contactless not working",
+   "greedy_4b": "contactless not working",
+   "readout_9b": "contactless not working",
+   "greedy_9b": "contactless not working"
+  },
+  {
+   "text": "what is required documents for new card process ?",
+   "gold": "contactless not working",
+   "jev": "order physical card",
+   "readout_4b": "get physical card",
+   "greedy_4b": "get physical card",
+   "readout_9b": "get physical card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "I don't know what's wrong, my contactless stopped working. Tried it in a few different places today and it didn't work in any of them.",
+   "gold": "contactless not working",
+   "jev": "contactless not working",
+   "readout_4b": "contactless not working",
+   "greedy_4b": "contactless not working",
+   "readout_9b": "contactless not working",
+   "greedy_9b": "contactless not working"
+  },
+  {
+   "text": "How do I get the contactless feature to work for my card?",
+   "gold": "contactless not working",
+   "jev": "contactless not working",
+   "readout_4b": "contactless not working",
+   "greedy_4b": "contactless not working",
+   "readout_9b": "contactless not working",
+   "greedy_9b": "contactless not working"
+  },
+  {
+   "text": "I tried to pay contactless at the bus today and it didn't work. Any ideas why?",
+   "gold": "contactless not working",
+   "jev": "contactless not working",
+   "readout_4b": "contactless not working",
+   "greedy_4b": "contactless not working",
+   "readout_9b": "contactless not working",
+   "greedy_9b": "contactless not working"
+  },
+  {
+   "text": "I've been unable to pay contactless with my card for over a week now. Is there a way to fix this issue?",
+   "gold": "contactless not working",
+   "jev": "contactless not working",
+   "readout_4b": "contactless not working",
+   "greedy_4b": "contactless not working",
+   "readout_9b": "contactless not working",
+   "greedy_9b": "contactless not working"
+  },
+  {
+   "text": "I live in the US but want to get a card",
+   "gold": "country support",
+   "jev": "get physical card",
+   "readout_4b": "get physical card",
+   "greedy_4b": "get physical card",
+   "readout_9b": "get physical card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "Are your cards available in Europe?",
+   "gold": "country support",
+   "jev": "country support",
+   "readout_4b": "country support",
+   "greedy_4b": "card acceptance",
+   "readout_9b": "country support",
+   "greedy_9b": "country support"
+  },
+  {
+   "text": "Can I use your app if I am from the EU?",
+   "gold": "country support",
+   "jev": "country support",
+   "readout_4b": "country support",
+   "greedy_4b": "country support",
+   "readout_9b": "country support",
+   "greedy_9b": "country support"
+  },
+  {
+   "text": "What countries are supported?",
+   "gold": "country support",
+   "jev": "country support",
+   "readout_4b": "supported cards and currencies",
+   "greedy_4b": "country support",
+   "readout_9b": "country support",
+   "greedy_9b": "country support"
+  },
+  {
+   "text": "i live in the US can i still get a card?",
+   "gold": "country support",
+   "jev": "country support",
+   "readout_4b": "get physical card",
+   "greedy_4b": "get physical card",
+   "readout_9b": "country support",
+   "greedy_9b": "country support"
+  },
+  {
+   "text": "Can I get a card outside the UK?",
+   "gold": "country support",
+   "jev": "country support",
+   "readout_4b": "card delivery estimate",
+   "greedy_4b": "get physical card",
+   "readout_9b": "card delivery estimate",
+   "greedy_9b": "country support"
+  },
+  {
+   "text": "I'm not in the UK, can I still get a card?",
+   "gold": "country support",
+   "jev": "country support",
+   "readout_4b": "get physical card",
+   "greedy_4b": "get physical card",
+   "readout_9b": "country support",
+   "greedy_9b": "country support"
+  },
+  {
+   "text": "My credit card was declined.",
+   "gold": "declined card payment",
+   "jev": "declined card payment",
+   "readout_4b": "declined card payment",
+   "greedy_4b": "declined card payment",
+   "readout_9b": "declined card payment",
+   "greedy_9b": "declined card payment"
+  },
+  {
+   "text": "The new card that was just sent to me was declined multiple times yesterday when I tried to use it at a restaurant to pay for my dinner.  I am really disappointed  and embarrassed that my card was denied when I tried to use it to pay for my friend's birthday dinner.",
+   "gold": "declined card payment",
+   "jev": "declined card payment",
+   "readout_4b": "declined card payment",
+   "greedy_4b": "declined card payment",
+   "readout_9b": "declined card payment",
+   "greedy_9b": "declined card payment"
+  },
+  {
+   "text": "Why was my card payment declined?",
+   "gold": "declined card payment",
+   "jev": "declined card payment",
+   "readout_4b": "declined card payment",
+   "greedy_4b": "declined card payment",
+   "readout_9b": "declined card payment",
+   "greedy_9b": "declined card payment"
+  },
+  {
+   "text": "I was trying to purchase something at the store today and my card has been declined.  Why has this happened?",
+   "gold": "declined card payment",
+   "jev": "declined card payment",
+   "readout_4b": "declined card payment",
+   "greedy_4b": "declined card payment",
+   "readout_9b": "declined card payment",
+   "greedy_9b": "declined card payment"
+  },
+  {
+   "text": "My payment has been declined, I thought this issue was fixed!",
+   "gold": "declined card payment",
+   "jev": "declined card payment",
+   "readout_4b": "Refund not showing up",
+   "greedy_4b": "declined card payment",
+   "readout_9b": "declined card payment",
+   "greedy_9b": "declined card payment"
+  },
+  {
+   "text": "My card was declined in a shop",
+   "gold": "declined card payment",
+   "jev": "declined card payment",
+   "readout_4b": "declined card payment",
+   "greedy_4b": "declined card payment",
+   "readout_9b": "declined card payment",
+   "greedy_9b": "declined card payment"
+  },
+  {
+   "text": "Why did it decline my payment?",
+   "gold": "declined card payment",
+   "jev": "declined card payment",
+   "readout_4b": "declined card payment",
+   "greedy_4b": "declined card payment",
+   "readout_9b": "declined transfer",
+   "greedy_9b": "declined card payment"
+  },
+  {
+   "text": "Can you tell me why you won't let me get my own money out of the money machine? I know I used the right PIN.",
+   "gold": "declined cash withdrawal",
+   "jev": "declined cash withdrawal",
+   "readout_4b": "cash withdrawal not recognised",
+   "greedy_4b": "declined cash withdrawal",
+   "readout_9b": "declined cash withdrawal",
+   "greedy_9b": "declined cash withdrawal"
+  },
+  {
+   "text": "My withdrawal was cancelled.",
+   "gold": "declined cash withdrawal",
+   "jev": "declined cash withdrawal",
+   "readout_4b": "cancel transfer",
+   "greedy_4b": "cancel transfer",
+   "readout_9b": "pending cash withdrawal",
+   "greedy_9b": "declined transfer"
+  },
+  {
+   "text": "This is very frustrating. I can't get my card to work on any ATM I try and I've tried 3 of them so far. What's going on? Can you please fix this issue immediately?",
+   "gold": "declined cash withdrawal",
+   "jev": "card not working",
+   "readout_4b": "atm support",
+   "greedy_4b": "card not working",
+   "readout_9b": "card not working",
+   "greedy_9b": "card not working"
+  },
+  {
+   "text": "The ATM did not allow me to withdraw",
+   "gold": "declined cash withdrawal",
+   "jev": "declined cash withdrawal",
+   "readout_4b": "atm support",
+   "greedy_4b": "declined cash withdrawal",
+   "readout_9b": "declined cash withdrawal",
+   "greedy_9b": "declined cash withdrawal"
+  },
+  {
+   "text": "Why was my ATM transaction cancelled?",
+   "gold": "declined cash withdrawal",
+   "jev": "declined cash withdrawal",
+   "readout_4b": "atm support",
+   "greedy_4b": "atm support",
+   "readout_9b": "atm support",
+   "greedy_9b": "declined cash withdrawal"
+  },
+  {
+   "text": "The ATM keeps declining my card. I tried at a couple different ATMs. Can you tell me if there's a problem with my account?",
+   "gold": "declined cash withdrawal",
+   "jev": "declined cash withdrawal",
+   "readout_4b": "atm support",
+   "greedy_4b": "card not working",
+   "readout_9b": "declined cash withdrawal",
+   "greedy_9b": "declined cash withdrawal"
+  },
+  {
+   "text": "I was at the ATM trying to made a withdraw and I was declined.",
+   "gold": "declined cash withdrawal",
+   "jev": "declined cash withdrawal",
+   "readout_4b": "atm support",
+   "greedy_4b": "declined cash withdrawal",
+   "readout_9b": "declined cash withdrawal",
+   "greedy_9b": "declined cash withdrawal"
+  },
+  {
+   "text": "I tried to make a transfer and it was declined. Why?",
+   "gold": "declined transfer",
+   "jev": "declined transfer",
+   "readout_4b": "failed transfer",
+   "greedy_4b": "declined transfer",
+   "readout_9b": "declined transfer",
+   "greedy_9b": "declined transfer"
+  },
+  {
+   "text": "Good morning. I tried to make a purchase with my credit card last night and again this morning. Both times it was declined. Can you investigate?",
+   "gold": "declined transfer",
+   "jev": "declined card payment",
+   "readout_4b": "declined card payment",
+   "greedy_4b": "declined card payment",
+   "readout_9b": "declined card payment",
+   "greedy_9b": "declined card payment"
+  },
+  {
+   "text": "I am getting continuous failure for all my transfers. I have cross checked each recipient detail again and again and everything is correct.",
+   "gold": "declined transfer",
+   "jev": "failed transfer",
+   "readout_4b": "failed transfer",
+   "greedy_4b": "failed transfer",
+   "readout_9b": "failed transfer",
+   "greedy_9b": "failed transfer"
+  },
+  {
+   "text": "why was my transfer declined",
+   "gold": "declined transfer",
+   "jev": "declined transfer",
+   "readout_4b": "why verify identity",
+   "greedy_4b": "declined transfer",
+   "readout_9b": "declined transfer",
+   "greedy_9b": "declined transfer"
+  },
+  {
+   "text": "What would make a decline message show up during a transfer?",
+   "gold": "declined transfer",
+   "jev": "declined transfer",
+   "readout_4b": "declined transfer",
+   "greedy_4b": "failed transfer",
+   "readout_9b": "declined transfer",
+   "greedy_9b": "declined transfer"
+  },
+  {
+   "text": "Why do you keep declining my transfers?it was always been working really well so far but when I tried to buy something just now the card got declined . I tried couple of times already  but same thing is happening.",
+   "gold": "declined transfer",
+   "jev": "declined transfer",
+   "readout_4b": "card not working",
+   "greedy_4b": "card not working",
+   "readout_9b": "declined transfer",
+   "greedy_9b": "declined card payment"
+  },
+  {
+   "text": "How can I fix my card, it got declined twice.",
+   "gold": "declined transfer",
+   "jev": "declined card payment",
+   "readout_4b": "declined card payment",
+   "greedy_4b": "declined card payment",
+   "readout_9b": "declined card payment",
+   "greedy_9b": "declined card payment"
+  },
+  {
+   "text": "Help me.  There is a Direct Debit that I didn't make.",
+   "gold": "direct debit payment not recognised",
+   "jev": "direct debit payment not recognised",
+   "readout_4b": "direct debit payment not recognised",
+   "greedy_4b": "direct debit payment not recognised",
+   "readout_9b": "direct debit payment not recognised",
+   "greedy_9b": "direct debit payment not recognised"
+  },
+  {
+   "text": "There is a direct debit that's not mine.",
+   "gold": "direct debit payment not recognised",
+   "jev": "direct debit payment not recognised",
+   "readout_4b": "direct debit payment not recognised",
+   "greedy_4b": "direct debit payment not recognised",
+   "readout_9b": "direct debit payment not recognised",
+   "greedy_9b": "direct debit payment not recognised"
+  },
+  {
+   "text": "I have a strange direct debit in my statement",
+   "gold": "direct debit payment not recognised",
+   "jev": "direct debit payment not recognised",
+   "readout_4b": "direct debit payment not recognised",
+   "greedy_4b": "direct debit payment not recognised",
+   "readout_9b": "extra charge on statement",
+   "greedy_9b": "direct debit payment not recognised"
+  },
+  {
+   "text": "I don't understand where this debit came from and want it removed.",
+   "gold": "direct debit payment not recognised",
+   "jev": "card payment not recognised",
+   "readout_4b": "disposable card limits",
+   "greedy_4b": "request refund",
+   "readout_9b": "request refund",
+   "greedy_9b": "Refund not showing up"
+  },
+  {
+   "text": "what is this charge on my account",
+   "gold": "direct debit payment not recognised",
+   "jev": "extra charge on statement",
+   "readout_4b": "extra charge on statement",
+   "greedy_4b": "extra charge on statement",
+   "readout_9b": "extra charge on statement",
+   "greedy_9b": "extra charge on statement"
+  },
+  {
+   "text": "im so mad right now. theres several charges that I think my x boyfriend made on my card. the companys on the website wouldn't refund me my money, they told me to contact my bank. DO something please.",
+   "gold": "direct debit payment not recognised",
+   "jev": "card payment not recognised",
+   "readout_4b": "request refund",
+   "greedy_4b": "request refund",
+   "readout_9b": "request refund",
+   "greedy_9b": "card payment fee charged"
+  },
+  {
+   "text": "someone stole my money",
+   "gold": "direct debit payment not recognised",
+   "jev": "card payment not recognised",
+   "readout_4b": "lost or stolen card",
+   "greedy_4b": "lost or stolen card",
+   "readout_9b": "lost or stolen card",
+   "greedy_9b": "lost or stolen card"
+  },
+  {
+   "text": "How can i get multiple disposble cards.",
+   "gold": "disposable card limits",
+   "jev": "get disposable virtual card",
+   "readout_4b": "get disposable virtual card",
+   "greedy_4b": "get disposable virtual card",
+   "readout_9b": "getting spare card",
+   "greedy_9b": "getting spare card"
+  },
+  {
+   "text": "Can I make many disposable cards per day?",
+   "gold": "disposable card limits",
+   "jev": "disposable card limits",
+   "readout_4b": "disposable card limits",
+   "greedy_4b": "disposable card limits",
+   "readout_9b": "disposable card limits",
+   "greedy_9b": "getting spare card"
+  },
+  {
+   "text": "I need to use my disposable card multiple times a day, is there a cutoff limit?",
+   "gold": "disposable card limits",
+   "jev": "disposable card limits",
+   "readout_4b": "disposable card limits",
+   "greedy_4b": "disposable card limits",
+   "readout_9b": "disposable card limits",
+   "greedy_9b": "disposable card limits"
+  },
+  {
+   "text": "How do I make more than one disposable card in a day?",
+   "gold": "disposable card limits",
+   "jev": "disposable card limits",
+   "readout_4b": "get disposable virtual card",
+   "greedy_4b": "disposable card limits",
+   "readout_9b": "getting spare card",
+   "greedy_9b": "getting spare card"
+  },
+  {
+   "text": "Can I have more than one disposable card?",
+   "gold": "disposable card limits",
+   "jev": "disposable card limits",
+   "readout_4b": "get disposable virtual card",
+   "greedy_4b": "disposable card limits",
+   "readout_9b": "getting spare card",
+   "greedy_9b": "getting spare card"
+  },
+  {
+   "text": "what is the disposable cards limit?",
+   "gold": "disposable card limits",
+   "jev": "disposable card limits",
+   "readout_4b": "disposable card limits",
+   "greedy_4b": "disposable card limits",
+   "readout_9b": "disposable card limits",
+   "greedy_9b": "disposable card limits"
+  },
+  {
+   "text": "What's the most disposable cards I can have?",
+   "gold": "disposable card limits",
+   "jev": "disposable card limits",
+   "readout_4b": "disposable card limits",
+   "greedy_4b": "disposable card limits",
+   "readout_9b": "get disposable virtual card",
+   "greedy_9b": "getting spare card"
+  },
+  {
+   "text": "I no longer live at my address on file, how do I change it?",
+   "gold": "edit personal details",
+   "jev": "edit personal details",
+   "readout_4b": "edit personal details",
+   "greedy_4b": "edit personal details",
+   "readout_9b": "edit personal details",
+   "greedy_9b": "edit personal details"
+  },
+  {
+   "text": "How to change my address.",
+   "gold": "edit personal details",
+   "jev": "edit personal details",
+   "readout_4b": "edit personal details",
+   "greedy_4b": "edit personal details",
+   "readout_9b": "edit personal details",
+   "greedy_9b": "edit personal details"
+  },
+  {
+   "text": "How do I update my details?",
+   "gold": "edit personal details",
+   "jev": "edit personal details",
+   "readout_4b": "edit personal details",
+   "greedy_4b": "edit personal details",
+   "readout_9b": "edit personal details",
+   "greedy_9b": "edit personal details"
+  },
+  {
+   "text": "My address needs to be revised.",
+   "gold": "edit personal details",
+   "jev": "edit personal details",
+   "readout_4b": "edit personal details",
+   "greedy_4b": "edit personal details",
+   "readout_9b": "edit personal details",
+   "greedy_9b": "edit personal details"
+  },
+  {
+   "text": "got married, need to change account name",
+   "gold": "edit personal details",
+   "jev": "edit personal details",
+   "readout_4b": "edit personal details",
+   "greedy_4b": "edit personal details",
+   "readout_9b": "edit personal details",
+   "greedy_9b": "edit personal details"
+  },
+  {
+   "text": "My address has changed.",
+   "gold": "edit personal details",
+   "jev": "edit personal details",
+   "readout_4b": "edit personal details",
+   "greedy_4b": "edit personal details",
+   "readout_9b": "edit personal details",
+   "greedy_9b": "edit personal details"
+  },
+  {
+   "text": "got married and need to change name",
+   "gold": "edit personal details",
+   "jev": "edit personal details",
+   "readout_4b": "edit personal details",
+   "greedy_4b": "edit personal details",
+   "readout_9b": "edit personal details",
+   "greedy_9b": "edit personal details"
+  },
+  {
+   "text": "Is there an exchange fee?",
+   "gold": "exchange charge",
+   "jev": "exchange charge",
+   "readout_4b": "exchange charge",
+   "greedy_4b": "exchange charge",
+   "readout_9b": "exchange charge",
+   "greedy_9b": "exchange charge"
+  },
+  {
+   "text": "whats your exchange rate",
+   "gold": "exchange charge",
+   "jev": "exchange rate",
+   "readout_4b": "exchange rate",
+   "greedy_4b": "exchange rate",
+   "readout_9b": "exchange rate",
+   "greedy_9b": "exchange rate"
+  },
+  {
+   "text": "What are your currency exchange fees?",
+   "gold": "exchange charge",
+   "jev": "exchange charge",
+   "readout_4b": "exchange charge",
+   "greedy_4b": "exchange charge",
+   "readout_9b": "exchange charge",
+   "greedy_9b": "exchange rate"
+  },
+  {
+   "text": "Where do I find the exchange rate?",
+   "gold": "exchange charge",
+   "jev": "exchange rate",
+   "readout_4b": "exchange rate",
+   "greedy_4b": "exchange rate",
+   "readout_9b": "exchange rate",
+   "greedy_9b": "exchange rate"
+  },
+  {
+   "text": "What is the base amount for cross-currency exchanges?",
+   "gold": "exchange charge",
+   "jev": "exchange rate",
+   "readout_4b": "exchange rate",
+   "greedy_4b": "exchange rate",
+   "readout_9b": "exchange rate",
+   "greedy_9b": "exchange rate"
+  },
+  {
+   "text": "My work sends me all over the world, can I get a discount for all the money I have to exchange?",
+   "gold": "exchange charge",
+   "jev": "exchange charge",
+   "readout_4b": "exchange charge",
+   "greedy_4b": "exchange charge",
+   "readout_9b": "exchange charge",
+   "greedy_9b": "exchange charge"
+  },
+  {
+   "text": "How much more do I have to pay to exchange currencies?",
+   "gold": "exchange charge",
+   "jev": "exchange charge",
+   "readout_4b": "exchange charge",
+   "greedy_4b": "exchange charge",
+   "readout_9b": "exchange charge",
+   "greedy_9b": "exchange charge"
+  },
+  {
+   "text": "I need to know your exchange rates.",
+   "gold": "exchange rate",
+   "jev": "exchange rate",
+   "readout_4b": "exchange rate",
+   "greedy_4b": "exchange rate",
+   "readout_9b": "exchange rate",
+   "greedy_9b": "exchange rate"
+  },
+  {
+   "text": "What exchange rates do you offer?",
+   "gold": "exchange rate",
+   "jev": "exchange rate",
+   "readout_4b": "exchange rate",
+   "greedy_4b": "exchange rate",
+   "readout_9b": "exchange rate",
+   "greedy_9b": "exchange rate"
+  },
+  {
+   "text": "How did you come up with your exchange rates?",
+   "gold": "exchange rate",
+   "jev": "exchange rate",
+   "readout_4b": "exchange rate",
+   "greedy_4b": "exchange rate",
+   "readout_9b": "exchange rate",
+   "greedy_9b": "exchange rate"
+  },
+  {
+   "text": "Where do you guys acquire your exchange rate?",
+   "gold": "exchange rate",
+   "jev": "exchange rate",
+   "readout_4b": "exchange rate",
+   "greedy_4b": "exchange rate",
+   "readout_9b": "exchange rate",
+   "greedy_9b": "exchange rate"
+  },
+  {
+   "text": "How do I find the exchange rate?",
+   "gold": "exchange rate",
+   "jev": "exchange rate",
+   "readout_4b": "exchange rate",
+   "greedy_4b": "exchange rate",
+   "readout_9b": "exchange rate",
+   "greedy_9b": "exchange rate"
+  },
+  {
+   "text": "What are your international exchange rates?",
+   "gold": "exchange rate",
+   "jev": "exchange rate",
+   "readout_4b": "exchange rate",
+   "greedy_4b": "exchange rate",
+   "readout_9b": "exchange rate",
+   "greedy_9b": "exchange rate"
+  },
+  {
+   "text": "How often do your exchange rates change",
+   "gold": "exchange rate",
+   "jev": "exchange rate",
+   "readout_4b": "exchange rate",
+   "greedy_4b": "exchange rate",
+   "readout_9b": "exchange rate",
+   "greedy_9b": "exchange rate"
+  },
+  {
+   "text": "May I exchange currencies with this?",
+   "gold": "exchange via app",
+   "jev": "exchange via app",
+   "readout_4b": "exchange via app",
+   "greedy_4b": "supported cards and currencies",
+   "readout_9b": "supported cards and currencies",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "Tell me how I can exchange between different currency.",
+   "gold": "exchange via app",
+   "jev": "exchange rate",
+   "readout_4b": "exchange via app",
+   "greedy_4b": "exchange via app",
+   "readout_9b": "supported cards and currencies",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "Can I change from one currency to another?",
+   "gold": "exchange via app",
+   "jev": "exchange via app",
+   "readout_4b": "supported cards and currencies",
+   "greedy_4b": "exchange via app",
+   "readout_9b": "supported cards and currencies",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "How do I change GBP to AUD?",
+   "gold": "exchange via app",
+   "jev": "exchange via app",
+   "readout_4b": "exchange via app",
+   "greedy_4b": "exchange via app",
+   "readout_9b": "exchange via app",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "Will this app exchange currencies?",
+   "gold": "exchange via app",
+   "jev": "exchange via app",
+   "readout_4b": "exchange via app",
+   "greedy_4b": "exchange via app",
+   "readout_9b": "exchange via app",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "How do I convert currencies with the app?",
+   "gold": "exchange via app",
+   "jev": "exchange via app",
+   "readout_4b": "exchange via app",
+   "greedy_4b": "exchange via app",
+   "readout_9b": "exchange via app",
+   "greedy_9b": "exchange via app"
+  },
+  {
+   "text": "How are currencies exchanged?",
+   "gold": "exchange via app",
+   "jev": "exchange rate",
+   "readout_4b": "supported cards and currencies",
+   "greedy_4b": "exchange via app",
+   "readout_9b": "exchange rate",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "My statement has a dollar I have been charged showing up on it.",
+   "gold": "extra charge on statement",
+   "jev": "extra charge on statement",
+   "readout_4b": "extra charge on statement",
+   "greedy_4b": "extra charge on statement",
+   "readout_9b": "extra charge on statement",
+   "greedy_9b": "extra charge on statement"
+  },
+  {
+   "text": "Why is there a fee for an extra pound in my statement?",
+   "gold": "extra charge on statement",
+   "jev": "extra charge on statement",
+   "readout_4b": "extra charge on statement",
+   "greedy_4b": "extra charge on statement",
+   "readout_9b": "extra charge on statement",
+   "greedy_9b": "extra charge on statement"
+  },
+  {
+   "text": "I'm not okay with this fee on my statement.",
+   "gold": "extra charge on statement",
+   "jev": "extra charge on statement",
+   "readout_4b": "card payment fee charged",
+   "greedy_4b": "extra charge on statement",
+   "readout_9b": "extra charge on statement",
+   "greedy_9b": "extra charge on statement"
+  },
+  {
+   "text": "Why is there an extra dollar charged to my account?",
+   "gold": "extra charge on statement",
+   "jev": "extra charge on statement",
+   "readout_4b": "extra charge on statement",
+   "greedy_4b": "extra charge on statement",
+   "readout_9b": "extra charge on statement",
+   "greedy_9b": "extra charge on statement"
+  },
+  {
+   "text": "There is a fee I don't recognize on my statement.",
+   "gold": "extra charge on statement",
+   "jev": "extra charge on statement",
+   "readout_4b": "card payment fee charged",
+   "greedy_4b": "extra charge on statement",
+   "readout_9b": "extra charge on statement",
+   "greedy_9b": "extra charge on statement"
+  },
+  {
+   "text": "I would like a refund on the extra pound I was charged.",
+   "gold": "extra charge on statement",
+   "jev": "request refund",
+   "readout_4b": "request refund",
+   "greedy_4b": "request refund",
+   "readout_9b": "request refund",
+   "greedy_9b": "extra charge on statement"
+  },
+  {
+   "text": "Can you explain what this random $1 charge is?",
+   "gold": "extra charge on statement",
+   "jev": "extra charge on statement",
+   "readout_4b": "extra charge on statement",
+   "greedy_4b": "extra charge on statement",
+   "readout_9b": "extra charge on statement",
+   "greedy_9b": "extra charge on statement"
+  },
+  {
+   "text": "dont understand why transfer failed",
+   "gold": "failed transfer",
+   "jev": "failed transfer",
+   "readout_4b": "failed transfer",
+   "greedy_4b": "failed transfer",
+   "readout_9b": "failed transfer",
+   "greedy_9b": "failed transfer"
+  },
+  {
+   "text": "Please help me make a transfer. I keep receiving an error and I'm trying to make the initial mortgage payment for a flat I'm buying. What is the deal here?",
+   "gold": "failed transfer",
+   "jev": "failed transfer",
+   "readout_4b": "failed transfer",
+   "greedy_4b": "failed transfer",
+   "readout_9b": "failed transfer",
+   "greedy_9b": "failed transfer"
+  },
+  {
+   "text": "My transfer didn't work",
+   "gold": "failed transfer",
+   "jev": "failed transfer",
+   "readout_4b": "failed transfer",
+   "greedy_4b": "failed transfer",
+   "readout_9b": "failed transfer",
+   "greedy_9b": "failed transfer"
+  },
+  {
+   "text": "Fix your system. I can't make transfers, I've tried like 5 times already.",
+   "gold": "failed transfer",
+   "jev": "failed transfer",
+   "readout_4b": "failed transfer",
+   "greedy_4b": "cancel transfer",
+   "readout_9b": "failed transfer",
+   "greedy_9b": "cancel transfer"
+  },
+  {
+   "text": "Tell me why my transfer failed!",
+   "gold": "failed transfer",
+   "jev": "failed transfer",
+   "readout_4b": "failed transfer",
+   "greedy_4b": "failed transfer",
+   "readout_9b": "failed transfer",
+   "greedy_9b": "failed transfer"
+  },
+  {
+   "text": "My transfer did not go through.",
+   "gold": "failed transfer",
+   "jev": "failed transfer",
+   "readout_4b": "failed transfer",
+   "greedy_4b": "failed transfer",
+   "readout_9b": "failed transfer",
+   "greedy_9b": "failed transfer"
+  },
+  {
+   "text": "Why was I not able to complete a transfer?",
+   "gold": "failed transfer",
+   "jev": "failed transfer",
+   "readout_4b": "failed transfer",
+   "greedy_4b": "failed transfer",
+   "readout_9b": "failed transfer",
+   "greedy_9b": "failed transfer"
+  },
+  {
+   "text": "If I request that my funds be held, what currencies do you use?",
+   "gold": "fiat currency support",
+   "jev": "supported cards and currencies",
+   "readout_4b": "supported cards and currencies",
+   "greedy_4b": "fiat currency support",
+   "readout_9b": "supported cards and currencies",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "I want to know how many different currencies my money can be in",
+   "gold": "fiat currency support",
+   "jev": "fiat currency support",
+   "readout_4b": "supported cards and currencies",
+   "greedy_4b": "fiat currency support",
+   "readout_9b": "supported cards and currencies",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "Do you support all fiat currencies?",
+   "gold": "fiat currency support",
+   "jev": "fiat currency support",
+   "readout_4b": "fiat currency support",
+   "greedy_4b": "fiat currency support",
+   "readout_9b": "fiat currency support",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "Does your system support multiple currency.",
+   "gold": "fiat currency support",
+   "jev": "supported cards and currencies",
+   "readout_4b": "supported cards and currencies",
+   "greedy_4b": "fiat currency support",
+   "readout_9b": "supported cards and currencies",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "What currencies can I hold money in?",
+   "gold": "fiat currency support",
+   "jev": "fiat currency support",
+   "readout_4b": "supported cards and currencies",
+   "greedy_4b": "fiat currency support",
+   "readout_9b": "supported cards and currencies",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "Do you support any currency?",
+   "gold": "fiat currency support",
+   "jev": "fiat currency support",
+   "readout_4b": "supported cards and currencies",
+   "greedy_4b": "fiat currency support",
+   "readout_9b": "supported cards and currencies",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "There is an incoming payment into my account, but it is deactivated. Will they still be processed?",
+   "gold": "fiat currency support",
+   "jev": "receiving money",
+   "readout_4b": "activate my card",
+   "greedy_4b": "receiving money",
+   "readout_9b": "receiving money",
+   "greedy_9b": "receiving money"
+  },
+  {
+   "text": "can i get a description of how to use a disposable virtual card",
+   "gold": "get disposable virtual card",
+   "jev": "get disposable virtual card",
+   "readout_4b": "get disposable virtual card",
+   "greedy_4b": "get disposable virtual card",
+   "readout_9b": "get disposable virtual card",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "Can I create a disposable virtual card?",
+   "gold": "get disposable virtual card",
+   "jev": "get disposable virtual card",
+   "readout_4b": "get disposable virtual card",
+   "greedy_4b": "get disposable virtual card",
+   "readout_9b": "get disposable virtual card",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "What can you tell me about getting a virtual disposable card?",
+   "gold": "get disposable virtual card",
+   "jev": "get disposable virtual card",
+   "readout_4b": "get disposable virtual card",
+   "greedy_4b": "get disposable virtual card",
+   "readout_9b": "get disposable virtual card",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "I would like to order a disposable virtual card. How can I do this?",
+   "gold": "get disposable virtual card",
+   "jev": "get disposable virtual card",
+   "readout_4b": "get disposable virtual card",
+   "greedy_4b": "get disposable virtual card",
+   "readout_9b": "get disposable virtual card",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "how do VR cards work",
+   "gold": "get disposable virtual card",
+   "jev": "getting virtual card",
+   "readout_4b": "activate my card",
+   "greedy_4b": "activate my card",
+   "readout_9b": "virtual card not working",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "What is a disposable virtual card?",
+   "gold": "get disposable virtual card",
+   "jev": "get disposable virtual card",
+   "readout_4b": "get disposable virtual card",
+   "greedy_4b": "get disposable virtual card",
+   "readout_9b": "get disposable virtual card",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "What do I do with my card PIN?",
+   "gold": "get physical card",
+   "jev": "change pin",
+   "readout_4b": "change pin",
+   "greedy_4b": "change pin",
+   "readout_9b": "pin blocked",
+   "greedy_9b": "change pin"
+  },
+  {
+   "text": "Is the PIN delivered separately?",
+   "gold": "get physical card",
+   "jev": "card arrival",
+   "readout_4b": "pin blocked",
+   "greedy_4b": "card arrival",
+   "readout_9b": "passcode forgotten",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "I do not have my pin",
+   "gold": "get physical card",
+   "jev": "passcode forgotten",
+   "readout_4b": "change pin",
+   "greedy_4b": "change pin",
+   "readout_9b": "passcode forgotten",
+   "greedy_9b": "change pin"
+  },
+  {
+   "text": "Are PIN separately?",
+   "gold": "get physical card",
+   "jev": "change pin",
+   "readout_4b": "pin blocked",
+   "greedy_4b": "change pin",
+   "readout_9b": "pin blocked",
+   "greedy_9b": "change pin"
+  },
+  {
+   "text": "I cannot seem to find my PIN. Where is it?",
+   "gold": "get physical card",
+   "jev": "passcode forgotten",
+   "readout_4b": "pin blocked",
+   "greedy_4b": "change pin",
+   "readout_9b": "passcode forgotten",
+   "greedy_9b": "passcode forgotten"
+  },
+  {
+   "text": "How do I set-up my PIN for the new card?",
+   "gold": "get physical card",
+   "jev": "change pin",
+   "readout_4b": "activate my card",
+   "greedy_4b": "change pin",
+   "readout_9b": "change pin",
+   "greedy_9b": "change pin"
+  },
+  {
+   "text": "Would it be possible to get another card?",
+   "gold": "getting spare card",
+   "jev": "getting spare card",
+   "readout_4b": "getting spare card",
+   "greedy_4b": "getting spare card",
+   "readout_9b": "getting spare card",
+   "greedy_9b": "getting spare card"
+  },
+  {
+   "text": "How many cards can I have for one account?",
+   "gold": "getting spare card",
+   "jev": "getting spare card",
+   "readout_4b": "disposable card limits",
+   "greedy_4b": "disposable card limits",
+   "readout_9b": "getting virtual card",
+   "greedy_9b": "disposable card limits"
+  },
+  {
+   "text": "I want to order another crad",
+   "gold": "getting spare card",
+   "jev": "getting spare card",
+   "readout_4b": "get physical card",
+   "greedy_4b": "order physical card",
+   "readout_9b": "getting spare card",
+   "greedy_9b": "order physical card"
+  },
+  {
+   "text": "How can I get additional cards?",
+   "gold": "getting spare card",
+   "jev": "getting spare card",
+   "readout_4b": "get physical card",
+   "greedy_4b": "getting spare card",
+   "readout_9b": "getting spare card",
+   "greedy_9b": "getting spare card"
+  },
+  {
+   "text": "Is there a fee for extra cards?",
+   "gold": "getting spare card",
+   "jev": "getting spare card",
+   "readout_4b": "getting spare card",
+   "greedy_4b": "getting spare card",
+   "readout_9b": "getting spare card",
+   "greedy_9b": "getting spare card"
+  },
+  {
+   "text": "I need some spare physical cards.",
+   "gold": "getting spare card",
+   "jev": "getting spare card",
+   "readout_4b": "get physical card",
+   "greedy_4b": "getting spare card",
+   "readout_9b": "getting spare card",
+   "greedy_9b": "getting spare card"
+  },
+  {
+   "text": "Where can I obtain my virtual card?",
+   "gold": "getting virtual card",
+   "jev": "getting virtual card",
+   "readout_4b": "get disposable virtual card",
+   "greedy_4b": "getting virtual card",
+   "readout_9b": "getting virtual card",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "How do you get a virtual card?",
+   "gold": "getting virtual card",
+   "jev": "getting virtual card",
+   "readout_4b": "get disposable virtual card",
+   "greedy_4b": "getting virtual card",
+   "readout_9b": "getting virtual card",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "Where can I find a virtual card?",
+   "gold": "getting virtual card",
+   "jev": "getting virtual card",
+   "readout_4b": "get disposable virtual card",
+   "greedy_4b": "getting virtual card",
+   "readout_9b": "get disposable virtual card",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "Is there an option to have a virtual card?",
+   "gold": "getting virtual card",
+   "jev": "getting virtual card",
+   "readout_4b": "get disposable virtual card",
+   "greedy_4b": "getting virtual card",
+   "readout_9b": "get disposable virtual card",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "If I don't want a physical card can i get a virtual version?",
+   "gold": "getting virtual card",
+   "jev": "getting virtual card",
+   "readout_4b": "get disposable virtual card",
+   "greedy_4b": "getting virtual card",
+   "readout_9b": "getting virtual card",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "I requested a virtual card but it is not showing up. Why?",
+   "gold": "getting virtual card",
+   "jev": "getting virtual card",
+   "readout_4b": "virtual card not working",
+   "greedy_4b": "card arrival",
+   "readout_9b": "getting virtual card",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "My entire gym bag, including my wallet, was stolen out of my locker today. Everything in my wallet is gone - how do I block the card to make it can't be used?",
+   "gold": "lost or stolen card",
+   "jev": "lost or stolen card",
+   "readout_4b": "lost or stolen card",
+   "greedy_4b": "lost or stolen card",
+   "readout_9b": "lost or stolen card",
+   "greedy_9b": "lost or stolen card"
+  },
+  {
+   "text": "I can't find my card and think it may have been stolen.",
+   "gold": "lost or stolen card",
+   "jev": "lost or stolen card",
+   "readout_4b": "lost or stolen card",
+   "greedy_4b": "lost or stolen card",
+   "readout_9b": "lost or stolen card",
+   "greedy_9b": "lost or stolen card"
+  },
+  {
+   "text": "Someone stole my card. I need to report it stolen. I made a police report already, but how do I report it with you?",
+   "gold": "lost or stolen card",
+   "jev": "lost or stolen card",
+   "readout_4b": "lost or stolen card",
+   "greedy_4b": "lost or stolen card",
+   "readout_9b": "lost or stolen card",
+   "greedy_9b": "lost or stolen card"
+  },
+  {
+   "text": "I cant find my card, it's gone.",
+   "gold": "lost or stolen card",
+   "jev": "lost or stolen card",
+   "readout_4b": "lost or stolen card",
+   "greedy_4b": "lost or stolen card",
+   "readout_9b": "lost or stolen card",
+   "greedy_9b": "lost or stolen card"
+  },
+  {
+   "text": "My card is lost! What can I do?",
+   "gold": "lost or stolen card",
+   "jev": "lost or stolen card",
+   "readout_4b": "lost or stolen card",
+   "greedy_4b": "lost or stolen card",
+   "readout_9b": "lost or stolen card",
+   "greedy_9b": "lost or stolen card"
+  },
+  {
+   "text": "I lost my card",
+   "gold": "lost or stolen card",
+   "jev": "lost or stolen card",
+   "readout_4b": "lost or stolen card",
+   "greedy_4b": "lost or stolen card",
+   "readout_9b": "lost or stolen card",
+   "greedy_9b": "lost or stolen card"
+  },
+  {
+   "text": "My phone was stolen",
+   "gold": "lost or stolen phone",
+   "jev": "lost or stolen phone",
+   "readout_4b": "lost or stolen phone",
+   "greedy_4b": "lost or stolen phone",
+   "readout_9b": "lost or stolen phone",
+   "greedy_9b": "lost or stolen phone"
+  },
+  {
+   "text": "My phone was stolen yesterday.  What should I do?",
+   "gold": "lost or stolen phone",
+   "jev": "lost or stolen phone",
+   "readout_4b": "lost or stolen phone",
+   "greedy_4b": "lost or stolen phone",
+   "readout_9b": "lost or stolen phone",
+   "greedy_9b": "lost or stolen phone"
+  },
+  {
+   "text": "If my phone is missing, can I block someone from using the app?",
+   "gold": "lost or stolen phone",
+   "jev": "lost or stolen phone",
+   "readout_4b": "lost or stolen phone",
+   "greedy_4b": "lost or stolen phone",
+   "readout_9b": "lost or stolen phone",
+   "greedy_9b": "lost or stolen phone"
+  },
+  {
+   "text": "I think my phone is either lost or stolen.",
+   "gold": "lost or stolen phone",
+   "jev": "lost or stolen phone",
+   "readout_4b": "lost or stolen phone",
+   "greedy_4b": "lost or stolen phone",
+   "readout_9b": "lost or stolen phone",
+   "greedy_9b": "lost or stolen phone"
+  },
+  {
+   "text": "If I was mugged and lost everything, how do I access my account and app?",
+   "gold": "lost or stolen phone",
+   "jev": "lost or stolen phone",
+   "readout_4b": "lost or stolen phone",
+   "greedy_4b": "lost or stolen card",
+   "readout_9b": "lost or stolen phone",
+   "greedy_9b": "lost or stolen phone"
+  },
+  {
+   "text": "I can't find my phone.",
+   "gold": "lost or stolen phone",
+   "jev": "lost or stolen phone",
+   "readout_4b": "lost or stolen phone",
+   "greedy_4b": "lost or stolen phone",
+   "readout_9b": "lost or stolen phone",
+   "greedy_9b": "lost or stolen phone"
+  },
+  {
+   "text": "How do I receive my physical card",
+   "gold": "order physical card",
+   "jev": "get physical card",
+   "readout_4b": "get physical card",
+   "greedy_4b": "card arrival",
+   "readout_9b": "get physical card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "I want a card. What is the procedure?",
+   "gold": "order physical card",
+   "jev": "get physical card",
+   "readout_4b": "get physical card",
+   "greedy_4b": "card arrival",
+   "readout_9b": "order physical card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "What do you charge for physical cards?",
+   "gold": "order physical card",
+   "jev": "get physical card",
+   "readout_4b": "get physical card",
+   "greedy_4b": "get physical card",
+   "readout_9b": "order physical card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "Where can I get my card at?",
+   "gold": "order physical card",
+   "jev": "get physical card",
+   "readout_4b": "get physical card",
+   "greedy_4b": "card arrival",
+   "readout_9b": "get physical card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "price of physical card",
+   "gold": "order physical card",
+   "jev": "get physical card",
+   "readout_4b": "get physical card",
+   "greedy_4b": "get physical card",
+   "readout_9b": "order physical card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "Please, how do I order a card?",
+   "gold": "order physical card",
+   "jev": "order physical card",
+   "readout_4b": "order physical card",
+   "greedy_4b": "order physical card",
+   "readout_9b": "get physical card",
+   "greedy_9b": "order physical card"
+  },
+  {
+   "text": "What do I do if I forget my passcode?  Because I did.",
+   "gold": "passcode forgotten",
+   "jev": "passcode forgotten",
+   "readout_4b": "passcode forgotten",
+   "greedy_4b": "passcode forgotten",
+   "readout_9b": "passcode forgotten",
+   "greedy_9b": "passcode forgotten"
+  },
+  {
+   "text": "I can't find my password",
+   "gold": "passcode forgotten",
+   "jev": "passcode forgotten",
+   "readout_4b": "passcode forgotten",
+   "greedy_4b": "passcode forgotten",
+   "readout_9b": "passcode forgotten",
+   "greedy_9b": "passcode forgotten"
+  },
+  {
+   "text": "How do I retrieve my passcode?",
+   "gold": "passcode forgotten",
+   "jev": "passcode forgotten",
+   "readout_4b": "passcode forgotten",
+   "greedy_4b": "passcode forgotten",
+   "readout_9b": "passcode forgotten",
+   "greedy_9b": "passcode forgotten"
+  },
+  {
+   "text": "My passcode doesn't seem to be working",
+   "gold": "passcode forgotten",
+   "jev": "passcode forgotten",
+   "readout_4b": "passcode forgotten",
+   "greedy_4b": "card not working",
+   "readout_9b": "passcode forgotten",
+   "greedy_9b": "card not working"
+  },
+  {
+   "text": "I lost my password",
+   "gold": "passcode forgotten",
+   "jev": "passcode forgotten",
+   "readout_4b": "passcode forgotten",
+   "greedy_4b": "passcode forgotten",
+   "readout_9b": "passcode forgotten",
+   "greedy_9b": "passcode forgotten"
+  },
+  {
+   "text": "My password isn't being accepted and I need to reset it.",
+   "gold": "passcode forgotten",
+   "jev": "passcode forgotten",
+   "readout_4b": "change pin",
+   "greedy_4b": "change pin",
+   "readout_9b": "passcode forgotten",
+   "greedy_9b": "passcode forgotten"
+  },
+  {
+   "text": "My card payment is still on hold, why is it so?",
+   "gold": "pending card payment",
+   "jev": "pending card payment",
+   "readout_4b": "pending card payment",
+   "greedy_4b": "pending card payment",
+   "readout_9b": "pending card payment",
+   "greedy_9b": "pending card payment"
+  },
+  {
+   "text": "Why is my payment pending?",
+   "gold": "pending card payment",
+   "jev": "pending card payment",
+   "readout_4b": "pending transfer",
+   "greedy_4b": "pending card payment",
+   "readout_9b": "pending transfer",
+   "greedy_9b": "pending top up"
+  },
+  {
+   "text": "My card payment is still pending.",
+   "gold": "pending card payment",
+   "jev": "pending card payment",
+   "readout_4b": "pending card payment",
+   "greedy_4b": "pending card payment",
+   "readout_9b": "pending card payment",
+   "greedy_9b": "pending card payment"
+  },
+  {
+   "text": "How do i finalize a card payment",
+   "gold": "pending card payment",
+   "jev": "topping up by card",
+   "readout_4b": "pending card payment",
+   "greedy_4b": "card payment fee charged",
+   "readout_9b": "pending card payment",
+   "greedy_9b": "pending card payment"
+  },
+  {
+   "text": "Why is my card payment showing as pending?",
+   "gold": "pending card payment",
+   "jev": "pending card payment",
+   "readout_4b": "pending card payment",
+   "greedy_4b": "pending card payment",
+   "readout_9b": "pending card payment",
+   "greedy_9b": "pending card payment"
+  },
+  {
+   "text": "Why has my payment not gone through?",
+   "gold": "pending card payment",
+   "jev": "declined card payment",
+   "readout_4b": "pending transfer",
+   "greedy_4b": "balance not updated after bank transfer",
+   "readout_9b": "pending transfer",
+   "greedy_9b": "top up failed"
+  },
+  {
+   "text": "My withdrawl is still pending.  Why?",
+   "gold": "pending cash withdrawal",
+   "jev": "pending cash withdrawal",
+   "readout_4b": "pending cash withdrawal",
+   "greedy_4b": "Refund not showing up",
+   "readout_9b": "pending cash withdrawal",
+   "greedy_9b": "pending cash withdrawal"
+  },
+  {
+   "text": "My card was denied at an ATM earlier today but the transaction is pending. Please cancel it as I did not receive my money.",
+   "gold": "pending cash withdrawal",
+   "jev": "pending cash withdrawal",
+   "readout_4b": "pending cash withdrawal",
+   "greedy_4b": "request refund",
+   "readout_9b": "pending cash withdrawal",
+   "greedy_9b": "declined cash withdrawal"
+  },
+  {
+   "text": "My transaction is still showing that is pending from my cash withdrawal.",
+   "gold": "pending cash withdrawal",
+   "jev": "pending cash withdrawal",
+   "readout_4b": "pending cash withdrawal",
+   "greedy_4b": "pending cash withdrawal",
+   "readout_9b": "pending cash withdrawal",
+   "greedy_9b": "pending cash withdrawal"
+  },
+  {
+   "text": "Hey I tried to get some money out earlier but the machine didn't work. Now just saw the transaction still seems in progress! Can you please check what's going there, seems something is broken, I don't want to be charged for money that I haven't actually received!",
+   "gold": "pending cash withdrawal",
+   "jev": "pending cash withdrawal",
+   "readout_4b": "atm support",
+   "greedy_4b": "pending cash withdrawal",
+   "readout_9b": "pending cash withdrawal",
+   "greedy_9b": "pending cash withdrawal"
+  },
+  {
+   "text": "How long does the cash withdrawal take to pend?",
+   "gold": "pending cash withdrawal",
+   "jev": "pending cash withdrawal",
+   "readout_4b": "pending cash withdrawal",
+   "greedy_4b": "pending cash withdrawal",
+   "readout_9b": "pending cash withdrawal",
+   "greedy_9b": "pending cash withdrawal"
+  },
+  {
+   "text": "Why is it taking so long for my cash withdrawal to no longer show as pending?",
+   "gold": "pending cash withdrawal",
+   "jev": "pending cash withdrawal",
+   "readout_4b": "pending cash withdrawal",
+   "greedy_4b": "pending cash withdrawal",
+   "readout_9b": "pending cash withdrawal",
+   "greedy_9b": "pending cash withdrawal"
+  },
+  {
+   "text": "new customer and filling gas today, it's not working, the thing shows pending half an hour!",
+   "gold": "pending top up",
+   "jev": "pending card payment",
+   "readout_4b": "pending top up",
+   "greedy_4b": "top up failed",
+   "readout_9b": "pending cash withdrawal",
+   "greedy_9b": "pending cash withdrawal"
+  },
+  {
+   "text": "My card was topped this morning but I can't see the funds. Why didn't it complete?",
+   "gold": "pending top up",
+   "jev": "top up failed",
+   "readout_4b": "top up failed",
+   "greedy_4b": "top up failed",
+   "readout_9b": "pending top up",
+   "greedy_9b": "top up failed"
+  },
+  {
+   "text": "What would lead to my top up still pending?",
+   "gold": "pending top up",
+   "jev": "pending top up",
+   "readout_4b": "pending top up",
+   "greedy_4b": "pending top up",
+   "readout_9b": "pending top up",
+   "greedy_9b": "pending top up"
+  },
+  {
+   "text": "there's a delay in my top-up",
+   "gold": "pending top up",
+   "jev": "pending top up",
+   "readout_4b": "top up failed",
+   "greedy_4b": "pending top up",
+   "readout_9b": "pending top up",
+   "greedy_9b": "pending top up"
+  },
+  {
+   "text": "Is there a reason my top up hasn't gone through",
+   "gold": "pending top up",
+   "jev": "top up failed",
+   "readout_4b": "top up failed",
+   "greedy_4b": "top up failed",
+   "readout_9b": "top up failed",
+   "greedy_9b": "top up failed"
+  },
+  {
+   "text": "The top-up is pending.",
+   "gold": "pending top up",
+   "jev": "pending top up",
+   "readout_4b": "pending top up",
+   "greedy_4b": "pending top up",
+   "readout_9b": "pending top up",
+   "greedy_9b": "pending top up"
+  },
+  {
+   "text": "I did transfer, why is it pending",
+   "gold": "pending transfer",
+   "jev": "pending transfer",
+   "readout_4b": "pending transfer",
+   "greedy_4b": "pending transfer",
+   "readout_9b": "pending transfer",
+   "greedy_9b": "pending transfer"
+  },
+  {
+   "text": "How long for money transfer to show?",
+   "gold": "pending transfer",
+   "jev": "transfer timing",
+   "readout_4b": "transfer timing",
+   "greedy_4b": "transfer timing",
+   "readout_9b": "transfer timing",
+   "greedy_9b": "transfer timing"
+  },
+  {
+   "text": "Why is my transfer not done yet?",
+   "gold": "pending transfer",
+   "jev": "pending transfer",
+   "readout_4b": "pending transfer",
+   "greedy_4b": "pending transfer",
+   "readout_9b": "pending transfer",
+   "greedy_9b": "pending transfer"
+  },
+  {
+   "text": "I have a pending transfer",
+   "gold": "pending transfer",
+   "jev": "pending transfer",
+   "readout_4b": "pending transfer",
+   "greedy_4b": "pending transfer",
+   "readout_9b": "pending transfer",
+   "greedy_9b": "pending transfer"
+  },
+  {
+   "text": "I am waiting for a pending money transfer to process.",
+   "gold": "pending transfer",
+   "jev": "pending transfer",
+   "readout_4b": "pending transfer",
+   "greedy_4b": "pending transfer",
+   "readout_9b": "pending transfer",
+   "greedy_9b": "pending transfer"
+  },
+  {
+   "text": "i transfered however its still pending",
+   "gold": "pending transfer",
+   "jev": "pending transfer",
+   "readout_4b": "pending transfer",
+   "greedy_4b": "pending transfer",
+   "readout_9b": "pending transfer",
+   "greedy_9b": "balance not updated after bank transfer"
+  },
+  {
+   "text": "How do I get my PIN unlocked?",
+   "gold": "pin blocked",
+   "jev": "pin blocked",
+   "readout_4b": "pin blocked",
+   "greedy_4b": "pin blocked",
+   "readout_9b": "pin blocked",
+   "greedy_9b": "passcode forgotten"
+  },
+  {
+   "text": "Where can I view my PIN?",
+   "gold": "pin blocked",
+   "jev": "change pin",
+   "readout_4b": "change pin",
+   "greedy_4b": "change pin",
+   "readout_9b": "change pin",
+   "greedy_9b": "change pin"
+  },
+  {
+   "text": "Will you reinstate my PIN?",
+   "gold": "pin blocked",
+   "jev": "pin blocked",
+   "readout_4b": "change pin",
+   "greedy_4b": "change pin",
+   "readout_9b": "passcode forgotten",
+   "greedy_9b": "change pin"
+  },
+  {
+   "text": "I accidentally blocked my PIN. How do I reset it?",
+   "gold": "pin blocked",
+   "jev": "pin blocked",
+   "readout_4b": "pin blocked",
+   "greedy_4b": "pin blocked",
+   "readout_9b": "pin blocked",
+   "greedy_9b": "pin blocked"
+  },
+  {
+   "text": "How do I unblock my pin after entering it wrong too many times?",
+   "gold": "pin blocked",
+   "jev": "pin blocked",
+   "readout_4b": "pin blocked",
+   "greedy_4b": "pin blocked",
+   "readout_9b": "pin blocked",
+   "greedy_9b": "pin blocked"
+  },
+  {
+   "text": "I used the wrong ping too many times and now the account is blocked.  How do I unblock?",
+   "gold": "pin blocked",
+   "jev": "pin blocked",
+   "readout_4b": "verify my identity",
+   "greedy_4b": "pin blocked",
+   "readout_9b": "pin blocked",
+   "greedy_9b": "pin blocked"
+  },
+  {
+   "text": "Will salary be received through this?",
+   "gold": "receiving money",
+   "jev": "receiving money",
+   "readout_4b": "receiving money",
+   "greedy_4b": "receiving money",
+   "readout_9b": "receiving money",
+   "greedy_9b": "receiving money"
+  },
+  {
+   "text": "How can I get paid in a different currency?",
+   "gold": "receiving money",
+   "jev": "receiving money",
+   "readout_4b": "exchange via app",
+   "greedy_4b": "fiat currency support",
+   "readout_9b": "fiat currency support",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "Can I receive my salary in a currency other than what it is deposited in?",
+   "gold": "receiving money",
+   "jev": "receiving money",
+   "readout_4b": "fiat currency support",
+   "greedy_4b": "fiat currency support",
+   "readout_9b": "fiat currency support",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "Can I get my salary through this?",
+   "gold": "receiving money",
+   "jev": "receiving money",
+   "readout_4b": "receiving money",
+   "greedy_4b": "receiving money",
+   "readout_9b": "receiving money",
+   "greedy_9b": "getting virtual card"
+  },
+  {
+   "text": "How can someone send me money?",
+   "gold": "receiving money",
+   "jev": "receiving money",
+   "readout_4b": "receiving money",
+   "greedy_4b": "receiving money",
+   "readout_9b": "receiving money",
+   "greedy_9b": "receiving money"
+  },
+  {
+   "text": "Is there a problem with receiving my salary in GBP?",
+   "gold": "receiving money",
+   "jev": "receiving money",
+   "readout_4b": "receiving money",
+   "greedy_4b": "receiving money",
+   "readout_9b": "supported cards and currencies",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "Hello- It is urgent I get a refund on this product. The merchant has not been helpful, what can I do now to get this resolved ASAP?",
+   "gold": "request refund",
+   "jev": "request refund",
+   "readout_4b": "request refund",
+   "greedy_4b": "request refund",
+   "readout_9b": "request refund",
+   "greedy_9b": "exchange charge"
+  },
+  {
+   "text": "Can I receive a refund for my item?",
+   "gold": "request refund",
+   "jev": "request refund",
+   "readout_4b": "request refund",
+   "greedy_4b": "request refund",
+   "readout_9b": "request refund",
+   "greedy_9b": "exchange charge"
+  },
+  {
+   "text": "Get an item refund",
+   "gold": "request refund",
+   "jev": "request refund",
+   "readout_4b": "request refund",
+   "greedy_4b": "request refund",
+   "readout_9b": "request refund",
+   "greedy_9b": "exchange charge"
+  },
+  {
+   "text": "Would I be able to get a refund for something I bought?",
+   "gold": "request refund",
+   "jev": "request refund",
+   "readout_4b": "request refund",
+   "greedy_4b": "request refund",
+   "readout_9b": "request refund",
+   "greedy_9b": "exchange charge"
+  },
+  {
+   "text": "I need to do a refund",
+   "gold": "request refund",
+   "jev": "request refund",
+   "readout_4b": "request refund",
+   "greedy_4b": "request refund",
+   "readout_9b": "request refund",
+   "greedy_9b": "exchange charge"
+  },
+  {
+   "text": "I need a refund on an item I have not received.  Am I able to simply cancel the payment?  I don't know how to do this.",
+   "gold": "request refund",
+   "jev": "request refund",
+   "readout_4b": "request refund",
+   "greedy_4b": "request refund",
+   "readout_9b": "request refund",
+   "greedy_9b": "exchange charge"
+  },
+  {
+   "text": "I think my card payment has been stopped",
+   "gold": "reverted card payment?",
+   "jev": "declined card payment",
+   "readout_4b": "card not working",
+   "greedy_4b": "card not working",
+   "readout_9b": "card payment not recognised",
+   "greedy_9b": "card not working"
+  },
+  {
+   "text": "My card payment was reverted.  Why?",
+   "gold": "reverted card payment?",
+   "jev": "reverted card payment?",
+   "readout_4b": "reverted card payment?",
+   "greedy_4b": "reverted card payment?",
+   "readout_9b": "reverted card payment?",
+   "greedy_9b": "reverted card payment?"
+  },
+  {
+   "text": "the app reverted my payment",
+   "gold": "reverted card payment?",
+   "jev": "top up reverted",
+   "readout_4b": "reverted card payment?",
+   "greedy_4b": "top up reverted",
+   "readout_9b": "reverted card payment?",
+   "greedy_9b": "top up reverted"
+  },
+  {
+   "text": "My card payment was cancelled.",
+   "gold": "reverted card payment?",
+   "jev": "declined card payment",
+   "readout_4b": "card payment not recognised",
+   "greedy_4b": "card not working",
+   "readout_9b": "pending card payment",
+   "greedy_9b": "declined card payment"
+  },
+  {
+   "text": "Why was my payment cancelled?",
+   "gold": "reverted card payment?",
+   "jev": "declined card payment",
+   "readout_4b": "pending top up",
+   "greedy_4b": "cancel transfer",
+   "readout_9b": "cancel transfer",
+   "greedy_9b": "cancel transfer"
+  },
+  {
+   "text": "I made a payment but the app reverted the payment.",
+   "gold": "reverted card payment?",
+   "jev": "reverted card payment?",
+   "readout_4b": "top up reverted",
+   "greedy_4b": "top up reverted",
+   "readout_9b": "reverted card payment?",
+   "greedy_9b": "top up reverted"
+  },
+  {
+   "text": "To add money to my account, what currencies can I use?",
+   "gold": "supported cards and currencies",
+   "jev": "supported cards and currencies",
+   "readout_4b": "supported cards and currencies",
+   "greedy_4b": "fiat currency support",
+   "readout_9b": "supported cards and currencies",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "I need support options, I want to top my card",
+   "gold": "supported cards and currencies",
+   "jev": "topping up by card",
+   "readout_4b": "top up by bank transfer charge",
+   "greedy_4b": "topping up by card",
+   "readout_9b": "top up by bank transfer charge",
+   "greedy_9b": "topping up by card"
+  },
+  {
+   "text": "I have 1 other US card.  Can you take that?",
+   "gold": "supported cards and currencies",
+   "jev": "topping up by card",
+   "readout_4b": "card acceptance",
+   "greedy_4b": "card acceptance",
+   "readout_9b": "card acceptance",
+   "greedy_9b": "card acceptance"
+  },
+  {
+   "text": "What are the cards and currencies that are supported?",
+   "gold": "supported cards and currencies",
+   "jev": "supported cards and currencies",
+   "readout_4b": "supported cards and currencies",
+   "greedy_4b": "supported cards and currencies",
+   "readout_9b": "supported cards and currencies",
+   "greedy_9b": "supported cards and currencies"
+  },
+  {
+   "text": "What currencies are accepted for adding money?",
+   "gold": "supported cards and currencies",
+   "jev": "fiat currency support",
+   "readout_4b": "supported cards and currencies",
+   "greedy_4b": "fiat currency support",
+   "readout_9b": "supported cards and currencies",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "What kind of currencies can I use to add money?",
+   "gold": "supported cards and currencies",
+   "jev": "supported cards and currencies",
+   "readout_4b": "supported cards and currencies",
+   "greedy_4b": "fiat currency support",
+   "readout_9b": "supported cards and currencies",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "Can you remove my account please?",
+   "gold": "terminate account",
+   "jev": "terminate account",
+   "readout_4b": "terminate account",
+   "greedy_4b": "terminate account",
+   "readout_9b": "terminate account",
+   "greedy_9b": "terminate account"
+  },
+  {
+   "text": "i want to close an account but im not sure about setting up a new one in the future, what do you recommend",
+   "gold": "terminate account",
+   "jev": "terminate account",
+   "readout_4b": "terminate account",
+   "greedy_4b": "terminate account",
+   "readout_9b": "terminate account",
+   "greedy_9b": "terminate account"
+  },
+  {
+   "text": "My account needs to be deleted.",
+   "gold": "terminate account",
+   "jev": "terminate account",
+   "readout_4b": "terminate account",
+   "greedy_4b": "terminate account",
+   "readout_9b": "terminate account",
+   "greedy_9b": "terminate account"
+  },
+  {
+   "text": "I would like to delete my account please.",
+   "gold": "terminate account",
+   "jev": "terminate account",
+   "readout_4b": "terminate account",
+   "greedy_4b": "terminate account",
+   "readout_9b": "terminate account",
+   "greedy_9b": "terminate account"
+  },
+  {
+   "text": "What steps do I need to take to close my account?",
+   "gold": "terminate account",
+   "jev": "terminate account",
+   "readout_4b": "terminate account",
+   "greedy_4b": "terminate account",
+   "readout_9b": "terminate account",
+   "greedy_9b": "terminate account"
+  },
+  {
+   "text": "I'm tired of all the problems I've had. I want to quit this account!",
+   "gold": "terminate account",
+   "jev": "terminate account",
+   "readout_4b": "terminate account",
+   "greedy_4b": "terminate account",
+   "readout_9b": "terminate account",
+   "greedy_9b": "terminate account"
+  },
+  {
+   "text": "how much do you charge to accept transfers",
+   "gold": "top up by bank transfer charge",
+   "jev": "transfer fee charged",
+   "readout_4b": "transfer fee charged",
+   "greedy_4b": "transfer fee charged",
+   "readout_9b": "transfer fee charged",
+   "greedy_9b": "transfer fee charged"
+  },
+  {
+   "text": "I would like to make a transfer. How much does it cost?",
+   "gold": "top up by bank transfer charge",
+   "jev": "transfer fee charged",
+   "readout_4b": "transfer fee charged",
+   "greedy_4b": "transfer fee charged",
+   "readout_9b": "transfer fee charged",
+   "greedy_9b": "transfer fee charged"
+  },
+  {
+   "text": "I need to make a transfer, what will the fee be?",
+   "gold": "top up by bank transfer charge",
+   "jev": "transfer fee charged",
+   "readout_4b": "transfer fee charged",
+   "greedy_4b": "transfer fee charged",
+   "readout_9b": "transfer fee charged",
+   "greedy_9b": "transfer fee charged"
+  },
+  {
+   "text": "If I make a top-up are there charges applied?",
+   "gold": "top up by bank transfer charge",
+   "jev": "top up by card charge",
+   "readout_4b": "top up by bank transfer charge",
+   "greedy_4b": "top up by bank transfer charge",
+   "readout_9b": "top up by bank transfer charge",
+   "greedy_9b": "top up by card charge"
+  },
+  {
+   "text": "Can I also transfer with SWIFT?",
+   "gold": "top up by bank transfer charge",
+   "jev": "transfer into account",
+   "readout_4b": "transfer fee charged",
+   "greedy_4b": "exchange via app",
+   "readout_9b": "transfer into account",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "Are SWIFT transfers accepted?",
+   "gold": "top up by bank transfer charge",
+   "jev": "transfer into account",
+   "readout_4b": "activate my card",
+   "greedy_4b": "cancel transfer",
+   "readout_9b": "supported cards and currencies",
+   "greedy_9b": "fiat currency support"
+  },
+  {
+   "text": "Is there a fee for using a European bank card to top up?",
+   "gold": "top up by card charge",
+   "jev": "top up by card charge",
+   "readout_4b": "top up by card charge",
+   "greedy_4b": "top up by card charge",
+   "readout_9b": "top up by card charge",
+   "greedy_9b": "top up by card charge"
+  },
+  {
+   "text": "Are there any fees for adding money with an international card?",
+   "gold": "top up by card charge",
+   "jev": "top up by card charge",
+   "readout_4b": "top up by card charge",
+   "greedy_4b": "top up by card charge",
+   "readout_9b": "top up by card charge",
+   "greedy_9b": "top up by card charge"
+  },
+  {
+   "text": "i was charged when i used a us issued card. why and what cards are free to use to add money",
+   "gold": "top up by card charge",
+   "jev": "top up by card charge",
+   "readout_4b": "card payment fee charged",
+   "greedy_4b": "card payment fee charged",
+   "readout_9b": "card payment fee charged",
+   "greedy_9b": "card payment fee charged"
+  },
+  {
+   "text": "Any hidden fees associated with the international card if money is added?",
+   "gold": "top up by card charge",
+   "jev": "top up by card charge",
+   "readout_4b": "extra charge on statement",
+   "greedy_4b": "card payment fee charged",
+   "readout_9b": "top up by card charge",
+   "greedy_9b": "top up by card charge"
+  },
+  {
+   "text": "Will I get charged for topping off my card?",
+   "gold": "top up by card charge",
+   "jev": "top up by card charge",
+   "readout_4b": "topping up by card",
+   "greedy_4b": "topping up by card",
+   "readout_9b": "topping up by card",
+   "greedy_9b": "topping up by card"
+  },
+  {
+   "text": "Are there charges for topping up US cards?",
+   "gold": "top up by card charge",
+   "jev": "top up by card charge",
+   "readout_4b": "top up by card charge",
+   "greedy_4b": "top up by card charge",
+   "readout_9b": "top up by card charge",
+   "greedy_9b": "top up by card charge"
+  },
+  {
+   "text": "Can I top up by cheque?",
+   "gold": "top up by cash or cheque",
+   "jev": "top up by cash or cheque",
+   "readout_4b": "top up by cash or cheque",
+   "greedy_4b": "top up by cash or cheque",
+   "readout_9b": "top up by cash or cheque",
+   "greedy_9b": "top up by cash or cheque"
+  },
+  {
+   "text": "How do I top-up using cash?",
+   "gold": "top up by cash or cheque",
+   "jev": "top up by cash or cheque",
+   "readout_4b": "top up by cash or cheque",
+   "greedy_4b": "top up by cash or cheque",
+   "readout_9b": "top up by cash or cheque",
+   "greedy_9b": "top up by cash or cheque"
+  },
+  {
+   "text": "Can I top up with a cheque?",
+   "gold": "top up by cash or cheque",
+   "jev": "top up by cash or cheque",
+   "readout_4b": "top up by cash or cheque",
+   "greedy_4b": "top up by cash or cheque",
+   "readout_9b": "top up by cash or cheque",
+   "greedy_9b": "top up by cash or cheque"
+  },
+  {
+   "text": "Is it possible to top up with cash? If so how do I do it?",
+   "gold": "top up by cash or cheque",
+   "jev": "top up by cash or cheque",
+   "readout_4b": "top up by cash or cheque",
+   "greedy_4b": "top up by cash or cheque",
+   "readout_9b": "top up by cash or cheque",
+   "greedy_9b": "top up by cash or cheque"
+  },
+  {
+   "text": "Can you help me find top up by cash deposit?",
+   "gold": "top up by cash or cheque",
+   "jev": "top up by cash or cheque",
+   "readout_4b": "top up by cash or cheque",
+   "greedy_4b": "top up by cash or cheque",
+   "readout_9b": "top up by cash or cheque",
+   "greedy_9b": "top up by cash or cheque"
+  },
+  {
+   "text": "Is there an option to top up a with cheque?",
+   "gold": "top up by cash or cheque",
+   "jev": "top up by cash or cheque",
+   "readout_4b": "top up by cash or cheque",
+   "greedy_4b": "top up by cash or cheque",
+   "readout_9b": "top up by cash or cheque",
+   "greedy_9b": "top up by cash or cheque"
+  },
+  {
+   "text": "The app denied my topped up.",
+   "gold": "top up failed",
+   "jev": "top up failed",
+   "readout_4b": "top up failed",
+   "greedy_4b": "top up failed",
+   "readout_9b": "top up failed",
+   "greedy_9b": "top up failed"
+  },
+  {
+   "text": "Heyy I tried to top up with my card today but it failed! I just got the couple days before but it has worked last time. What's going on, can you double check please?",
+   "gold": "top up failed",
+   "jev": "top up failed",
+   "readout_4b": "top up failed",
+   "greedy_4b": "top up failed",
+   "readout_9b": "top up failed",
+   "greedy_9b": "top up failed"
+  },
+  {
+   "text": "I have a top up that didn't go through.  Why?",
+   "gold": "top up failed",
+   "jev": "top up failed",
+   "readout_4b": "top up failed",
+   "greedy_4b": "top up failed",
+   "readout_9b": "top up failed",
+   "greedy_9b": "top up failed"
+  },
+  {
+   "text": "So, I tried topping up my card for the today. Unfortunately, it failed. A couple of days back I used it and it works fine. Can you double check and tell me what's going on?",
+   "gold": "top up failed",
+   "jev": "top up failed",
+   "readout_4b": "top up failed",
+   "greedy_4b": "top up failed",
+   "readout_9b": "top up failed",
+   "greedy_9b": "top up failed"
+  },
+  {
+   "text": "Why did the app deny my top up?",
+   "gold": "top up failed",
+   "jev": "top up failed",
+   "readout_4b": "top up failed",
+   "greedy_4b": "top up failed",
+   "readout_9b": "top up failed",
+   "greedy_9b": "top up failed"
+  },
+  {
+   "text": "please tell me why my top-up failed.",
+   "gold": "top up failed",
+   "jev": "top up failed",
+   "readout_4b": "top up failed",
+   "greedy_4b": "top up failed",
+   "readout_9b": "top up failed",
+   "greedy_9b": "top up failed"
+  },
+  {
+   "text": "can you limit my top up?",
+   "gold": "top up limits",
+   "jev": "top up limits",
+   "readout_4b": "top up limits",
+   "greedy_4b": "top up limits",
+   "readout_9b": "top up limits",
+   "greedy_9b": "top up limits"
+  },
+  {
+   "text": "Am I free to top-up as much as I want?",
+   "gold": "top up limits",
+   "jev": "top up limits",
+   "readout_4b": "top up limits",
+   "greedy_4b": "top up limits",
+   "readout_9b": "top up limits",
+   "greedy_9b": "top up limits"
+  },
+  {
+   "text": "Is there a top up limit for my account?",
+   "gold": "top up limits",
+   "jev": "top up limits",
+   "readout_4b": "top up limits",
+   "greedy_4b": "top up limits",
+   "readout_9b": "top up limits",
+   "greedy_9b": "top up limits"
+  },
+  {
+   "text": "What is the limit to top up?",
+   "gold": "top up limits",
+   "jev": "top up limits",
+   "readout_4b": "top up limits",
+   "greedy_4b": "top up limits",
+   "readout_9b": "top up limits",
+   "greedy_9b": "top up limits"
+  },
+  {
+   "text": "How much money can i top up?",
+   "gold": "top up limits",
+   "jev": "top up limits",
+   "readout_4b": "top up limits",
+   "greedy_4b": "top up limits",
+   "readout_9b": "top up limits",
+   "greedy_9b": "top up limits"
+  },
+  {
+   "text": "What are the restrictions to top-offs?",
+   "gold": "top up limits",
+   "jev": "top up limits",
+   "readout_4b": "top up limits",
+   "greedy_4b": "top up limits",
+   "readout_9b": "top up limits",
+   "greedy_9b": "top up limits"
+  },
+  {
+   "text": "My top-up was cancelled; will I receive a refund?",
+   "gold": "top up reverted",
+   "jev": "request refund",
+   "readout_4b": "Refund not showing up",
+   "greedy_4b": "request refund",
+   "readout_9b": "request refund",
+   "greedy_9b": "Refund not showing up"
+  },
+  {
+   "text": "How do I fix a reverted top up?",
+   "gold": "top up reverted",
+   "jev": "top up reverted",
+   "readout_4b": "top up reverted",
+   "greedy_4b": "top up reverted",
+   "readout_9b": "top up reverted",
+   "greedy_9b": "top up reverted"
+  },
+  {
+   "text": "Is it possible to tell if my top up has reverted?",
+   "gold": "top up reverted",
+   "jev": "top up reverted",
+   "readout_4b": "top up reverted",
+   "greedy_4b": "top up reverted",
+   "readout_9b": "top up reverted",
+   "greedy_9b": "top up reverted"
+  },
+  {
+   "text": "My top-up showed as complete, but it's no longer there! What's going on here?",
+   "gold": "top up reverted",
+   "jev": "top up reverted",
+   "readout_4b": "top up reverted",
+   "greedy_4b": "top up reverted",
+   "readout_9b": "pending top up",
+   "greedy_9b": "top up reverted"
+  },
+  {
+   "text": "Hi, i don't know what's going on i've just paid for my top up twice by accident can you help me get a refund please.",
+   "gold": "top up reverted",
+   "jev": "transaction charged twice",
+   "readout_4b": "transaction charged twice",
+   "greedy_4b": "transaction charged twice",
+   "readout_9b": "transaction charged twice",
+   "greedy_9b": "transaction charged twice"
+  },
+  {
+   "text": "It seems my top up is reverted?",
+   "gold": "top up reverted",
+   "jev": "top up reverted",
+   "readout_4b": "top up reverted",
+   "greedy_4b": "top up reverted",
+   "readout_9b": "top up reverted",
+   "greedy_9b": "top up reverted"
+  },
+  {
+   "text": "How can I top up my account with a card?",
+   "gold": "topping up by card",
+   "jev": "topping up by card",
+   "readout_4b": "top up by card charge",
+   "greedy_4b": "topping up by card",
+   "readout_9b": "topping up by card",
+   "greedy_9b": "topping up by card"
+  },
+  {
+   "text": "WHERE IS MY MONEY I WAS USING MY CARD AND IT DISAPPEARED",
+   "gold": "topping up by card",
+   "jev": "card payment not recognised",
+   "readout_4b": "lost or stolen card",
+   "greedy_4b": "card not working",
+   "readout_9b": "lost or stolen card",
+   "greedy_9b": "lost or stolen card"
+  },
+  {
+   "text": "How can I top up by card?",
+   "gold": "topping up by card",
+   "jev": "topping up by card",
+   "readout_4b": "topping up by card",
+   "greedy_4b": "topping up by card",
+   "readout_9b": "topping up by card",
+   "greedy_9b": "topping up by card"
+  },
+  {
+   "text": "What is the process for using my credit card to transfer money?",
+   "gold": "topping up by card",
+   "jev": "topping up by card",
+   "readout_4b": "transfer into account",
+   "greedy_4b": "transfer into account",
+   "readout_9b": "transfer into account",
+   "greedy_9b": "transfer fee charged"
+  },
+  {
+   "text": "How do I top up my card using your app? I'm new to this.",
+   "gold": "topping up by card",
+   "jev": "topping up by card",
+   "readout_4b": "top up failed",
+   "greedy_4b": "top up failed",
+   "readout_9b": "top up by card charge",
+   "greedy_9b": "topping up by card"
+  },
+  {
+   "text": "Can friends add to my account",
+   "gold": "topping up by card",
+   "jev": "receiving money",
+   "readout_4b": "get disposable virtual card",
+   "greedy_4b": "card linking",
+   "readout_9b": "getting virtual card",
+   "greedy_9b": "transfer into account"
+  },
+  {
+   "text": "I got double charged for a payment so how do I fix that?",
+   "gold": "transaction charged twice",
+   "jev": "transaction charged twice",
+   "readout_4b": "transaction charged twice",
+   "greedy_4b": "transaction charged twice",
+   "readout_9b": "transaction charged twice",
+   "greedy_9b": "transaction charged twice"
+  },
+  {
+   "text": "I've just come back from an eating holiday in the USA and Canada and have SO many pending and duplicated transactions on my account.  I think there is something wrong, can you look in to it please?",
+   "gold": "transaction charged twice",
+   "jev": "transaction charged twice",
+   "readout_4b": "transaction charged twice",
+   "greedy_4b": "transaction charged twice",
+   "readout_9b": "transaction charged twice",
+   "greedy_9b": "transaction charged twice"
+  },
+  {
+   "text": "Why am I being charged twice fro a restaurant?",
+   "gold": "transaction charged twice",
+   "jev": "transaction charged twice",
+   "readout_4b": "transaction charged twice",
+   "greedy_4b": "transaction charged twice",
+   "readout_9b": "transaction charged twice",
+   "greedy_9b": "transaction charged twice"
+  },
+  {
+   "text": "I would like to know why I was charged twice for my purchase.",
+   "gold": "transaction charged twice",
+   "jev": "transaction charged twice",
+   "readout_4b": "transaction charged twice",
+   "greedy_4b": "transaction charged twice",
+   "readout_9b": "transaction charged twice",
+   "greedy_9b": "transaction charged twice"
+  },
+  {
+   "text": "I didn't buy this twice",
+   "gold": "transaction charged twice",
+   "jev": "transaction charged twice",
+   "readout_4b": "Refund not showing up",
+   "greedy_4b": "transaction charged twice",
+   "readout_9b": "transaction charged twice",
+   "greedy_9b": "transaction charged twice"
+  },
+  {
+   "text": "Why was I chaged twice for the same thing?",
+   "gold": "transaction charged twice",
+   "jev": "transaction charged twice",
+   "readout_4b": "transaction charged twice",
+   "greedy_4b": "transaction charged twice",
+   "readout_9b": "transaction charged twice",
+   "greedy_9b": "transaction charged twice"
+  },
+  {
+   "text": "When I made a transfer, there was a fee.  Why?",
+   "gold": "transfer fee charged",
+   "jev": "transfer fee charged",
+   "readout_4b": "transfer fee charged",
+   "greedy_4b": "transfer fee charged",
+   "readout_9b": "transfer fee charged",
+   "greedy_9b": "transfer fee charged"
+  },
+  {
+   "text": "I was charged a fee for my transfer.",
+   "gold": "transfer fee charged",
+   "jev": "transfer fee charged",
+   "readout_4b": "transfer fee charged",
+   "greedy_4b": "transfer fee charged",
+   "readout_9b": "transfer fee charged",
+   "greedy_9b": "transfer fee charged"
+  },
+  {
+   "text": "Is there a reason I was charged a fee to transfer?",
+   "gold": "transfer fee charged",
+   "jev": "transfer fee charged",
+   "readout_4b": "transfer fee charged",
+   "greedy_4b": "transfer fee charged",
+   "readout_9b": "transfer fee charged",
+   "greedy_9b": "transfer fee charged"
+  },
+  {
+   "text": "Why was a charged just for transferring?",
+   "gold": "transfer fee charged",
+   "jev": "transfer fee charged",
+   "readout_4b": "transfer fee charged",
+   "greedy_4b": "transfer fee charged",
+   "readout_9b": "transfer fee charged",
+   "greedy_9b": "transfer fee charged"
+  },
+  {
+   "text": "I had to pay in order to do a transfer",
+   "gold": "transfer fee charged",
+   "jev": "transfer fee charged",
+   "readout_4b": "transfer fee charged",
+   "greedy_4b": "transfer fee charged",
+   "readout_9b": "failed transfer",
+   "greedy_9b": "top up by bank transfer charge"
+  },
+  {
+   "text": "What is the transfer fee charge?",
+   "gold": "transfer fee charged",
+   "jev": "transfer fee charged",
+   "readout_4b": "transfer fee charged",
+   "greedy_4b": "transfer fee charged",
+   "readout_9b": "transfer fee charged",
+   "greedy_9b": "transfer fee charged"
+  },
+  {
+   "text": "Can I do a bank transfer to put additional money in my account because I am out of money?",
+   "gold": "transfer into account",
+   "jev": "transfer into account",
+   "readout_4b": "transfer into account",
+   "greedy_4b": "transfer into account",
+   "readout_9b": "transfer into account",
+   "greedy_9b": "transfer into account"
+  },
+  {
+   "text": "I'm out of money, can I add money with my bank?",
+   "gold": "transfer into account",
+   "jev": "transfer into account",
+   "readout_4b": "activate my card",
+   "greedy_4b": "unable to verify identity",
+   "readout_9b": "top up by bank transfer charge",
+   "greedy_9b": "transfer into account"
+  },
+  {
+   "text": "How do I go forth on transferring money into my account?",
+   "gold": "transfer into account",
+   "jev": "transfer into account",
+   "readout_4b": "transfer into account",
+   "greedy_4b": "transfer into account",
+   "readout_9b": "transfer into account",
+   "greedy_9b": "transfer into account"
+  },
+  {
+   "text": "I don't understand how to top up my account, can you please explain the process?",
+   "gold": "transfer into account",
+   "jev": "topping up by card",
+   "readout_4b": "top up failed",
+   "greedy_4b": "top up failed",
+   "readout_9b": "verify top up",
+   "greedy_9b": "topping up by card"
+  },
+  {
+   "text": "I don't understand the money transfer process.",
+   "gold": "transfer into account",
+   "jev": "transfer into account",
+   "readout_4b": "unable to verify identity",
+   "greedy_4b": "cancel transfer",
+   "readout_9b": "unable to verify identity",
+   "greedy_9b": "balance not updated after bank transfer"
+  },
+  {
+   "text": "I need to transfer money into my account, how do I go about doing this?",
+   "gold": "transfer into account",
+   "jev": "transfer into account",
+   "readout_4b": "transfer into account",
+   "greedy_4b": "transfer into account",
+   "readout_9b": "transfer into account",
+   "greedy_9b": "transfer into account"
+  },
+  {
+   "text": "I completed an in country transfer a few days ago and was sure to check the account information several times since the transaction was completed, but the funds are still not available. What is the problem?",
+   "gold": "transfer not received by recipient",
+   "jev": "pending transfer",
+   "readout_4b": "balance not updated after bank transfer",
+   "greedy_4b": "balance not updated after bank transfer",
+   "readout_9b": "pending transfer",
+   "greedy_9b": "balance not updated after bank transfer"
+  },
+  {
+   "text": "My money transfer has not arrived.",
+   "gold": "transfer not received by recipient",
+   "jev": "transfer not received by recipient",
+   "readout_4b": "transfer not received by recipient",
+   "greedy_4b": "balance not updated after bank transfer",
+   "readout_9b": "transfer not received by recipient",
+   "greedy_9b": "transfer not received by recipient"
+  },
+  {
+   "text": "I am still waiting for a transaction to be completed",
+   "gold": "transfer not received by recipient",
+   "jev": "pending transfer",
+   "readout_4b": "pending transfer",
+   "greedy_4b": "pending transfer",
+   "readout_9b": "pending transfer",
+   "greedy_9b": "pending transfer"
+  },
+  {
+   "text": "I made a money transaction but the recipient can't see it",
+   "gold": "transfer not received by recipient",
+   "jev": "transfer not received by recipient",
+   "readout_4b": "transfer not received by recipient",
+   "greedy_4b": "transfer not received by recipient",
+   "readout_9b": "transfer not received by recipient",
+   "greedy_9b": "transfer not received by recipient"
+  },
+  {
+   "text": "I tried to send someone money but they haven't received it.",
+   "gold": "transfer not received by recipient",
+   "jev": "transfer not received by recipient",
+   "readout_4b": "transfer not received by recipient",
+   "greedy_4b": "transfer not received by recipient",
+   "readout_9b": "transfer not received by recipient",
+   "greedy_9b": "transfer not received by recipient"
+  },
+  {
+   "text": "How long does it take for a transfer to get to a recipient?",
+   "gold": "transfer not received by recipient",
+   "jev": "transfer timing",
+   "readout_4b": "transfer timing",
+   "greedy_4b": "transfer timing",
+   "readout_9b": "transfer timing",
+   "greedy_9b": "transfer timing"
+  },
+  {
+   "text": "What is the number of days I have to wait for my Europe transfer?",
+   "gold": "transfer timing",
+   "jev": "transfer timing",
+   "readout_4b": "transfer timing",
+   "greedy_4b": "transfer timing",
+   "readout_9b": "transfer timing",
+   "greedy_9b": "transfer timing"
+  },
+  {
+   "text": "What is the wait time for a transfer from the US?",
+   "gold": "transfer timing",
+   "jev": "transfer timing",
+   "readout_4b": "transfer timing",
+   "greedy_4b": "transfer not received by recipient",
+   "readout_9b": "transfer timing",
+   "greedy_9b": "transfer timing"
+  },
+  {
+   "text": "I need a fast transfer from China?  How fast will it be?",
+   "gold": "transfer timing",
+   "jev": "transfer timing",
+   "readout_4b": "transfer timing",
+   "greedy_4b": "transfer timing",
+   "readout_9b": "transfer timing",
+   "greedy_9b": "transfer timing"
+  },
+  {
+   "text": "how soon will I see the transfer in my account?",
+   "gold": "transfer timing",
+   "jev": "transfer timing",
+   "readout_4b": "transfer timing",
+   "greedy_4b": "transfer timing",
+   "readout_9b": "transfer timing",
+   "greedy_9b": "transfer timing"
+  },
+  {
+   "text": "How many days does it take until funds are in my account?",
+   "gold": "transfer timing",
+   "jev": "transfer timing",
+   "readout_4b": "transfer timing",
+   "greedy_4b": "transfer not received by recipient",
+   "readout_9b": "transfer timing",
+   "greedy_9b": "transfer timing"
+  },
+  {
+   "text": "How long until my transfer goes through?",
+   "gold": "transfer timing",
+   "jev": "transfer timing",
+   "readout_4b": "transfer timing",
+   "greedy_4b": "transfer timing",
+   "readout_9b": "transfer timing",
+   "greedy_9b": "transfer timing"
+  },
+  {
+   "text": "I cannot verify my identity",
+   "gold": "unable to verify identity",
+   "jev": "unable to verify identity",
+   "readout_4b": "unable to verify identity",
+   "greedy_4b": "unable to verify identity",
+   "readout_9b": "unable to verify identity",
+   "greedy_9b": "beneficiary not allowed"
+  },
+  {
+   "text": "I do not have what is required to prove my identity",
+   "gold": "unable to verify identity",
+   "jev": "unable to verify identity",
+   "readout_4b": "unable to verify identity",
+   "greedy_4b": "unable to verify identity",
+   "readout_9b": "unable to verify identity",
+   "greedy_9b": "verify my identity"
+  },
+  {
+   "text": "Why doesn't the app believe I am who I say I am?",
+   "gold": "unable to verify identity",
+   "jev": "unable to verify identity",
+   "readout_4b": "why verify identity",
+   "greedy_4b": "unable to verify identity",
+   "readout_9b": "why verify identity",
+   "greedy_9b": "why verify identity"
+  },
+  {
+   "text": "I am having trouble verifying my identity.",
+   "gold": "unable to verify identity",
+   "jev": "unable to verify identity",
+   "readout_4b": "unable to verify identity",
+   "greedy_4b": "unable to verify identity",
+   "readout_9b": "verify my identity",
+   "greedy_9b": "verify my identity"
+  },
+  {
+   "text": "what do i do if my verification failed",
+   "gold": "unable to verify identity",
+   "jev": "unable to verify identity",
+   "readout_4b": "unable to verify identity",
+   "greedy_4b": "unable to verify identity",
+   "readout_9b": "unable to verify identity",
+   "greedy_9b": "verify my identity"
+  },
+  {
+   "text": "It is impossible to verify my identity",
+   "gold": "unable to verify identity",
+   "jev": "unable to verify identity",
+   "readout_4b": "unable to verify identity",
+   "greedy_4b": "unable to verify identity",
+   "readout_9b": "unable to verify identity",
+   "greedy_9b": "beneficiary not allowed"
+  },
+  {
+   "text": "What can I use to verify my identify?",
+   "gold": "verify my identity",
+   "jev": "verify my identity",
+   "readout_4b": "verify my identity",
+   "greedy_4b": "verify my identity",
+   "readout_9b": "verify my identity",
+   "greedy_9b": "verify my identity"
+  },
+  {
+   "text": "What do you need to verify my identity?",
+   "gold": "verify my identity",
+   "jev": "verify my identity",
+   "readout_4b": "verify my identity",
+   "greedy_4b": "verify my identity",
+   "readout_9b": "verify my identity",
+   "greedy_9b": "verify my identity"
+  },
+  {
+   "text": "I need to verify my identity, but how do I do that?",
+   "gold": "verify my identity",
+   "jev": "verify my identity",
+   "readout_4b": "verify my identity",
+   "greedy_4b": "verify my identity",
+   "readout_9b": "verify my identity",
+   "greedy_9b": "verify my identity"
+  },
+  {
+   "text": "How can I verify my indentity?",
+   "gold": "verify my identity",
+   "jev": "verify my identity",
+   "readout_4b": "verify my identity",
+   "greedy_4b": "verify my identity",
+   "readout_9b": "verify my identity",
+   "greedy_9b": "verify my identity"
+  },
+  {
+   "text": "What is needed to prove my identity?",
+   "gold": "verify my identity",
+   "jev": "verify my identity",
+   "readout_4b": "verify my identity",
+   "greedy_4b": "verify my identity",
+   "readout_9b": "verify my identity",
+   "greedy_9b": "verify my identity"
+  },
+  {
+   "text": "What do you need for my identity check?",
+   "gold": "verify my identity",
+   "jev": "verify my identity",
+   "readout_4b": "verify my identity",
+   "greedy_4b": "verify my identity",
+   "readout_9b": "verify my identity",
+   "greedy_9b": "verify my identity"
+  },
+  {
+   "text": "Can I verify the source of my funds?",
+   "gold": "verify source of funds",
+   "jev": "verify source of funds",
+   "readout_4b": "verify source of funds",
+   "greedy_4b": "verify source of funds",
+   "readout_9b": "verify source of funds",
+   "greedy_9b": "verify source of funds"
+  },
+  {
+   "text": "I want information about the source of funds.",
+   "gold": "verify source of funds",
+   "jev": "verify source of funds",
+   "readout_4b": "verify source of funds",
+   "greedy_4b": "verify source of funds",
+   "readout_9b": "verify source of funds",
+   "greedy_9b": "verify source of funds"
+  },
+  {
+   "text": "Where are my funds being sourced from?",
+   "gold": "verify source of funds",
+   "jev": "verify source of funds",
+   "readout_4b": "verify source of funds",
+   "greedy_4b": "verify source of funds",
+   "readout_9b": "verify source of funds",
+   "greedy_9b": "verify source of funds"
+  },
+  {
+   "text": "I would like to verify the source of my money",
+   "gold": "verify source of funds",
+   "jev": "verify source of funds",
+   "readout_4b": "verify source of funds",
+   "greedy_4b": "verify source of funds",
+   "readout_9b": "verify source of funds",
+   "greedy_9b": "verify my identity"
+  },
+  {
+   "text": "where to funds come from",
+   "gold": "verify source of funds",
+   "jev": "verify source of funds",
+   "readout_4b": "verify source of funds",
+   "greedy_4b": "verify source of funds",
+   "readout_9b": "verify source of funds",
+   "greedy_9b": "verify source of funds"
+  },
+  {
+   "text": "What is the source of my funds.",
+   "gold": "verify source of funds",
+   "jev": "verify source of funds",
+   "readout_4b": "verify source of funds",
+   "greedy_4b": "verify source of funds",
+   "readout_9b": "verify source of funds",
+   "greedy_9b": "verify source of funds"
+  },
+  {
+   "text": "What all is needed to verify the top-up card?",
+   "gold": "verify top up",
+   "jev": "verify top up",
+   "readout_4b": "verify top up",
+   "greedy_4b": "verify top up",
+   "readout_9b": "verify top up",
+   "greedy_9b": "verify top up"
+  },
+  {
+   "text": "It wants me to verify the top up. Why?",
+   "gold": "verify top up",
+   "jev": "verify top up",
+   "readout_4b": "verify top up",
+   "greedy_4b": "verify top up",
+   "readout_9b": "verify top up",
+   "greedy_9b": "verify top up"
+  },
+  {
+   "text": "Where can I find the top-up verification code?",
+   "gold": "verify top up",
+   "jev": "verify top up",
+   "readout_4b": "verify top up",
+   "greedy_4b": "verify top up",
+   "readout_9b": "verify top up",
+   "greedy_9b": "verify top up"
+  },
+  {
+   "text": "Why do I have to verify the top-up that I started?",
+   "gold": "verify top up",
+   "jev": "verify top up",
+   "readout_4b": "verify top up",
+   "greedy_4b": "verify top up",
+   "readout_9b": "verify top up",
+   "greedy_9b": "verify top up"
+  },
+  {
+   "text": "Can you give me information about verification code?",
+   "gold": "verify top up",
+   "jev": "verify my identity",
+   "readout_4b": "verify my identity",
+   "greedy_4b": "verify my identity",
+   "readout_9b": "verify my identity",
+   "greedy_9b": "verify my identity"
+  },
+  {
+   "text": "What are the benefits to verifying the top-up?",
+   "gold": "verify top up",
+   "jev": "verify top up",
+   "readout_4b": "verify top up",
+   "greedy_4b": "verify top up",
+   "readout_9b": "verify top up",
+   "greedy_9b": "verify top up"
+  },
+  {
+   "text": "Why is my disposable virtual card being denied?",
+   "gold": "virtual card not working",
+   "jev": "declined card payment",
+   "readout_4b": "disposable card limits",
+   "greedy_4b": "card not working",
+   "readout_9b": "disposable card limits",
+   "greedy_9b": "declined card payment"
+  },
+  {
+   "text": "My disposable virtual card doesn't seem to work",
+   "gold": "virtual card not working",
+   "jev": "virtual card not working",
+   "readout_4b": "virtual card not working",
+   "greedy_4b": "card not working",
+   "readout_9b": "virtual card not working",
+   "greedy_9b": "card not working"
+  },
+  {
+   "text": "My disposable virtual card is broken.",
+   "gold": "virtual card not working",
+   "jev": "virtual card not working",
+   "readout_4b": "card not working",
+   "greedy_4b": "card not working",
+   "readout_9b": "card not working",
+   "greedy_9b": "card not working"
+  },
+  {
+   "text": "My non-physical card will not work",
+   "gold": "virtual card not working",
+   "jev": "virtual card not working",
+   "readout_4b": "card not working",
+   "greedy_4b": "card not working",
+   "readout_9b": "card not working",
+   "greedy_9b": "card not working"
+  },
+  {
+   "text": "Why did the disposable virtual card which I used to pay a gym subscription get denied?",
+   "gold": "virtual card not working",
+   "jev": "declined card payment",
+   "readout_4b": "disposable card limits",
+   "greedy_4b": "declined card payment",
+   "readout_9b": "declined card payment",
+   "greedy_9b": "declined card payment"
+  },
+  {
+   "text": "Why is my virtual card is being declined?",
+   "gold": "virtual card not working",
+   "jev": "declined card payment",
+   "readout_4b": "declined card payment",
+   "greedy_4b": "declined card payment",
+   "readout_9b": "declined card payment",
+   "greedy_9b": "declined card payment"
+  },
+  {
+   "text": "I like to Mastercard rather than Visa.",
+   "gold": "visa or mastercard",
+   "jev": "visa or mastercard",
+   "readout_4b": "visa or mastercard",
+   "greedy_4b": "visa or mastercard",
+   "readout_9b": "visa or mastercard",
+   "greedy_9b": "visa or mastercard"
+  },
+  {
+   "text": "Do I qualify for a visa card?",
+   "gold": "visa or mastercard",
+   "jev": "visa or mastercard",
+   "readout_4b": "activate my card",
+   "greedy_4b": "Refund not showing up",
+   "readout_9b": "visa or mastercard",
+   "greedy_9b": "visa or mastercard"
+  },
+  {
+   "text": "How do I get a visa card?",
+   "gold": "visa or mastercard",
+   "jev": "visa or mastercard",
+   "readout_4b": "get physical card",
+   "greedy_4b": "get physical card",
+   "readout_9b": "get physical card",
+   "greedy_9b": "get physical card"
+  },
+  {
+   "text": "Do you guys accept Visa or Mastercard?",
+   "gold": "visa or mastercard",
+   "jev": "visa or mastercard",
+   "readout_4b": "visa or mastercard",
+   "greedy_4b": "visa or mastercard",
+   "readout_9b": "visa or mastercard",
+   "greedy_9b": "visa or mastercard"
+  },
+  {
+   "text": "Are both Visa and Mastercard accepted?",
+   "gold": "visa or mastercard",
+   "jev": "visa or mastercard",
+   "readout_4b": "visa or mastercard",
+   "greedy_4b": "visa or mastercard",
+   "readout_9b": "visa or mastercard",
+   "greedy_9b": "visa or mastercard"
+  },
+  {
+   "text": "Do you guys accept mastercard or visa?",
+   "gold": "visa or mastercard",
+   "jev": "visa or mastercard",
+   "readout_4b": "visa or mastercard",
+   "greedy_4b": "visa or mastercard",
+   "readout_9b": "visa or mastercard",
+   "greedy_9b": "visa or mastercard"
+  },
+  {
+   "text": "Why do you require so many details about my identity?",
+   "gold": "why verify identity",
+   "jev": "why verify identity",
+   "readout_4b": "why verify identity",
+   "greedy_4b": "why verify identity",
+   "readout_9b": "why verify identity",
+   "greedy_9b": "why verify identity"
+  },
+  {
+   "text": "I'd rather not verify my identity.",
+   "gold": "why verify identity",
+   "jev": "verify my identity",
+   "readout_4b": "unable to verify identity",
+   "greedy_4b": "unable to verify identity",
+   "readout_9b": "unable to verify identity",
+   "greedy_9b": "why verify identity"
+  },
+  {
+   "text": "do I need to verify my identity every time I log into my account?",
+   "gold": "why verify identity",
+   "jev": "verify my identity",
+   "readout_4b": "verify my identity",
+   "greedy_4b": "unable to verify identity",
+   "readout_9b": "why verify identity",
+   "greedy_9b": "verify my identity"
+  },
+  {
+   "text": "Why am I required to verify my identity?",
+   "gold": "why verify identity",
+   "jev": "why verify identity",
+   "readout_4b": "why verify identity",
+   "greedy_4b": "why verify identity",
+   "readout_9b": "why verify identity",
+   "greedy_9b": "why verify identity"
+  },
+  {
+   "text": "Can I make transfers before identity verification?",
+   "gold": "why verify identity",
+   "jev": "transfer timing",
+   "readout_4b": "unable to verify identity",
+   "greedy_4b": null,
+   "readout_9b": "unable to verify identity",
+   "greedy_9b": "verify my identity"
+  },
+  {
+   "text": "What is the need to verify my identity?",
+   "gold": "why verify identity",
+   "jev": "why verify identity",
+   "readout_4b": "verify my identity",
+   "greedy_4b": "why verify identity",
+   "readout_9b": "why verify identity",
+   "greedy_9b": "verify my identity"
+  },
+  {
+   "text": "I don't know if this is an issue with the ATM or my account, but I just tried withdrawing 30 pounds from the ATM I'm at now and it only gave me 10. Is this a glitch or what exactly is going on?",
+   "gold": "wrong amount of cash received",
+   "jev": "wrong amount of cash received",
+   "readout_4b": "atm support",
+   "greedy_4b": "atm support",
+   "readout_9b": "wrong amount of cash received",
+   "greedy_9b": "wrong amount of cash received"
+  },
+  {
+   "text": "I didn't get all the cash I requested for at the ATM",
+   "gold": "wrong amount of cash received",
+   "jev": "wrong amount of cash received",
+   "readout_4b": "wrong amount of cash received",
+   "greedy_4b": "wrong amount of cash received",
+   "readout_9b": "wrong amount of cash received",
+   "greedy_9b": "cash withdrawal not recognised"
+  },
+  {
+   "text": "How come the ATM gave me less cash than what I asked for?",
+   "gold": "wrong amount of cash received",
+   "jev": "wrong amount of cash received",
+   "readout_4b": "why verify identity",
+   "greedy_4b": "wrong amount of cash received",
+   "readout_9b": "wrong amount of cash received",
+   "greedy_9b": "wrong amount of cash received"
+  },
+  {
+   "text": "Why did I not get my cash back after I withdrew?",
+   "gold": "wrong amount of cash received",
+   "jev": "wrong amount of cash received",
+   "readout_4b": "cash withdrawal not recognised",
+   "greedy_4b": "wrong exchange rate for cash withdrawal",
+   "readout_9b": "Refund not showing up",
+   "greedy_9b": "Refund not showing up"
+  },
+  {
+   "text": "I got less cash than the one I specified in the ATM",
+   "gold": "wrong amount of cash received",
+   "jev": "wrong amount of cash received",
+   "readout_4b": "wrong amount of cash received",
+   "greedy_4b": "wrong amount of cash received",
+   "readout_9b": "wrong amount of cash received",
+   "greedy_9b": "wrong amount of cash received"
+  },
+  {
+   "text": "The amount of cash I received was incorrect",
+   "gold": "wrong amount of cash received",
+   "jev": "wrong amount of cash received",
+   "readout_4b": "wrong amount of cash received",
+   "greedy_4b": "wrong amount of cash received",
+   "readout_9b": "wrong amount of cash received",
+   "greedy_9b": "wrong amount of cash received"
+  },
+  {
+   "text": "I did not get the right amount of money when I used a different country's currency.",
+   "gold": "wrong exchange rate for cash withdrawal",
+   "jev": "exchange rate",
+   "readout_4b": "wrong exchange rate for cash withdrawal",
+   "greedy_4b": "card payment wrong exchange rate",
+   "readout_9b": "card payment wrong exchange rate",
+   "greedy_9b": "card payment wrong exchange rate"
+  },
+  {
+   "text": "I took out money from a transaction machine and it exchanged the wrong dollar value amount from another currency!",
+   "gold": "wrong exchange rate for cash withdrawal",
+   "jev": "wrong exchange rate for cash withdrawal",
+   "readout_4b": "wrong exchange rate for cash withdrawal",
+   "greedy_4b": "wrong exchange rate for cash withdrawal",
+   "readout_9b": "wrong exchange rate for cash withdrawal",
+   "greedy_9b": "wrong exchange rate for cash withdrawal"
+  },
+  {
+   "text": "I made a withdraw from the ATM this past holiday and it seems like a was charged too much. If I would have   known about these charges I wouldn't have made a withdraw.",
+   "gold": "wrong exchange rate for cash withdrawal",
+   "jev": "cash withdrawal charge",
+   "readout_4b": "atm support",
+   "greedy_4b": "cash withdrawal charge",
+   "readout_9b": "cash withdrawal charge",
+   "greedy_9b": "cash withdrawal charge"
+  },
+  {
+   "text": "Can you look to make sure the exchange rate is correct",
+   "gold": "wrong exchange rate for cash withdrawal",
+   "jev": "exchange rate",
+   "readout_4b": "card payment wrong exchange rate",
+   "greedy_4b": "exchange rate",
+   "readout_9b": "exchange rate",
+   "greedy_9b": "exchange rate"
+  },
+  {
+   "text": "Exchange rate for my cash withdrawal is wrong",
+   "gold": "wrong exchange rate for cash withdrawal",
+   "jev": "wrong exchange rate for cash withdrawal",
+   "readout_4b": "wrong exchange rate for cash withdrawal",
+   "greedy_4b": "wrong exchange rate for cash withdrawal",
+   "readout_9b": "wrong exchange rate for cash withdrawal",
+   "greedy_9b": "wrong exchange rate for cash withdrawal"
+  },
+  {
+   "text": "Hello. I'm on holiday and didn't bring any cash with me. I need to withdrawal my home currency from one of your machines. Do you have any that will do this and is there a charge?",
+   "gold": "wrong exchange rate for cash withdrawal",
+   "jev": "atm support",
+   "readout_4b": "cash withdrawal charge",
+   "greedy_4b": "cash withdrawal charge",
+   "readout_9b": "cash withdrawal charge",
+   "greedy_9b": "cash withdrawal charge"
+  }
+ ]
+}

@@ -1,0 +1,250 @@
+{
+ "long": {
+  "label": "long",
+  "n_requests": 10,
+  "n_questions": 50,
+  "ms_old_mean": 22154,
+  "ms_new_mean": 3696,
+  "speedup_mean": 5.32,
+  "parity": {
+   "argmax_flips": "0/50",
+   "max_abs_conf_delta": 0.0311,
+   "mean_abs_conf_delta": 0.00719
+  },
+  "per_request": [
+   {
+    "i": 1,
+    "n_q": 5,
+    "ms_old": 47455,
+    "ms_new": 7565,
+    "speedup": 6.27
+   },
+   {
+    "i": 2,
+    "n_q": 5,
+    "ms_old": 57748,
+    "ms_new": 7851,
+    "speedup": 7.36
+   },
+   {
+    "i": 3,
+    "n_q": 5,
+    "ms_old": 19636,
+    "ms_new": 4032,
+    "speedup": 4.87
+   },
+   {
+    "i": 4,
+    "n_q": 5,
+    "ms_old": 7881,
+    "ms_new": 2295,
+    "speedup": 3.43
+   },
+   {
+    "i": 5,
+    "n_q": 5,
+    "ms_old": 8763,
+    "ms_new": 1789,
+    "speedup": 4.9
+   },
+   {
+    "i": 6,
+    "n_q": 5,
+    "ms_old": 7164,
+    "ms_new": 1907,
+    "speedup": 3.76
+   },
+   {
+    "i": 7,
+    "n_q": 5,
+    "ms_old": 39271,
+    "ms_new": 4991,
+    "speedup": 7.87
+   },
+   {
+    "i": 8,
+    "n_q": 5,
+    "ms_old": 8171,
+    "ms_new": 1769,
+    "speedup": 4.62
+   },
+   {
+    "i": 9,
+    "n_q": 5,
+    "ms_old": 18384,
+    "ms_new": 2920,
+    "speedup": 6.3
+   },
+   {
+    "i": 10,
+    "n_q": 5,
+    "ms_old": 7070,
+    "ms_new": 1845,
+    "speedup": 3.83
+   }
+  ]
+ },
+ "short": {
+  "label": "short",
+  "n_requests": 21,
+  "n_questions": 105,
+  "ms_old_mean": 1649,
+  "ms_new_mean": 1071,
+  "speedup_mean": 1.55,
+  "parity": {
+   "argmax_flips": "2/105",
+   "max_abs_conf_delta": 0.031,
+   "mean_abs_conf_delta": 0.00765
+  },
+  "per_request": [
+   {
+    "i": 1,
+    "n_q": 5,
+    "ms_old": 1511,
+    "ms_new": 1038,
+    "speedup": 1.45
+   },
+   {
+    "i": 2,
+    "n_q": 5,
+    "ms_old": 1406,
+    "ms_new": 1085,
+    "speedup": 1.3
+   },
+   {
+    "i": 3,
+    "n_q": 5,
+    "ms_old": 1612,
+    "ms_new": 1024,
+    "speedup": 1.57
+   },
+   {
+    "i": 4,
+    "n_q": 5,
+    "ms_old": 1613,
+    "ms_new": 987,
+    "speedup": 1.63
+   },
+   {
+    "i": 5,
+    "n_q": 5,
+    "ms_old": 1625,
+    "ms_new": 1035,
+    "speedup": 1.57
+   },
+   {
+    "i": 6,
+    "n_q": 5,
+    "ms_old": 1732,
+    "ms_new": 1274,
+    "speedup": 1.36
+   },
+   {
+    "i": 7,
+    "n_q": 5,
+    "ms_old": 1667,
+    "ms_new": 1025,
+    "speedup": 1.63
+   },
+   {
+    "i": 8,
+    "n_q": 5,
+    "ms_old": 1630,
+    "ms_new": 1013,
+    "speedup": 1.61
+   },
+   {
+    "i": 9,
+    "n_q": 5,
+    "ms_old": 1951,
+    "ms_new": 1393,
+    "speedup": 1.4
+   },
+   {
+    "i": 10,
+    "n_q": 5,
+    "ms_old": 1536,
+    "ms_new": 973,
+    "speedup": 1.58
+   },
+   {
+    "i": 11,
+    "n_q": 5,
+    "ms_old": 1581,
+    "ms_new": 979,
+    "speedup": 1.62
+   },
+   {
+    "i": 12,
+    "n_q": 5,
+    "ms_old": 1756,
+    "ms_new": 1250,
+    "speedup": 1.4
+   },
+   {
+    "i": 13,
+    "n_q": 5,
+    "ms_old": 1565,
+    "ms_new": 1008,
+    "speedup": 1.55
+   },
+   {
+    "i": 14,
+    "n_q": 5,
+    "ms_old": 1635,
+    "ms_new": 1064,
+    "speedup": 1.54
+   },
+   {
+    "i": 15,
+    "n_q": 5,
+    "ms_old": 2476,
+    "ms_new": 1072,
+    "speedup": 2.31
+   },
+   {
+    "i": 16,
+    "n_q": 5,
+    "ms_old": 1654,
+    "ms_new": 1069,
+    "speedup": 1.55
+   },
+   {
+    "i": 17,
+    "n_q": 5,
+    "ms_old": 1571,
+    "ms_new": 1065,
+    "speedup": 1.48
+   },
+   {
+    "i": 18,
+    "n_q": 5,
+    "ms_old": 1559,
+    "ms_new": 1026,
+    "speedup": 1.52
+   },
+   {
+    "i": 19,
+    "n_q": 5,
+    "ms_old": 1417,
+    "ms_new": 978,
+    "speedup": 1.45
+   },
+   {
+    "i": 20,
+    "n_q": 5,
+    "ms_old": 1561,
+    "ms_new": 1063,
+    "speedup": 1.47
+   },
+   {
+    "i": 21,
+    "n_q": 5,
+    "ms_old": 1571,
+    "ms_new": 1064,
+    "speedup": 1.48
+   }
+  ]
+ },
+ "note": "old = served Decider path (state re-prefilled per question per rotation); new = one state forward + suffix fan-out (score_shared_pairs). Parity expectation: the documented bf16 cache-boundary class (0 flips, conf delta <= 0.02)."
+}

@@ -1,0 +1,44 @@
+{
+ "n_states": 30,
+ "reps": 3,
+ "head_layer": 16,
+ "n_blocks": 32,
+ "with_mass": {
+  "ms_per_decision": {
+   "mean": 196.4,
+   "p50": 171.3
+  },
+  "prefills": 1,
+  "forward": "full depth (blocks 0..32)"
+ },
+ "no_mass": {
+  "ms_per_decision": {
+   "mean": 95.9,
+   "p50": 83.2
+  },
+  "prefills": 1,
+  "forward": "early exit at block 16"
+ },
+ "speedup": 2.05,
+ "parity": {
+  "n": 30,
+  "argmax_flips": 0,
+  "max_abs_conf_delta": 0.0
+ },
+ "gpu": {
+  "with_mass": null,
+  "note": "GPU sampled across the interleaved run (both modes share the process); per-mode GPU delta = ms ratio on a saturated device"
+ },
+ "resources": {
+  "rss_mb_mean": 2806.2,
+  "rss_mb_peak": 2807.8,
+  "cpu_pct_1core_mean": 5.5,
+  "cpu_pct_1core_peak": 7.6,
+  "cpu_pct_machine_mean": 0.5,
+  "n_samples": 49,
+  "gpu_pct_of_gpu_mean": 84.5,
+  "gpu_pct_of_gpu_peak": 89.5,
+  "gpu_samples": 49
+ },
+ "flag": "--no-mass on decide/proxy.py (or DECIDE_NO_MASS=1); mass logs as None; guard code kept, gated. SystemOne endpoint unaffected (L2 already early-exits; L0 mass is free)."
+}

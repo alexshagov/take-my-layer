@@ -1,0 +1,18 @@
+{
+ "n_items": 60,
+ "sampler": {
+  "rss_mb_mean": 2803.9,
+  "rss_mb_peak": 2805.7,
+  "cpu_pct_1core_mean": 8.2,
+  "cpu_pct_1core_peak": 19.0,
+  "cpu_pct_machine_mean": 0.8,
+  "n_samples": 132,
+  "gpu_pct_of_gpu_mean": 92.7,
+  "gpu_pct_of_gpu_peak": 99.2,
+  "gpu_samples": 73
+ },
+ "latency_ms": {
+  "p50": 1110,
+  "p95": 1155
+ }
+}

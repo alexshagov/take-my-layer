@@ -1,0 +1,9 @@
+# Metal-enabled wheels from PyPI (installed by the Nix dev shell via uv).
+# PINNED to 0.32.0 (needs Python >= 3.11): decide/core/mlx_backend.py imports
+# non-public mlx-lm internals (create_attention_mask, create_ssm_mask,
+# make_prompt_cache, model.language_model.model.layers). Measured with mlx 0.32.3.
+mlx-lm==0.32.0
+# decision-layer core (DECIDE.md): numpy-only, backends pluggable.
+# PINNED to 0.2.0: 0.3.0 removed the L1/L2 head machinery (fit_head /
+# load_artifact / level="auto") this repo's proxy + fitting scripts are built on.
+anyjev==0.2.0

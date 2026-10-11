@@ -1,0 +1,476 @@
+{
+ "protocol": "BLIND external judge: Claude Opus, fresh session, sheet only, different model family from the base (Qwen) and from Jev; judge-agreement, NOT human-verified accuracy",
+ "selection": {
+  "indices": [
+   0,
+   1,
+   4,
+   6,
+   7,
+   9
+  ],
+  "source": "data/eval/questions_long.jsonl",
+  "protocol": "blind: no model answers shown",
+  "selection": "length-stratified deterministic: 2 shortest / 2 middle / 2 longest"
+ },
+ "n_decisions": 30,
+ "ours_vs_judge": {
+  "exact": 20,
+  "frac": 0.667
+ },
+ "jev_vs_judge": {
+  "exact": 25,
+  "frac": 0.833
+ },
+ "anatomy": {
+  "all_three_agree": 18,
+  "judge_and_ours_only": 2,
+  "judge_and_jev_only": 7,
+  "judge_neither": 3
+ },
+ "score_items": {
+  "n": 7,
+  "ours_exact": 3,
+  "ours_within_one_level": 7,
+  "jev_exact": 5,
+  "jev_within_one_level": 7
+ },
+ "illegal_judge_answers": [],
+ "judge_quality_flags": [
+  "state row 1: delivery log has impossible dates (Feb 29 - Feb 44) - template-generator artifact",
+  "state row 1: qid credit_note_issue does not match its text (coaching)",
+  "state row 0: log 14.2% @13:27 inconsistent with 6.9% metric line",
+  "(judge reports none of these changed its answers)"
+ ],
+ "rows": [
+  {
+   "idx": 0,
+   "qid": "root_cause",
+   "type": "Choice",
+   "judge": "deploy-v2.14.3-fx-cache-path",
+   "ours": "deploy-v2.14.3-fx-cache-path",
+   "jev": "deploy-v2.14.3-fx-cache-path",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 0,
+   "qid": "severity",
+   "type": "Score",
+   "judge": "sev1",
+   "ours": "sev1",
+   "jev": "sev1",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": true,
+   "jev_within1": true,
+   "levels": [
+    "sev3",
+    "sev2",
+    "sev1"
+   ]
+  },
+  {
+   "idx": 0,
+   "qid": "rollback_now",
+   "type": "Noul",
+   "judge": "yes",
+   "ours": "yes",
+   "jev": "yes",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 0,
+   "qid": "customer_comms",
+   "type": "Noul",
+   "judge": "no",
+   "ours": "yes",
+   "jev": "no",
+   "j_ok": false,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 0,
+   "qid": "next_action",
+   "type": "Choice",
+   "judge": "feature-flag-off-fx-cache",
+   "ours": "feature-flag-off-fx-cache",
+   "jev": "feature-flag-off-fx-cache",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 1,
+   "qid": "route",
+   "type": "Choice",
+   "judge": "customer-success-manager",
+   "ours": "customer-success-manager",
+   "jev": "retention-specialist",
+   "j_ok": true,
+   "v_ok": false,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 1,
+   "qid": "sentiment",
+   "type": "Score",
+   "judge": "angry",
+   "ours": "angry",
+   "jev": "angry",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": true,
+   "jev_within1": true,
+   "levels": [
+    "frustrated",
+    "angry",
+    "furious"
+   ]
+  },
+  {
+   "idx": 1,
+   "qid": "credit_adequate",
+   "type": "Noul",
+   "judge": "yes",
+   "ours": "yes",
+   "jev": "yes",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 1,
+   "qid": "churn_risk",
+   "type": "Score",
+   "judge": "high",
+   "ours": "critical",
+   "jev": "high",
+   "j_ok": false,
+   "v_ok": true,
+   "ours_within1": true,
+   "jev_within1": true,
+   "levels": [
+    "medium",
+    "high",
+    "critical"
+   ]
+  },
+  {
+   "idx": 1,
+   "qid": "credit_note_issue",
+   "type": "Noul",
+   "judge": "yes",
+   "ours": "yes",
+   "jev": "yes",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 4,
+   "qid": "action",
+   "type": "Choice",
+   "judge": "remove-attacks-dm-usera-resources",
+   "ours": "remove-attacks-dm-usera-resources",
+   "jev": "remove-attacks-dm-usera-resources",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 4,
+   "qid": "harassment_established",
+   "type": "Noul",
+   "judge": "yes",
+   "ours": "yes",
+   "jev": "yes",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 4,
+   "qid": "welfare_concern",
+   "type": "Noul",
+   "judge": "yes",
+   "ours": "yes",
+   "jev": "yes",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 4,
+   "qid": "severity",
+   "type": "Score",
+   "judge": "medium",
+   "ours": "high",
+   "jev": "high",
+   "j_ok": false,
+   "v_ok": false,
+   "ours_within1": true,
+   "jev_within1": true,
+   "levels": [
+    "low",
+    "medium",
+    "high"
+   ]
+  },
+  {
+   "idx": 4,
+   "qid": "history_mitigates",
+   "type": "Noul",
+   "judge": "no",
+   "ours": "no",
+   "jev": "yes",
+   "j_ok": true,
+   "v_ok": false,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 6,
+   "qid": "release_path",
+   "type": "Choice",
+   "judge": "hold-for-manufacturer-assessment",
+   "ours": "hold-for-manufacturer-assessment",
+   "jev": "hold-for-manufacturer-assessment",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 6,
+   "qid": "within_tolerance",
+   "type": "Noul",
+   "judge": "yes",
+   "ours": "yes",
+   "jev": "yes",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 6,
+   "qid": "protocol_permits_release",
+   "type": "Noul",
+   "judge": "no",
+   "ours": "yes",
+   "jev": "no",
+   "j_ok": false,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 6,
+   "qid": "urgency",
+   "type": "Score",
+   "judge": "critical",
+   "ours": "critical",
+   "jev": "critical",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": true,
+   "jev_within1": true,
+   "levels": [
+    "high",
+    "critical"
+   ]
+  },
+  {
+   "idx": 6,
+   "qid": "carrier_liability",
+   "type": "Noul",
+   "judge": "no",
+   "ours": "yes",
+   "jev": "yes",
+   "j_ok": false,
+   "v_ok": false,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 7,
+   "qid": "covered_loss",
+   "type": "Noul",
+   "judge": "yes",
+   "ours": "yes",
+   "jev": "yes",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 7,
+   "qid": "wear_teardown",
+   "type": "Noul",
+   "judge": "yes",
+   "ours": "no",
+   "jev": "yes",
+   "j_ok": false,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 7,
+   "qid": "next_step",
+   "type": "Choice",
+   "judge": "offer-storm-element-with-explanation",
+   "ours": "offer-storm-element-with-explanation",
+   "jev": "offer-storm-element-with-explanation",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 7,
+   "qid": "ombudsman_risk",
+   "type": "Score",
+   "judge": "medium",
+   "ours": "high",
+   "jev": "high",
+   "j_ok": false,
+   "v_ok": false,
+   "ours_within1": true,
+   "jev_within1": true,
+   "levels": [
+    "low",
+    "medium",
+    "high"
+   ]
+  },
+  {
+   "idx": 7,
+   "qid": "loyalty_factor",
+   "type": "Noul",
+   "judge": "yes",
+   "ours": "yes",
+   "jev": "yes",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 9,
+   "qid": "offer",
+   "type": "Choice",
+   "judge": "10-15k-goodwill-band",
+   "ours": "5.5k-plus-roadmap-commitments",
+   "jev": "10-15k-goodwill-band",
+   "j_ok": false,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 9,
+   "qid": "legally_owed",
+   "type": "Noul",
+   "judge": "no",
+   "ours": "no",
+   "jev": "no",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 9,
+   "qid": "churn_if_firm",
+   "type": "Score",
+   "judge": "high",
+   "ours": "critical",
+   "jev": "high",
+   "j_ok": false,
+   "v_ok": true,
+   "ours_within1": true,
+   "jev_within1": true,
+   "levels": [
+    "medium",
+    "high",
+    "critical"
+   ]
+  },
+  {
+   "idx": 9,
+   "qid": "pr_risk",
+   "type": "Noul",
+   "judge": "yes",
+   "ours": "yes",
+   "jev": "yes",
+   "j_ok": true,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  },
+  {
+   "idx": 9,
+   "qid": "exec_call",
+   "type": "Noul",
+   "judge": "yes",
+   "ours": "no",
+   "jev": "yes",
+   "j_ok": false,
+   "v_ok": true,
+   "ours_within1": false,
+   "jev_within1": false,
+   "levels": []
+  }
+ ],
+ "generation_vs_judge": {
+  "n": 30,
+  "readout": {
+   "exact": 20,
+   "frac": 0.667
+  },
+  "greedy": {
+   "exact": 19,
+   "frac": 0.633
+  },
+  "note": "joined from bench_vs_generate.long.json per_q (same items); judge = blind Claude Opus labels"
+ }
+}

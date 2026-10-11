@@ -1,0 +1,4562 @@
+{
+ "benchmark": "BANKING77 full-77-way (mteb/banking77 test split) \u2014 all 77 intents, 500 gold items (~6-7/class, Unsloth's cut size), multi-token loglikelihood option scoring",
+ "model": "mlx-community/Qwen3.5-9B-MLX-4bit",
+ "method": {
+  "readout": "zero-training L0 readout: per-option sum log-softmax continuations off one prompt-cache copy per rotation (score_suffix_sum), softmax over the 77 sums, batch prior (0.75, position space, min_n=8) + cyclic-shift marginalization (logmean) \u2014 same building blocks as the served pipeline; nothing fit on banking77",
+  "greedy": "temp-0 decode, same prompt (identity listing order), answers parsed longest-first containment vs the 77 labels",
+  "rotations": 2,
+  "continuation": "bare",
+  "prior_used": true
+ },
+ "readout": {
+  "accuracy": 0.664,
+  "accuracy_wilson95": [
+   0.621,
+   0.704
+  ],
+  "macro_f1": 0.6468,
+  "rotation_flips": "60/500",
+  "latency_ms": {
+   "p50": 9295,
+   "p95": 10649
+  }
+ },
+ "readout_ablation_no_prior": {
+  "accuracy": 0.648,
+  "accuracy_wilson95": [
+   0.605,
+   0.689
+  ],
+  "macro_f1": 0.6271
+ },
+ "greedy": {
+  "accuracy": 0.608,
+  "accuracy_wilson95": [
+   0.565,
+   0.65
+  ],
+  "macro_f1": 0.5822,
+  "parse_failures": 0,
+  "latency_ms": {
+   "p50": 1127,
+   "p95": 1309
+  }
+ },
+ "paired": {
+  "only_readout_right": 57,
+  "only_greedy_right": 29,
+  "mcnemar_exact_p": 0.00335
+ },
+ "chance": 0.013,
+ "context": "published full-77-way macro-F1 (Cloudflare Clef table): Clef 94.2 / Clef-flash 90.9 / Jev 79.7; Unsloth trained 0.8B 74% / 2B 58% accuracy \u2014 TRAINED, in-distribution (banking77 is in their training mix); ours is zero-training frozen 4-bit",
+ "length_bias_diagnostic": {
+  "mean_tokens": {
+   "readout": 3.28,
+   "greedy": 3.36,
+   "gold": 3.5
+  }
+ },
+ "max_tokens": 24,
+ "rows": [
+  {
+   "text": "The refund isn't showing up on my account.",
+   "gold": "Refund not showing up",
+   "readout": "Refund not showing up",
+   "greedy": "Refund not showing up",
+   "readout_no_prior": "Refund not showing up",
+   "conf": 0.9997,
+   "rot_flip": false
+  },
+  {
+   "text": "My refund is missing from my statement.",
+   "gold": "Refund not showing up",
+   "readout": "Refund not showing up",
+   "greedy": "Refund not showing up",
+   "readout_no_prior": "Refund not showing up",
+   "conf": 0.9999,
+   "rot_flip": false
+  },
+  {
+   "text": "I requested a refund, and never received it. What can I do?",
+   "gold": "Refund not showing up",
+   "readout": "Refund not showing up",
+   "greedy": "exchange charge",
+   "readout_no_prior": "Refund not showing up",
+   "conf": 0.966,
+   "rot_flip": false
+  },
+  {
+   "text": "I was supposed to get a purchase refunded but I don't see the money in my account",
+   "gold": "Refund not showing up",
+   "readout": "Refund not showing up",
+   "greedy": "Refund not showing up",
+   "readout_no_prior": "Refund not showing up",
+   "conf": 0.9989,
+   "rot_flip": false
+  },
+  {
+   "text": "There's a refund missing from my statement",
+   "gold": "Refund not showing up",
+   "readout": "Refund not showing up",
+   "greedy": "Refund not showing up",
+   "readout_no_prior": "Refund not showing up",
+   "conf": 0.9997,
+   "rot_flip": false
+  },
+  {
+   "text": "I need help. I asked for a refund from a merchant a while ago, but I have not gotten my money back. I keep checking my account, but nothing is showing up. What should I do now?",
+   "gold": "Refund not showing up",
+   "readout": "Refund not showing up",
+   "greedy": "Refund not showing up",
+   "readout_no_prior": "Refund not showing up",
+   "conf": 0.9979,
+   "rot_flip": false
+  },
+  {
+   "text": "I am awaiting my refund",
+   "gold": "Refund not showing up",
+   "readout": "request refund",
+   "greedy": "request refund",
+   "readout_no_prior": "request refund",
+   "conf": 0.9654,
+   "rot_flip": false
+  },
+  {
+   "text": "Could you please activate my card",
+   "gold": "activate my card",
+   "readout": "activate my card",
+   "greedy": "activate my card",
+   "readout_no_prior": "activate my card",
+   "conf": 0.2909,
+   "rot_flip": false
+  },
+  {
+   "text": "I need to activate my card can you do that now?",
+   "gold": "activate my card",
+   "readout": "activate my card",
+   "greedy": "activate my card",
+   "readout_no_prior": "activate my card",
+   "conf": 0.3896,
+   "rot_flip": false
+  },
+  {
+   "text": "What do I need to do to activate my new card?",
+   "gold": "activate my card",
+   "readout": "activate my card",
+   "greedy": "get physical card",
+   "readout_no_prior": "activate my card",
+   "conf": 0.1472,
+   "rot_flip": false
+  },
+  {
+   "text": "Tell me how to go about activating my new card?",
+   "gold": "activate my card",
+   "readout": "activate my card",
+   "greedy": "activate my card",
+   "readout_no_prior": "activate my card",
+   "conf": 0.4182,
+   "rot_flip": false
+  },
+  {
+   "text": "How can I activate my card so I can start using it?",
+   "gold": "activate my card",
+   "readout": "activate my card",
+   "greedy": "activate my card",
+   "readout_no_prior": "activate my card",
+   "conf": 0.4459,
+   "rot_flip": false
+  },
+  {
+   "text": "How long will it take to activate my new card?",
+   "gold": "activate my card",
+   "readout": "get physical card",
+   "greedy": "get physical card",
+   "readout_no_prior": "activate my card",
+   "conf": 0.129,
+   "rot_flip": false
+  },
+  {
+   "text": "What's the right way to activate my card?",
+   "gold": "activate my card",
+   "readout": "activate my card",
+   "greedy": "activate my card",
+   "readout_no_prior": "activate my card",
+   "conf": 0.4649,
+   "rot_flip": false
+  },
+  {
+   "text": "how old do i need to be to get an account for myself",
+   "gold": "age limit",
+   "readout": "age limit",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "age limit",
+   "conf": 0.4243,
+   "rot_flip": false
+  },
+  {
+   "text": "How young can I be to open my own account?",
+   "gold": "age limit",
+   "readout": "age limit",
+   "greedy": "edit personal details",
+   "readout_no_prior": "age limit",
+   "conf": 0.7672,
+   "rot_flip": false
+  },
+  {
+   "text": "How old do I have to be?",
+   "gold": "age limit",
+   "readout": "age limit",
+   "greedy": "age limit",
+   "readout_no_prior": "age limit",
+   "conf": 0.8903,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I open an account for a child?",
+   "gold": "age limit",
+   "readout": "get disposable virtual card",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.0972,
+   "rot_flip": false
+  },
+  {
+   "text": "How old do we have to be?",
+   "gold": "age limit",
+   "readout": "age limit",
+   "greedy": "age limit",
+   "readout_no_prior": "age limit",
+   "conf": 0.9378,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I go about setting up an account for my daughter?",
+   "gold": "age limit",
+   "readout": "getting virtual card",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.1771,
+   "rot_flip": false
+  },
+  {
+   "text": "Is there an age minimum?",
+   "gold": "age limit",
+   "readout": "age limit",
+   "greedy": "age limit",
+   "readout_no_prior": "age limit",
+   "conf": 0.8253,
+   "rot_flip": false
+  },
+  {
+   "text": "Is the top up feature available on the Apple Watch?",
+   "gold": "apple pay or google pay",
+   "readout": "verify top up",
+   "greedy": "top up limits",
+   "readout_no_prior": "verify top up",
+   "conf": 0.0802,
+   "rot_flip": true
+  },
+  {
+   "text": "Can I use the system Google Pay for top-ups?",
+   "gold": "apple pay or google pay",
+   "readout": "apple pay or google pay",
+   "greedy": "apple pay or google pay",
+   "readout_no_prior": "apple pay or google pay",
+   "conf": 0.458,
+   "rot_flip": false
+  },
+  {
+   "text": "My top-up for Google Pay isn't working",
+   "gold": "apple pay or google pay",
+   "readout": "top up failed",
+   "greedy": "top up failed",
+   "readout_no_prior": "top up failed",
+   "conf": 0.2984,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I add money with Apple Pay?",
+   "gold": "apple pay or google pay",
+   "readout": "apple pay or google pay",
+   "greedy": "apple pay or google pay",
+   "readout_no_prior": "apple pay or google pay",
+   "conf": 0.262,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I use my Apple Watch to to top up?",
+   "gold": "apple pay or google pay",
+   "readout": "top up limits",
+   "greedy": "topping up by card",
+   "readout_no_prior": "apple pay or google pay",
+   "conf": 0.0889,
+   "rot_flip": true
+  },
+  {
+   "text": "Does Apple Pay give the option to top up?",
+   "gold": "apple pay or google pay",
+   "readout": "apple pay or google pay",
+   "greedy": "apple pay or google pay",
+   "readout_no_prior": "apple pay or google pay",
+   "conf": 0.3202,
+   "rot_flip": false
+  },
+  {
+   "text": "Top up on my Google Pay isn't working.",
+   "gold": "apple pay or google pay",
+   "readout": "top up failed",
+   "greedy": "top up failed",
+   "readout_no_prior": "top up failed",
+   "conf": 0.521,
+   "rot_flip": false
+  },
+  {
+   "text": "Do all ATMs take this card?",
+   "gold": "atm support",
+   "readout": "card acceptance",
+   "greedy": "supported cards and currencies",
+   "readout_no_prior": "card acceptance",
+   "conf": 0.5758,
+   "rot_flip": false
+  },
+  {
+   "text": "Which ATMs accept this card?",
+   "gold": "atm support",
+   "readout": "card acceptance",
+   "greedy": "supported cards and currencies",
+   "readout_no_prior": "card acceptance",
+   "conf": 0.4482,
+   "rot_flip": false
+  },
+  {
+   "text": "Where is the closest Mastercard ATM?",
+   "gold": "atm support",
+   "readout": "atm support",
+   "greedy": "atm support",
+   "readout_no_prior": "atm support",
+   "conf": 0.2917,
+   "rot_flip": true
+  },
+  {
+   "text": "Is there a list of ATM machines?",
+   "gold": "atm support",
+   "readout": "atm support",
+   "greedy": "supported cards and currencies",
+   "readout_no_prior": "atm support",
+   "conf": 0.7951,
+   "rot_flip": false
+  },
+  {
+   "text": "Are there any specific ATMs that this card can be used at?",
+   "gold": "atm support",
+   "readout": "atm support",
+   "greedy": "atm support",
+   "readout_no_prior": "atm support",
+   "conf": 0.6444,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I know which ATMs will accept this card?",
+   "gold": "atm support",
+   "readout": "card acceptance",
+   "greedy": "card acceptance",
+   "readout_no_prior": "card acceptance",
+   "conf": 0.7223,
+   "rot_flip": false
+  },
+  {
+   "text": "Which ATM's accept my card?",
+   "gold": "atm support",
+   "readout": "card acceptance",
+   "greedy": "card acceptance",
+   "readout_no_prior": "card acceptance",
+   "conf": 0.8174,
+   "rot_flip": false
+  },
+  {
+   "text": "When traveling, can I auto top-up my card at certain times?",
+   "gold": "automatic top up",
+   "readout": "automatic top up",
+   "greedy": "top up limits",
+   "readout_no_prior": "automatic top up",
+   "conf": 0.9779,
+   "rot_flip": false
+  },
+  {
+   "text": "Is there a limit when using auto top-up?",
+   "gold": "automatic top up",
+   "readout": "top up limits",
+   "greedy": "top up limits",
+   "readout_no_prior": "top up limits",
+   "conf": 0.4442,
+   "rot_flip": false
+  },
+  {
+   "text": "Will it automatically top-up or do I need to do that manually if there isn't much cash left?",
+   "gold": "automatic top up",
+   "readout": "automatic top up",
+   "greedy": "automatic top up",
+   "readout_no_prior": "automatic top up",
+   "conf": 0.9625,
+   "rot_flip": false
+  },
+  {
+   "text": "I'm running out of money, can I  auto top up?",
+   "gold": "automatic top up",
+   "readout": "automatic top up",
+   "greedy": "automatic top up",
+   "readout_no_prior": "automatic top up",
+   "conf": 0.9479,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I use auto top up?",
+   "gold": "automatic top up",
+   "readout": "automatic top up",
+   "greedy": "automatic top up",
+   "readout_no_prior": "automatic top up",
+   "conf": 0.8917,
+   "rot_flip": false
+  },
+  {
+   "text": "Can it automatically top-up money if there isn't much left?",
+   "gold": "automatic top up",
+   "readout": "automatic top up",
+   "greedy": "top up limits",
+   "readout_no_prior": "automatic top up",
+   "conf": 0.9622,
+   "rot_flip": false
+  },
+  {
+   "text": "If there isn't much money left can it automatically top-up?",
+   "gold": "automatic top up",
+   "readout": "automatic top up",
+   "greedy": "top up limits",
+   "readout_no_prior": "automatic top up",
+   "conf": 0.8921,
+   "rot_flip": false
+  },
+  {
+   "text": "I made a transfer a few hours ago from a UK banking account.  I do not yet see the transfer.  Please check on this for me.",
+   "gold": "balance not updated after bank transfer",
+   "readout": "pending transfer",
+   "greedy": "balance not updated after bank transfer",
+   "readout_no_prior": "pending transfer",
+   "conf": 0.3938,
+   "rot_flip": false
+  },
+  {
+   "text": "the balance on my account didnt change when i transferred money",
+   "gold": "balance not updated after bank transfer",
+   "readout": "balance not updated after bank transfer",
+   "greedy": "balance not updated after bank transfer",
+   "readout_no_prior": "balance not updated after bank transfer",
+   "conf": 0.6961,
+   "rot_flip": false
+  },
+  {
+   "text": "How long will it take for my transferred money to show up?",
+   "gold": "balance not updated after bank transfer",
+   "readout": "transfer timing",
+   "greedy": "transfer timing",
+   "readout_no_prior": "transfer timing",
+   "conf": 0.7452,
+   "rot_flip": false
+  },
+  {
+   "text": "Why didn't my balance change after I transferred some money?",
+   "gold": "balance not updated after bank transfer",
+   "readout": "balance not updated after bank transfer",
+   "greedy": "balance not updated after bank transfer",
+   "readout_no_prior": "balance not updated after bank transfer",
+   "conf": 0.7695,
+   "rot_flip": false
+  },
+  {
+   "text": "When will my balance update after a transfer?",
+   "gold": "balance not updated after bank transfer",
+   "readout": "transfer timing",
+   "greedy": "balance not updated after bank transfer",
+   "readout_no_prior": "transfer timing",
+   "conf": 0.4336,
+   "rot_flip": false
+  },
+  {
+   "text": "How long does it take for an international transfer into my account?",
+   "gold": "balance not updated after bank transfer",
+   "readout": "transfer timing",
+   "greedy": "transfer timing",
+   "readout_no_prior": "transfer timing",
+   "conf": 0.4807,
+   "rot_flip": false
+  },
+  {
+   "text": "The amount of time that transfers usually take from a UK account is what?I just completed a transfer and it is not showing up at all. I'm wondering at this point if everything is actually okay.",
+   "gold": "balance not updated after bank transfer",
+   "readout": "transfer timing",
+   "greedy": "transfer timing",
+   "readout_no_prior": "transfer timing",
+   "conf": 0.5635,
+   "rot_flip": false
+  },
+  {
+   "text": "I tried making an update to my balance using cheque just yesterday but it doesn't appear to have worked. Should this not be a faster process? I need you to please check over my account because something has went wrong.",
+   "gold": "balance not updated after cheque or cash deposit",
+   "readout": "balance not updated after cheque or cash deposit",
+   "greedy": "balance not updated after cheque or cash deposit",
+   "readout_no_prior": "balance not updated after cheque or cash deposit",
+   "conf": 0.6234,
+   "rot_flip": false
+  },
+  {
+   "text": "How come I don't see my deposit in my account yet?",
+   "gold": "balance not updated after cheque or cash deposit",
+   "readout": "balance not updated after bank transfer",
+   "greedy": "balance not updated after cheque or cash deposit",
+   "readout_no_prior": "balance not updated after bank transfer",
+   "conf": 0.2635,
+   "rot_flip": false
+  },
+  {
+   "text": "Is there a reason why my account isn't updating because I used a check to  balance my account?",
+   "gold": "balance not updated after cheque or cash deposit",
+   "readout": "balance not updated after cheque or cash deposit",
+   "greedy": "balance not updated after cheque or cash deposit",
+   "readout_no_prior": "balance not updated after cheque or cash deposit",
+   "conf": 0.4606,
+   "rot_flip": false
+  },
+  {
+   "text": "I don't know why the deposit I made a week ago still hasn't showed up, I really need the money now.",
+   "gold": "balance not updated after cheque or cash deposit",
+   "readout": "balance not updated after bank transfer",
+   "greedy": "balance not updated after bank transfer",
+   "readout_no_prior": "balance not updated after bank transfer",
+   "conf": 0.492,
+   "rot_flip": false
+  },
+  {
+   "text": "I made a cash deposit almost a week ago but it's still not there!! please sort this out asap I need the money",
+   "gold": "balance not updated after cheque or cash deposit",
+   "readout": "balance not updated after cheque or cash deposit",
+   "greedy": "balance not updated after cheque or cash deposit",
+   "readout_no_prior": "balance not updated after cheque or cash deposit",
+   "conf": 0.252,
+   "rot_flip": false
+  },
+  {
+   "text": "Where is my cash deposit?",
+   "gold": "balance not updated after cheque or cash deposit",
+   "readout": "balance not updated after cheque or cash deposit",
+   "greedy": "balance not updated after cheque or cash deposit",
+   "readout_no_prior": "balance not updated after cheque or cash deposit",
+   "conf": 0.185,
+   "rot_flip": false
+  },
+  {
+   "text": "How can I get the cash deposit to show up on my account?",
+   "gold": "balance not updated after cheque or cash deposit",
+   "readout": "balance not updated after cheque or cash deposit",
+   "greedy": "balance not updated after cheque or cash deposit",
+   "readout_no_prior": "balance not updated after cheque or cash deposit",
+   "conf": 0.1482,
+   "rot_flip": false
+  },
+  {
+   "text": "I've tried numerous times to submit a transfer of funds. Why isn't it going through?",
+   "gold": "beneficiary not allowed",
+   "readout": "failed transfer",
+   "greedy": "balance not updated after bank transfer",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.945,
+   "rot_flip": false
+  },
+  {
+   "text": "I've transferred money before without issue but now I am encountering an error stating that it isn't possible. Why is that?",
+   "gold": "beneficiary not allowed",
+   "readout": "failed transfer",
+   "greedy": "failed transfer",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.7894,
+   "rot_flip": false
+  },
+  {
+   "text": "I am not able to do a transfer to an account",
+   "gold": "beneficiary not allowed",
+   "readout": "unable to verify identity",
+   "greedy": "transfer fee charged",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.3336,
+   "rot_flip": false
+  },
+  {
+   "text": "I was unable to make a transfer to another account.",
+   "gold": "beneficiary not allowed",
+   "readout": "failed transfer",
+   "greedy": "failed transfer",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.8151,
+   "rot_flip": false
+  },
+  {
+   "text": "I had a transfer blocked",
+   "gold": "beneficiary not allowed",
+   "readout": "declined transfer",
+   "greedy": "declined transfer",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.3583,
+   "rot_flip": false
+  },
+  {
+   "text": "Can you please help me with this exchange?  I am trying to get crypto and the app won't let me.",
+   "gold": "beneficiary not allowed",
+   "readout": "exchange via app",
+   "greedy": "exchange via app",
+   "readout_no_prior": "getting virtual card",
+   "conf": 0.1766,
+   "rot_flip": true
+  },
+  {
+   "text": "How do I do a successful transfer to an account?",
+   "gold": "beneficiary not allowed",
+   "readout": "transfer into account",
+   "greedy": "transfer into account",
+   "readout_no_prior": "transfer into account",
+   "conf": 0.669,
+   "rot_flip": false
+  },
+  {
+   "text": "I made a transaction this morning and would like to revert it.",
+   "gold": "cancel transfer",
+   "readout": "cancel transfer",
+   "greedy": "cancel transfer",
+   "readout_no_prior": "cancel transfer",
+   "conf": 0.4625,
+   "rot_flip": true
+  },
+  {
+   "text": "Can i cancel a charge?",
+   "gold": "cancel transfer",
+   "readout": "request refund",
+   "greedy": "extra charge on statement",
+   "readout_no_prior": "request refund",
+   "conf": 0.9017,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I cancel my transaction?",
+   "gold": "cancel transfer",
+   "readout": "cancel transfer",
+   "greedy": "cancel transfer",
+   "readout_no_prior": "cancel transfer",
+   "conf": 0.8822,
+   "rot_flip": false
+  },
+  {
+   "text": "I made a transaction but did it to the wrong account.",
+   "gold": "cancel transfer",
+   "readout": "transfer not received by recipient",
+   "greedy": "cancel transfer",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.2561,
+   "rot_flip": false
+  },
+  {
+   "text": "Tell me how to cancel a transfer.",
+   "gold": "cancel transfer",
+   "readout": "cancel transfer",
+   "greedy": "cancel transfer",
+   "readout_no_prior": "cancel transfer",
+   "conf": 0.9404,
+   "rot_flip": false
+  },
+  {
+   "text": "I need you to cancel a transfer that I made.  It is the wrong account number and the app won't let me stop the transaction.  Please stop it!",
+   "gold": "cancel transfer",
+   "readout": "cancel transfer",
+   "greedy": "cancel transfer",
+   "readout_no_prior": "cancel transfer",
+   "conf": 0.9802,
+   "rot_flip": false
+  },
+  {
+   "text": "I need to cancel my recent transfer immediately, I made a mistake there, please help quickly before it goes through",
+   "gold": "cancel transfer",
+   "readout": "cancel transfer",
+   "greedy": "cancel transfer",
+   "readout_no_prior": "cancel transfer",
+   "conf": 0.9717,
+   "rot_flip": false
+  },
+  {
+   "text": "Am I able to order a new card and have it sent to me in China?",
+   "gold": "card about to expire",
+   "readout": "order physical card",
+   "greedy": "order physical card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.4955,
+   "rot_flip": false
+  },
+  {
+   "text": "Will you be able to send the new card to China?",
+   "gold": "card about to expire",
+   "readout": "card delivery estimate",
+   "greedy": "card acceptance",
+   "readout_no_prior": "card delivery estimate",
+   "conf": 0.5196,
+   "rot_flip": false
+  },
+  {
+   "text": "When my card expires what happens to my account?",
+   "gold": "card about to expire",
+   "readout": "card about to expire",
+   "greedy": "card about to expire",
+   "readout_no_prior": "card about to expire",
+   "conf": 0.9339,
+   "rot_flip": false
+  },
+  {
+   "text": "What do I do when my card expires?",
+   "gold": "card about to expire",
+   "readout": "card about to expire",
+   "greedy": "card about to expire",
+   "readout_no_prior": "card about to expire",
+   "conf": 0.6387,
+   "rot_flip": false
+  },
+  {
+   "text": "The expiration date on my card is coming up",
+   "gold": "card about to expire",
+   "readout": "card about to expire",
+   "greedy": "card about to expire",
+   "readout_no_prior": "card about to expire",
+   "conf": 0.9428,
+   "rot_flip": false
+  },
+  {
+   "text": "My card's expiring, what happens now?",
+   "gold": "card about to expire",
+   "readout": "card about to expire",
+   "greedy": "card about to expire",
+   "readout_no_prior": "card about to expire",
+   "conf": 0.8869,
+   "rot_flip": false
+  },
+  {
+   "text": "My card is about to expire. What do I need to do?",
+   "gold": "card about to expire",
+   "readout": "card about to expire",
+   "greedy": "card about to expire",
+   "readout_no_prior": "card about to expire",
+   "conf": 0.8096,
+   "rot_flip": false
+  },
+  {
+   "text": "Will my card be accepted all over the world?",
+   "gold": "card acceptance",
+   "readout": "card acceptance",
+   "greedy": "card acceptance",
+   "readout_no_prior": "card acceptance",
+   "conf": 0.4921,
+   "rot_flip": false
+  },
+  {
+   "text": "Who accepts this card?",
+   "gold": "card acceptance",
+   "readout": "card acceptance",
+   "greedy": "card acceptance",
+   "readout_no_prior": "card acceptance",
+   "conf": 0.9337,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I use my card for payment all over the world?",
+   "gold": "card acceptance",
+   "readout": "country support",
+   "greedy": "country support",
+   "readout_no_prior": "country support",
+   "conf": 0.8287,
+   "rot_flip": false
+  },
+  {
+   "text": "It will be fine to use at any establishment that accepts Mastercard.",
+   "gold": "card acceptance",
+   "readout": "card acceptance",
+   "greedy": "card acceptance",
+   "readout_no_prior": "card acceptance",
+   "conf": 0.9198,
+   "rot_flip": false
+  },
+  {
+   "text": "Where can the card be used?",
+   "gold": "card acceptance",
+   "readout": "card acceptance",
+   "greedy": "card acceptance",
+   "readout_no_prior": "card acceptance",
+   "conf": 0.8875,
+   "rot_flip": false
+  },
+  {
+   "text": "Can my card be used everywhere?",
+   "gold": "card acceptance",
+   "readout": "card acceptance",
+   "greedy": "card acceptance",
+   "readout_no_prior": "card acceptance",
+   "conf": 0.9258,
+   "rot_flip": false
+  },
+  {
+   "text": "Are there any limits on where I can use my card?",
+   "gold": "card acceptance",
+   "readout": "country support",
+   "greedy": "country support",
+   "readout_no_prior": "country support",
+   "conf": 0.8964,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I locate my card?",
+   "gold": "card arrival",
+   "readout": "lost or stolen card",
+   "greedy": "lost or stolen card",
+   "readout_no_prior": "lost or stolen card",
+   "conf": 0.7285,
+   "rot_flip": false
+  },
+  {
+   "text": "I still have not received my new card, I ordered over a week ago.",
+   "gold": "card arrival",
+   "readout": "order physical card",
+   "greedy": "get physical card",
+   "readout_no_prior": "order physical card",
+   "conf": 0.6179,
+   "rot_flip": false
+  },
+  {
+   "text": "I ordered a card but it has not arrived. Help please!",
+   "gold": "card arrival",
+   "readout": "card arrival",
+   "greedy": "order physical card",
+   "readout_no_prior": "order physical card",
+   "conf": 0.4374,
+   "rot_flip": true
+  },
+  {
+   "text": "Is there a way to know when my card will arrive?",
+   "gold": "card arrival",
+   "readout": "card delivery estimate",
+   "greedy": "card arrival",
+   "readout_no_prior": "card delivery estimate",
+   "conf": 0.6122,
+   "rot_flip": false
+  },
+  {
+   "text": "My card has not arrived yet.",
+   "gold": "card arrival",
+   "readout": "card arrival",
+   "greedy": "get physical card",
+   "readout_no_prior": "card arrival",
+   "conf": 0.5252,
+   "rot_flip": false
+  },
+  {
+   "text": "When will I get my card?",
+   "gold": "card arrival",
+   "readout": "card delivery estimate",
+   "greedy": "get physical card",
+   "readout_no_prior": "card delivery estimate",
+   "conf": 0.568,
+   "rot_flip": false
+  },
+  {
+   "text": "Do you know if there is a tracking number for the new card you sent me?",
+   "gold": "card arrival",
+   "readout": "getting spare card",
+   "greedy": "get physical card",
+   "readout_no_prior": "card delivery estimate",
+   "conf": 0.4383,
+   "rot_flip": false
+  },
+  {
+   "text": "I need my card now!",
+   "gold": "card delivery estimate",
+   "readout": "card arrival",
+   "greedy": "get physical card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.4265,
+   "rot_flip": true
+  },
+  {
+   "text": "my card was not in the mail again can you advise?",
+   "gold": "card delivery estimate",
+   "readout": "card arrival",
+   "greedy": "get physical card",
+   "readout_no_prior": "card delivery estimate",
+   "conf": 0.3609,
+   "rot_flip": true
+  },
+  {
+   "text": "i need my card quick",
+   "gold": "card delivery estimate",
+   "readout": "get physical card",
+   "greedy": "get physical card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.7222,
+   "rot_flip": false
+  },
+  {
+   "text": "How long will it take to get to me?",
+   "gold": "card delivery estimate",
+   "readout": "transfer timing",
+   "greedy": "card arrival",
+   "readout_no_prior": "transfer timing",
+   "conf": 0.2822,
+   "rot_flip": true
+  },
+  {
+   "text": "I'm just wondering when my card will get here.",
+   "gold": "card delivery estimate",
+   "readout": "card delivery estimate",
+   "greedy": "get physical card",
+   "readout_no_prior": "card delivery estimate",
+   "conf": 0.5674,
+   "rot_flip": true
+  },
+  {
+   "text": "Can you get me my card fast?",
+   "gold": "card delivery estimate",
+   "readout": "get physical card",
+   "greedy": "get physical card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.6246,
+   "rot_flip": true
+  },
+  {
+   "text": "How long will it take to deliver something to US?",
+   "gold": "card delivery estimate",
+   "readout": "card delivery estimate",
+   "greedy": "card delivery estimate",
+   "readout_no_prior": "card delivery estimate",
+   "conf": 0.8132,
+   "rot_flip": false
+  },
+  {
+   "text": "Why won't my card show up on the app?",
+   "gold": "card linking",
+   "readout": "card not working",
+   "greedy": "card arrival",
+   "readout_no_prior": "card not working",
+   "conf": 0.7258,
+   "rot_flip": false
+  },
+  {
+   "text": "I would like to reactivate my card.",
+   "gold": "card linking",
+   "readout": "activate my card",
+   "greedy": "activate my card",
+   "readout_no_prior": "activate my card",
+   "conf": 0.8352,
+   "rot_flip": false
+  },
+  {
+   "text": "Where do I link the new card?",
+   "gold": "card linking",
+   "readout": "card linking",
+   "greedy": "card linking",
+   "readout_no_prior": "card linking",
+   "conf": 0.9069,
+   "rot_flip": false
+  },
+  {
+   "text": "I have received my card, can you help me put it in the app?",
+   "gold": "card linking",
+   "readout": "card linking",
+   "greedy": "card linking",
+   "readout_no_prior": "card linking",
+   "conf": 0.862,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I link a card that I already have?",
+   "gold": "card linking",
+   "readout": "card linking",
+   "greedy": "card linking",
+   "readout_no_prior": "card linking",
+   "conf": 0.8299,
+   "rot_flip": false
+  },
+  {
+   "text": "I received my new card, but I don't see it in the app anywhere.  What do I do?",
+   "gold": "card linking",
+   "readout": "card arrival",
+   "greedy": "get physical card",
+   "readout_no_prior": "card arrival",
+   "conf": 0.5969,
+   "rot_flip": true
+  },
+  {
+   "text": "How do I re-add a card to the app?",
+   "gold": "card linking",
+   "readout": "get physical card",
+   "greedy": "card linking",
+   "readout_no_prior": "get physical card",
+   "conf": 0.2761,
+   "rot_flip": true
+  },
+  {
+   "text": "I've tried my card a bunch of times and it never worked.",
+   "gold": "card not working",
+   "readout": "card not working",
+   "greedy": "card not working",
+   "readout_no_prior": "card not working",
+   "conf": 0.6791,
+   "rot_flip": false
+  },
+  {
+   "text": "I can't get my card to work.",
+   "gold": "card not working",
+   "readout": "card not working",
+   "greedy": "card not working",
+   "readout_no_prior": "card not working",
+   "conf": 0.7381,
+   "rot_flip": false
+  },
+  {
+   "text": "My card appears to be broken how can I fix it?",
+   "gold": "card not working",
+   "readout": "card not working",
+   "greedy": "card not working",
+   "readout_no_prior": "card not working",
+   "conf": 0.6818,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I know why my card isn't working?",
+   "gold": "card not working",
+   "readout": "card not working",
+   "greedy": "card not working",
+   "readout_no_prior": "card not working",
+   "conf": 0.7335,
+   "rot_flip": false
+  },
+  {
+   "text": "My card broke.",
+   "gold": "card not working",
+   "readout": "card not working",
+   "greedy": "card not working",
+   "readout_no_prior": "card not working",
+   "conf": 0.4836,
+   "rot_flip": false
+  },
+  {
+   "text": "My card won't work.",
+   "gold": "card not working",
+   "readout": "card not working",
+   "greedy": "card not working",
+   "readout_no_prior": "card not working",
+   "conf": 0.6194,
+   "rot_flip": false
+  },
+  {
+   "text": "Why is my card not working?",
+   "gold": "card not working",
+   "readout": "card not working",
+   "greedy": "card not working",
+   "readout_no_prior": "card not working",
+   "conf": 0.633,
+   "rot_flip": false
+  },
+  {
+   "text": "I payed with a card and was charged an extra fee",
+   "gold": "card payment fee charged",
+   "readout": "card payment fee charged",
+   "greedy": "card payment fee charged",
+   "readout_no_prior": "card payment fee charged",
+   "conf": 0.9511,
+   "rot_flip": false
+  },
+  {
+   "text": "I was charged a fee after using my card and I shouldn't have been.",
+   "gold": "card payment fee charged",
+   "readout": "card payment fee charged",
+   "greedy": "card payment fee charged",
+   "readout_no_prior": "card payment fee charged",
+   "conf": 0.7946,
+   "rot_flip": false
+  },
+  {
+   "text": "Is there a reason I was charged a fee for using my card as payment? I've never had an extra fee before.",
+   "gold": "card payment fee charged",
+   "readout": "card payment fee charged",
+   "greedy": "card payment fee charged",
+   "readout_no_prior": "card payment fee charged",
+   "conf": 0.9851,
+   "rot_flip": false
+  },
+  {
+   "text": "I show another charge on my card from when I used it, why?",
+   "gold": "card payment fee charged",
+   "readout": "extra charge on statement",
+   "greedy": "transaction charged twice",
+   "readout_no_prior": "extra charge on statement",
+   "conf": 0.4484,
+   "rot_flip": false
+  },
+  {
+   "text": "Why do I get charged additional fees on some payments, but not others?",
+   "gold": "card payment fee charged",
+   "readout": "transfer fee charged",
+   "greedy": "extra charge on statement",
+   "readout_no_prior": "transfer fee charged",
+   "conf": 0.4512,
+   "rot_flip": true
+  },
+  {
+   "text": "I used my card for a purchase and was charged a fee",
+   "gold": "card payment fee charged",
+   "readout": "card payment fee charged",
+   "greedy": "card payment fee charged",
+   "readout_no_prior": "card payment fee charged",
+   "conf": 0.9944,
+   "rot_flip": false
+  },
+  {
+   "text": "Why was I charged for card payment?",
+   "gold": "card payment fee charged",
+   "readout": "card payment fee charged",
+   "greedy": "card payment fee charged",
+   "readout_no_prior": "card payment fee charged",
+   "conf": 0.948,
+   "rot_flip": false
+  },
+  {
+   "text": "I have a strange payment in my statement",
+   "gold": "card payment not recognised",
+   "readout": "extra charge on statement",
+   "greedy": "extra charge on statement",
+   "readout_no_prior": "extra charge on statement",
+   "conf": 0.744,
+   "rot_flip": false
+  },
+  {
+   "text": "There is a charge on my card that I did not make",
+   "gold": "card payment not recognised",
+   "readout": "extra charge on statement",
+   "greedy": "extra charge on statement",
+   "readout_no_prior": "extra charge on statement",
+   "conf": 0.3039,
+   "rot_flip": false
+  },
+  {
+   "text": "I saw a payment i did not do",
+   "gold": "card payment not recognised",
+   "readout": "pending card payment",
+   "greedy": "Refund not showing up",
+   "readout_no_prior": "request refund",
+   "conf": 0.2097,
+   "rot_flip": true
+  },
+  {
+   "text": "There is a payment that is not mine in the app.  Please advise/",
+   "gold": "card payment not recognised",
+   "readout": "receiving money",
+   "greedy": "receiving money",
+   "readout_no_prior": "receiving money",
+   "conf": 0.6595,
+   "rot_flip": false
+  },
+  {
+   "text": "An unauthorized payment is in my app",
+   "gold": "card payment not recognised",
+   "readout": "pending card payment",
+   "greedy": "card not working",
+   "readout_no_prior": "pending top up",
+   "conf": 0.19,
+   "rot_flip": true
+  },
+  {
+   "text": "I did not make this card payment.",
+   "gold": "card payment not recognised",
+   "readout": "pending card payment",
+   "greedy": "card payment not recognised",
+   "readout_no_prior": "pending card payment",
+   "conf": 0.4312,
+   "rot_flip": false
+  },
+  {
+   "text": "What should I do if I see a payment I didn't make?",
+   "gold": "card payment not recognised",
+   "readout": "request refund",
+   "greedy": "card payment fee charged",
+   "readout_no_prior": "request refund",
+   "conf": 0.9936,
+   "rot_flip": false
+  },
+  {
+   "text": "I purchased something in a foreign currency but the rate applied is wrong",
+   "gold": "card payment wrong exchange rate",
+   "readout": "card payment wrong exchange rate",
+   "greedy": "card payment wrong exchange rate",
+   "readout_no_prior": "card payment wrong exchange rate",
+   "conf": 0.9996,
+   "rot_flip": false
+  },
+  {
+   "text": "I made a currency exchange and think I was charged more than I should of been.",
+   "gold": "card payment wrong exchange rate",
+   "readout": "exchange charge",
+   "greedy": "exchange charge",
+   "readout_no_prior": "exchange charge",
+   "conf": 0.5786,
+   "rot_flip": false
+  },
+  {
+   "text": "the card payment exchange rate is wrong",
+   "gold": "card payment wrong exchange rate",
+   "readout": "card payment wrong exchange rate",
+   "greedy": "card payment wrong exchange rate",
+   "readout_no_prior": "card payment wrong exchange rate",
+   "conf": 0.9944,
+   "rot_flip": false
+  },
+  {
+   "text": "The exchange rate was wrong when I bought something outside the country.",
+   "gold": "card payment wrong exchange rate",
+   "readout": "card payment wrong exchange rate",
+   "greedy": "card payment wrong exchange rate",
+   "readout_no_prior": "card payment wrong exchange rate",
+   "conf": 0.9949,
+   "rot_flip": false
+  },
+  {
+   "text": "The exchange rate on my purchase is wrong.",
+   "gold": "card payment wrong exchange rate",
+   "readout": "card payment wrong exchange rate",
+   "greedy": "card payment wrong exchange rate",
+   "readout_no_prior": "card payment wrong exchange rate",
+   "conf": 0.964,
+   "rot_flip": false
+  },
+  {
+   "text": "This rate is too low. Are you sure your using the right exchange rate.",
+   "gold": "card payment wrong exchange rate",
+   "readout": "exchange rate",
+   "greedy": "card payment wrong exchange rate",
+   "readout_no_prior": "exchange rate",
+   "conf": 0.7175,
+   "rot_flip": true
+  },
+  {
+   "text": "I bought something, but the exchange rate looks wrong.",
+   "gold": "card payment wrong exchange rate",
+   "readout": "card payment wrong exchange rate",
+   "greedy": "card payment wrong exchange rate",
+   "readout_no_prior": "card payment wrong exchange rate",
+   "conf": 0.9745,
+   "rot_flip": false
+  },
+  {
+   "text": "What do I do if an ATM \"stole\" my card?",
+   "gold": "card swallowed",
+   "readout": "lost or stolen card",
+   "greedy": "card swallowed",
+   "readout_no_prior": "lost or stolen card",
+   "conf": 0.7995,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I retrieve my card from the machine?",
+   "gold": "card swallowed",
+   "readout": "card swallowed",
+   "greedy": "card swallowed",
+   "readout_no_prior": "card delivery estimate",
+   "conf": 0.5245,
+   "rot_flip": false
+  },
+  {
+   "text": "I was retrieving money and my card wouldn't remove.",
+   "gold": "card swallowed",
+   "readout": "card swallowed",
+   "greedy": "declined cash withdrawal",
+   "readout_no_prior": "card swallowed",
+   "conf": 0.902,
+   "rot_flip": false
+  },
+  {
+   "text": "What do I do since the machine swallowed my card. I need one.",
+   "gold": "card swallowed",
+   "readout": "getting spare card",
+   "greedy": "get physical card",
+   "readout_no_prior": "getting spare card",
+   "conf": 0.8803,
+   "rot_flip": true
+  },
+  {
+   "text": "HOw do I get my card back after the ATM has pulled it in?",
+   "gold": "card swallowed",
+   "readout": "card swallowed",
+   "greedy": "card swallowed",
+   "readout_no_prior": "card swallowed",
+   "conf": 0.9289,
+   "rot_flip": false
+  },
+  {
+   "text": "Atm took my card",
+   "gold": "card swallowed",
+   "readout": "card swallowed",
+   "greedy": "card swallowed",
+   "readout_no_prior": "card swallowed",
+   "conf": 0.4928,
+   "rot_flip": false
+  },
+  {
+   "text": "Is there a way I can get my ATM card back from the machine?",
+   "gold": "card swallowed",
+   "readout": "getting spare card",
+   "greedy": "card swallowed",
+   "readout_no_prior": "getting spare card",
+   "conf": 0.7078,
+   "rot_flip": false
+  },
+  {
+   "text": "I see some fees for cash withdraw.",
+   "gold": "cash withdrawal charge",
+   "readout": "cash withdrawal charge",
+   "greedy": "cash withdrawal charge",
+   "readout_no_prior": "cash withdrawal charge",
+   "conf": 0.9864,
+   "rot_flip": false
+  },
+  {
+   "text": "How come I was charged extra when I withdrew cash?",
+   "gold": "cash withdrawal charge",
+   "readout": "cash withdrawal charge",
+   "greedy": "cash withdrawal charge",
+   "readout_no_prior": "cash withdrawal charge",
+   "conf": 0.9787,
+   "rot_flip": false
+  },
+  {
+   "text": "Why am I being charged when I withdraw cash?",
+   "gold": "cash withdrawal charge",
+   "readout": "cash withdrawal charge",
+   "greedy": "cash withdrawal charge",
+   "readout_no_prior": "cash withdrawal charge",
+   "conf": 0.9349,
+   "rot_flip": false
+  },
+  {
+   "text": "What is this charge on my account for a cash withdrawl?",
+   "gold": "cash withdrawal charge",
+   "readout": "cash withdrawal charge",
+   "greedy": "cash withdrawal charge",
+   "readout_no_prior": "cash withdrawal charge",
+   "conf": 0.8081,
+   "rot_flip": false
+  },
+  {
+   "text": "Why are fees charged on cash withdrawals? I went to withdraw some money earlier today after shopping. There's a fee that wasn't there before.",
+   "gold": "cash withdrawal charge",
+   "readout": "cash withdrawal charge",
+   "greedy": "cash withdrawal charge",
+   "readout_no_prior": "cash withdrawal charge",
+   "conf": 0.9625,
+   "rot_flip": false
+  },
+  {
+   "text": "How come you charge for cash withdrawals? I withdrew cash after buying groceries today, and there seems to be a new fee",
+   "gold": "cash withdrawal charge",
+   "readout": "cash withdrawal charge",
+   "greedy": "cash withdrawal charge",
+   "readout_no_prior": "cash withdrawal charge",
+   "conf": 0.9639,
+   "rot_flip": false
+  },
+  {
+   "text": "It looks like I was charged a withdrawal fee for going to my ATM. Why is that because I haven't been charged previously for doing so?",
+   "gold": "cash withdrawal charge",
+   "readout": "cash withdrawal charge",
+   "greedy": "cash withdrawal charge",
+   "readout_no_prior": "cash withdrawal charge",
+   "conf": 0.8964,
+   "rot_flip": false
+  },
+  {
+   "text": "Think someone has took money out with my card. What shall I do?",
+   "gold": "cash withdrawal not recognised",
+   "readout": "compromised card",
+   "greedy": "declined cash withdrawal",
+   "readout_no_prior": "compromised card",
+   "conf": 0.6302,
+   "rot_flip": false
+  },
+  {
+   "text": "There is a withdrawal that isn't mind in the app.",
+   "gold": "cash withdrawal not recognised",
+   "readout": "pending cash withdrawal",
+   "greedy": "pending cash withdrawal",
+   "readout_no_prior": "pending cash withdrawal",
+   "conf": 0.8781,
+   "rot_flip": true
+  },
+  {
+   "text": "I just lost my wallet and I see that they are already withdrawing money from my account. How can I stop this?",
+   "gold": "cash withdrawal not recognised",
+   "readout": "lost or stolen card",
+   "greedy": "lost or stolen card",
+   "readout_no_prior": "lost or stolen card",
+   "conf": 0.9349,
+   "rot_flip": false
+  },
+  {
+   "text": "I didn't get cash from an ATM, but the app says I did",
+   "gold": "cash withdrawal not recognised",
+   "readout": "cash withdrawal not recognised",
+   "greedy": "cash withdrawal not recognised",
+   "readout_no_prior": "cash withdrawal not recognised",
+   "conf": 0.44,
+   "rot_flip": false
+  },
+  {
+   "text": "My app shows some cash I didn't get.",
+   "gold": "cash withdrawal not recognised",
+   "readout": "wrong amount of cash received",
+   "greedy": "wrong amount of cash received",
+   "readout_no_prior": "wrong amount of cash received",
+   "conf": 0.7939,
+   "rot_flip": true
+  },
+  {
+   "text": "Why is there a random withdrawal in my app?",
+   "gold": "cash withdrawal not recognised",
+   "readout": "pending cash withdrawal",
+   "greedy": "declined cash withdrawal",
+   "readout_no_prior": "pending cash withdrawal",
+   "conf": 0.5743,
+   "rot_flip": false
+  },
+  {
+   "text": "There is a suspicious cash withdraw on the account.",
+   "gold": "cash withdrawal not recognised",
+   "readout": "declined cash withdrawal",
+   "greedy": "cash withdrawal not recognised",
+   "readout_no_prior": "pending cash withdrawal",
+   "conf": 0.3696,
+   "rot_flip": false
+  },
+  {
+   "text": "What kind of cash machines would allow me to change my PIN?",
+   "gold": "change pin",
+   "readout": "change pin",
+   "greedy": "change pin",
+   "readout_no_prior": "change pin",
+   "conf": 0.8344,
+   "rot_flip": false
+  },
+  {
+   "text": "Where do I change my PIN?",
+   "gold": "change pin",
+   "readout": "change pin",
+   "greedy": "change pin",
+   "readout_no_prior": "change pin",
+   "conf": 0.7659,
+   "rot_flip": false
+  },
+  {
+   "text": "Is the bank the only place I can change my PIN>",
+   "gold": "change pin",
+   "readout": "change pin",
+   "greedy": "change pin",
+   "readout_no_prior": "change pin",
+   "conf": 0.7007,
+   "rot_flip": false
+  },
+  {
+   "text": "If I am overseas, how do I change my pin?",
+   "gold": "change pin",
+   "readout": "change pin",
+   "greedy": "change pin",
+   "readout_no_prior": "change pin",
+   "conf": 0.7681,
+   "rot_flip": false
+  },
+  {
+   "text": "Can i change my PIN at the ATM?",
+   "gold": "change pin",
+   "readout": "change pin",
+   "greedy": "change pin",
+   "readout_no_prior": "change pin",
+   "conf": 0.9382,
+   "rot_flip": false
+  },
+  {
+   "text": "How might  I change my PIN?",
+   "gold": "change pin",
+   "readout": "change pin",
+   "greedy": "change pin",
+   "readout_no_prior": "change pin",
+   "conf": 0.9039,
+   "rot_flip": false
+  },
+  {
+   "text": "I would like to change my PIN but I am not currently in the country.",
+   "gold": "change pin",
+   "readout": "change pin",
+   "greedy": "change pin",
+   "readout_no_prior": "change pin",
+   "conf": 0.8196,
+   "rot_flip": false
+  },
+  {
+   "text": "I think someone is using my card to make transactions I don't remember.",
+   "gold": "compromised card",
+   "readout": "compromised card",
+   "greedy": "compromised card",
+   "readout_no_prior": "compromised card",
+   "conf": 0.9855,
+   "rot_flip": false
+  },
+  {
+   "text": "someone is using my account",
+   "gold": "compromised card",
+   "readout": "lost or stolen phone",
+   "greedy": "lost or stolen card",
+   "readout_no_prior": "lost or stolen card",
+   "conf": 0.6535,
+   "rot_flip": true
+  },
+  {
+   "text": "Someone I don't know has used my card without permission.",
+   "gold": "compromised card",
+   "readout": "compromised card",
+   "greedy": "lost or stolen card",
+   "readout_no_prior": "compromised card",
+   "conf": 0.8907,
+   "rot_flip": false
+  },
+  {
+   "text": "My card was used without my permission.",
+   "gold": "compromised card",
+   "readout": "compromised card",
+   "greedy": "lost or stolen card",
+   "readout_no_prior": "compromised card",
+   "conf": 0.7183,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I freeze my card right now?",
+   "gold": "compromised card",
+   "readout": "get disposable virtual card",
+   "greedy": "get physical card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.506,
+   "rot_flip": true
+  },
+  {
+   "text": "Freeze my account it's been hacked.",
+   "gold": "compromised card",
+   "readout": "terminate account",
+   "greedy": "lost or stolen card",
+   "readout_no_prior": "compromised card",
+   "conf": 0.7675,
+   "rot_flip": true
+  },
+  {
+   "text": "There are transactions I didn't make, someone else must have used my card.",
+   "gold": "compromised card",
+   "readout": "compromised card",
+   "greedy": "compromised card",
+   "readout_no_prior": "compromised card",
+   "conf": 0.585,
+   "rot_flip": true
+  },
+  {
+   "text": "Are contactless payments enabled on my new card?",
+   "gold": "contactless not working",
+   "readout": "contactless not working",
+   "greedy": "apple pay or google pay",
+   "readout_no_prior": "contactless not working",
+   "conf": 0.7641,
+   "rot_flip": false
+  },
+  {
+   "text": "My contanctless has stopped working",
+   "gold": "contactless not working",
+   "readout": "contactless not working",
+   "greedy": "contactless not working",
+   "readout_no_prior": "contactless not working",
+   "conf": 0.9873,
+   "rot_flip": false
+  },
+  {
+   "text": "what is required documents for new card process ?",
+   "gold": "contactless not working",
+   "readout": "get physical card",
+   "greedy": "get physical card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.7577,
+   "rot_flip": false
+  },
+  {
+   "text": "I don't know what's wrong, my contactless stopped working. Tried it in a few different places today and it didn't work in any of them.",
+   "gold": "contactless not working",
+   "readout": "contactless not working",
+   "greedy": "contactless not working",
+   "readout_no_prior": "contactless not working",
+   "conf": 0.9958,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I get the contactless feature to work for my card?",
+   "gold": "contactless not working",
+   "readout": "contactless not working",
+   "greedy": "contactless not working",
+   "readout_no_prior": "contactless not working",
+   "conf": 0.9897,
+   "rot_flip": false
+  },
+  {
+   "text": "I tried to pay contactless at the bus today and it didn't work. Any ideas why?",
+   "gold": "contactless not working",
+   "readout": "contactless not working",
+   "greedy": "contactless not working",
+   "readout_no_prior": "contactless not working",
+   "conf": 0.9899,
+   "rot_flip": false
+  },
+  {
+   "text": "I've been unable to pay contactless with my card for over a week now. Is there a way to fix this issue?",
+   "gold": "contactless not working",
+   "readout": "contactless not working",
+   "greedy": "contactless not working",
+   "readout_no_prior": "contactless not working",
+   "conf": 0.9871,
+   "rot_flip": false
+  },
+  {
+   "text": "I live in the US but want to get a card",
+   "gold": "country support",
+   "readout": "get physical card",
+   "greedy": "get physical card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.7688,
+   "rot_flip": false
+  },
+  {
+   "text": "Are your cards available in Europe?",
+   "gold": "country support",
+   "readout": "country support",
+   "greedy": "country support",
+   "readout_no_prior": "country support",
+   "conf": 0.878,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I use your app if I am from the EU?",
+   "gold": "country support",
+   "readout": "country support",
+   "greedy": "country support",
+   "readout_no_prior": "country support",
+   "conf": 0.9901,
+   "rot_flip": false
+  },
+  {
+   "text": "What countries are supported?",
+   "gold": "country support",
+   "readout": "country support",
+   "greedy": "country support",
+   "readout_no_prior": "country support",
+   "conf": 0.9856,
+   "rot_flip": false
+  },
+  {
+   "text": "i live in the US can i still get a card?",
+   "gold": "country support",
+   "readout": "country support",
+   "greedy": "country support",
+   "readout_no_prior": "country support",
+   "conf": 0.81,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I get a card outside the UK?",
+   "gold": "country support",
+   "readout": "card delivery estimate",
+   "greedy": "country support",
+   "readout_no_prior": "card delivery estimate",
+   "conf": 0.3622,
+   "rot_flip": true
+  },
+  {
+   "text": "I'm not in the UK, can I still get a card?",
+   "gold": "country support",
+   "readout": "country support",
+   "greedy": "country support",
+   "readout_no_prior": "country support",
+   "conf": 0.9165,
+   "rot_flip": false
+  },
+  {
+   "text": "My credit card was declined.",
+   "gold": "declined card payment",
+   "readout": "declined card payment",
+   "greedy": "declined card payment",
+   "readout_no_prior": "declined card payment",
+   "conf": 0.7054,
+   "rot_flip": false
+  },
+  {
+   "text": "The new card that was just sent to me was declined multiple times yesterday when I tried to use it at a restaurant to pay for my dinner.  I am really disappointed  and embarrassed that my card was denied when I tried to use it to pay for my friend's birthday dinner.",
+   "gold": "declined card payment",
+   "readout": "declined card payment",
+   "greedy": "declined card payment",
+   "readout_no_prior": "declined card payment",
+   "conf": 0.785,
+   "rot_flip": false
+  },
+  {
+   "text": "Why was my card payment declined?",
+   "gold": "declined card payment",
+   "readout": "declined card payment",
+   "greedy": "declined card payment",
+   "readout_no_prior": "declined card payment",
+   "conf": 0.8784,
+   "rot_flip": false
+  },
+  {
+   "text": "I was trying to purchase something at the store today and my card has been declined.  Why has this happened?",
+   "gold": "declined card payment",
+   "readout": "declined card payment",
+   "greedy": "declined card payment",
+   "readout_no_prior": "declined card payment",
+   "conf": 0.6477,
+   "rot_flip": false
+  },
+  {
+   "text": "My payment has been declined, I thought this issue was fixed!",
+   "gold": "declined card payment",
+   "readout": "declined card payment",
+   "greedy": "declined card payment",
+   "readout_no_prior": "declined card payment",
+   "conf": 0.468,
+   "rot_flip": false
+  },
+  {
+   "text": "My card was declined in a shop",
+   "gold": "declined card payment",
+   "readout": "declined card payment",
+   "greedy": "declined card payment",
+   "readout_no_prior": "declined card payment",
+   "conf": 0.602,
+   "rot_flip": false
+  },
+  {
+   "text": "Why did it decline my payment?",
+   "gold": "declined card payment",
+   "readout": "declined transfer",
+   "greedy": "declined card payment",
+   "readout_no_prior": "declined card payment",
+   "conf": 0.5771,
+   "rot_flip": false
+  },
+  {
+   "text": "Can you tell me why you won't let me get my own money out of the money machine? I know I used the right PIN.",
+   "gold": "declined cash withdrawal",
+   "readout": "declined cash withdrawal",
+   "greedy": "declined cash withdrawal",
+   "readout_no_prior": "declined cash withdrawal",
+   "conf": 0.7609,
+   "rot_flip": false
+  },
+  {
+   "text": "My withdrawal was cancelled.",
+   "gold": "declined cash withdrawal",
+   "readout": "pending cash withdrawal",
+   "greedy": "declined transfer",
+   "readout_no_prior": "pending cash withdrawal",
+   "conf": 0.4507,
+   "rot_flip": true
+  },
+  {
+   "text": "This is very frustrating. I can't get my card to work on any ATM I try and I've tried 3 of them so far. What's going on? Can you please fix this issue immediately?",
+   "gold": "declined cash withdrawal",
+   "readout": "card not working",
+   "greedy": "card not working",
+   "readout_no_prior": "card not working",
+   "conf": 0.8141,
+   "rot_flip": false
+  },
+  {
+   "text": "The ATM did not allow me to withdraw",
+   "gold": "declined cash withdrawal",
+   "readout": "declined cash withdrawal",
+   "greedy": "declined cash withdrawal",
+   "readout_no_prior": "declined cash withdrawal",
+   "conf": 0.872,
+   "rot_flip": false
+  },
+  {
+   "text": "Why was my ATM transaction cancelled?",
+   "gold": "declined cash withdrawal",
+   "readout": "atm support",
+   "greedy": "declined cash withdrawal",
+   "readout_no_prior": "atm support",
+   "conf": 0.5886,
+   "rot_flip": true
+  },
+  {
+   "text": "The ATM keeps declining my card. I tried at a couple different ATMs. Can you tell me if there's a problem with my account?",
+   "gold": "declined cash withdrawal",
+   "readout": "declined cash withdrawal",
+   "greedy": "declined cash withdrawal",
+   "readout_no_prior": "declined cash withdrawal",
+   "conf": 0.8625,
+   "rot_flip": false
+  },
+  {
+   "text": "I was at the ATM trying to made a withdraw and I was declined.",
+   "gold": "declined cash withdrawal",
+   "readout": "declined cash withdrawal",
+   "greedy": "declined cash withdrawal",
+   "readout_no_prior": "declined cash withdrawal",
+   "conf": 0.9598,
+   "rot_flip": false
+  },
+  {
+   "text": "I tried to make a transfer and it was declined. Why?",
+   "gold": "declined transfer",
+   "readout": "declined transfer",
+   "greedy": "declined transfer",
+   "readout_no_prior": "declined transfer",
+   "conf": 0.9164,
+   "rot_flip": false
+  },
+  {
+   "text": "Good morning. I tried to make a purchase with my credit card last night and again this morning. Both times it was declined. Can you investigate?",
+   "gold": "declined transfer",
+   "readout": "declined card payment",
+   "greedy": "declined card payment",
+   "readout_no_prior": "declined card payment",
+   "conf": 0.795,
+   "rot_flip": false
+  },
+  {
+   "text": "I am getting continuous failure for all my transfers. I have cross checked each recipient detail again and again and everything is correct.",
+   "gold": "declined transfer",
+   "readout": "failed transfer",
+   "greedy": "failed transfer",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.9347,
+   "rot_flip": false
+  },
+  {
+   "text": "why was my transfer declined",
+   "gold": "declined transfer",
+   "readout": "declined transfer",
+   "greedy": "declined transfer",
+   "readout_no_prior": "declined transfer",
+   "conf": 0.7137,
+   "rot_flip": false
+  },
+  {
+   "text": "What would make a decline message show up during a transfer?",
+   "gold": "declined transfer",
+   "readout": "declined transfer",
+   "greedy": "declined transfer",
+   "readout_no_prior": "declined transfer",
+   "conf": 0.8422,
+   "rot_flip": false
+  },
+  {
+   "text": "Why do you keep declining my transfers?it was always been working really well so far but when I tried to buy something just now the card got declined . I tried couple of times already  but same thing is happening.",
+   "gold": "declined transfer",
+   "readout": "declined transfer",
+   "greedy": "declined card payment",
+   "readout_no_prior": "declined transfer",
+   "conf": 0.6434,
+   "rot_flip": false
+  },
+  {
+   "text": "How can I fix my card, it got declined twice.",
+   "gold": "declined transfer",
+   "readout": "declined card payment",
+   "greedy": "declined card payment",
+   "readout_no_prior": "declined card payment",
+   "conf": 0.4958,
+   "rot_flip": false
+  },
+  {
+   "text": "Help me.  There is a Direct Debit that I didn't make.",
+   "gold": "direct debit payment not recognised",
+   "readout": "direct debit payment not recognised",
+   "greedy": "direct debit payment not recognised",
+   "readout_no_prior": "direct debit payment not recognised",
+   "conf": 0.9574,
+   "rot_flip": false
+  },
+  {
+   "text": "There is a direct debit that's not mine.",
+   "gold": "direct debit payment not recognised",
+   "readout": "direct debit payment not recognised",
+   "greedy": "direct debit payment not recognised",
+   "readout_no_prior": "direct debit payment not recognised",
+   "conf": 0.8392,
+   "rot_flip": false
+  },
+  {
+   "text": "I have a strange direct debit in my statement",
+   "gold": "direct debit payment not recognised",
+   "readout": "extra charge on statement",
+   "greedy": "direct debit payment not recognised",
+   "readout_no_prior": "extra charge on statement",
+   "conf": 0.5831,
+   "rot_flip": false
+  },
+  {
+   "text": "I don't understand where this debit came from and want it removed.",
+   "gold": "direct debit payment not recognised",
+   "readout": "request refund",
+   "greedy": "Refund not showing up",
+   "readout_no_prior": "request refund",
+   "conf": 0.8877,
+   "rot_flip": true
+  },
+  {
+   "text": "what is this charge on my account",
+   "gold": "direct debit payment not recognised",
+   "readout": "extra charge on statement",
+   "greedy": "extra charge on statement",
+   "readout_no_prior": "extra charge on statement",
+   "conf": 0.5424,
+   "rot_flip": false
+  },
+  {
+   "text": "im so mad right now. theres several charges that I think my x boyfriend made on my card. the companys on the website wouldn't refund me my money, they told me to contact my bank. DO something please.",
+   "gold": "direct debit payment not recognised",
+   "readout": "request refund",
+   "greedy": "card payment fee charged",
+   "readout_no_prior": "request refund",
+   "conf": 0.9137,
+   "rot_flip": false
+  },
+  {
+   "text": "someone stole my money",
+   "gold": "direct debit payment not recognised",
+   "readout": "lost or stolen card",
+   "greedy": "lost or stolen card",
+   "readout_no_prior": "lost or stolen card",
+   "conf": 0.8012,
+   "rot_flip": false
+  },
+  {
+   "text": "How can i get multiple disposble cards.",
+   "gold": "disposable card limits",
+   "readout": "getting spare card",
+   "greedy": "getting spare card",
+   "readout_no_prior": "getting spare card",
+   "conf": 0.6911,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I make many disposable cards per day?",
+   "gold": "disposable card limits",
+   "readout": "disposable card limits",
+   "greedy": "getting spare card",
+   "readout_no_prior": "get disposable virtual card",
+   "conf": 0.5415,
+   "rot_flip": false
+  },
+  {
+   "text": "I need to use my disposable card multiple times a day, is there a cutoff limit?",
+   "gold": "disposable card limits",
+   "readout": "disposable card limits",
+   "greedy": "disposable card limits",
+   "readout_no_prior": "disposable card limits",
+   "conf": 0.9839,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I make more than one disposable card in a day?",
+   "gold": "disposable card limits",
+   "readout": "getting spare card",
+   "greedy": "getting spare card",
+   "readout_no_prior": "getting spare card",
+   "conf": 0.8381,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I have more than one disposable card?",
+   "gold": "disposable card limits",
+   "readout": "getting spare card",
+   "greedy": "getting spare card",
+   "readout_no_prior": "getting spare card",
+   "conf": 0.5345,
+   "rot_flip": false
+  },
+  {
+   "text": "what is the disposable cards limit?",
+   "gold": "disposable card limits",
+   "readout": "disposable card limits",
+   "greedy": "disposable card limits",
+   "readout_no_prior": "disposable card limits",
+   "conf": 0.9672,
+   "rot_flip": false
+  },
+  {
+   "text": "What's the most disposable cards I can have?",
+   "gold": "disposable card limits",
+   "readout": "get disposable virtual card",
+   "greedy": "getting spare card",
+   "readout_no_prior": "get disposable virtual card",
+   "conf": 0.9856,
+   "rot_flip": false
+  },
+  {
+   "text": "I no longer live at my address on file, how do I change it?",
+   "gold": "edit personal details",
+   "readout": "edit personal details",
+   "greedy": "edit personal details",
+   "readout_no_prior": "edit personal details",
+   "conf": 0.9956,
+   "rot_flip": false
+  },
+  {
+   "text": "How to change my address.",
+   "gold": "edit personal details",
+   "readout": "edit personal details",
+   "greedy": "edit personal details",
+   "readout_no_prior": "edit personal details",
+   "conf": 0.9925,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I update my details?",
+   "gold": "edit personal details",
+   "readout": "edit personal details",
+   "greedy": "edit personal details",
+   "readout_no_prior": "edit personal details",
+   "conf": 0.995,
+   "rot_flip": false
+  },
+  {
+   "text": "My address needs to be revised.",
+   "gold": "edit personal details",
+   "readout": "edit personal details",
+   "greedy": "edit personal details",
+   "readout_no_prior": "edit personal details",
+   "conf": 0.9898,
+   "rot_flip": false
+  },
+  {
+   "text": "got married, need to change account name",
+   "gold": "edit personal details",
+   "readout": "edit personal details",
+   "greedy": "edit personal details",
+   "readout_no_prior": "edit personal details",
+   "conf": 0.9851,
+   "rot_flip": false
+  },
+  {
+   "text": "My address has changed.",
+   "gold": "edit personal details",
+   "readout": "edit personal details",
+   "greedy": "edit personal details",
+   "readout_no_prior": "edit personal details",
+   "conf": 0.9512,
+   "rot_flip": false
+  },
+  {
+   "text": "got married and need to change name",
+   "gold": "edit personal details",
+   "readout": "edit personal details",
+   "greedy": "edit personal details",
+   "readout_no_prior": "edit personal details",
+   "conf": 0.9192,
+   "rot_flip": false
+  },
+  {
+   "text": "Is there an exchange fee?",
+   "gold": "exchange charge",
+   "readout": "exchange charge",
+   "greedy": "exchange charge",
+   "readout_no_prior": "exchange charge",
+   "conf": 0.9667,
+   "rot_flip": false
+  },
+  {
+   "text": "whats your exchange rate",
+   "gold": "exchange charge",
+   "readout": "exchange rate",
+   "greedy": "exchange rate",
+   "readout_no_prior": "exchange rate",
+   "conf": 0.9749,
+   "rot_flip": false
+  },
+  {
+   "text": "What are your currency exchange fees?",
+   "gold": "exchange charge",
+   "readout": "exchange charge",
+   "greedy": "exchange rate",
+   "readout_no_prior": "exchange charge",
+   "conf": 0.7831,
+   "rot_flip": false
+  },
+  {
+   "text": "Where do I find the exchange rate?",
+   "gold": "exchange charge",
+   "readout": "exchange rate",
+   "greedy": "exchange rate",
+   "readout_no_prior": "exchange rate",
+   "conf": 0.9549,
+   "rot_flip": false
+  },
+  {
+   "text": "What is the base amount for cross-currency exchanges?",
+   "gold": "exchange charge",
+   "readout": "exchange rate",
+   "greedy": "exchange rate",
+   "readout_no_prior": "exchange rate",
+   "conf": 0.7679,
+   "rot_flip": false
+  },
+  {
+   "text": "My work sends me all over the world, can I get a discount for all the money I have to exchange?",
+   "gold": "exchange charge",
+   "readout": "exchange charge",
+   "greedy": "exchange charge",
+   "readout_no_prior": "exchange charge",
+   "conf": 0.7815,
+   "rot_flip": false
+  },
+  {
+   "text": "How much more do I have to pay to exchange currencies?",
+   "gold": "exchange charge",
+   "readout": "exchange charge",
+   "greedy": "exchange charge",
+   "readout_no_prior": "exchange charge",
+   "conf": 0.8938,
+   "rot_flip": false
+  },
+  {
+   "text": "I need to know your exchange rates.",
+   "gold": "exchange rate",
+   "readout": "exchange rate",
+   "greedy": "exchange rate",
+   "readout_no_prior": "exchange rate",
+   "conf": 0.9715,
+   "rot_flip": false
+  },
+  {
+   "text": "What exchange rates do you offer?",
+   "gold": "exchange rate",
+   "readout": "exchange rate",
+   "greedy": "exchange rate",
+   "readout_no_prior": "exchange rate",
+   "conf": 0.8873,
+   "rot_flip": false
+  },
+  {
+   "text": "How did you come up with your exchange rates?",
+   "gold": "exchange rate",
+   "readout": "exchange rate",
+   "greedy": "exchange rate",
+   "readout_no_prior": "exchange rate",
+   "conf": 0.8551,
+   "rot_flip": false
+  },
+  {
+   "text": "Where do you guys acquire your exchange rate?",
+   "gold": "exchange rate",
+   "readout": "exchange rate",
+   "greedy": "exchange rate",
+   "readout_no_prior": "exchange rate",
+   "conf": 0.848,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I find the exchange rate?",
+   "gold": "exchange rate",
+   "readout": "exchange rate",
+   "greedy": "exchange rate",
+   "readout_no_prior": "exchange rate",
+   "conf": 0.8916,
+   "rot_flip": false
+  },
+  {
+   "text": "What are your international exchange rates?",
+   "gold": "exchange rate",
+   "readout": "exchange rate",
+   "greedy": "exchange rate",
+   "readout_no_prior": "exchange rate",
+   "conf": 0.8709,
+   "rot_flip": false
+  },
+  {
+   "text": "How often do your exchange rates change",
+   "gold": "exchange rate",
+   "readout": "exchange rate",
+   "greedy": "exchange rate",
+   "readout_no_prior": "exchange rate",
+   "conf": 0.9571,
+   "rot_flip": false
+  },
+  {
+   "text": "May I exchange currencies with this?",
+   "gold": "exchange via app",
+   "readout": "supported cards and currencies",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.7083,
+   "rot_flip": false
+  },
+  {
+   "text": "Tell me how I can exchange between different currency.",
+   "gold": "exchange via app",
+   "readout": "supported cards and currencies",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.4357,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I change from one currency to another?",
+   "gold": "exchange via app",
+   "readout": "supported cards and currencies",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.8027,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I change GBP to AUD?",
+   "gold": "exchange via app",
+   "readout": "exchange via app",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "exchange rate",
+   "conf": 0.4046,
+   "rot_flip": false
+  },
+  {
+   "text": "Will this app exchange currencies?",
+   "gold": "exchange via app",
+   "readout": "exchange via app",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "exchange via app",
+   "conf": 0.8953,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I convert currencies with the app?",
+   "gold": "exchange via app",
+   "readout": "exchange via app",
+   "greedy": "exchange via app",
+   "readout_no_prior": "exchange via app",
+   "conf": 0.643,
+   "rot_flip": false
+  },
+  {
+   "text": "How are currencies exchanged?",
+   "gold": "exchange via app",
+   "readout": "exchange rate",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "exchange rate",
+   "conf": 0.2818,
+   "rot_flip": false
+  },
+  {
+   "text": "My statement has a dollar I have been charged showing up on it.",
+   "gold": "extra charge on statement",
+   "readout": "extra charge on statement",
+   "greedy": "extra charge on statement",
+   "readout_no_prior": "extra charge on statement",
+   "conf": 0.9258,
+   "rot_flip": false
+  },
+  {
+   "text": "Why is there a fee for an extra pound in my statement?",
+   "gold": "extra charge on statement",
+   "readout": "extra charge on statement",
+   "greedy": "extra charge on statement",
+   "readout_no_prior": "extra charge on statement",
+   "conf": 0.9846,
+   "rot_flip": false
+  },
+  {
+   "text": "I'm not okay with this fee on my statement.",
+   "gold": "extra charge on statement",
+   "readout": "extra charge on statement",
+   "greedy": "extra charge on statement",
+   "readout_no_prior": "extra charge on statement",
+   "conf": 0.7818,
+   "rot_flip": false
+  },
+  {
+   "text": "Why is there an extra dollar charged to my account?",
+   "gold": "extra charge on statement",
+   "readout": "extra charge on statement",
+   "greedy": "extra charge on statement",
+   "readout_no_prior": "extra charge on statement",
+   "conf": 0.9124,
+   "rot_flip": false
+  },
+  {
+   "text": "There is a fee I don't recognize on my statement.",
+   "gold": "extra charge on statement",
+   "readout": "extra charge on statement",
+   "greedy": "extra charge on statement",
+   "readout_no_prior": "extra charge on statement",
+   "conf": 0.8964,
+   "rot_flip": false
+  },
+  {
+   "text": "I would like a refund on the extra pound I was charged.",
+   "gold": "extra charge on statement",
+   "readout": "request refund",
+   "greedy": "extra charge on statement",
+   "readout_no_prior": "request refund",
+   "conf": 0.9846,
+   "rot_flip": false
+  },
+  {
+   "text": "Can you explain what this random $1 charge is?",
+   "gold": "extra charge on statement",
+   "readout": "extra charge on statement",
+   "greedy": "extra charge on statement",
+   "readout_no_prior": "extra charge on statement",
+   "conf": 0.8339,
+   "rot_flip": false
+  },
+  {
+   "text": "dont understand why transfer failed",
+   "gold": "failed transfer",
+   "readout": "failed transfer",
+   "greedy": "failed transfer",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.9219,
+   "rot_flip": false
+  },
+  {
+   "text": "Please help me make a transfer. I keep receiving an error and I'm trying to make the initial mortgage payment for a flat I'm buying. What is the deal here?",
+   "gold": "failed transfer",
+   "readout": "failed transfer",
+   "greedy": "failed transfer",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.9074,
+   "rot_flip": false
+  },
+  {
+   "text": "My transfer didn't work",
+   "gold": "failed transfer",
+   "readout": "failed transfer",
+   "greedy": "failed transfer",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.878,
+   "rot_flip": false
+  },
+  {
+   "text": "Fix your system. I can't make transfers, I've tried like 5 times already.",
+   "gold": "failed transfer",
+   "readout": "failed transfer",
+   "greedy": "cancel transfer",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.8263,
+   "rot_flip": false
+  },
+  {
+   "text": "Tell me why my transfer failed!",
+   "gold": "failed transfer",
+   "readout": "failed transfer",
+   "greedy": "failed transfer",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.9646,
+   "rot_flip": false
+  },
+  {
+   "text": "My transfer did not go through.",
+   "gold": "failed transfer",
+   "readout": "failed transfer",
+   "greedy": "failed transfer",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.8447,
+   "rot_flip": false
+  },
+  {
+   "text": "Why was I not able to complete a transfer?",
+   "gold": "failed transfer",
+   "readout": "failed transfer",
+   "greedy": "failed transfer",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.8814,
+   "rot_flip": false
+  },
+  {
+   "text": "If I request that my funds be held, what currencies do you use?",
+   "gold": "fiat currency support",
+   "readout": "supported cards and currencies",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.9398,
+   "rot_flip": false
+  },
+  {
+   "text": "I want to know how many different currencies my money can be in",
+   "gold": "fiat currency support",
+   "readout": "supported cards and currencies",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.7655,
+   "rot_flip": false
+  },
+  {
+   "text": "Do you support all fiat currencies?",
+   "gold": "fiat currency support",
+   "readout": "fiat currency support",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.552,
+   "rot_flip": false
+  },
+  {
+   "text": "Does your system support multiple currency.",
+   "gold": "fiat currency support",
+   "readout": "supported cards and currencies",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.8785,
+   "rot_flip": false
+  },
+  {
+   "text": "What currencies can I hold money in?",
+   "gold": "fiat currency support",
+   "readout": "supported cards and currencies",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.7447,
+   "rot_flip": false
+  },
+  {
+   "text": "Do you support any currency?",
+   "gold": "fiat currency support",
+   "readout": "supported cards and currencies",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.9038,
+   "rot_flip": false
+  },
+  {
+   "text": "There is an incoming payment into my account, but it is deactivated. Will they still be processed?",
+   "gold": "fiat currency support",
+   "readout": "receiving money",
+   "greedy": "receiving money",
+   "readout_no_prior": "receiving money",
+   "conf": 0.6625,
+   "rot_flip": false
+  },
+  {
+   "text": "can i get a description of how to use a disposable virtual card",
+   "gold": "get disposable virtual card",
+   "readout": "get disposable virtual card",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "get disposable virtual card",
+   "conf": 0.9337,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I create a disposable virtual card?",
+   "gold": "get disposable virtual card",
+   "readout": "get disposable virtual card",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "get disposable virtual card",
+   "conf": 0.9896,
+   "rot_flip": false
+  },
+  {
+   "text": "What can you tell me about getting a virtual disposable card?",
+   "gold": "get disposable virtual card",
+   "readout": "get disposable virtual card",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "get disposable virtual card",
+   "conf": 0.8113,
+   "rot_flip": false
+  },
+  {
+   "text": "I would like to order a disposable virtual card. How can I do this?",
+   "gold": "get disposable virtual card",
+   "readout": "get disposable virtual card",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "get disposable virtual card",
+   "conf": 0.9825,
+   "rot_flip": false
+  },
+  {
+   "text": "how do VR cards work",
+   "gold": "get disposable virtual card",
+   "readout": "virtual card not working",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "virtual card not working",
+   "conf": 0.764,
+   "rot_flip": false
+  },
+  {
+   "text": "What is a disposable virtual card?",
+   "gold": "get disposable virtual card",
+   "readout": "get disposable virtual card",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "get disposable virtual card",
+   "conf": 0.9689,
+   "rot_flip": false
+  },
+  {
+   "text": "What do I do with my card PIN?",
+   "gold": "get physical card",
+   "readout": "pin blocked",
+   "greedy": "change pin",
+   "readout_no_prior": "change pin",
+   "conf": 0.439,
+   "rot_flip": false
+  },
+  {
+   "text": "Is the PIN delivered separately?",
+   "gold": "get physical card",
+   "readout": "passcode forgotten",
+   "greedy": "get physical card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.3328,
+   "rot_flip": true
+  },
+  {
+   "text": "I do not have my pin",
+   "gold": "get physical card",
+   "readout": "passcode forgotten",
+   "greedy": "change pin",
+   "readout_no_prior": "passcode forgotten",
+   "conf": 0.6091,
+   "rot_flip": false
+  },
+  {
+   "text": "Are PIN separately?",
+   "gold": "get physical card",
+   "readout": "pin blocked",
+   "greedy": "change pin",
+   "readout_no_prior": "change pin",
+   "conf": 0.4771,
+   "rot_flip": false
+  },
+  {
+   "text": "I cannot seem to find my PIN. Where is it?",
+   "gold": "get physical card",
+   "readout": "passcode forgotten",
+   "greedy": "passcode forgotten",
+   "readout_no_prior": "passcode forgotten",
+   "conf": 0.9183,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I set-up my PIN for the new card?",
+   "gold": "get physical card",
+   "readout": "change pin",
+   "greedy": "change pin",
+   "readout_no_prior": "change pin",
+   "conf": 0.8208,
+   "rot_flip": false
+  },
+  {
+   "text": "Would it be possible to get another card?",
+   "gold": "getting spare card",
+   "readout": "getting spare card",
+   "greedy": "getting spare card",
+   "readout_no_prior": "getting spare card",
+   "conf": 0.9878,
+   "rot_flip": false
+  },
+  {
+   "text": "How many cards can I have for one account?",
+   "gold": "getting spare card",
+   "readout": "getting virtual card",
+   "greedy": "disposable card limits",
+   "readout_no_prior": "get physical card",
+   "conf": 0.4184,
+   "rot_flip": false
+  },
+  {
+   "text": "I want to order another crad",
+   "gold": "getting spare card",
+   "readout": "getting spare card",
+   "greedy": "order physical card",
+   "readout_no_prior": "getting spare card",
+   "conf": 0.4555,
+   "rot_flip": true
+  },
+  {
+   "text": "How can I get additional cards?",
+   "gold": "getting spare card",
+   "readout": "getting spare card",
+   "greedy": "getting spare card",
+   "readout_no_prior": "getting spare card",
+   "conf": 0.5704,
+   "rot_flip": false
+  },
+  {
+   "text": "Is there a fee for extra cards?",
+   "gold": "getting spare card",
+   "readout": "getting spare card",
+   "greedy": "getting spare card",
+   "readout_no_prior": "getting spare card",
+   "conf": 0.9948,
+   "rot_flip": false
+  },
+  {
+   "text": "I need some spare physical cards.",
+   "gold": "getting spare card",
+   "readout": "getting spare card",
+   "greedy": "getting spare card",
+   "readout_no_prior": "getting spare card",
+   "conf": 0.9971,
+   "rot_flip": false
+  },
+  {
+   "text": "Where can I obtain my virtual card?",
+   "gold": "getting virtual card",
+   "readout": "getting virtual card",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "get disposable virtual card",
+   "conf": 0.6444,
+   "rot_flip": true
+  },
+  {
+   "text": "How do you get a virtual card?",
+   "gold": "getting virtual card",
+   "readout": "getting virtual card",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "get disposable virtual card",
+   "conf": 0.7048,
+   "rot_flip": true
+  },
+  {
+   "text": "Where can I find a virtual card?",
+   "gold": "getting virtual card",
+   "readout": "get disposable virtual card",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "get disposable virtual card",
+   "conf": 0.5067,
+   "rot_flip": false
+  },
+  {
+   "text": "Is there an option to have a virtual card?",
+   "gold": "getting virtual card",
+   "readout": "get disposable virtual card",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "get disposable virtual card",
+   "conf": 0.7793,
+   "rot_flip": false
+  },
+  {
+   "text": "If I don't want a physical card can i get a virtual version?",
+   "gold": "getting virtual card",
+   "readout": "getting virtual card",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "get disposable virtual card",
+   "conf": 0.3454,
+   "rot_flip": false
+  },
+  {
+   "text": "I requested a virtual card but it is not showing up. Why?",
+   "gold": "getting virtual card",
+   "readout": "getting virtual card",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "get disposable virtual card",
+   "conf": 0.5698,
+   "rot_flip": false
+  },
+  {
+   "text": "My entire gym bag, including my wallet, was stolen out of my locker today. Everything in my wallet is gone - how do I block the card to make it can't be used?",
+   "gold": "lost or stolen card",
+   "readout": "lost or stolen card",
+   "greedy": "lost or stolen card",
+   "readout_no_prior": "lost or stolen card",
+   "conf": 0.9841,
+   "rot_flip": false
+  },
+  {
+   "text": "I can't find my card and think it may have been stolen.",
+   "gold": "lost or stolen card",
+   "readout": "lost or stolen card",
+   "greedy": "lost or stolen card",
+   "readout_no_prior": "lost or stolen card",
+   "conf": 0.9985,
+   "rot_flip": false
+  },
+  {
+   "text": "Someone stole my card. I need to report it stolen. I made a police report already, but how do I report it with you?",
+   "gold": "lost or stolen card",
+   "readout": "lost or stolen card",
+   "greedy": "lost or stolen card",
+   "readout_no_prior": "lost or stolen card",
+   "conf": 0.9918,
+   "rot_flip": false
+  },
+  {
+   "text": "I cant find my card, it's gone.",
+   "gold": "lost or stolen card",
+   "readout": "lost or stolen card",
+   "greedy": "lost or stolen card",
+   "readout_no_prior": "lost or stolen card",
+   "conf": 0.9985,
+   "rot_flip": false
+  },
+  {
+   "text": "My card is lost! What can I do?",
+   "gold": "lost or stolen card",
+   "readout": "lost or stolen card",
+   "greedy": "lost or stolen card",
+   "readout_no_prior": "lost or stolen card",
+   "conf": 0.9991,
+   "rot_flip": false
+  },
+  {
+   "text": "I lost my card",
+   "gold": "lost or stolen card",
+   "readout": "lost or stolen card",
+   "greedy": "lost or stolen card",
+   "readout_no_prior": "lost or stolen card",
+   "conf": 0.9926,
+   "rot_flip": false
+  },
+  {
+   "text": "My phone was stolen",
+   "gold": "lost or stolen phone",
+   "readout": "lost or stolen phone",
+   "greedy": "lost or stolen phone",
+   "readout_no_prior": "lost or stolen phone",
+   "conf": 0.9805,
+   "rot_flip": false
+  },
+  {
+   "text": "My phone was stolen yesterday.  What should I do?",
+   "gold": "lost or stolen phone",
+   "readout": "lost or stolen phone",
+   "greedy": "lost or stolen phone",
+   "readout_no_prior": "lost or stolen phone",
+   "conf": 0.9639,
+   "rot_flip": false
+  },
+  {
+   "text": "If my phone is missing, can I block someone from using the app?",
+   "gold": "lost or stolen phone",
+   "readout": "lost or stolen phone",
+   "greedy": "lost or stolen phone",
+   "readout_no_prior": "lost or stolen phone",
+   "conf": 0.9812,
+   "rot_flip": false
+  },
+  {
+   "text": "I think my phone is either lost or stolen.",
+   "gold": "lost or stolen phone",
+   "readout": "lost or stolen phone",
+   "greedy": "lost or stolen phone",
+   "readout_no_prior": "lost or stolen phone",
+   "conf": 0.974,
+   "rot_flip": false
+  },
+  {
+   "text": "If I was mugged and lost everything, how do I access my account and app?",
+   "gold": "lost or stolen phone",
+   "readout": "lost or stolen phone",
+   "greedy": "lost or stolen phone",
+   "readout_no_prior": "lost or stolen phone",
+   "conf": 0.7297,
+   "rot_flip": true
+  },
+  {
+   "text": "I can't find my phone.",
+   "gold": "lost or stolen phone",
+   "readout": "lost or stolen phone",
+   "greedy": "lost or stolen phone",
+   "readout_no_prior": "lost or stolen phone",
+   "conf": 0.992,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I receive my physical card",
+   "gold": "order physical card",
+   "readout": "get physical card",
+   "greedy": "get physical card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.7288,
+   "rot_flip": false
+  },
+  {
+   "text": "I want a card. What is the procedure?",
+   "gold": "order physical card",
+   "readout": "order physical card",
+   "greedy": "get physical card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.632,
+   "rot_flip": false
+  },
+  {
+   "text": "What do you charge for physical cards?",
+   "gold": "order physical card",
+   "readout": "order physical card",
+   "greedy": "get physical card",
+   "readout_no_prior": "order physical card",
+   "conf": 0.7669,
+   "rot_flip": false
+  },
+  {
+   "text": "Where can I get my card at?",
+   "gold": "order physical card",
+   "readout": "get physical card",
+   "greedy": "get physical card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.5825,
+   "rot_flip": true
+  },
+  {
+   "text": "price of physical card",
+   "gold": "order physical card",
+   "readout": "order physical card",
+   "greedy": "get physical card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.6103,
+   "rot_flip": false
+  },
+  {
+   "text": "Please, how do I order a card?",
+   "gold": "order physical card",
+   "readout": "get physical card",
+   "greedy": "order physical card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.4905,
+   "rot_flip": false
+  },
+  {
+   "text": "What do I do if I forget my passcode?  Because I did.",
+   "gold": "passcode forgotten",
+   "readout": "passcode forgotten",
+   "greedy": "passcode forgotten",
+   "readout_no_prior": "passcode forgotten",
+   "conf": 0.9989,
+   "rot_flip": false
+  },
+  {
+   "text": "I can't find my password",
+   "gold": "passcode forgotten",
+   "readout": "passcode forgotten",
+   "greedy": "passcode forgotten",
+   "readout_no_prior": "passcode forgotten",
+   "conf": 0.9565,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I retrieve my passcode?",
+   "gold": "passcode forgotten",
+   "readout": "passcode forgotten",
+   "greedy": "passcode forgotten",
+   "readout_no_prior": "passcode forgotten",
+   "conf": 0.997,
+   "rot_flip": false
+  },
+  {
+   "text": "My passcode doesn't seem to be working",
+   "gold": "passcode forgotten",
+   "readout": "passcode forgotten",
+   "greedy": "card not working",
+   "readout_no_prior": "passcode forgotten",
+   "conf": 0.595,
+   "rot_flip": true
+  },
+  {
+   "text": "I lost my password",
+   "gold": "passcode forgotten",
+   "readout": "passcode forgotten",
+   "greedy": "passcode forgotten",
+   "readout_no_prior": "passcode forgotten",
+   "conf": 0.9121,
+   "rot_flip": false
+  },
+  {
+   "text": "My password isn't being accepted and I need to reset it.",
+   "gold": "passcode forgotten",
+   "readout": "passcode forgotten",
+   "greedy": "passcode forgotten",
+   "readout_no_prior": "passcode forgotten",
+   "conf": 0.9521,
+   "rot_flip": false
+  },
+  {
+   "text": "My card payment is still on hold, why is it so?",
+   "gold": "pending card payment",
+   "readout": "pending card payment",
+   "greedy": "pending card payment",
+   "readout_no_prior": "pending card payment",
+   "conf": 0.918,
+   "rot_flip": false
+  },
+  {
+   "text": "Why is my payment pending?",
+   "gold": "pending card payment",
+   "readout": "pending transfer",
+   "greedy": "pending top up",
+   "readout_no_prior": "pending transfer",
+   "conf": 0.5181,
+   "rot_flip": false
+  },
+  {
+   "text": "My card payment is still pending.",
+   "gold": "pending card payment",
+   "readout": "pending card payment",
+   "greedy": "pending card payment",
+   "readout_no_prior": "pending card payment",
+   "conf": 0.955,
+   "rot_flip": false
+  },
+  {
+   "text": "How do i finalize a card payment",
+   "gold": "pending card payment",
+   "readout": "pending card payment",
+   "greedy": "pending card payment",
+   "readout_no_prior": "pending card payment",
+   "conf": 0.9657,
+   "rot_flip": false
+  },
+  {
+   "text": "Why is my card payment showing as pending?",
+   "gold": "pending card payment",
+   "readout": "pending card payment",
+   "greedy": "pending card payment",
+   "readout_no_prior": "pending card payment",
+   "conf": 0.9279,
+   "rot_flip": false
+  },
+  {
+   "text": "Why has my payment not gone through?",
+   "gold": "pending card payment",
+   "readout": "pending transfer",
+   "greedy": "top up failed",
+   "readout_no_prior": "pending transfer",
+   "conf": 0.5256,
+   "rot_flip": true
+  },
+  {
+   "text": "My withdrawl is still pending.  Why?",
+   "gold": "pending cash withdrawal",
+   "readout": "pending cash withdrawal",
+   "greedy": "pending cash withdrawal",
+   "readout_no_prior": "pending cash withdrawal",
+   "conf": 0.9456,
+   "rot_flip": false
+  },
+  {
+   "text": "My card was denied at an ATM earlier today but the transaction is pending. Please cancel it as I did not receive my money.",
+   "gold": "pending cash withdrawal",
+   "readout": "pending cash withdrawal",
+   "greedy": "declined cash withdrawal",
+   "readout_no_prior": "pending cash withdrawal",
+   "conf": 0.6602,
+   "rot_flip": false
+  },
+  {
+   "text": "My transaction is still showing that is pending from my cash withdrawal.",
+   "gold": "pending cash withdrawal",
+   "readout": "pending cash withdrawal",
+   "greedy": "pending cash withdrawal",
+   "readout_no_prior": "pending cash withdrawal",
+   "conf": 0.9909,
+   "rot_flip": false
+  },
+  {
+   "text": "Hey I tried to get some money out earlier but the machine didn't work. Now just saw the transaction still seems in progress! Can you please check what's going there, seems something is broken, I don't want to be charged for money that I haven't actually received!",
+   "gold": "pending cash withdrawal",
+   "readout": "pending cash withdrawal",
+   "greedy": "pending cash withdrawal",
+   "readout_no_prior": "pending cash withdrawal",
+   "conf": 0.9286,
+   "rot_flip": false
+  },
+  {
+   "text": "How long does the cash withdrawal take to pend?",
+   "gold": "pending cash withdrawal",
+   "readout": "pending cash withdrawal",
+   "greedy": "pending cash withdrawal",
+   "readout_no_prior": "pending cash withdrawal",
+   "conf": 0.9652,
+   "rot_flip": false
+  },
+  {
+   "text": "Why is it taking so long for my cash withdrawal to no longer show as pending?",
+   "gold": "pending cash withdrawal",
+   "readout": "pending cash withdrawal",
+   "greedy": "pending cash withdrawal",
+   "readout_no_prior": "pending cash withdrawal",
+   "conf": 0.9728,
+   "rot_flip": false
+  },
+  {
+   "text": "new customer and filling gas today, it's not working, the thing shows pending half an hour!",
+   "gold": "pending top up",
+   "readout": "pending cash withdrawal",
+   "greedy": "pending cash withdrawal",
+   "readout_no_prior": "pending cash withdrawal",
+   "conf": 0.7232,
+   "rot_flip": false
+  },
+  {
+   "text": "My card was topped this morning but I can't see the funds. Why didn't it complete?",
+   "gold": "pending top up",
+   "readout": "pending top up",
+   "greedy": "top up failed",
+   "readout_no_prior": "pending top up",
+   "conf": 0.9696,
+   "rot_flip": false
+  },
+  {
+   "text": "What would lead to my top up still pending?",
+   "gold": "pending top up",
+   "readout": "pending top up",
+   "greedy": "pending top up",
+   "readout_no_prior": "pending top up",
+   "conf": 0.996,
+   "rot_flip": false
+  },
+  {
+   "text": "there's a delay in my top-up",
+   "gold": "pending top up",
+   "readout": "pending top up",
+   "greedy": "pending top up",
+   "readout_no_prior": "pending top up",
+   "conf": 0.9948,
+   "rot_flip": false
+  },
+  {
+   "text": "Is there a reason my top up hasn't gone through",
+   "gold": "pending top up",
+   "readout": "top up failed",
+   "greedy": "top up failed",
+   "readout_no_prior": "top up failed",
+   "conf": 0.4718,
+   "rot_flip": false
+  },
+  {
+   "text": "The top-up is pending.",
+   "gold": "pending top up",
+   "readout": "pending top up",
+   "greedy": "pending top up",
+   "readout_no_prior": "pending top up",
+   "conf": 0.9907,
+   "rot_flip": false
+  },
+  {
+   "text": "I did transfer, why is it pending",
+   "gold": "pending transfer",
+   "readout": "pending transfer",
+   "greedy": "pending transfer",
+   "readout_no_prior": "pending transfer",
+   "conf": 0.8971,
+   "rot_flip": false
+  },
+  {
+   "text": "How long for money transfer to show?",
+   "gold": "pending transfer",
+   "readout": "transfer timing",
+   "greedy": "transfer timing",
+   "readout_no_prior": "transfer timing",
+   "conf": 0.9429,
+   "rot_flip": false
+  },
+  {
+   "text": "Why is my transfer not done yet?",
+   "gold": "pending transfer",
+   "readout": "pending transfer",
+   "greedy": "pending transfer",
+   "readout_no_prior": "pending transfer",
+   "conf": 0.4931,
+   "rot_flip": false
+  },
+  {
+   "text": "I have a pending transfer",
+   "gold": "pending transfer",
+   "readout": "pending transfer",
+   "greedy": "pending transfer",
+   "readout_no_prior": "pending transfer",
+   "conf": 0.9768,
+   "rot_flip": false
+  },
+  {
+   "text": "I am waiting for a pending money transfer to process.",
+   "gold": "pending transfer",
+   "readout": "pending transfer",
+   "greedy": "pending transfer",
+   "readout_no_prior": "pending transfer",
+   "conf": 0.9819,
+   "rot_flip": false
+  },
+  {
+   "text": "i transfered however its still pending",
+   "gold": "pending transfer",
+   "readout": "pending transfer",
+   "greedy": "balance not updated after bank transfer",
+   "readout_no_prior": "pending transfer",
+   "conf": 0.8301,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I get my PIN unlocked?",
+   "gold": "pin blocked",
+   "readout": "pin blocked",
+   "greedy": "passcode forgotten",
+   "readout_no_prior": "pin blocked",
+   "conf": 0.9059,
+   "rot_flip": false
+  },
+  {
+   "text": "Where can I view my PIN?",
+   "gold": "pin blocked",
+   "readout": "change pin",
+   "greedy": "change pin",
+   "readout_no_prior": "change pin",
+   "conf": 0.6576,
+   "rot_flip": false
+  },
+  {
+   "text": "Will you reinstate my PIN?",
+   "gold": "pin blocked",
+   "readout": "passcode forgotten",
+   "greedy": "change pin",
+   "readout_no_prior": "passcode forgotten",
+   "conf": 0.3634,
+   "rot_flip": true
+  },
+  {
+   "text": "I accidentally blocked my PIN. How do I reset it?",
+   "gold": "pin blocked",
+   "readout": "pin blocked",
+   "greedy": "pin blocked",
+   "readout_no_prior": "pin blocked",
+   "conf": 0.9996,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I unblock my pin after entering it wrong too many times?",
+   "gold": "pin blocked",
+   "readout": "pin blocked",
+   "greedy": "pin blocked",
+   "readout_no_prior": "pin blocked",
+   "conf": 0.9997,
+   "rot_flip": false
+  },
+  {
+   "text": "I used the wrong ping too many times and now the account is blocked.  How do I unblock?",
+   "gold": "pin blocked",
+   "readout": "pin blocked",
+   "greedy": "pin blocked",
+   "readout_no_prior": "pin blocked",
+   "conf": 0.9904,
+   "rot_flip": false
+  },
+  {
+   "text": "Will salary be received through this?",
+   "gold": "receiving money",
+   "readout": "receiving money",
+   "greedy": "receiving money",
+   "readout_no_prior": "receiving money",
+   "conf": 0.9946,
+   "rot_flip": false
+  },
+  {
+   "text": "How can I get paid in a different currency?",
+   "gold": "receiving money",
+   "readout": "fiat currency support",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.4516,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I receive my salary in a currency other than what it is deposited in?",
+   "gold": "receiving money",
+   "readout": "fiat currency support",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.4318,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I get my salary through this?",
+   "gold": "receiving money",
+   "readout": "receiving money",
+   "greedy": "getting virtual card",
+   "readout_no_prior": "receiving money",
+   "conf": 0.7721,
+   "rot_flip": false
+  },
+  {
+   "text": "How can someone send me money?",
+   "gold": "receiving money",
+   "readout": "receiving money",
+   "greedy": "receiving money",
+   "readout_no_prior": "receiving money",
+   "conf": 0.9966,
+   "rot_flip": false
+  },
+  {
+   "text": "Is there a problem with receiving my salary in GBP?",
+   "gold": "receiving money",
+   "readout": "supported cards and currencies",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.3233,
+   "rot_flip": false
+  },
+  {
+   "text": "Hello- It is urgent I get a refund on this product. The merchant has not been helpful, what can I do now to get this resolved ASAP?",
+   "gold": "request refund",
+   "readout": "request refund",
+   "greedy": "exchange charge",
+   "readout_no_prior": "request refund",
+   "conf": 0.8673,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I receive a refund for my item?",
+   "gold": "request refund",
+   "readout": "request refund",
+   "greedy": "exchange charge",
+   "readout_no_prior": "request refund",
+   "conf": 0.9711,
+   "rot_flip": false
+  },
+  {
+   "text": "Get an item refund",
+   "gold": "request refund",
+   "readout": "request refund",
+   "greedy": "exchange charge",
+   "readout_no_prior": "request refund",
+   "conf": 0.9987,
+   "rot_flip": false
+  },
+  {
+   "text": "Would I be able to get a refund for something I bought?",
+   "gold": "request refund",
+   "readout": "request refund",
+   "greedy": "exchange charge",
+   "readout_no_prior": "request refund",
+   "conf": 0.9832,
+   "rot_flip": false
+  },
+  {
+   "text": "I need to do a refund",
+   "gold": "request refund",
+   "readout": "request refund",
+   "greedy": "exchange charge",
+   "readout_no_prior": "request refund",
+   "conf": 0.9996,
+   "rot_flip": false
+  },
+  {
+   "text": "I need a refund on an item I have not received.  Am I able to simply cancel the payment?  I don't know how to do this.",
+   "gold": "request refund",
+   "readout": "request refund",
+   "greedy": "exchange charge",
+   "readout_no_prior": "request refund",
+   "conf": 0.9947,
+   "rot_flip": false
+  },
+  {
+   "text": "I think my card payment has been stopped",
+   "gold": "reverted card payment?",
+   "readout": "card payment not recognised",
+   "greedy": "card not working",
+   "readout_no_prior": "card payment not recognised",
+   "conf": 0.7864,
+   "rot_flip": true
+  },
+  {
+   "text": "My card payment was reverted.  Why?",
+   "gold": "reverted card payment?",
+   "readout": "reverted card payment?",
+   "greedy": "reverted card payment?",
+   "readout_no_prior": "reverted card payment?",
+   "conf": 0.9646,
+   "rot_flip": false
+  },
+  {
+   "text": "the app reverted my payment",
+   "gold": "reverted card payment?",
+   "readout": "reverted card payment?",
+   "greedy": "top up reverted",
+   "readout_no_prior": "reverted card payment?",
+   "conf": 0.8619,
+   "rot_flip": false
+  },
+  {
+   "text": "My card payment was cancelled.",
+   "gold": "reverted card payment?",
+   "readout": "pending card payment",
+   "greedy": "declined card payment",
+   "readout_no_prior": "declined card payment",
+   "conf": 0.4144,
+   "rot_flip": true
+  },
+  {
+   "text": "Why was my payment cancelled?",
+   "gold": "reverted card payment?",
+   "readout": "cancel transfer",
+   "greedy": "cancel transfer",
+   "readout_no_prior": "request refund",
+   "conf": 0.3024,
+   "rot_flip": true
+  },
+  {
+   "text": "I made a payment but the app reverted the payment.",
+   "gold": "reverted card payment?",
+   "readout": "reverted card payment?",
+   "greedy": "top up reverted",
+   "readout_no_prior": "reverted card payment?",
+   "conf": 0.9118,
+   "rot_flip": false
+  },
+  {
+   "text": "To add money to my account, what currencies can I use?",
+   "gold": "supported cards and currencies",
+   "readout": "supported cards and currencies",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.8049,
+   "rot_flip": false
+  },
+  {
+   "text": "I need support options, I want to top my card",
+   "gold": "supported cards and currencies",
+   "readout": "top up by bank transfer charge",
+   "greedy": "topping up by card",
+   "readout_no_prior": "top up by card charge",
+   "conf": 0.4743,
+   "rot_flip": true
+  },
+  {
+   "text": "I have 1 other US card.  Can you take that?",
+   "gold": "supported cards and currencies",
+   "readout": "card acceptance",
+   "greedy": "card acceptance",
+   "readout_no_prior": "card acceptance",
+   "conf": 0.9282,
+   "rot_flip": false
+  },
+  {
+   "text": "What are the cards and currencies that are supported?",
+   "gold": "supported cards and currencies",
+   "readout": "supported cards and currencies",
+   "greedy": "supported cards and currencies",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.9935,
+   "rot_flip": false
+  },
+  {
+   "text": "What currencies are accepted for adding money?",
+   "gold": "supported cards and currencies",
+   "readout": "supported cards and currencies",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.9158,
+   "rot_flip": false
+  },
+  {
+   "text": "What kind of currencies can I use to add money?",
+   "gold": "supported cards and currencies",
+   "readout": "supported cards and currencies",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.975,
+   "rot_flip": false
+  },
+  {
+   "text": "Can you remove my account please?",
+   "gold": "terminate account",
+   "readout": "terminate account",
+   "greedy": "terminate account",
+   "readout_no_prior": "terminate account",
+   "conf": 0.9994,
+   "rot_flip": false
+  },
+  {
+   "text": "i want to close an account but im not sure about setting up a new one in the future, what do you recommend",
+   "gold": "terminate account",
+   "readout": "terminate account",
+   "greedy": "terminate account",
+   "readout_no_prior": "terminate account",
+   "conf": 0.996,
+   "rot_flip": false
+  },
+  {
+   "text": "My account needs to be deleted.",
+   "gold": "terminate account",
+   "readout": "terminate account",
+   "greedy": "terminate account",
+   "readout_no_prior": "terminate account",
+   "conf": 0.999,
+   "rot_flip": false
+  },
+  {
+   "text": "I would like to delete my account please.",
+   "gold": "terminate account",
+   "readout": "terminate account",
+   "greedy": "terminate account",
+   "readout_no_prior": "terminate account",
+   "conf": 0.999,
+   "rot_flip": false
+  },
+  {
+   "text": "What steps do I need to take to close my account?",
+   "gold": "terminate account",
+   "readout": "terminate account",
+   "greedy": "terminate account",
+   "readout_no_prior": "terminate account",
+   "conf": 0.9984,
+   "rot_flip": false
+  },
+  {
+   "text": "I'm tired of all the problems I've had. I want to quit this account!",
+   "gold": "terminate account",
+   "readout": "terminate account",
+   "greedy": "terminate account",
+   "readout_no_prior": "terminate account",
+   "conf": 0.9989,
+   "rot_flip": false
+  },
+  {
+   "text": "how much do you charge to accept transfers",
+   "gold": "top up by bank transfer charge",
+   "readout": "transfer fee charged",
+   "greedy": "transfer fee charged",
+   "readout_no_prior": "transfer fee charged",
+   "conf": 0.9533,
+   "rot_flip": false
+  },
+  {
+   "text": "I would like to make a transfer. How much does it cost?",
+   "gold": "top up by bank transfer charge",
+   "readout": "transfer fee charged",
+   "greedy": "transfer fee charged",
+   "readout_no_prior": "transfer fee charged",
+   "conf": 0.9603,
+   "rot_flip": false
+  },
+  {
+   "text": "I need to make a transfer, what will the fee be?",
+   "gold": "top up by bank transfer charge",
+   "readout": "transfer fee charged",
+   "greedy": "transfer fee charged",
+   "readout_no_prior": "transfer fee charged",
+   "conf": 0.9492,
+   "rot_flip": false
+  },
+  {
+   "text": "If I make a top-up are there charges applied?",
+   "gold": "top up by bank transfer charge",
+   "readout": "top up by bank transfer charge",
+   "greedy": "top up by card charge",
+   "readout_no_prior": "top up by card charge",
+   "conf": 0.3991,
+   "rot_flip": true
+  },
+  {
+   "text": "Can I also transfer with SWIFT?",
+   "gold": "top up by bank transfer charge",
+   "readout": "transfer into account",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.2331,
+   "rot_flip": true
+  },
+  {
+   "text": "Are SWIFT transfers accepted?",
+   "gold": "top up by bank transfer charge",
+   "readout": "supported cards and currencies",
+   "greedy": "fiat currency support",
+   "readout_no_prior": "supported cards and currencies",
+   "conf": 0.4218,
+   "rot_flip": false
+  },
+  {
+   "text": "Is there a fee for using a European bank card to top up?",
+   "gold": "top up by card charge",
+   "readout": "top up by card charge",
+   "greedy": "top up by card charge",
+   "readout_no_prior": "top up by card charge",
+   "conf": 0.766,
+   "rot_flip": true
+  },
+  {
+   "text": "Are there any fees for adding money with an international card?",
+   "gold": "top up by card charge",
+   "readout": "top up by card charge",
+   "greedy": "top up by card charge",
+   "readout_no_prior": "top up by card charge",
+   "conf": 0.8369,
+   "rot_flip": false
+  },
+  {
+   "text": "i was charged when i used a us issued card. why and what cards are free to use to add money",
+   "gold": "top up by card charge",
+   "readout": "card payment fee charged",
+   "greedy": "card payment fee charged",
+   "readout_no_prior": "card payment fee charged",
+   "conf": 0.9208,
+   "rot_flip": false
+  },
+  {
+   "text": "Any hidden fees associated with the international card if money is added?",
+   "gold": "top up by card charge",
+   "readout": "top up by card charge",
+   "greedy": "top up by card charge",
+   "readout_no_prior": "top up by card charge",
+   "conf": 0.2805,
+   "rot_flip": true
+  },
+  {
+   "text": "Will I get charged for topping off my card?",
+   "gold": "top up by card charge",
+   "readout": "topping up by card",
+   "greedy": "topping up by card",
+   "readout_no_prior": "top up by card charge",
+   "conf": 0.5531,
+   "rot_flip": false
+  },
+  {
+   "text": "Are there charges for topping up US cards?",
+   "gold": "top up by card charge",
+   "readout": "top up by card charge",
+   "greedy": "top up by card charge",
+   "readout_no_prior": "top up by card charge",
+   "conf": 0.4481,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I top up by cheque?",
+   "gold": "top up by cash or cheque",
+   "readout": "top up by cash or cheque",
+   "greedy": "top up by cash or cheque",
+   "readout_no_prior": "top up by cash or cheque",
+   "conf": 0.8384,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I top-up using cash?",
+   "gold": "top up by cash or cheque",
+   "readout": "top up by cash or cheque",
+   "greedy": "top up by cash or cheque",
+   "readout_no_prior": "top up by cash or cheque",
+   "conf": 0.8421,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I top up with a cheque?",
+   "gold": "top up by cash or cheque",
+   "readout": "top up by cash or cheque",
+   "greedy": "top up by cash or cheque",
+   "readout_no_prior": "top up by cash or cheque",
+   "conf": 0.7533,
+   "rot_flip": false
+  },
+  {
+   "text": "Is it possible to top up with cash? If so how do I do it?",
+   "gold": "top up by cash or cheque",
+   "readout": "top up by cash or cheque",
+   "greedy": "top up by cash or cheque",
+   "readout_no_prior": "top up by cash or cheque",
+   "conf": 0.5587,
+   "rot_flip": true
+  },
+  {
+   "text": "Can you help me find top up by cash deposit?",
+   "gold": "top up by cash or cheque",
+   "readout": "top up by cash or cheque",
+   "greedy": "top up by cash or cheque",
+   "readout_no_prior": "top up by cash or cheque",
+   "conf": 0.774,
+   "rot_flip": false
+  },
+  {
+   "text": "Is there an option to top up a with cheque?",
+   "gold": "top up by cash or cheque",
+   "readout": "top up by cash or cheque",
+   "greedy": "top up by cash or cheque",
+   "readout_no_prior": "top up by cash or cheque",
+   "conf": 0.646,
+   "rot_flip": false
+  },
+  {
+   "text": "The app denied my topped up.",
+   "gold": "top up failed",
+   "readout": "top up failed",
+   "greedy": "top up failed",
+   "readout_no_prior": "top up failed",
+   "conf": 0.7203,
+   "rot_flip": false
+  },
+  {
+   "text": "Heyy I tried to top up with my card today but it failed! I just got the couple days before but it has worked last time. What's going on, can you double check please?",
+   "gold": "top up failed",
+   "readout": "top up failed",
+   "greedy": "top up failed",
+   "readout_no_prior": "top up failed",
+   "conf": 0.7679,
+   "rot_flip": true
+  },
+  {
+   "text": "I have a top up that didn't go through.  Why?",
+   "gold": "top up failed",
+   "readout": "top up failed",
+   "greedy": "top up failed",
+   "readout_no_prior": "top up failed",
+   "conf": 0.7628,
+   "rot_flip": true
+  },
+  {
+   "text": "So, I tried topping up my card for the today. Unfortunately, it failed. A couple of days back I used it and it works fine. Can you double check and tell me what's going on?",
+   "gold": "top up failed",
+   "readout": "top up failed",
+   "greedy": "top up failed",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.6721,
+   "rot_flip": true
+  },
+  {
+   "text": "Why did the app deny my top up?",
+   "gold": "top up failed",
+   "readout": "top up failed",
+   "greedy": "top up failed",
+   "readout_no_prior": "top up failed",
+   "conf": 0.603,
+   "rot_flip": false
+  },
+  {
+   "text": "please tell me why my top-up failed.",
+   "gold": "top up failed",
+   "readout": "top up failed",
+   "greedy": "top up failed",
+   "readout_no_prior": "top up failed",
+   "conf": 0.9212,
+   "rot_flip": false
+  },
+  {
+   "text": "can you limit my top up?",
+   "gold": "top up limits",
+   "readout": "top up limits",
+   "greedy": "top up limits",
+   "readout_no_prior": "top up limits",
+   "conf": 0.9716,
+   "rot_flip": false
+  },
+  {
+   "text": "Am I free to top-up as much as I want?",
+   "gold": "top up limits",
+   "readout": "top up limits",
+   "greedy": "top up limits",
+   "readout_no_prior": "top up limits",
+   "conf": 0.852,
+   "rot_flip": false
+  },
+  {
+   "text": "Is there a top up limit for my account?",
+   "gold": "top up limits",
+   "readout": "top up limits",
+   "greedy": "top up limits",
+   "readout_no_prior": "top up limits",
+   "conf": 0.9844,
+   "rot_flip": false
+  },
+  {
+   "text": "What is the limit to top up?",
+   "gold": "top up limits",
+   "readout": "top up limits",
+   "greedy": "top up limits",
+   "readout_no_prior": "top up limits",
+   "conf": 0.9854,
+   "rot_flip": false
+  },
+  {
+   "text": "How much money can i top up?",
+   "gold": "top up limits",
+   "readout": "top up limits",
+   "greedy": "top up limits",
+   "readout_no_prior": "top up limits",
+   "conf": 0.9809,
+   "rot_flip": false
+  },
+  {
+   "text": "What are the restrictions to top-offs?",
+   "gold": "top up limits",
+   "readout": "top up limits",
+   "greedy": "top up limits",
+   "readout_no_prior": "top up limits",
+   "conf": 0.9374,
+   "rot_flip": false
+  },
+  {
+   "text": "My top-up was cancelled; will I receive a refund?",
+   "gold": "top up reverted",
+   "readout": "request refund",
+   "greedy": "Refund not showing up",
+   "readout_no_prior": "request refund",
+   "conf": 0.9903,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I fix a reverted top up?",
+   "gold": "top up reverted",
+   "readout": "top up reverted",
+   "greedy": "top up reverted",
+   "readout_no_prior": "top up reverted",
+   "conf": 0.9827,
+   "rot_flip": false
+  },
+  {
+   "text": "Is it possible to tell if my top up has reverted?",
+   "gold": "top up reverted",
+   "readout": "top up reverted",
+   "greedy": "top up reverted",
+   "readout_no_prior": "top up reverted",
+   "conf": 0.8806,
+   "rot_flip": false
+  },
+  {
+   "text": "My top-up showed as complete, but it's no longer there! What's going on here?",
+   "gold": "top up reverted",
+   "readout": "pending top up",
+   "greedy": "top up reverted",
+   "readout_no_prior": "pending top up",
+   "conf": 0.6232,
+   "rot_flip": true
+  },
+  {
+   "text": "Hi, i don't know what's going on i've just paid for my top up twice by accident can you help me get a refund please.",
+   "gold": "top up reverted",
+   "readout": "transaction charged twice",
+   "greedy": "transaction charged twice",
+   "readout_no_prior": "transaction charged twice",
+   "conf": 0.9637,
+   "rot_flip": false
+  },
+  {
+   "text": "It seems my top up is reverted?",
+   "gold": "top up reverted",
+   "readout": "top up reverted",
+   "greedy": "top up reverted",
+   "readout_no_prior": "top up reverted",
+   "conf": 0.8237,
+   "rot_flip": false
+  },
+  {
+   "text": "How can I top up my account with a card?",
+   "gold": "topping up by card",
+   "readout": "topping up by card",
+   "greedy": "topping up by card",
+   "readout_no_prior": "topping up by card",
+   "conf": 0.9384,
+   "rot_flip": false
+  },
+  {
+   "text": "WHERE IS MY MONEY I WAS USING MY CARD AND IT DISAPPEARED",
+   "gold": "topping up by card",
+   "readout": "lost or stolen card",
+   "greedy": "lost or stolen card",
+   "readout_no_prior": "lost or stolen card",
+   "conf": 0.9779,
+   "rot_flip": false
+  },
+  {
+   "text": "How can I top up by card?",
+   "gold": "topping up by card",
+   "readout": "topping up by card",
+   "greedy": "topping up by card",
+   "readout_no_prior": "topping up by card",
+   "conf": 0.9099,
+   "rot_flip": false
+  },
+  {
+   "text": "What is the process for using my credit card to transfer money?",
+   "gold": "topping up by card",
+   "readout": "transfer into account",
+   "greedy": "transfer fee charged",
+   "readout_no_prior": "top up by card charge",
+   "conf": 0.4201,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I top up my card using your app? I'm new to this.",
+   "gold": "topping up by card",
+   "readout": "top up by card charge",
+   "greedy": "topping up by card",
+   "readout_no_prior": "top up by card charge",
+   "conf": 0.5464,
+   "rot_flip": false
+  },
+  {
+   "text": "Can friends add to my account",
+   "gold": "topping up by card",
+   "readout": "getting virtual card",
+   "greedy": "transfer into account",
+   "readout_no_prior": "getting spare card",
+   "conf": 0.4335,
+   "rot_flip": false
+  },
+  {
+   "text": "I got double charged for a payment so how do I fix that?",
+   "gold": "transaction charged twice",
+   "readout": "transaction charged twice",
+   "greedy": "transaction charged twice",
+   "readout_no_prior": "transaction charged twice",
+   "conf": 0.9988,
+   "rot_flip": false
+  },
+  {
+   "text": "I've just come back from an eating holiday in the USA and Canada and have SO many pending and duplicated transactions on my account.  I think there is something wrong, can you look in to it please?",
+   "gold": "transaction charged twice",
+   "readout": "transaction charged twice",
+   "greedy": "transaction charged twice",
+   "readout_no_prior": "transaction charged twice",
+   "conf": 0.9568,
+   "rot_flip": false
+  },
+  {
+   "text": "Why am I being charged twice fro a restaurant?",
+   "gold": "transaction charged twice",
+   "readout": "transaction charged twice",
+   "greedy": "transaction charged twice",
+   "readout_no_prior": "transaction charged twice",
+   "conf": 0.9919,
+   "rot_flip": false
+  },
+  {
+   "text": "I would like to know why I was charged twice for my purchase.",
+   "gold": "transaction charged twice",
+   "readout": "transaction charged twice",
+   "greedy": "transaction charged twice",
+   "readout_no_prior": "transaction charged twice",
+   "conf": 0.9959,
+   "rot_flip": false
+  },
+  {
+   "text": "I didn't buy this twice",
+   "gold": "transaction charged twice",
+   "readout": "transaction charged twice",
+   "greedy": "transaction charged twice",
+   "readout_no_prior": "transaction charged twice",
+   "conf": 0.7147,
+   "rot_flip": true
+  },
+  {
+   "text": "Why was I chaged twice for the same thing?",
+   "gold": "transaction charged twice",
+   "readout": "transaction charged twice",
+   "greedy": "transaction charged twice",
+   "readout_no_prior": "transaction charged twice",
+   "conf": 0.9913,
+   "rot_flip": false
+  },
+  {
+   "text": "When I made a transfer, there was a fee.  Why?",
+   "gold": "transfer fee charged",
+   "readout": "transfer fee charged",
+   "greedy": "transfer fee charged",
+   "readout_no_prior": "transfer fee charged",
+   "conf": 0.9743,
+   "rot_flip": false
+  },
+  {
+   "text": "I was charged a fee for my transfer.",
+   "gold": "transfer fee charged",
+   "readout": "transfer fee charged",
+   "greedy": "transfer fee charged",
+   "readout_no_prior": "transfer fee charged",
+   "conf": 0.9736,
+   "rot_flip": false
+  },
+  {
+   "text": "Is there a reason I was charged a fee to transfer?",
+   "gold": "transfer fee charged",
+   "readout": "transfer fee charged",
+   "greedy": "transfer fee charged",
+   "readout_no_prior": "transfer fee charged",
+   "conf": 0.946,
+   "rot_flip": false
+  },
+  {
+   "text": "Why was a charged just for transferring?",
+   "gold": "transfer fee charged",
+   "readout": "transfer fee charged",
+   "greedy": "transfer fee charged",
+   "readout_no_prior": "transfer fee charged",
+   "conf": 0.8565,
+   "rot_flip": false
+  },
+  {
+   "text": "I had to pay in order to do a transfer",
+   "gold": "transfer fee charged",
+   "readout": "failed transfer",
+   "greedy": "top up by bank transfer charge",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.2943,
+   "rot_flip": true
+  },
+  {
+   "text": "What is the transfer fee charge?",
+   "gold": "transfer fee charged",
+   "readout": "transfer fee charged",
+   "greedy": "transfer fee charged",
+   "readout_no_prior": "transfer fee charged",
+   "conf": 0.9431,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I do a bank transfer to put additional money in my account because I am out of money?",
+   "gold": "transfer into account",
+   "readout": "transfer into account",
+   "greedy": "transfer into account",
+   "readout_no_prior": "transfer into account",
+   "conf": 0.5596,
+   "rot_flip": false
+  },
+  {
+   "text": "I'm out of money, can I add money with my bank?",
+   "gold": "transfer into account",
+   "readout": "top up by bank transfer charge",
+   "greedy": "transfer into account",
+   "readout_no_prior": "receiving money",
+   "conf": 0.4498,
+   "rot_flip": true
+  },
+  {
+   "text": "How do I go forth on transferring money into my account?",
+   "gold": "transfer into account",
+   "readout": "transfer into account",
+   "greedy": "transfer into account",
+   "readout_no_prior": "transfer into account",
+   "conf": 0.9924,
+   "rot_flip": false
+  },
+  {
+   "text": "I don't understand how to top up my account, can you please explain the process?",
+   "gold": "transfer into account",
+   "readout": "verify top up",
+   "greedy": "topping up by card",
+   "readout_no_prior": "pending top up",
+   "conf": 0.3448,
+   "rot_flip": true
+  },
+  {
+   "text": "I don't understand the money transfer process.",
+   "gold": "transfer into account",
+   "readout": "unable to verify identity",
+   "greedy": "balance not updated after bank transfer",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.4455,
+   "rot_flip": false
+  },
+  {
+   "text": "I need to transfer money into my account, how do I go about doing this?",
+   "gold": "transfer into account",
+   "readout": "transfer into account",
+   "greedy": "transfer into account",
+   "readout_no_prior": "transfer into account",
+   "conf": 0.9905,
+   "rot_flip": false
+  },
+  {
+   "text": "I completed an in country transfer a few days ago and was sure to check the account information several times since the transaction was completed, but the funds are still not available. What is the problem?",
+   "gold": "transfer not received by recipient",
+   "readout": "pending transfer",
+   "greedy": "balance not updated after bank transfer",
+   "readout_no_prior": "pending transfer",
+   "conf": 0.3861,
+   "rot_flip": true
+  },
+  {
+   "text": "My money transfer has not arrived.",
+   "gold": "transfer not received by recipient",
+   "readout": "transfer not received by recipient",
+   "greedy": "transfer not received by recipient",
+   "readout_no_prior": "failed transfer",
+   "conf": 0.5934,
+   "rot_flip": true
+  },
+  {
+   "text": "I am still waiting for a transaction to be completed",
+   "gold": "transfer not received by recipient",
+   "readout": "pending transfer",
+   "greedy": "pending transfer",
+   "readout_no_prior": "pending transfer",
+   "conf": 0.9151,
+   "rot_flip": false
+  },
+  {
+   "text": "I made a money transaction but the recipient can't see it",
+   "gold": "transfer not received by recipient",
+   "readout": "transfer not received by recipient",
+   "greedy": "transfer not received by recipient",
+   "readout_no_prior": "transfer not received by recipient",
+   "conf": 0.9629,
+   "rot_flip": false
+  },
+  {
+   "text": "I tried to send someone money but they haven't received it.",
+   "gold": "transfer not received by recipient",
+   "readout": "transfer not received by recipient",
+   "greedy": "transfer not received by recipient",
+   "readout_no_prior": "transfer not received by recipient",
+   "conf": 0.9693,
+   "rot_flip": false
+  },
+  {
+   "text": "How long does it take for a transfer to get to a recipient?",
+   "gold": "transfer not received by recipient",
+   "readout": "transfer timing",
+   "greedy": "transfer timing",
+   "readout_no_prior": "transfer timing",
+   "conf": 0.9941,
+   "rot_flip": false
+  },
+  {
+   "text": "What is the number of days I have to wait for my Europe transfer?",
+   "gold": "transfer timing",
+   "readout": "transfer timing",
+   "greedy": "transfer timing",
+   "readout_no_prior": "transfer timing",
+   "conf": 0.9786,
+   "rot_flip": false
+  },
+  {
+   "text": "What is the wait time for a transfer from the US?",
+   "gold": "transfer timing",
+   "readout": "transfer timing",
+   "greedy": "transfer timing",
+   "readout_no_prior": "transfer timing",
+   "conf": 0.975,
+   "rot_flip": false
+  },
+  {
+   "text": "I need a fast transfer from China?  How fast will it be?",
+   "gold": "transfer timing",
+   "readout": "transfer timing",
+   "greedy": "transfer timing",
+   "readout_no_prior": "transfer timing",
+   "conf": 0.9906,
+   "rot_flip": false
+  },
+  {
+   "text": "how soon will I see the transfer in my account?",
+   "gold": "transfer timing",
+   "readout": "transfer timing",
+   "greedy": "transfer timing",
+   "readout_no_prior": "transfer timing",
+   "conf": 0.978,
+   "rot_flip": false
+  },
+  {
+   "text": "How many days does it take until funds are in my account?",
+   "gold": "transfer timing",
+   "readout": "transfer timing",
+   "greedy": "transfer timing",
+   "readout_no_prior": "transfer timing",
+   "conf": 0.9697,
+   "rot_flip": false
+  },
+  {
+   "text": "How long until my transfer goes through?",
+   "gold": "transfer timing",
+   "readout": "transfer timing",
+   "greedy": "transfer timing",
+   "readout_no_prior": "transfer timing",
+   "conf": 0.9484,
+   "rot_flip": false
+  },
+  {
+   "text": "I cannot verify my identity",
+   "gold": "unable to verify identity",
+   "readout": "unable to verify identity",
+   "greedy": "beneficiary not allowed",
+   "readout_no_prior": "unable to verify identity",
+   "conf": 0.9972,
+   "rot_flip": false
+  },
+  {
+   "text": "I do not have what is required to prove my identity",
+   "gold": "unable to verify identity",
+   "readout": "unable to verify identity",
+   "greedy": "verify my identity",
+   "readout_no_prior": "unable to verify identity",
+   "conf": 0.9883,
+   "rot_flip": false
+  },
+  {
+   "text": "Why doesn't the app believe I am who I say I am?",
+   "gold": "unable to verify identity",
+   "readout": "why verify identity",
+   "greedy": "why verify identity",
+   "readout_no_prior": "why verify identity",
+   "conf": 0.8038,
+   "rot_flip": false
+  },
+  {
+   "text": "I am having trouble verifying my identity.",
+   "gold": "unable to verify identity",
+   "readout": "verify my identity",
+   "greedy": "verify my identity",
+   "readout_no_prior": "unable to verify identity",
+   "conf": 0.6477,
+   "rot_flip": false
+  },
+  {
+   "text": "what do i do if my verification failed",
+   "gold": "unable to verify identity",
+   "readout": "unable to verify identity",
+   "greedy": "verify my identity",
+   "readout_no_prior": "unable to verify identity",
+   "conf": 0.7624,
+   "rot_flip": false
+  },
+  {
+   "text": "It is impossible to verify my identity",
+   "gold": "unable to verify identity",
+   "readout": "unable to verify identity",
+   "greedy": "beneficiary not allowed",
+   "readout_no_prior": "unable to verify identity",
+   "conf": 0.9991,
+   "rot_flip": false
+  },
+  {
+   "text": "What can I use to verify my identify?",
+   "gold": "verify my identity",
+   "readout": "verify my identity",
+   "greedy": "verify my identity",
+   "readout_no_prior": "verify my identity",
+   "conf": 0.9637,
+   "rot_flip": false
+  },
+  {
+   "text": "What do you need to verify my identity?",
+   "gold": "verify my identity",
+   "readout": "verify my identity",
+   "greedy": "verify my identity",
+   "readout_no_prior": "verify my identity",
+   "conf": 0.9313,
+   "rot_flip": false
+  },
+  {
+   "text": "I need to verify my identity, but how do I do that?",
+   "gold": "verify my identity",
+   "readout": "verify my identity",
+   "greedy": "verify my identity",
+   "readout_no_prior": "verify my identity",
+   "conf": 0.6543,
+   "rot_flip": false
+  },
+  {
+   "text": "How can I verify my indentity?",
+   "gold": "verify my identity",
+   "readout": "verify my identity",
+   "greedy": "verify my identity",
+   "readout_no_prior": "verify my identity",
+   "conf": 0.9597,
+   "rot_flip": false
+  },
+  {
+   "text": "What is needed to prove my identity?",
+   "gold": "verify my identity",
+   "readout": "verify my identity",
+   "greedy": "verify my identity",
+   "readout_no_prior": "verify my identity",
+   "conf": 0.8086,
+   "rot_flip": false
+  },
+  {
+   "text": "What do you need for my identity check?",
+   "gold": "verify my identity",
+   "readout": "verify my identity",
+   "greedy": "verify my identity",
+   "readout_no_prior": "verify my identity",
+   "conf": 0.6143,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I verify the source of my funds?",
+   "gold": "verify source of funds",
+   "readout": "verify source of funds",
+   "greedy": "verify source of funds",
+   "readout_no_prior": "verify source of funds",
+   "conf": 0.994,
+   "rot_flip": false
+  },
+  {
+   "text": "I want information about the source of funds.",
+   "gold": "verify source of funds",
+   "readout": "verify source of funds",
+   "greedy": "verify source of funds",
+   "readout_no_prior": "verify source of funds",
+   "conf": 0.991,
+   "rot_flip": false
+  },
+  {
+   "text": "Where are my funds being sourced from?",
+   "gold": "verify source of funds",
+   "readout": "verify source of funds",
+   "greedy": "verify source of funds",
+   "readout_no_prior": "verify source of funds",
+   "conf": 0.9863,
+   "rot_flip": false
+  },
+  {
+   "text": "I would like to verify the source of my money",
+   "gold": "verify source of funds",
+   "readout": "verify source of funds",
+   "greedy": "verify my identity",
+   "readout_no_prior": "verify source of funds",
+   "conf": 0.9841,
+   "rot_flip": false
+  },
+  {
+   "text": "where to funds come from",
+   "gold": "verify source of funds",
+   "readout": "verify source of funds",
+   "greedy": "verify source of funds",
+   "readout_no_prior": "verify source of funds",
+   "conf": 0.9679,
+   "rot_flip": false
+  },
+  {
+   "text": "What is the source of my funds.",
+   "gold": "verify source of funds",
+   "readout": "verify source of funds",
+   "greedy": "verify source of funds",
+   "readout_no_prior": "verify source of funds",
+   "conf": 0.9894,
+   "rot_flip": false
+  },
+  {
+   "text": "What all is needed to verify the top-up card?",
+   "gold": "verify top up",
+   "readout": "verify top up",
+   "greedy": "verify top up",
+   "readout_no_prior": "verify top up",
+   "conf": 0.9915,
+   "rot_flip": false
+  },
+  {
+   "text": "It wants me to verify the top up. Why?",
+   "gold": "verify top up",
+   "readout": "verify top up",
+   "greedy": "verify top up",
+   "readout_no_prior": "verify top up",
+   "conf": 0.9914,
+   "rot_flip": false
+  },
+  {
+   "text": "Where can I find the top-up verification code?",
+   "gold": "verify top up",
+   "readout": "verify top up",
+   "greedy": "verify top up",
+   "readout_no_prior": "verify top up",
+   "conf": 0.9754,
+   "rot_flip": false
+  },
+  {
+   "text": "Why do I have to verify the top-up that I started?",
+   "gold": "verify top up",
+   "readout": "verify top up",
+   "greedy": "verify top up",
+   "readout_no_prior": "verify top up",
+   "conf": 0.9717,
+   "rot_flip": false
+  },
+  {
+   "text": "Can you give me information about verification code?",
+   "gold": "verify top up",
+   "readout": "verify my identity",
+   "greedy": "verify my identity",
+   "readout_no_prior": "verify my identity",
+   "conf": 0.8189,
+   "rot_flip": false
+  },
+  {
+   "text": "What are the benefits to verifying the top-up?",
+   "gold": "verify top up",
+   "readout": "verify top up",
+   "greedy": "verify top up",
+   "readout_no_prior": "verify top up",
+   "conf": 0.9809,
+   "rot_flip": false
+  },
+  {
+   "text": "Why is my disposable virtual card being denied?",
+   "gold": "virtual card not working",
+   "readout": "disposable card limits",
+   "greedy": "declined card payment",
+   "readout_no_prior": "card acceptance",
+   "conf": 0.2692,
+   "rot_flip": true
+  },
+  {
+   "text": "My disposable virtual card doesn't seem to work",
+   "gold": "virtual card not working",
+   "readout": "virtual card not working",
+   "greedy": "card not working",
+   "readout_no_prior": "card not working",
+   "conf": 0.492,
+   "rot_flip": false
+  },
+  {
+   "text": "My disposable virtual card is broken.",
+   "gold": "virtual card not working",
+   "readout": "card not working",
+   "greedy": "card not working",
+   "readout_no_prior": "card not working",
+   "conf": 0.5339,
+   "rot_flip": false
+  },
+  {
+   "text": "My non-physical card will not work",
+   "gold": "virtual card not working",
+   "readout": "card not working",
+   "greedy": "card not working",
+   "readout_no_prior": "card not working",
+   "conf": 0.7007,
+   "rot_flip": false
+  },
+  {
+   "text": "Why did the disposable virtual card which I used to pay a gym subscription get denied?",
+   "gold": "virtual card not working",
+   "readout": "declined card payment",
+   "greedy": "declined card payment",
+   "readout_no_prior": "declined card payment",
+   "conf": 0.4596,
+   "rot_flip": false
+  },
+  {
+   "text": "Why is my virtual card is being declined?",
+   "gold": "virtual card not working",
+   "readout": "declined card payment",
+   "greedy": "declined card payment",
+   "readout_no_prior": "declined card payment",
+   "conf": 0.6557,
+   "rot_flip": false
+  },
+  {
+   "text": "I like to Mastercard rather than Visa.",
+   "gold": "visa or mastercard",
+   "readout": "visa or mastercard",
+   "greedy": "visa or mastercard",
+   "readout_no_prior": "visa or mastercard",
+   "conf": 0.9627,
+   "rot_flip": false
+  },
+  {
+   "text": "Do I qualify for a visa card?",
+   "gold": "visa or mastercard",
+   "readout": "visa or mastercard",
+   "greedy": "visa or mastercard",
+   "readout_no_prior": "visa or mastercard",
+   "conf": 0.9095,
+   "rot_flip": false
+  },
+  {
+   "text": "How do I get a visa card?",
+   "gold": "visa or mastercard",
+   "readout": "get physical card",
+   "greedy": "get physical card",
+   "readout_no_prior": "get physical card",
+   "conf": 0.8123,
+   "rot_flip": false
+  },
+  {
+   "text": "Do you guys accept Visa or Mastercard?",
+   "gold": "visa or mastercard",
+   "readout": "visa or mastercard",
+   "greedy": "visa or mastercard",
+   "readout_no_prior": "visa or mastercard",
+   "conf": 0.9504,
+   "rot_flip": false
+  },
+  {
+   "text": "Are both Visa and Mastercard accepted?",
+   "gold": "visa or mastercard",
+   "readout": "visa or mastercard",
+   "greedy": "visa or mastercard",
+   "readout_no_prior": "card acceptance",
+   "conf": 0.6251,
+   "rot_flip": true
+  },
+  {
+   "text": "Do you guys accept mastercard or visa?",
+   "gold": "visa or mastercard",
+   "readout": "visa or mastercard",
+   "greedy": "visa or mastercard",
+   "readout_no_prior": "visa or mastercard",
+   "conf": 0.9114,
+   "rot_flip": false
+  },
+  {
+   "text": "Why do you require so many details about my identity?",
+   "gold": "why verify identity",
+   "readout": "why verify identity",
+   "greedy": "why verify identity",
+   "readout_no_prior": "why verify identity",
+   "conf": 0.9962,
+   "rot_flip": false
+  },
+  {
+   "text": "I'd rather not verify my identity.",
+   "gold": "why verify identity",
+   "readout": "unable to verify identity",
+   "greedy": "why verify identity",
+   "readout_no_prior": "unable to verify identity",
+   "conf": 0.6051,
+   "rot_flip": true
+  },
+  {
+   "text": "do I need to verify my identity every time I log into my account?",
+   "gold": "why verify identity",
+   "readout": "why verify identity",
+   "greedy": "verify my identity",
+   "readout_no_prior": "why verify identity",
+   "conf": 0.7838,
+   "rot_flip": false
+  },
+  {
+   "text": "Why am I required to verify my identity?",
+   "gold": "why verify identity",
+   "readout": "why verify identity",
+   "greedy": "why verify identity",
+   "readout_no_prior": "why verify identity",
+   "conf": 0.8754,
+   "rot_flip": false
+  },
+  {
+   "text": "Can I make transfers before identity verification?",
+   "gold": "why verify identity",
+   "readout": "unable to verify identity",
+   "greedy": "verify my identity",
+   "readout_no_prior": "unable to verify identity",
+   "conf": 0.4838,
+   "rot_flip": false
+  },
+  {
+   "text": "What is the need to verify my identity?",
+   "gold": "why verify identity",
+   "readout": "why verify identity",
+   "greedy": "verify my identity",
+   "readout_no_prior": "why verify identity",
+   "conf": 0.9434,
+   "rot_flip": false
+  },
+  {
+   "text": "I don't know if this is an issue with the ATM or my account, but I just tried withdrawing 30 pounds from the ATM I'm at now and it only gave me 10. Is this a glitch or what exactly is going on?",
+   "gold": "wrong amount of cash received",
+   "readout": "wrong amount of cash received",
+   "greedy": "wrong amount of cash received",
+   "readout_no_prior": "wrong amount of cash received",
+   "conf": 0.9931,
+   "rot_flip": false
+  },
+  {
+   "text": "I didn't get all the cash I requested for at the ATM",
+   "gold": "wrong amount of cash received",
+   "readout": "wrong amount of cash received",
+   "greedy": "cash withdrawal not recognised",
+   "readout_no_prior": "wrong amount of cash received",
+   "conf": 0.9866,
+   "rot_flip": false
+  },
+  {
+   "text": "How come the ATM gave me less cash than what I asked for?",
+   "gold": "wrong amount of cash received",
+   "readout": "wrong amount of cash received",
+   "greedy": "wrong amount of cash received",
+   "readout_no_prior": "wrong amount of cash received",
+   "conf": 0.9938,
+   "rot_flip": false
+  },
+  {
+   "text": "Why did I not get my cash back after I withdrew?",
+   "gold": "wrong amount of cash received",
+   "readout": "Refund not showing up",
+   "greedy": "Refund not showing up",
+   "readout_no_prior": "Refund not showing up",
+   "conf": 0.6277,
+   "rot_flip": true
+  },
+  {
+   "text": "I got less cash than the one I specified in the ATM",
+   "gold": "wrong amount of cash received",
+   "readout": "wrong amount of cash received",
+   "greedy": "wrong amount of cash received",
+   "readout_no_prior": "wrong amount of cash received",
+   "conf": 0.9947,
+   "rot_flip": false
+  },
+  {
+   "text": "The amount of cash I received was incorrect",
+   "gold": "wrong amount of cash received",
+   "readout": "wrong amount of cash received",
+   "greedy": "wrong amount of cash received",
+   "readout_no_prior": "wrong amount of cash received",
+   "conf": 0.9466,
+   "rot_flip": false
+  },
+  {
+   "text": "I did not get the right amount of money when I used a different country's currency.",
+   "gold": "wrong exchange rate for cash withdrawal",
+   "readout": "card payment wrong exchange rate",
+   "greedy": "card payment wrong exchange rate",
+   "readout_no_prior": "card payment wrong exchange rate",
+   "conf": 0.6237,
+   "rot_flip": false
+  },
+  {
+   "text": "I took out money from a transaction machine and it exchanged the wrong dollar value amount from another currency!",
+   "gold": "wrong exchange rate for cash withdrawal",
+   "readout": "wrong exchange rate for cash withdrawal",
+   "greedy": "wrong exchange rate for cash withdrawal",
+   "readout_no_prior": "wrong exchange rate for cash withdrawal",
+   "conf": 0.9982,
+   "rot_flip": false
+  },
+  {
+   "text": "I made a withdraw from the ATM this past holiday and it seems like a was charged too much. If I would have   known about these charges I wouldn't have made a withdraw.",
+   "gold": "wrong exchange rate for cash withdrawal",
+   "readout": "cash withdrawal charge",
+   "greedy": "cash withdrawal charge",
+   "readout_no_prior": "cash withdrawal charge",
+   "conf": 0.9666,
+   "rot_flip": false
+  },
+  {
+   "text": "Can you look to make sure the exchange rate is correct",
+   "gold": "wrong exchange rate for cash withdrawal",
+   "readout": "exchange rate",
+   "greedy": "exchange rate",
+   "readout_no_prior": "exchange rate",
+   "conf": 0.8818,
+   "rot_flip": false
+  },
+  {
+   "text": "Exchange rate for my cash withdrawal is wrong",
+   "gold": "wrong exchange rate for cash withdrawal",
+   "readout": "wrong exchange rate for cash withdrawal",
+   "greedy": "wrong exchange rate for cash withdrawal",
+   "readout_no_prior": "wrong exchange rate for cash withdrawal",
+   "conf": 0.9993,
+   "rot_flip": false
+  },
+  {
+   "text": "Hello. I'm on holiday and didn't bring any cash with me. I need to withdrawal my home currency from one of your machines. Do you have any that will do this and is there a charge?",
+   "gold": "wrong exchange rate for cash withdrawal",
+   "readout": "cash withdrawal charge",
+   "greedy": "cash withdrawal charge",
+   "readout_no_prior": "cash withdrawal charge",
+   "conf": 0.6252,
+   "rot_flip": false
+  }
+ ]
+}

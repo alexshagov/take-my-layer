@@ -1,0 +1,1363 @@
+{
+ "n_requests": 21,
+ "n_questions": 105,
+ "wall_s": 59.9,
+ "local_latency_ms": {
+  "p50": 1548,
+  "p95": 1795
+ },
+ "input_tokens_total": 20652,
+ "comparison": {
+  "n": 105,
+  "agreement": 0.7904761904761904,
+  "agreement_by_type": {
+   "Choice": 0.88,
+   "Score": 0.6,
+   "Noul": 0.836
+  },
+  "abs_conf_delta_mean": 0.128,
+  "jsd_mean": 0.1949,
+  "jev_latency_ms": {
+   "p50": 671,
+   "p95": 780
+  },
+  "jev_input_tokens": 11922,
+  "jev_cost_usd_total": 0.000501
+ },
+ "resources": {
+  "rss_mb_mean": 2793.1,
+  "rss_mb_peak": 2798.6,
+  "cpu_pct_1core_mean": 6.3,
+  "cpu_pct_1core_peak": 19.7,
+  "cpu_pct_machine_mean": 0.6,
+  "n_samples": 117,
+  "gpu_pct_of_gpu_mean": 50.2,
+  "gpu_pct_of_gpu_peak": 93.1,
+  "gpu_samples": 96
+ },
+ "rows": [
+  {
+   "i": 1,
+   "n_q": 5,
+   "local_ms": 1424,
+   "local_err": null,
+   "input_tokens": 998,
+   "jev_ms": 970,
+   "jev_err": null,
+   "jev_input_tokens": 580,
+   "jev_cost": 2.436e-05,
+   "questions": [
+    {
+     "qid": "route",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "auth-team",
+     "answer_j": "auth-team",
+     "conf_l": 0.7788349755045154,
+     "conf_j": 0.89,
+     "jsd": 0.1823
+    },
+    {
+     "qid": "urgency",
+     "type": "Score",
+     "agree": true,
+     "answer_l": "critical",
+     "answer_j": "critical",
+     "conf_l": 0.8147883883104463,
+     "conf_j": 0.82,
+     "jsd": 0.0414
+    },
+    {
+     "qid": "is_security",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.665410558746814,
+     "conf_j": 0.63,
+     "jsd": 0.0315
+    },
+    {
+     "qid": "needs_callback",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.9196425311777929,
+     "conf_j": 0.67,
+     "jsd": 0.2702
+    },
+    {
+     "qid": "sentiment",
+     "type": "Score",
+     "agree": false,
+     "answer_l": "angry",
+     "answer_j": "furious",
+     "conf_l": 0.6127892245460758,
+     "conf_j": 0.62,
+     "jsd": 0.2871
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "n_q": 5,
+   "local_ms": 1341,
+   "local_err": null,
+   "input_tokens": 987,
+   "jev_ms": 718,
+   "jev_err": null,
+   "jev_input_tokens": 601,
+   "jev_cost": 2.5242e-05,
+   "questions": [
+    {
+     "qid": "route",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "billing-team",
+     "answer_j": "billing-team",
+     "conf_l": 0.8973414264180253,
+     "conf_j": 1,
+     "jsd": 0.2309
+    },
+    {
+     "qid": "refund_eligible",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.8267117940706734,
+     "conf_j": 0.92,
+     "jsd": 0.1204
+    },
+    {
+     "qid": "urgency",
+     "type": "Score",
+     "agree": true,
+     "answer_l": "high",
+     "answer_j": "high",
+     "conf_l": 0.6368546567656648,
+     "conf_j": 0.93,
+     "jsd": 0.3599
+    },
+    {
+     "qid": "churn_risk",
+     "type": "Score",
+     "agree": false,
+     "answer_l": "high",
+     "answer_j": "medium",
+     "conf_l": 0.7815622016518438,
+     "conf_j": 0.11,
+     "jsd": 0.2699
+    },
+    {
+     "qid": "respond_tone",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "apologetic-and-direct",
+     "answer_j": "apologetic-and-direct",
+     "conf_l": 0.9007246072679945,
+     "conf_j": 0.98,
+     "jsd": 0.1853
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "n_q": 5,
+   "local_ms": 1529,
+   "local_err": null,
+   "input_tokens": 921,
+   "jev_ms": 671,
+   "jev_err": null,
+   "jev_input_tokens": 524,
+   "jev_cost": 2.2008e-05,
+   "questions": [
+    {
+     "qid": "severity",
+     "type": "Score",
+     "agree": false,
+     "answer_l": "critical",
+     "answer_j": "high",
+     "conf_l": 0.5767800131068748,
+     "conf_j": 0.59,
+     "jsd": 0.2223
+    },
+    {
+     "qid": "team",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "database-infra",
+     "answer_j": "database-infra",
+     "conf_l": 0.9911753885229201,
+     "conf_j": 1,
+     "jsd": 0.0665
+    },
+    {
+     "qid": "sla_breach",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.679178699175393,
+     "conf_j": 0.79,
+     "jsd": 0.1069
+    },
+    {
+     "qid": "root_cause_likely_backup",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.5774953651858117,
+     "conf_j": 0.59,
+     "jsd": 0.0108
+    },
+    {
+     "qid": "wake_someone",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.6076631698328917,
+     "conf_j": 0.64,
+     "jsd": 0.0284
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "n_q": 5,
+   "local_ms": 1534,
+   "local_err": null,
+   "input_tokens": 866,
+   "jev_ms": 603,
+   "jev_err": null,
+   "jev_input_tokens": 528,
+   "jev_cost": 2.2176e-05,
+   "questions": [
+    {
+     "qid": "action",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "quarantine-and-block-domain",
+     "answer_j": "quarantine-and-block-domain",
+     "conf_l": 0.9985354237030314,
+     "conf_j": 0.93,
+     "jsd": 0.1523
+    },
+    {
+     "qid": "severity",
+     "type": "Score",
+     "agree": false,
+     "answer_l": "critical",
+     "answer_j": "high",
+     "conf_l": 0.6980458215128732,
+     "conf_j": 0.54,
+     "jsd": 0.2706
+    },
+    {
+     "qid": "is_targeted",
+     "type": "Noul",
+     "agree": false,
+     "answer_l": true,
+     "answer_j": false,
+     "conf_l": 0.7772998611746911,
+     "conf_j": 0.6599999999999999,
+     "jsd": 0.3809
+    },
+    {
+     "qid": "credential_compromise",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.9324533088603709,
+     "conf_j": 0.95,
+     "jsd": 0.0317
+    },
+    {
+     "qid": "block_payroll_window",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.7431680086124811,
+     "conf_j": 0.52,
+     "jsd": 0.1976
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "n_q": 5,
+   "local_ms": 1532,
+   "local_err": null,
+   "input_tokens": 964,
+   "jev_ms": 717,
+   "jev_err": null,
+   "jev_input_tokens": 542,
+   "jev_cost": 2.2764e-05,
+   "questions": [
+    {
+     "qid": "severity",
+     "type": "Score",
+     "agree": true,
+     "answer_l": "critical",
+     "answer_j": "critical",
+     "conf_l": 0.8468235038907039,
+     "conf_j": 0.96,
+     "jsd": 0.1706
+    },
+    {
+     "qid": "next_action",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "rollback-deploy",
+     "answer_j": "rollback-deploy",
+     "conf_l": 0.6564001650732683,
+     "conf_j": 0.81,
+     "jsd": 0.284
+    },
+    {
+     "qid": "customer_visible",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.9284088005554476,
+     "conf_j": 0.95,
+     "jsd": 0.0385
+    },
+    {
+     "qid": "root_cause_likely_deploy",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.9433475746920261,
+     "conf_j": 0.94,
+     "jsd": 0.0061
+    },
+    {
+     "qid": "status_page_update",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.7549149868676283,
+     "conf_j": 0.81,
+     "jsd": 0.0568
+    }
+   ]
+  },
+  {
+   "i": 6,
+   "n_q": 5,
+   "local_ms": 1650,
+   "local_err": null,
+   "input_tokens": 948,
+   "jev_ms": 611,
+   "jev_err": null,
+   "jev_input_tokens": 581,
+   "jev_cost": 2.4402e-05,
+   "questions": [
+    {
+     "qid": "folder",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "reply-today",
+     "answer_j": "reply-today",
+     "conf_l": 0.5939857279205973,
+     "conf_j": 0.75,
+     "jsd": 0.2847
+    },
+    {
+     "qid": "deal_stage",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "evaluation",
+     "answer_j": "evaluation",
+     "conf_l": 0.8986791294380955,
+     "conf_j": 0.87,
+     "jsd": 0.0969
+    },
+    {
+     "qid": "respond_today",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.8596637505099167,
+     "conf_j": 0.81,
+     "jsd": 0.0569
+    },
+    {
+     "qid": "competitive",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.9496693674025232,
+     "conf_j": 0.98,
+     "jsd": 0.071
+    },
+    {
+     "qid": "priority",
+     "type": "Score",
+     "agree": true,
+     "answer_l": "high",
+     "answer_j": "high",
+     "conf_l": 0.6845568979493385,
+     "conf_j": 0.95,
+     "jsd": 0.3451
+    }
+   ]
+  },
+  {
+   "i": 7,
+   "n_q": 5,
+   "local_ms": 1579,
+   "local_err": null,
+   "input_tokens": 1008,
+   "jev_ms": 583,
+   "jev_err": null,
+   "jev_input_tokens": 555,
+   "jev_cost": 2.331e-05,
+   "questions": [
+    {
+     "qid": "action",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "request-itemized-receipt",
+     "answer_j": "request-itemized-receipt",
+     "conf_l": 0.9773890797847176,
+     "conf_j": 0.91,
+     "jsd": 0.1463
+    },
+    {
+     "qid": "policy_compliant",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.9688561694652216,
+     "conf_j": 0.9299999999999999,
+     "jsd": 0.0762
+    },
+    {
+     "qid": "risk_level",
+     "type": "Score",
+     "agree": true,
+     "answer_l": "high",
+     "answer_j": "high",
+     "conf_l": 0.5137624729209521,
+     "conf_j": 0.69,
+     "jsd": 0.2658
+    },
+    {
+     "qid": "pattern_concern",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.9724147177732099,
+     "conf_j": 0.89,
+     "jsd": 0.1427
+    },
+    {
+     "qid": "escalate",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.6224593312018546,
+     "conf_j": 0.83,
+     "jsd": 0.1996
+    }
+   ]
+  },
+  {
+   "i": 8,
+   "n_q": 5,
+   "local_ms": 1562,
+   "local_err": null,
+   "input_tokens": 948,
+   "jev_ms": 632,
+   "jev_err": null,
+   "jev_input_tokens": 531,
+   "jev_cost": 2.2302e-05,
+   "questions": [
+    {
+     "qid": "action",
+     "type": "Choice",
+     "agree": false,
+     "answer_l": "remove-post",
+     "answer_j": "temporary-ban",
+     "conf_l": 0.34463945436060345,
+     "conf_j": 0.51,
+     "jsd": 0.3179
+    },
+    {
+     "qid": "harassment",
+     "type": "Noul",
+     "agree": false,
+     "answer_l": false,
+     "answer_j": true,
+     "conf_l": 0.5467381519846137,
+     "conf_j": 0.53,
+     "jsd": 0.0652
+    },
+    {
+     "qid": "severity",
+     "type": "Score",
+     "agree": true,
+     "answer_l": "moderate",
+     "answer_j": "moderate",
+     "conf_l": 0.6623058204513083,
+     "conf_j": 0.77,
+     "jsd": 0.1992
+    },
+    {
+     "qid": "recurring_offender",
+     "type": "Noul",
+     "agree": false,
+     "answer_l": false,
+     "answer_j": true,
+     "conf_l": 0.5312093733737562,
+     "conf_j": 0.6,
+     "jsd": 0.1119
+    },
+    {
+     "qid": "context_mitigates",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.6370307944803831,
+     "conf_j": 0.76,
+     "jsd": 0.1141
+    }
+   ]
+  },
+  {
+   "i": 9,
+   "n_q": 5,
+   "local_ms": 1877,
+   "local_err": null,
+   "input_tokens": 1016,
+   "jev_ms": 661,
+   "jev_err": null,
+   "jev_input_tokens": 636,
+   "jev_cost": 2.6712e-05,
+   "questions": [
+    {
+     "qid": "theme",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "reliability",
+     "answer_j": "reliability",
+     "conf_l": 0.6872366316534705,
+     "conf_j": 1,
+     "jsd": 0.4212
+    },
+    {
+     "qid": "detractor",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.9196425311777929,
+     "conf_j": 0.72,
+     "jsd": 0.2259
+    },
+    {
+     "qid": "churn_risk",
+     "type": "Score",
+     "agree": false,
+     "answer_l": "high",
+     "answer_j": "very-high",
+     "conf_l": 0.5545932555522878,
+     "conf_j": 0.61,
+     "jsd": 0.1679
+    },
+    {
+     "qid": "needs_reply",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.8872045937171068,
+     "conf_j": 0.94,
+     "jsd": 0.0804
+    },
+    {
+     "qid": "save_action",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "exec-check-in-call",
+     "answer_j": "exec-check-in-call",
+     "conf_l": 0.34023686647917734,
+     "conf_j": 0.29,
+     "jsd": 0.2874
+    }
+   ]
+  },
+  {
+   "i": 10,
+   "n_q": 5,
+   "local_ms": 1497,
+   "local_err": null,
+   "input_tokens": 1057,
+   "jev_ms": 630,
+   "jev_err": null,
+   "jev_input_tokens": 572,
+   "jev_cost": 2.4024e-05,
+   "questions": [
+    {
+     "qid": "route",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "compliance-team",
+     "answer_j": "compliance-team",
+     "conf_l": 0.9859792539423891,
+     "conf_j": 1,
+     "jsd": 0.0839
+    },
+    {
+     "qid": "compliance_risk",
+     "type": "Score",
+     "agree": false,
+     "answer_l": "medium",
+     "answer_j": "high",
+     "conf_l": 0.5307289532359325,
+     "conf_j": 0.82,
+     "jsd": 0.4822
+    },
+    {
+     "qid": "blocking_issue",
+     "type": "Noul",
+     "agree": false,
+     "answer_l": false,
+     "answer_j": true,
+     "conf_l": 0.9284088005554475,
+     "conf_j": 0.58,
+     "jsd": 0.4837
+    },
+    {
+     "qid": "needs_legal",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.9241418199787564,
+     "conf_j": 0.74,
+     "jsd": 0.2142
+    },
+    {
+     "qid": "respond_effort",
+     "type": "Score",
+     "agree": true,
+     "answer_l": "research-needed",
+     "answer_j": "research-needed",
+     "conf_l": 0.46831026433271183,
+     "conf_j": 0.7,
+     "jsd": 0.441
+    }
+   ]
+  },
+  {
+   "i": 11,
+   "n_q": 5,
+   "local_ms": 1562,
+   "local_err": null,
+   "input_tokens": 909,
+   "jev_ms": 625,
+   "jev_err": null,
+   "jev_input_tokens": 539,
+   "jev_cost": 2.2638e-05,
+   "questions": [
+    {
+     "qid": "action",
+     "type": "Choice",
+     "agree": false,
+     "answer_l": "strip-attachment-and-deliver",
+     "answer_j": "remove-and-warn",
+     "conf_l": 0.47030365363066934,
+     "conf_j": 0.32,
+     "jsd": 0.3615
+    },
+    {
+     "qid": "phishing_likely",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.7431680086124811,
+     "conf_j": 0.68,
+     "jsd": 0.0593
+    },
+    {
+     "qid": "severity",
+     "type": "Score",
+     "agree": false,
+     "answer_l": "medium",
+     "answer_j": "high",
+     "conf_l": 0.5401783173692418,
+     "conf_j": 0.53,
+     "jsd": 0.2571
+    },
+    {
+     "qid": "insider_threat",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.6370307944803831,
+     "conf_j": 0.69,
+     "jsd": 0.0476
+    },
+    {
+     "qid": "notify_attendees",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.5,
+     "conf_j": 0.83,
+     "jsd": 0.3018
+    }
+   ]
+  },
+  {
+   "i": 12,
+   "n_q": 5,
+   "local_ms": 1795,
+   "local_err": null,
+   "input_tokens": 972,
+   "jev_ms": 780,
+   "jev_err": null,
+   "jev_input_tokens": 619,
+   "jev_cost": 2.5998e-05,
+   "questions": [
+    {
+     "qid": "intervention",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "exec-executive-call",
+     "answer_j": "exec-executive-call",
+     "conf_l": 0.8179453214015594,
+     "conf_j": 0.89,
+     "jsd": 0.2543
+    },
+    {
+     "qid": "churn_risk",
+     "type": "Score",
+     "agree": true,
+     "answer_l": "very-high",
+     "answer_j": "very-high",
+     "conf_l": 0.8167925759407169,
+     "conf_j": 1,
+     "jsd": 0.3135
+    },
+    {
+     "qid": "data_export_signal",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.7879311956428947,
+     "conf_j": 0.74,
+     "jsd": 0.048
+    },
+    {
+     "qid": "exec_escalate",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.6370307944803831,
+     "conf_j": 0.82,
+     "jsd": 0.176
+    },
+    {
+     "qid": "renewal_forecast",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "at-risk",
+     "answer_j": "at-risk",
+     "conf_l": 0.9088078596048744,
+     "conf_j": 0.31,
+     "jsd": 0.4727
+    }
+   ]
+  },
+  {
+   "i": 13,
+   "n_q": 5,
+   "local_ms": 1559,
+   "local_err": null,
+   "input_tokens": 957,
+   "jev_ms": 685,
+   "jev_err": null,
+   "jev_input_tokens": 564,
+   "jev_cost": 2.3688e-05,
+   "questions": [
+    {
+     "qid": "decision",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "confirm-leave-stands",
+     "answer_j": "confirm-leave-stands",
+     "conf_l": 0.5221407209207888,
+     "conf_j": 0.73,
+     "jsd": 0.2609
+    },
+    {
+     "qid": "genuine_emergency",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.9196425311777929,
+     "conf_j": 0.84,
+     "jsd": 0.1049
+    },
+    {
+     "qid": "coverage_exists",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.5926665999540697,
+     "conf_j": 0.72,
+     "jsd": 0.1141
+    },
+    {
+     "qid": "policy_exception",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.6926419831347361,
+     "conf_j": 0.64,
+     "jsd": 0.0474
+    },
+    {
+     "qid": "relationship_risk",
+     "type": "Score",
+     "agree": false,
+     "answer_l": "medium",
+     "answer_j": "high",
+     "conf_l": 0.46831026433271183,
+     "conf_j": 0.83,
+     "jsd": 0.458
+    }
+   ]
+  },
+  {
+   "i": 14,
+   "n_q": 5,
+   "local_ms": 1618,
+   "local_err": null,
+   "input_tokens": 1075,
+   "jev_ms": 663,
+   "jev_err": null,
+   "jev_input_tokens": 577,
+   "jev_cost": 2.4234e-05,
+   "questions": [
+    {
+     "qid": "action",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "hold-until-red-flags-fixed",
+     "answer_j": "hold-until-red-flags-fixed",
+     "conf_l": 0.9600497538615445,
+     "conf_j": 0.75,
+     "jsd": 0.2156
+    },
+    {
+     "qid": "signable",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.9989012689270753,
+     "conf_j": 0.98,
+     "jsd": 0.0866
+    },
+    {
+     "qid": "risk_level",
+     "type": "Score",
+     "agree": true,
+     "answer_l": "critical",
+     "answer_j": "critical",
+     "conf_l": 0.8767447646640174,
+     "conf_j": 0.88,
+     "jsd": 0.0735
+    },
+    {
+     "qid": "missing_dpa_blocking",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.9046505351008906,
+     "conf_j": 0.9,
+     "jsd": 0.0067
+    },
+    {
+     "qid": "auto_renewal_risk",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.9241418199787566,
+     "conf_j": 0.92,
+     "jsd": 0.0066
+    }
+   ]
+  },
+  {
+   "i": 15,
+   "n_q": 5,
+   "local_ms": 1689,
+   "local_err": null,
+   "input_tokens": 1111,
+   "jev_ms": 674,
+   "jev_err": null,
+   "jev_input_tokens": 582,
+   "jev_cost": 2.4444e-05,
+   "questions": [
+    {
+     "qid": "fraud",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.9324533088603709,
+     "conf_j": 0.96,
+     "jsd": 0.0521
+    },
+    {
+     "qid": "action",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "block-card-and-reissue",
+     "answer_j": "block-card-and-reissue",
+     "conf_l": 0.8982319960025796,
+     "conf_j": 0.95,
+     "jsd": 0.1572
+    },
+    {
+     "qid": "severity",
+     "type": "Score",
+     "agree": true,
+     "answer_l": "critical",
+     "answer_j": "critical",
+     "conf_l": 0.6469680563233959,
+     "conf_j": 0.9,
+     "jsd": 0.2795
+    },
+    {
+     "qid": "card_present_compromised",
+     "type": "Noul",
+     "agree": false,
+     "answer_l": true,
+     "answer_j": false,
+     "conf_l": 0.6513548646660542,
+     "conf_j": 0.5900000000000001,
+     "jsd": 0.2064
+    },
+    {
+     "qid": "first_txn_probe",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.5156199157230156,
+     "conf_j": 0.5,
+     "jsd": 0.0133
+    }
+   ]
+  },
+  {
+   "i": 16,
+   "n_q": 5,
+   "local_ms": 1614,
+   "local_err": null,
+   "input_tokens": 1076,
+   "jev_ms": 754,
+   "jev_err": null,
+   "jev_input_tokens": 574,
+   "jev_cost": 2.4108e-05,
+   "questions": [
+    {
+     "qid": "action",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "revise-claims-with-evidence",
+     "answer_j": "revise-claims-with-evidence",
+     "conf_l": 0.7107929915962725,
+     "conf_j": 0.97,
+     "jsd": 0.3474
+    },
+    {
+     "qid": "claims_substantiable",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.9820137900379085,
+     "conf_j": 0.96,
+     "jsd": 0.0564
+    },
+    {
+     "qid": "legal_risk",
+     "type": "Score",
+     "agree": true,
+     "answer_l": "critical",
+     "answer_j": "critical",
+     "conf_l": 0.7458145102540846,
+     "conf_j": 0.67,
+     "jsd": 0.0818
+    },
+    {
+     "qid": "needs_legal_review",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.665410558746814,
+     "conf_j": 0.89,
+     "jsd": 0.2337
+    },
+    {
+     "qid": "competitor_claim_risk",
+     "type": "Noul",
+     "agree": false,
+     "answer_l": true,
+     "answer_j": false,
+     "conf_l": 0.5774953651858117,
+     "conf_j": 0.61,
+     "jsd": 0.1598
+    }
+   ]
+  },
+  {
+   "i": 17,
+   "n_q": 5,
+   "local_ms": 1539,
+   "local_err": null,
+   "input_tokens": 964,
+   "jev_ms": 607,
+   "jev_err": null,
+   "jev_input_tokens": 563,
+   "jev_cost": 2.3646e-05,
+   "questions": [
+    {
+     "qid": "severity",
+     "type": "Score",
+     "agree": false,
+     "answer_l": "medium",
+     "answer_j": "high",
+     "conf_l": 0.6338076376009727,
+     "conf_j": 0.52,
+     "jsd": 0.3551
+    },
+    {
+     "qid": "action",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "communicate-timeline",
+     "answer_j": "communicate-timeline",
+     "conf_l": 0.6278198366625052,
+     "conf_j": 0.21,
+     "jsd": 0.2785
+    },
+    {
+     "qid": "compliance_issue",
+     "type": "Noul",
+     "agree": false,
+     "answer_l": false,
+     "answer_j": true,
+     "conf_l": 0.7431680086124812,
+     "conf_j": 0.68,
+     "jsd": 0.366
+    },
+    {
+     "qid": "fire_risk",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.8438951025545426,
+     "conf_j": 0.84,
+     "jsd": 0.0045
+    },
+    {
+     "qid": "comms_needed",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.9626731126558706,
+     "conf_j": 0.91,
+     "jsd": 0.0929
+    }
+   ]
+  },
+  {
+   "i": 18,
+   "n_q": 5,
+   "local_ms": 1537,
+   "local_err": null,
+   "input_tokens": 948,
+   "jev_ms": 578,
+   "jev_err": null,
+   "jev_input_tokens": 557,
+   "jev_cost": 2.3394e-05,
+   "questions": [
+    {
+     "qid": "next_step",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "send-bridge-letter-and-questionnaire",
+     "answer_j": "send-bridge-letter-and-questionnaire",
+     "conf_l": 0.6300074925591809,
+     "conf_j": 0.56,
+     "jsd": 0.1826
+    },
+    {
+     "qid": "deal_blocked",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.9433475746920262,
+     "conf_j": 0.51,
+     "jsd": 0.4351
+    },
+    {
+     "qid": "respond_priority",
+     "type": "Score",
+     "agree": true,
+     "answer_l": "same-day",
+     "answer_j": "same-day",
+     "conf_l": 0.7962677706050864,
+     "conf_j": 0.59,
+     "jsd": 0.073
+    },
+    {
+     "qid": "competitor_pressure",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.9241418199787566,
+     "conf_j": 0.89,
+     "jsd": 0.0501
+    },
+    {
+     "qid": "security_call_useful",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.8933094060543487,
+     "conf_j": 0.7,
+     "jsd": 0.2074
+    }
+   ]
+  },
+  {
+   "i": 19,
+   "n_q": 5,
+   "local_ms": 1390,
+   "local_err": null,
+   "input_tokens": 964,
+   "jev_ms": 746,
+   "jev_err": null,
+   "jev_input_tokens": 579,
+   "jev_cost": 2.4318e-05,
+   "questions": [
+    {
+     "qid": "investigate",
+     "type": "Noul",
+     "agree": false,
+     "answer_l": false,
+     "answer_j": true,
+     "conf_l": 0.5774953651858117,
+     "conf_j": 0.81,
+     "jsd": 0.3444
+    },
+    {
+     "qid": "fraud_suspected",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.6370307944803832,
+     "conf_j": 0.6,
+     "jsd": 0.0324
+    },
+    {
+     "qid": "severity",
+     "type": "Score",
+     "agree": true,
+     "answer_l": "elevated",
+     "answer_j": "elevated",
+     "conf_l": 0.506480391055654,
+     "conf_j": 0.5,
+     "jsd": 0.42
+    },
+    {
+     "qid": "next_action",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "request-police-report",
+     "answer_j": "request-police-report",
+     "conf_l": 0.7333055741749986,
+     "conf_j": 0.44,
+     "jsd": 0.2105
+    },
+    {
+     "qid": "pay_now_risk",
+     "type": "Score",
+     "agree": false,
+     "answer_l": "medium",
+     "answer_j": "high",
+     "conf_l": 0.5378164983723183,
+     "conf_j": 0.82,
+     "jsd": 0.5164
+    }
+   ]
+  },
+  {
+   "i": 20,
+   "n_q": 5,
+   "local_ms": 1531,
+   "local_err": null,
+   "input_tokens": 969,
+   "jev_ms": 714,
+   "jev_err": null,
+   "jev_input_tokens": 563,
+   "jev_cost": 2.3646e-05,
+   "questions": [
+    {
+     "qid": "respond",
+     "type": "Choice",
+     "agree": false,
+     "answer_l": "take-it-offline-only",
+     "answer_j": "apologize-and-comp",
+     "conf_l": 0.5257769537053812,
+     "conf_j": 0.45,
+     "jsd": 0.6627
+    },
+    {
+     "qid": "food_safety_risk",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.9706877692486438,
+     "conf_j": 0.88,
+     "jsd": 0.1514
+    },
+    {
+     "qid": "urgency",
+     "type": "Score",
+     "agree": true,
+     "answer_l": "medium",
+     "answer_j": "medium",
+     "conf_l": 0.6044545015671744,
+     "conf_j": 0.37,
+     "jsd": 0.3498
+    },
+    {
+     "qid": "regular_at_risk",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.5926665999540697,
+     "conf_j": 0.79,
+     "jsd": 0.1826
+    },
+    {
+     "qid": "reply_public",
+     "type": "Noul",
+     "agree": false,
+     "answer_l": false,
+     "answer_j": true,
+     "conf_l": 0.5926665999540698,
+     "conf_j": 0.68,
+     "jsd": 0.234
+    }
+   ]
+  },
+  {
+   "i": 21,
+   "n_q": 5,
+   "local_ms": 1548,
+   "local_err": null,
+   "input_tokens": 994,
+   "jev_ms": 714,
+   "jev_err": null,
+   "jev_input_tokens": 555,
+   "jev_cost": 2.331e-05,
+   "questions": [
+    {
+     "qid": "advance",
+     "type": "Choice",
+     "agree": true,
+     "answer_l": "reject",
+     "answer_j": "reject",
+     "conf_l": 0.9540987288842575,
+     "conf_j": 0.79,
+     "jsd": 0.2283
+    },
+    {
+     "qid": "plagiarism_concern",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.9755769099458929,
+     "conf_j": 0.84,
+     "jsd": 0.2094
+    },
+    {
+     "qid": "integrity_risk",
+     "type": "Score",
+     "agree": true,
+     "answer_l": "high",
+     "answer_j": "high",
+     "conf_l": 0.9385870300833669,
+     "conf_j": 1,
+     "jsd": 0.1772
+    },
+    {
+     "qid": "split_panel_significant",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": true,
+     "answer_j": true,
+     "conf_l": 0.8267117940706734,
+     "conf_j": 0.79,
+     "jsd": 0.0396
+    },
+    {
+     "qid": "reference_check",
+     "type": "Noul",
+     "agree": true,
+     "answer_l": false,
+     "answer_j": false,
+     "conf_l": 0.5621765008857981,
+     "conf_j": 0.5900000000000001,
+     "jsd": 0.0239
+    }
+   ]
+  }
+ ]
+}

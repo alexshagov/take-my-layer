@@ -1,0 +1,5119 @@
+{
+ "n_questions": 105,
+ "configs": {
+  "raw": {
+   "n": 105,
+   "agreement": 0.7429,
+   "agreement_wilson95": [
+    0.652,
+    0.817
+   ],
+   "kappa": 0.574,
+   "kappa_by_type": {
+    "Choice": 0.624,
+    "Noul": 0.636,
+    "Score": 0.42
+   },
+   "agreement_by_type": {
+    "Choice": 0.72,
+    "Noul": 0.818,
+    "Score": 0.6
+   },
+   "conf_mean": 0.751,
+   "conf_on_agree": 0.801,
+   "conf_on_disagree": 0.607,
+   "ms_per_decision": {
+    "mean": 164.4,
+    "p50": 153.1
+   },
+   "prefills_per_decision": 1,
+   "what": "one prompt, identity listing, no correction"
+  },
+  "l0_served": {
+   "n": 105,
+   "agreement": 0.7905,
+   "agreement_wilson95": [
+    0.703,
+    0.857
+   ],
+   "kappa": 0.653,
+   "kappa_by_type": {
+    "Choice": 0.839,
+    "Noul": 0.673,
+    "Score": 0.42
+   },
+   "agreement_by_type": {
+    "Choice": 0.88,
+    "Noul": 0.836,
+    "Score": 0.6
+   },
+   "conf_mean": 0.744,
+   "conf_on_agree": 0.782,
+   "conf_on_disagree": 0.6,
+   "ms_per_decision": {
+    "mean": 316.9,
+    "p50": 302.1
+   },
+   "prefills_per_decision": 2.23,
+   "prior_method_counts": {
+    "none": 105
+   },
+   "sanity_match_vs_jev_compare": "105/105",
+   "what": "endpoint config: K cyclic shifts, batch prior (inactive on this eval \u2014 see prior_method_counts)"
+  },
+  "l0_content_free": {
+   "n": 105,
+   "agreement": 0.7238,
+   "agreement_wilson95": [
+    0.632,
+    0.8
+   ],
+   "kappa": 0.542,
+   "kappa_by_type": {
+    "Choice": 0.785,
+    "Noul": 0.491,
+    "Score": 0.362
+   },
+   "agreement_by_type": {
+    "Choice": 0.84,
+    "Noul": 0.745,
+    "Score": 0.56
+   },
+   "conf_mean": 0.768,
+   "conf_on_agree": 0.811,
+   "conf_on_disagree": 0.655,
+   "ms_per_decision": {
+    "mean": 1155.6,
+    "p50": 1140.2
+   },
+   "what": "full stack: marginalization + content-free prior (N/A,'' and [MASK] probes) \u2014 not served"
+  }
+ },
+ "score_raw_equals_l0": "25/25",
+ "k_curve": {
+  "agreement": {
+   "choice": {
+    "1": {
+     "n": 25,
+     "agreement": 0.72
+    },
+    "2": {
+     "n": 25,
+     "agreement": 0.8
+    },
+    "3": {
+     "n": 25,
+     "agreement": 0.88
+    },
+    "4": {
+     "n": 23,
+     "agreement": 0.8696
+    },
+    "5": {
+     "n": 1,
+     "agreement": 1.0
+    }
+   },
+   "noul": {
+    "1": {
+     "n": 55,
+     "agreement": 0.8182
+    },
+    "2": {
+     "n": 55,
+     "agreement": 0.8364
+    }
+   }
+  },
+  "served_ms_choice": {
+   "1": {
+    "n": 25,
+    "mean_ms": 169.0,
+    "p50_ms": 159.3,
+    "prefills": 1
+   },
+   "2": {
+    "n": 25,
+    "mean_ms": 313.2,
+    "p50_ms": 317.7,
+    "prefills": 2
+   },
+   "3": {
+    "n": 25,
+    "mean_ms": 403.9,
+    "p50_ms": 409.1,
+    "prefills": 3
+   }
+  },
+  "note": "agreement: prefix-m rotations marginalized offline from the full-K read (exact \u2014 prior inactive); served_ms_choice: wall ms of a real Decider(max_permutations=m) per choice question. m=1 choice == the raw read."
+ },
+ "greedy_reference": {
+  "decide_l0": 0.79,
+  "greedy": 0.743,
+  "note": "stored bench_vs_generate.json (same questions, same model)"
+ },
+ "note": "raw = the Mini-Jev-style naive letter-logit read; the L0-raw delta per type decomposes the debiasing gain (Score is 1-perm at every level by construction).",
+ "rows": {
+  "raw": [
+   {
+    "i": 1,
+    "qid": "route",
+    "type": "Choice",
+    "k": 4,
+    "ref": "auth-team",
+    "answer": "auth-team",
+    "conf": 0.6954,
+    "agree": true,
+    "ms": 152.0
+   },
+   {
+    "i": 1,
+    "qid": "urgency",
+    "type": "Score",
+    "k": 4,
+    "ref": "critical",
+    "answer": "critical",
+    "conf": 0.8148,
+    "agree": true,
+    "ms": 153.0
+   },
+   {
+    "i": 1,
+    "qid": "is_security",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.6514,
+    "agree": true,
+    "ms": 150.2
+   },
+   {
+    "i": 1,
+    "qid": "needs_callback",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9399,
+    "agree": true,
+    "ms": 146.6
+   },
+   {
+    "i": 1,
+    "qid": "sentiment",
+    "type": "Score",
+    "k": 4,
+    "ref": "furious",
+    "answer": "angry",
+    "conf": 0.6128,
+    "agree": false,
+    "ms": 152.0
+   },
+   {
+    "i": 2,
+    "qid": "route",
+    "type": "Choice",
+    "k": 3,
+    "ref": "billing-team",
+    "answer": "billing-team",
+    "conf": 0.8372,
+    "agree": true,
+    "ms": 148.0
+   },
+   {
+    "i": 2,
+    "qid": "refund_eligible",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.852,
+    "agree": true,
+    "ms": 146.1
+   },
+   {
+    "i": 2,
+    "qid": "urgency",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "high",
+    "conf": 0.6369,
+    "agree": true,
+    "ms": 150.3
+   },
+   {
+    "i": 2,
+    "qid": "churn_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "medium",
+    "answer": "high",
+    "conf": 0.7816,
+    "agree": false,
+    "ms": 152.9
+   },
+   {
+    "i": 2,
+    "qid": "respond_tone",
+    "type": "Choice",
+    "k": 3,
+    "ref": "apologetic-and-direct",
+    "answer": "apologetic-and-direct",
+    "conf": 0.8979,
+    "agree": true,
+    "ms": 150.5
+   },
+   {
+    "i": 3,
+    "qid": "severity",
+    "type": "Score",
+    "k": 4,
+    "ref": "high",
+    "answer": "critical",
+    "conf": 0.5768,
+    "agree": false,
+    "ms": 149.5
+   },
+   {
+    "i": 3,
+    "qid": "team",
+    "type": "Choice",
+    "k": 4,
+    "ref": "database-infra",
+    "answer": "database-infra",
+    "conf": 0.9818,
+    "agree": true,
+    "ms": 148.0
+   },
+   {
+    "i": 3,
+    "qid": "sla_breach",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.6792,
+    "agree": true,
+    "ms": 148.9
+   },
+   {
+    "i": 3,
+    "qid": "root_cause_likely_backup",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.5622,
+    "agree": true,
+    "ms": 144.9
+   },
+   {
+    "i": 3,
+    "qid": "wake_someone",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.6514,
+    "agree": true,
+    "ms": 143.6
+   },
+   {
+    "i": 4,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "quarantine-and-block-domain",
+    "answer": "quarantine-and-block-domain",
+    "conf": 0.9989,
+    "agree": true,
+    "ms": 147.6
+   },
+   {
+    "i": 4,
+    "qid": "severity",
+    "type": "Score",
+    "k": 4,
+    "ref": "high",
+    "answer": "critical",
+    "conf": 0.698,
+    "agree": false,
+    "ms": 148.2
+   },
+   {
+    "i": 4,
+    "qid": "is_targeted",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.7773,
+    "agree": false,
+    "ms": 146.2
+   },
+   {
+    "i": 4,
+    "qid": "credential_compromise",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.9399,
+    "agree": true,
+    "ms": 145.6
+   },
+   {
+    "i": 4,
+    "qid": "block_payroll_window",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.7773,
+    "agree": true,
+    "ms": 146.0
+   },
+   {
+    "i": 5,
+    "qid": "severity",
+    "type": "Score",
+    "k": 4,
+    "ref": "critical",
+    "answer": "critical",
+    "conf": 0.8468,
+    "agree": true,
+    "ms": 152.6
+   },
+   {
+    "i": 5,
+    "qid": "next_action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "rollback-deploy",
+    "answer": "rollback-deploy",
+    "conf": 0.5522,
+    "agree": true,
+    "ms": 146.1
+   },
+   {
+    "i": 5,
+    "qid": "customer_visible",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9399,
+    "agree": true,
+    "ms": 144.3
+   },
+   {
+    "i": 5,
+    "qid": "root_cause_likely_deploy",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9579,
+    "agree": true,
+    "ms": 145.5
+   },
+   {
+    "i": 5,
+    "qid": "status_page_update",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.7549,
+    "agree": true,
+    "ms": 144.8
+   },
+   {
+    "i": 6,
+    "qid": "folder",
+    "type": "Choice",
+    "k": 4,
+    "ref": "reply-today",
+    "answer": "reply-today",
+    "conf": 0.7659,
+    "agree": true,
+    "ms": 151.3
+   },
+   {
+    "i": 6,
+    "qid": "deal_stage",
+    "type": "Choice",
+    "k": 4,
+    "ref": "evaluation",
+    "answer": "evaluation",
+    "conf": 0.7905,
+    "agree": true,
+    "ms": 148.2
+   },
+   {
+    "i": 6,
+    "qid": "respond_today",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8933,
+    "agree": true,
+    "ms": 149.0
+   },
+   {
+    "i": 6,
+    "qid": "competitive",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9579,
+    "agree": true,
+    "ms": 148.3
+   },
+   {
+    "i": 6,
+    "qid": "priority",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "high",
+    "conf": 0.6846,
+    "agree": true,
+    "ms": 152.3
+   },
+   {
+    "i": 7,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "request-itemized-receipt",
+    "answer": "request-itemized-receipt",
+    "conf": 0.9427,
+    "agree": true,
+    "ms": 188.4
+   },
+   {
+    "i": 7,
+    "qid": "policy_compliant",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.977,
+    "agree": true,
+    "ms": 148.3
+   },
+   {
+    "i": 7,
+    "qid": "risk_level",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "high",
+    "conf": 0.5138,
+    "agree": true,
+    "ms": 189.0
+   },
+   {
+    "i": 7,
+    "qid": "pattern_concern",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9797,
+    "agree": true,
+    "ms": 151.1
+   },
+   {
+    "i": 7,
+    "qid": "escalate",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.6514,
+    "agree": true,
+    "ms": 151.2
+   },
+   {
+    "i": 8,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "temporary-ban",
+    "answer": "warn-user",
+    "conf": 0.5574,
+    "agree": false,
+    "ms": 154.0
+   },
+   {
+    "i": 8,
+    "qid": "harassment",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "No",
+    "conf": 0.5312,
+    "agree": false,
+    "ms": 147.0
+   },
+   {
+    "i": 8,
+    "qid": "severity",
+    "type": "Score",
+    "k": 3,
+    "ref": "moderate",
+    "answer": "moderate",
+    "conf": 0.6623,
+    "agree": true,
+    "ms": 156.0
+   },
+   {
+    "i": 8,
+    "qid": "recurring_offender",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "No",
+    "conf": 0.5312,
+    "agree": false,
+    "ms": 150.8
+   },
+   {
+    "i": 8,
+    "qid": "context_mitigates",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.6514,
+    "agree": true,
+    "ms": 150.2
+   },
+   {
+    "i": 9,
+    "qid": "theme",
+    "type": "Choice",
+    "k": 5,
+    "ref": "reliability",
+    "answer": "support-quality",
+    "conf": 0.5244,
+    "agree": false,
+    "ms": 159.8
+   },
+   {
+    "i": 9,
+    "qid": "detractor",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9399,
+    "agree": true,
+    "ms": 150.4
+   },
+   {
+    "i": 9,
+    "qid": "churn_risk",
+    "type": "Score",
+    "k": 4,
+    "ref": "very-high",
+    "answer": "high",
+    "conf": 0.5546,
+    "agree": false,
+    "ms": 195.7
+   },
+   {
+    "i": 9,
+    "qid": "needs_reply",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9241,
+    "agree": true,
+    "ms": 152.2
+   },
+   {
+    "i": 9,
+    "qid": "save_action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "exec-check-in-call",
+    "answer": "prioritized-bug-fix",
+    "conf": 0.444,
+    "agree": false,
+    "ms": 196.4
+   },
+   {
+    "i": 10,
+    "qid": "route",
+    "type": "Choice",
+    "k": 4,
+    "ref": "compliance-team",
+    "answer": "compliance-team",
+    "conf": 0.9561,
+    "agree": true,
+    "ms": 196.9
+   },
+   {
+    "i": 10,
+    "qid": "compliance_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "medium",
+    "conf": 0.5307,
+    "agree": false,
+    "ms": 198.0
+   },
+   {
+    "i": 10,
+    "qid": "blocking_issue",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "No",
+    "conf": 0.9526,
+    "agree": false,
+    "ms": 158.3
+   },
+   {
+    "i": 10,
+    "qid": "needs_legal",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.9466,
+    "agree": true,
+    "ms": 158.4
+   },
+   {
+    "i": 10,
+    "qid": "respond_effort",
+    "type": "Score",
+    "k": 3,
+    "ref": "research-needed",
+    "answer": "research-needed",
+    "conf": 0.4683,
+    "agree": true,
+    "ms": 200.5
+   },
+   {
+    "i": 11,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "remove-and-warn",
+    "answer": "strip-attachment-and-deliver",
+    "conf": 0.6504,
+    "agree": false,
+    "ms": 162.0
+   },
+   {
+    "i": 11,
+    "qid": "phishing_likely",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.7773,
+    "agree": true,
+    "ms": 154.5
+   },
+   {
+    "i": 11,
+    "qid": "severity",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "medium",
+    "conf": 0.5402,
+    "agree": false,
+    "ms": 156.8
+   },
+   {
+    "i": 11,
+    "qid": "insider_threat",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.6514,
+    "agree": true,
+    "ms": 157.4
+   },
+   {
+    "i": 11,
+    "qid": "notify_attendees",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.5312,
+    "agree": true,
+    "ms": 156.9
+   },
+   {
+    "i": 12,
+    "qid": "intervention",
+    "type": "Choice",
+    "k": 4,
+    "ref": "exec-executive-call",
+    "answer": "exec-executive-call",
+    "conf": 0.6808,
+    "agree": true,
+    "ms": 197.5
+   },
+   {
+    "i": 12,
+    "qid": "churn_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "very-high",
+    "answer": "very-high",
+    "conf": 0.8168,
+    "agree": true,
+    "ms": 160.1
+   },
+   {
+    "i": 12,
+    "qid": "data_export_signal",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8176,
+    "agree": true,
+    "ms": 153.5
+   },
+   {
+    "i": 12,
+    "qid": "exec_escalate",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.6514,
+    "agree": true,
+    "ms": 152.0
+   },
+   {
+    "i": 12,
+    "qid": "renewal_forecast",
+    "type": "Choice",
+    "k": 4,
+    "ref": "at-risk",
+    "answer": "at-risk",
+    "conf": 0.9718,
+    "agree": true,
+    "ms": 158.4
+   },
+   {
+    "i": 13,
+    "qid": "decision",
+    "type": "Choice",
+    "k": 4,
+    "ref": "confirm-leave-stands",
+    "answer": "confirm-leave-stands",
+    "conf": 0.4834,
+    "agree": true,
+    "ms": 195.7
+   },
+   {
+    "i": 13,
+    "qid": "genuine_emergency",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.9241,
+    "agree": true,
+    "ms": 153.1
+   },
+   {
+    "i": 13,
+    "qid": "coverage_exists",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.6514,
+    "agree": true,
+    "ms": 152.5
+   },
+   {
+    "i": 13,
+    "qid": "policy_exception",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.6792,
+    "agree": true,
+    "ms": 156.8
+   },
+   {
+    "i": 13,
+    "qid": "relationship_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "medium",
+    "conf": 0.4683,
+    "agree": false,
+    "ms": 162.1
+   },
+   {
+    "i": 14,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "hold-until-red-flags-fixed",
+    "answer": "hold-until-red-flags-fixed",
+    "conf": 0.9604,
+    "agree": true,
+    "ms": 203.0
+   },
+   {
+    "i": 14,
+    "qid": "signable",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.9992,
+    "agree": true,
+    "ms": 157.9
+   },
+   {
+    "i": 14,
+    "qid": "risk_level",
+    "type": "Score",
+    "k": 3,
+    "ref": "critical",
+    "answer": "critical",
+    "conf": 0.8767,
+    "agree": true,
+    "ms": 198.6
+   },
+   {
+    "i": 14,
+    "qid": "missing_dpa_blocking",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9325,
+    "agree": true,
+    "ms": 162.2
+   },
+   {
+    "i": 14,
+    "qid": "auto_renewal_risk",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9526,
+    "agree": true,
+    "ms": 159.2
+   },
+   {
+    "i": 15,
+    "qid": "fraud",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9526,
+    "agree": true,
+    "ms": 158.6
+   },
+   {
+    "i": 15,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "block-card-and-reissue",
+    "answer": "block-card-and-reissue",
+    "conf": 0.764,
+    "agree": true,
+    "ms": 202.1
+   },
+   {
+    "i": 15,
+    "qid": "severity",
+    "type": "Score",
+    "k": 4,
+    "ref": "critical",
+    "answer": "critical",
+    "conf": 0.647,
+    "agree": true,
+    "ms": 201.9
+   },
+   {
+    "i": 15,
+    "qid": "card_present_compromised",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.6792,
+    "agree": false,
+    "ms": 196.7
+   },
+   {
+    "i": 15,
+    "qid": "first_txn_probe",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.5312,
+    "agree": false,
+    "ms": 309.4
+   },
+   {
+    "i": 16,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "revise-claims-with-evidence",
+    "answer": "revise-claims-with-evidence",
+    "conf": 0.8985,
+    "agree": true,
+    "ms": 489.4
+   },
+   {
+    "i": 16,
+    "qid": "claims_substantiable",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.9841,
+    "agree": true,
+    "ms": 159.4
+   },
+   {
+    "i": 16,
+    "qid": "legal_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "critical",
+    "answer": "critical",
+    "conf": 0.7458,
+    "agree": true,
+    "ms": 202.1
+   },
+   {
+    "i": 16,
+    "qid": "needs_legal_review",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.5622,
+    "agree": true,
+    "ms": 158.1
+   },
+   {
+    "i": 16,
+    "qid": "competitor_claim_risk",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.5622,
+    "agree": false,
+    "ms": 160.6
+   },
+   {
+    "i": 17,
+    "qid": "severity",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "medium",
+    "conf": 0.6338,
+    "agree": false,
+    "ms": 159.0
+   },
+   {
+    "i": 17,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "communicate-timeline",
+    "answer": "expedite-part-repair",
+    "conf": 0.4834,
+    "agree": false,
+    "ms": 155.3
+   },
+   {
+    "i": 17,
+    "qid": "compliance_issue",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "No",
+    "conf": 0.7773,
+    "agree": false,
+    "ms": 152.9
+   },
+   {
+    "i": 17,
+    "qid": "fire_risk",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8808,
+    "agree": true,
+    "ms": 154.2
+   },
+   {
+    "i": 17,
+    "qid": "comms_needed",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9627,
+    "agree": true,
+    "ms": 151.2
+   },
+   {
+    "i": 18,
+    "qid": "next_step",
+    "type": "Choice",
+    "k": 4,
+    "ref": "send-bridge-letter-and-questionnaire",
+    "answer": "schedule-security-call",
+    "conf": 0.7236,
+    "agree": false,
+    "ms": 161.1
+   },
+   {
+    "i": 18,
+    "qid": "deal_blocked",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.9579,
+    "agree": true,
+    "ms": 151.6
+   },
+   {
+    "i": 18,
+    "qid": "respond_priority",
+    "type": "Score",
+    "k": 3,
+    "ref": "same-day",
+    "answer": "same-day",
+    "conf": 0.7963,
+    "agree": true,
+    "ms": 158.5
+   },
+   {
+    "i": 18,
+    "qid": "competitor_pressure",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9241,
+    "agree": true,
+    "ms": 152.2
+   },
+   {
+    "i": 18,
+    "qid": "security_call_useful",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9149,
+    "agree": true,
+    "ms": 150.5
+   },
+   {
+    "i": 19,
+    "qid": "investigate",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "No",
+    "conf": 0.5927,
+    "agree": false,
+    "ms": 150.7
+   },
+   {
+    "i": 19,
+    "qid": "fraud_suspected",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.6792,
+    "agree": true,
+    "ms": 149.9
+   },
+   {
+    "i": 19,
+    "qid": "severity",
+    "type": "Score",
+    "k": 3,
+    "ref": "elevated",
+    "answer": "elevated",
+    "conf": 0.5065,
+    "agree": true,
+    "ms": 157.2
+   },
+   {
+    "i": 19,
+    "qid": "next_action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "request-police-report",
+    "answer": "request-police-report",
+    "conf": 0.8632,
+    "agree": true,
+    "ms": 161.0
+   },
+   {
+    "i": 19,
+    "qid": "pay_now_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "medium",
+    "conf": 0.5378,
+    "agree": false,
+    "ms": 158.1
+   },
+   {
+    "i": 20,
+    "qid": "respond",
+    "type": "Choice",
+    "k": 4,
+    "ref": "apologize-and-comp",
+    "answer": "apologize-explain-fix",
+    "conf": 0.5521,
+    "agree": false,
+    "ms": 160.3
+   },
+   {
+    "i": 20,
+    "qid": "food_safety_risk",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.977,
+    "agree": true,
+    "ms": 152.4
+   },
+   {
+    "i": 20,
+    "qid": "urgency",
+    "type": "Score",
+    "k": 3,
+    "ref": "medium",
+    "answer": "medium",
+    "conf": 0.6045,
+    "agree": true,
+    "ms": 158.0
+   },
+   {
+    "i": 20,
+    "qid": "regular_at_risk",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.5622,
+    "agree": true,
+    "ms": 151.8
+   },
+   {
+    "i": 20,
+    "qid": "reply_public",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "No",
+    "conf": 0.5927,
+    "agree": false,
+    "ms": 151.1
+   },
+   {
+    "i": 21,
+    "qid": "advance",
+    "type": "Choice",
+    "k": 4,
+    "ref": "reject",
+    "answer": "reject",
+    "conf": 0.8804,
+    "agree": true,
+    "ms": 194.2
+   },
+   {
+    "i": 21,
+    "qid": "plagiarism_concern",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9797,
+    "agree": true,
+    "ms": 150.8
+   },
+   {
+    "i": 21,
+    "qid": "integrity_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "high",
+    "conf": 0.9386,
+    "agree": true,
+    "ms": 159.1
+   },
+   {
+    "i": 21,
+    "qid": "split_panel_significant",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9047,
+    "agree": true,
+    "ms": 157.3
+   },
+   {
+    "i": 21,
+    "qid": "reference_check",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.5622,
+    "agree": true,
+    "ms": 151.2
+   }
+  ],
+  "l0": [
+   {
+    "i": 1,
+    "qid": "route",
+    "type": "Choice",
+    "k": 4,
+    "ref": "auth-team",
+    "answer": "auth-team",
+    "conf": 0.7788,
+    "agree": true,
+    "ms": 498.5
+   },
+   {
+    "i": 1,
+    "qid": "urgency",
+    "type": "Score",
+    "k": 4,
+    "ref": "critical",
+    "answer": "critical",
+    "conf": 0.8148,
+    "agree": true,
+    "ms": 152.6
+   },
+   {
+    "i": 1,
+    "qid": "is_security",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.6654,
+    "agree": true,
+    "ms": 298.2
+   },
+   {
+    "i": 1,
+    "qid": "needs_callback",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9196,
+    "agree": true,
+    "ms": 291.5
+   },
+   {
+    "i": 1,
+    "qid": "sentiment",
+    "type": "Score",
+    "k": 4,
+    "ref": "furious",
+    "answer": "angry",
+    "conf": 0.6128,
+    "agree": false,
+    "ms": 152.1
+   },
+   {
+    "i": 2,
+    "qid": "route",
+    "type": "Choice",
+    "k": 3,
+    "ref": "billing-team",
+    "answer": "billing-team",
+    "conf": 0.8973,
+    "agree": true,
+    "ms": 324.5
+   },
+   {
+    "i": 2,
+    "qid": "refund_eligible",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8267,
+    "agree": true,
+    "ms": 290.7
+   },
+   {
+    "i": 2,
+    "qid": "urgency",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "high",
+    "conf": 0.6369,
+    "agree": true,
+    "ms": 149.5
+   },
+   {
+    "i": 2,
+    "qid": "churn_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "medium",
+    "answer": "high",
+    "conf": 0.7816,
+    "agree": false,
+    "ms": 151.8
+   },
+   {
+    "i": 2,
+    "qid": "respond_tone",
+    "type": "Choice",
+    "k": 3,
+    "ref": "apologetic-and-direct",
+    "answer": "apologetic-and-direct",
+    "conf": 0.9007,
+    "agree": true,
+    "ms": 405.9
+   },
+   {
+    "i": 3,
+    "qid": "severity",
+    "type": "Score",
+    "k": 4,
+    "ref": "high",
+    "answer": "critical",
+    "conf": 0.5768,
+    "agree": false,
+    "ms": 149.8
+   },
+   {
+    "i": 3,
+    "qid": "team",
+    "type": "Choice",
+    "k": 4,
+    "ref": "database-infra",
+    "answer": "database-infra",
+    "conf": 0.9912,
+    "agree": true,
+    "ms": 493.9
+   },
+   {
+    "i": 3,
+    "qid": "sla_breach",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.6792,
+    "agree": true,
+    "ms": 295.7
+   },
+   {
+    "i": 3,
+    "qid": "root_cause_likely_backup",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.5775,
+    "agree": true,
+    "ms": 288.3
+   },
+   {
+    "i": 3,
+    "qid": "wake_someone",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.6077,
+    "agree": true,
+    "ms": 284.1
+   },
+   {
+    "i": 4,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "quarantine-and-block-domain",
+    "answer": "quarantine-and-block-domain",
+    "conf": 0.9985,
+    "agree": true,
+    "ms": 495.7
+   },
+   {
+    "i": 4,
+    "qid": "severity",
+    "type": "Score",
+    "k": 4,
+    "ref": "high",
+    "answer": "critical",
+    "conf": 0.698,
+    "agree": false,
+    "ms": 147.7
+   },
+   {
+    "i": 4,
+    "qid": "is_targeted",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.7773,
+    "agree": false,
+    "ms": 294.3
+   },
+   {
+    "i": 4,
+    "qid": "credential_compromise",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.9325,
+    "agree": true,
+    "ms": 290.5
+   },
+   {
+    "i": 4,
+    "qid": "block_payroll_window",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.7432,
+    "agree": true,
+    "ms": 290.7
+   },
+   {
+    "i": 5,
+    "qid": "severity",
+    "type": "Score",
+    "k": 4,
+    "ref": "critical",
+    "answer": "critical",
+    "conf": 0.8468,
+    "agree": true,
+    "ms": 152.2
+   },
+   {
+    "i": 5,
+    "qid": "next_action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "rollback-deploy",
+    "answer": "rollback-deploy",
+    "conf": 0.6564,
+    "agree": true,
+    "ms": 499.0
+   },
+   {
+    "i": 5,
+    "qid": "customer_visible",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9284,
+    "agree": true,
+    "ms": 289.2
+   },
+   {
+    "i": 5,
+    "qid": "root_cause_likely_deploy",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9433,
+    "agree": true,
+    "ms": 289.6
+   },
+   {
+    "i": 5,
+    "qid": "status_page_update",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.7549,
+    "agree": true,
+    "ms": 289.3
+   },
+   {
+    "i": 6,
+    "qid": "folder",
+    "type": "Choice",
+    "k": 4,
+    "ref": "reply-today",
+    "answer": "reply-today",
+    "conf": 0.594,
+    "agree": true,
+    "ms": 497.2
+   },
+   {
+    "i": 6,
+    "qid": "deal_stage",
+    "type": "Choice",
+    "k": 4,
+    "ref": "evaluation",
+    "answer": "evaluation",
+    "conf": 0.8987,
+    "agree": true,
+    "ms": 393.9
+   },
+   {
+    "i": 6,
+    "qid": "respond_today",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8597,
+    "agree": true,
+    "ms": 297.0
+   },
+   {
+    "i": 6,
+    "qid": "competitive",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9497,
+    "agree": true,
+    "ms": 296.1
+   },
+   {
+    "i": 6,
+    "qid": "priority",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "high",
+    "conf": 0.6846,
+    "agree": true,
+    "ms": 152.5
+   },
+   {
+    "i": 7,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "request-itemized-receipt",
+    "answer": "request-itemized-receipt",
+    "conf": 0.9774,
+    "agree": true,
+    "ms": 500.0
+   },
+   {
+    "i": 7,
+    "qid": "policy_compliant",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.9689,
+    "agree": true,
+    "ms": 297.1
+   },
+   {
+    "i": 7,
+    "qid": "risk_level",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "high",
+    "conf": 0.5138,
+    "agree": true,
+    "ms": 189.2
+   },
+   {
+    "i": 7,
+    "qid": "pattern_concern",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9724,
+    "agree": true,
+    "ms": 300.1
+   },
+   {
+    "i": 7,
+    "qid": "escalate",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.6225,
+    "agree": true,
+    "ms": 301.6
+   },
+   {
+    "i": 8,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "temporary-ban",
+    "answer": "remove-post",
+    "conf": 0.3446,
+    "agree": false,
+    "ms": 500.7
+   },
+   {
+    "i": 8,
+    "qid": "harassment",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "No",
+    "conf": 0.5467,
+    "agree": false,
+    "ms": 297.5
+   },
+   {
+    "i": 8,
+    "qid": "severity",
+    "type": "Score",
+    "k": 3,
+    "ref": "moderate",
+    "answer": "moderate",
+    "conf": 0.6623,
+    "agree": true,
+    "ms": 156.6
+   },
+   {
+    "i": 8,
+    "qid": "recurring_offender",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "No",
+    "conf": 0.5312,
+    "agree": false,
+    "ms": 299.8
+   },
+   {
+    "i": 8,
+    "qid": "context_mitigates",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.637,
+    "agree": true,
+    "ms": 300.6
+   },
+   {
+    "i": 9,
+    "qid": "theme",
+    "type": "Choice",
+    "k": 5,
+    "ref": "reliability",
+    "answer": "reliability",
+    "conf": 0.6872,
+    "agree": true,
+    "ms": 595.2
+   },
+   {
+    "i": 9,
+    "qid": "detractor",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9196,
+    "agree": true,
+    "ms": 305.5
+   },
+   {
+    "i": 9,
+    "qid": "churn_risk",
+    "type": "Score",
+    "k": 4,
+    "ref": "very-high",
+    "answer": "high",
+    "conf": 0.5546,
+    "agree": false,
+    "ms": 195.7
+   },
+   {
+    "i": 9,
+    "qid": "needs_reply",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8872,
+    "agree": true,
+    "ms": 306.4
+   },
+   {
+    "i": 9,
+    "qid": "save_action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "exec-check-in-call",
+    "answer": "exec-check-in-call",
+    "conf": 0.3402,
+    "agree": true,
+    "ms": 510.1
+   },
+   {
+    "i": 10,
+    "qid": "route",
+    "type": "Choice",
+    "k": 4,
+    "ref": "compliance-team",
+    "answer": "compliance-team",
+    "conf": 0.986,
+    "agree": true,
+    "ms": 502.2
+   },
+   {
+    "i": 10,
+    "qid": "compliance_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "medium",
+    "conf": 0.5307,
+    "agree": false,
+    "ms": 197.8
+   },
+   {
+    "i": 10,
+    "qid": "blocking_issue",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "No",
+    "conf": 0.9284,
+    "agree": false,
+    "ms": 316.6
+   },
+   {
+    "i": 10,
+    "qid": "needs_legal",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.9241,
+    "agree": true,
+    "ms": 316.1
+   },
+   {
+    "i": 10,
+    "qid": "respond_effort",
+    "type": "Score",
+    "k": 3,
+    "ref": "research-needed",
+    "answer": "research-needed",
+    "conf": 0.4683,
+    "agree": true,
+    "ms": 199.5
+   },
+   {
+    "i": 11,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "remove-and-warn",
+    "answer": "strip-attachment-and-deliver",
+    "conf": 0.4703,
+    "agree": false,
+    "ms": 511.7
+   },
+   {
+    "i": 11,
+    "qid": "phishing_likely",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.7432,
+    "agree": true,
+    "ms": 309.0
+   },
+   {
+    "i": 11,
+    "qid": "severity",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "medium",
+    "conf": 0.5402,
+    "agree": false,
+    "ms": 156.6
+   },
+   {
+    "i": 11,
+    "qid": "insider_threat",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.637,
+    "agree": true,
+    "ms": 312.6
+   },
+   {
+    "i": 11,
+    "qid": "notify_attendees",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.5,
+    "agree": true,
+    "ms": 314.0
+   },
+   {
+    "i": 12,
+    "qid": "intervention",
+    "type": "Choice",
+    "k": 4,
+    "ref": "exec-executive-call",
+    "answer": "exec-executive-call",
+    "conf": 0.8179,
+    "agree": true,
+    "ms": 514.9
+   },
+   {
+    "i": 12,
+    "qid": "churn_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "very-high",
+    "answer": "very-high",
+    "conf": 0.8168,
+    "agree": true,
+    "ms": 159.9
+   },
+   {
+    "i": 12,
+    "qid": "data_export_signal",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.7879,
+    "agree": true,
+    "ms": 307.2
+   },
+   {
+    "i": 12,
+    "qid": "exec_escalate",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.637,
+    "agree": true,
+    "ms": 306.1
+   },
+   {
+    "i": 12,
+    "qid": "renewal_forecast",
+    "type": "Choice",
+    "k": 4,
+    "ref": "at-risk",
+    "answer": "at-risk",
+    "conf": 0.9088,
+    "agree": true,
+    "ms": 502.3
+   },
+   {
+    "i": 13,
+    "qid": "decision",
+    "type": "Choice",
+    "k": 4,
+    "ref": "confirm-leave-stands",
+    "answer": "confirm-leave-stands",
+    "conf": 0.5221,
+    "agree": true,
+    "ms": 514.0
+   },
+   {
+    "i": 13,
+    "qid": "genuine_emergency",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.9196,
+    "agree": true,
+    "ms": 307.0
+   },
+   {
+    "i": 13,
+    "qid": "coverage_exists",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.5927,
+    "agree": true,
+    "ms": 305.0
+   },
+   {
+    "i": 13,
+    "qid": "policy_exception",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.6926,
+    "agree": true,
+    "ms": 312.7
+   },
+   {
+    "i": 13,
+    "qid": "relationship_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "medium",
+    "conf": 0.4683,
+    "agree": false,
+    "ms": 162.1
+   },
+   {
+    "i": 14,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "hold-until-red-flags-fixed",
+    "answer": "hold-until-red-flags-fixed",
+    "conf": 0.96,
+    "agree": true,
+    "ms": 513.0
+   },
+   {
+    "i": 14,
+    "qid": "signable",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.9989,
+    "agree": true,
+    "ms": 316.8
+   },
+   {
+    "i": 14,
+    "qid": "risk_level",
+    "type": "Score",
+    "k": 3,
+    "ref": "critical",
+    "answer": "critical",
+    "conf": 0.8767,
+    "agree": true,
+    "ms": 199.0
+   },
+   {
+    "i": 14,
+    "qid": "missing_dpa_blocking",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9047,
+    "agree": true,
+    "ms": 323.7
+   },
+   {
+    "i": 14,
+    "qid": "auto_renewal_risk",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9241,
+    "agree": true,
+    "ms": 319.0
+   },
+   {
+    "i": 15,
+    "qid": "fraud",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9325,
+    "agree": true,
+    "ms": 318.3
+   },
+   {
+    "i": 15,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "block-card-and-reissue",
+    "answer": "block-card-and-reissue",
+    "conf": 0.8982,
+    "agree": true,
+    "ms": 511.5
+   },
+   {
+    "i": 15,
+    "qid": "severity",
+    "type": "Score",
+    "k": 4,
+    "ref": "critical",
+    "answer": "critical",
+    "conf": 0.647,
+    "agree": true,
+    "ms": 200.8
+   },
+   {
+    "i": 15,
+    "qid": "card_present_compromised",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.6514,
+    "agree": false,
+    "ms": 391.9
+   },
+   {
+    "i": 15,
+    "qid": "first_txn_probe",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.5156,
+    "agree": true,
+    "ms": 320.2
+   },
+   {
+    "i": 16,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "revise-claims-with-evidence",
+    "answer": "revise-claims-with-evidence",
+    "conf": 0.7108,
+    "agree": true,
+    "ms": 508.3
+   },
+   {
+    "i": 16,
+    "qid": "claims_substantiable",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.982,
+    "agree": true,
+    "ms": 315.7
+   },
+   {
+    "i": 16,
+    "qid": "legal_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "critical",
+    "answer": "critical",
+    "conf": 0.7458,
+    "agree": true,
+    "ms": 200.4
+   },
+   {
+    "i": 16,
+    "qid": "needs_legal_review",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.6654,
+    "agree": true,
+    "ms": 316.1
+   },
+   {
+    "i": 16,
+    "qid": "competitor_claim_risk",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.5775,
+    "agree": false,
+    "ms": 319.9
+   },
+   {
+    "i": 17,
+    "qid": "severity",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "medium",
+    "conf": 0.6338,
+    "agree": false,
+    "ms": 158.5
+   },
+   {
+    "i": 17,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "communicate-timeline",
+    "answer": "communicate-timeline",
+    "conf": 0.6278,
+    "agree": true,
+    "ms": 507.0
+   },
+   {
+    "i": 17,
+    "qid": "compliance_issue",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "No",
+    "conf": 0.7432,
+    "agree": false,
+    "ms": 303.4
+   },
+   {
+    "i": 17,
+    "qid": "fire_risk",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8439,
+    "agree": true,
+    "ms": 306.2
+   },
+   {
+    "i": 17,
+    "qid": "comms_needed",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9627,
+    "agree": true,
+    "ms": 302.1
+   },
+   {
+    "i": 18,
+    "qid": "next_step",
+    "type": "Choice",
+    "k": 4,
+    "ref": "send-bridge-letter-and-questionnaire",
+    "answer": "send-bridge-letter-and-questionnaire",
+    "conf": 0.63,
+    "agree": true,
+    "ms": 508.0
+   },
+   {
+    "i": 18,
+    "qid": "deal_blocked",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.9433,
+    "agree": true,
+    "ms": 300.4
+   },
+   {
+    "i": 18,
+    "qid": "respond_priority",
+    "type": "Score",
+    "k": 3,
+    "ref": "same-day",
+    "answer": "same-day",
+    "conf": 0.7963,
+    "agree": true,
+    "ms": 159.0
+   },
+   {
+    "i": 18,
+    "qid": "competitor_pressure",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9241,
+    "agree": true,
+    "ms": 300.6
+   },
+   {
+    "i": 18,
+    "qid": "security_call_useful",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8933,
+    "agree": true,
+    "ms": 299.8
+   },
+   {
+    "i": 19,
+    "qid": "investigate",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "No",
+    "conf": 0.5775,
+    "agree": false,
+    "ms": 300.2
+   },
+   {
+    "i": 19,
+    "qid": "fraud_suspected",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.637,
+    "agree": true,
+    "ms": 299.7
+   },
+   {
+    "i": 19,
+    "qid": "severity",
+    "type": "Score",
+    "k": 3,
+    "ref": "elevated",
+    "answer": "elevated",
+    "conf": 0.5065,
+    "agree": true,
+    "ms": 156.1
+   },
+   {
+    "i": 19,
+    "qid": "next_action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "request-police-report",
+    "answer": "request-police-report",
+    "conf": 0.7333,
+    "agree": true,
+    "ms": 506.4
+   },
+   {
+    "i": 19,
+    "qid": "pay_now_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "medium",
+    "conf": 0.5378,
+    "agree": false,
+    "ms": 159.1
+   },
+   {
+    "i": 20,
+    "qid": "respond",
+    "type": "Choice",
+    "k": 4,
+    "ref": "apologize-and-comp",
+    "answer": "take-it-offline-only",
+    "conf": 0.5258,
+    "agree": false,
+    "ms": 503.1
+   },
+   {
+    "i": 20,
+    "qid": "food_safety_risk",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.9707,
+    "agree": true,
+    "ms": 304.7
+   },
+   {
+    "i": 20,
+    "qid": "urgency",
+    "type": "Score",
+    "k": 3,
+    "ref": "medium",
+    "answer": "medium",
+    "conf": 0.6045,
+    "agree": true,
+    "ms": 158.9
+   },
+   {
+    "i": 20,
+    "qid": "regular_at_risk",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.5927,
+    "agree": true,
+    "ms": 304.0
+   },
+   {
+    "i": 20,
+    "qid": "reply_public",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "No",
+    "conf": 0.5927,
+    "agree": false,
+    "ms": 300.3
+   },
+   {
+    "i": 21,
+    "qid": "advance",
+    "type": "Choice",
+    "k": 4,
+    "ref": "reject",
+    "answer": "reject",
+    "conf": 0.9541,
+    "agree": true,
+    "ms": 504.6
+   },
+   {
+    "i": 21,
+    "qid": "plagiarism_concern",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9756,
+    "agree": true,
+    "ms": 302.1
+   },
+   {
+    "i": 21,
+    "qid": "integrity_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "high",
+    "conf": 0.9386,
+    "agree": true,
+    "ms": 160.1
+   },
+   {
+    "i": 21,
+    "qid": "split_panel_significant",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8267,
+    "agree": true,
+    "ms": 313.9
+   },
+   {
+    "i": 21,
+    "qid": "reference_check",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.5622,
+    "agree": true,
+    "ms": 300.4
+   }
+  ],
+  "cf": [
+   {
+    "i": 1,
+    "qid": "route",
+    "type": "Choice",
+    "k": 4,
+    "ref": "auth-team",
+    "answer": "auth-team",
+    "conf": 0.7582,
+    "agree": true,
+    "ms": 1864.6
+   },
+   {
+    "i": 1,
+    "qid": "urgency",
+    "type": "Score",
+    "k": 4,
+    "ref": "critical",
+    "answer": "high",
+    "conf": 0.5312,
+    "agree": false,
+    "ms": 448.8
+   },
+   {
+    "i": 1,
+    "qid": "is_security",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.7343,
+    "agree": false,
+    "ms": 1142.2
+   },
+   {
+    "i": 1,
+    "qid": "needs_callback",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.927,
+    "agree": true,
+    "ms": 1123.3
+   },
+   {
+    "i": 1,
+    "qid": "sentiment",
+    "type": "Score",
+    "k": 4,
+    "ref": "furious",
+    "answer": "angry",
+    "conf": 0.8628,
+    "agree": false,
+    "ms": 447.5
+   },
+   {
+    "i": 2,
+    "qid": "route",
+    "type": "Choice",
+    "k": 3,
+    "ref": "billing-team",
+    "answer": "billing-team",
+    "conf": 0.9514,
+    "agree": true,
+    "ms": 1178.2
+   },
+   {
+    "i": 2,
+    "qid": "refund_eligible",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9165,
+    "agree": true,
+    "ms": 1127.2
+   },
+   {
+    "i": 2,
+    "qid": "urgency",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "high",
+    "conf": 0.6568,
+    "agree": true,
+    "ms": 577.8
+   },
+   {
+    "i": 2,
+    "qid": "churn_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "medium",
+    "answer": "medium",
+    "conf": 0.4965,
+    "agree": true,
+    "ms": 449.0
+   },
+   {
+    "i": 2,
+    "qid": "respond_tone",
+    "type": "Choice",
+    "k": 3,
+    "ref": "apologetic-and-direct",
+    "answer": "apologetic-and-direct",
+    "conf": 0.9553,
+    "agree": true,
+    "ms": 1491.1
+   },
+   {
+    "i": 3,
+    "qid": "severity",
+    "type": "Score",
+    "k": 4,
+    "ref": "high",
+    "answer": "high",
+    "conf": 0.719,
+    "agree": true,
+    "ms": 445.3
+   },
+   {
+    "i": 3,
+    "qid": "team",
+    "type": "Choice",
+    "k": 4,
+    "ref": "database-infra",
+    "answer": "database-infra",
+    "conf": 0.9816,
+    "agree": true,
+    "ms": 1848.2
+   },
+   {
+    "i": 3,
+    "qid": "sla_breach",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.8518,
+    "agree": false,
+    "ms": 1123.4
+   },
+   {
+    "i": 3,
+    "qid": "root_cause_likely_backup",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.7387,
+    "agree": true,
+    "ms": 1118.0
+   },
+   {
+    "i": 3,
+    "qid": "wake_someone",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9001,
+    "agree": true,
+    "ms": 1115.5
+   },
+   {
+    "i": 4,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "quarantine-and-block-domain",
+    "answer": "quarantine-and-block-domain",
+    "conf": 0.9866,
+    "agree": true,
+    "ms": 1862.0
+   },
+   {
+    "i": 4,
+    "qid": "severity",
+    "type": "Score",
+    "k": 4,
+    "ref": "high",
+    "answer": "high",
+    "conf": 0.6198,
+    "agree": true,
+    "ms": 444.6
+   },
+   {
+    "i": 4,
+    "qid": "is_targeted",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.8631,
+    "agree": false,
+    "ms": 1124.7
+   },
+   {
+    "i": 4,
+    "qid": "credential_compromise",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.7899,
+    "agree": true,
+    "ms": 1116.4
+   },
+   {
+    "i": 4,
+    "qid": "block_payroll_window",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8463,
+    "agree": true,
+    "ms": 1118.7
+   },
+   {
+    "i": 5,
+    "qid": "severity",
+    "type": "Score",
+    "k": 4,
+    "ref": "critical",
+    "answer": "high",
+    "conf": 0.5085,
+    "agree": false,
+    "ms": 152.5
+   },
+   {
+    "i": 5,
+    "qid": "next_action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "rollback-deploy",
+    "answer": "rollback-deploy",
+    "conf": 0.6707,
+    "agree": true,
+    "ms": 1873.9
+   },
+   {
+    "i": 5,
+    "qid": "customer_visible",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9548,
+    "agree": true,
+    "ms": 1112.4
+   },
+   {
+    "i": 5,
+    "qid": "root_cause_likely_deploy",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9838,
+    "agree": true,
+    "ms": 1118.1
+   },
+   {
+    "i": 5,
+    "qid": "status_page_update",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8912,
+    "agree": true,
+    "ms": 1118.1
+   },
+   {
+    "i": 6,
+    "qid": "folder",
+    "type": "Choice",
+    "k": 4,
+    "ref": "reply-today",
+    "answer": "reply-today",
+    "conf": 0.4535,
+    "agree": true,
+    "ms": 1862.4
+   },
+   {
+    "i": 6,
+    "qid": "deal_stage",
+    "type": "Choice",
+    "k": 4,
+    "ref": "evaluation",
+    "answer": "evaluation",
+    "conf": 0.912,
+    "agree": true,
+    "ms": 1452.2
+   },
+   {
+    "i": 6,
+    "qid": "respond_today",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.963,
+    "agree": true,
+    "ms": 1122.8
+   },
+   {
+    "i": 6,
+    "qid": "competitive",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9892,
+    "agree": true,
+    "ms": 1121.4
+   },
+   {
+    "i": 6,
+    "qid": "priority",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "high",
+    "conf": 0.7349,
+    "agree": true,
+    "ms": 451.1
+   },
+   {
+    "i": 7,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "request-itemized-receipt",
+    "answer": "request-itemized-receipt",
+    "conf": 0.9676,
+    "agree": true,
+    "ms": 1865.7
+   },
+   {
+    "i": 7,
+    "qid": "policy_compliant",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.8808,
+    "agree": true,
+    "ms": 1122.9
+   },
+   {
+    "i": 7,
+    "qid": "risk_level",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "high",
+    "conf": 0.5289,
+    "agree": true,
+    "ms": 488.4
+   },
+   {
+    "i": 7,
+    "qid": "pattern_concern",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9746,
+    "agree": true,
+    "ms": 1130.4
+   },
+   {
+    "i": 7,
+    "qid": "escalate",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8076,
+    "agree": true,
+    "ms": 1132.1
+   },
+   {
+    "i": 8,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "temporary-ban",
+    "answer": "temporary-ban",
+    "conf": 0.4433,
+    "agree": true,
+    "ms": 1860.6
+   },
+   {
+    "i": 8,
+    "qid": "harassment",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.967,
+    "agree": true,
+    "ms": 1126.9
+   },
+   {
+    "i": 8,
+    "qid": "severity",
+    "type": "Score",
+    "k": 3,
+    "ref": "moderate",
+    "answer": "moderate",
+    "conf": 0.8505,
+    "agree": true,
+    "ms": 586.2
+   },
+   {
+    "i": 8,
+    "qid": "recurring_offender",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8713,
+    "agree": true,
+    "ms": 1134.4
+   },
+   {
+    "i": 8,
+    "qid": "context_mitigates",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.6162,
+    "agree": false,
+    "ms": 1136.4
+   },
+   {
+    "i": 9,
+    "qid": "theme",
+    "type": "Choice",
+    "k": 5,
+    "ref": "reliability",
+    "answer": "reliability",
+    "conf": 0.6859,
+    "agree": true,
+    "ms": 2235.6
+   },
+   {
+    "i": 9,
+    "qid": "detractor",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9825,
+    "agree": true,
+    "ms": 1142.7
+   },
+   {
+    "i": 9,
+    "qid": "churn_risk",
+    "type": "Score",
+    "k": 4,
+    "ref": "very-high",
+    "answer": "high",
+    "conf": 0.8124,
+    "agree": false,
+    "ms": 507.4
+   },
+   {
+    "i": 9,
+    "qid": "needs_reply",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "No",
+    "conf": 0.6908,
+    "agree": false,
+    "ms": 1143.7
+   },
+   {
+    "i": 9,
+    "qid": "save_action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "exec-check-in-call",
+    "answer": "support-sla-upgrade",
+    "conf": 0.3077,
+    "agree": false,
+    "ms": 1901.1
+   },
+   {
+    "i": 10,
+    "qid": "route",
+    "type": "Choice",
+    "k": 4,
+    "ref": "compliance-team",
+    "answer": "compliance-team",
+    "conf": 0.9844,
+    "agree": true,
+    "ms": 1865.9
+   },
+   {
+    "i": 10,
+    "qid": "compliance_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "medium",
+    "conf": 0.5728,
+    "agree": false,
+    "ms": 506.6
+   },
+   {
+    "i": 10,
+    "qid": "blocking_issue",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "No",
+    "conf": 0.8915,
+    "agree": false,
+    "ms": 1163.3
+   },
+   {
+    "i": 10,
+    "qid": "needs_legal",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.7487,
+    "agree": true,
+    "ms": 1163.4
+   },
+   {
+    "i": 10,
+    "qid": "respond_effort",
+    "type": "Score",
+    "k": 3,
+    "ref": "research-needed",
+    "answer": "research-needed",
+    "conf": 0.673,
+    "agree": true,
+    "ms": 514.6
+   },
+   {
+    "i": 11,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "remove-and-warn",
+    "answer": "deliver-and-notify-security",
+    "conf": 0.3833,
+    "agree": false,
+    "ms": 1906.9
+   },
+   {
+    "i": 11,
+    "qid": "phishing_likely",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8995,
+    "agree": true,
+    "ms": 1148.7
+   },
+   {
+    "i": 11,
+    "qid": "severity",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "medium",
+    "conf": 0.5081,
+    "agree": false,
+    "ms": 595.9
+   },
+   {
+    "i": 11,
+    "qid": "insider_threat",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.7288,
+    "agree": false,
+    "ms": 1163.1
+   },
+   {
+    "i": 11,
+    "qid": "notify_attendees",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.7084,
+    "agree": true,
+    "ms": 1163.6
+   },
+   {
+    "i": 12,
+    "qid": "intervention",
+    "type": "Choice",
+    "k": 4,
+    "ref": "exec-executive-call",
+    "answer": "exec-executive-call",
+    "conf": 0.6096,
+    "agree": true,
+    "ms": 1914.2
+   },
+   {
+    "i": 12,
+    "qid": "churn_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "very-high",
+    "answer": "very-high",
+    "conf": 0.8572,
+    "agree": true,
+    "ms": 598.0
+   },
+   {
+    "i": 12,
+    "qid": "data_export_signal",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8915,
+    "agree": true,
+    "ms": 1156.1
+   },
+   {
+    "i": 12,
+    "qid": "exec_escalate",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9249,
+    "agree": true,
+    "ms": 1151.2
+   },
+   {
+    "i": 12,
+    "qid": "renewal_forecast",
+    "type": "Choice",
+    "k": 4,
+    "ref": "at-risk",
+    "answer": "at-risk",
+    "conf": 0.9222,
+    "agree": true,
+    "ms": 1866.5
+   },
+   {
+    "i": 13,
+    "qid": "decision",
+    "type": "Choice",
+    "k": 4,
+    "ref": "confirm-leave-stands",
+    "answer": "escalate-to-director",
+    "conf": 0.629,
+    "agree": false,
+    "ms": 1912.1
+   },
+   {
+    "i": 13,
+    "qid": "genuine_emergency",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.5162,
+    "agree": true,
+    "ms": 1155.8
+   },
+   {
+    "i": 13,
+    "qid": "coverage_exists",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.7727,
+    "agree": true,
+    "ms": 1149.8
+   },
+   {
+    "i": 13,
+    "qid": "policy_exception",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.6489,
+    "agree": false,
+    "ms": 1153.0
+   },
+   {
+    "i": 13,
+    "qid": "relationship_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "medium",
+    "conf": 0.7855,
+    "agree": false,
+    "ms": 474.7
+   },
+   {
+    "i": 14,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "hold-until-red-flags-fixed",
+    "answer": "hold-until-red-flags-fixed",
+    "conf": 0.8641,
+    "agree": true,
+    "ms": 1904.7
+   },
+   {
+    "i": 14,
+    "qid": "signable",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.992,
+    "agree": true,
+    "ms": 1154.9
+   },
+   {
+    "i": 14,
+    "qid": "risk_level",
+    "type": "Score",
+    "k": 3,
+    "ref": "critical",
+    "answer": "critical",
+    "conf": 0.8612,
+    "agree": true,
+    "ms": 637.5
+   },
+   {
+    "i": 14,
+    "qid": "missing_dpa_blocking",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9562,
+    "agree": true,
+    "ms": 1175.3
+   },
+   {
+    "i": 14,
+    "qid": "auto_renewal_risk",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9256,
+    "agree": true,
+    "ms": 1161.4
+   },
+   {
+    "i": 15,
+    "qid": "fraud",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9926,
+    "agree": true,
+    "ms": 1153.2
+   },
+   {
+    "i": 15,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "block-card-and-reissue",
+    "answer": "block-card-and-reissue",
+    "conf": 0.8558,
+    "agree": true,
+    "ms": 1900.1
+   },
+   {
+    "i": 15,
+    "qid": "severity",
+    "type": "Score",
+    "k": 4,
+    "ref": "critical",
+    "answer": "high",
+    "conf": 0.7764,
+    "agree": false,
+    "ms": 509.2
+   },
+   {
+    "i": 15,
+    "qid": "card_present_compromised",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.7499,
+    "agree": false,
+    "ms": 1269.5
+   },
+   {
+    "i": 15,
+    "qid": "first_txn_probe",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.6267,
+    "agree": false,
+    "ms": 1206.2
+   },
+   {
+    "i": 16,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "revise-claims-with-evidence",
+    "answer": "revise-claims-with-evidence",
+    "conf": 0.5729,
+    "agree": true,
+    "ms": 1907.7
+   },
+   {
+    "i": 16,
+    "qid": "claims_substantiable",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.9314,
+    "agree": true,
+    "ms": 1155.9
+   },
+   {
+    "i": 16,
+    "qid": "legal_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "critical",
+    "answer": "critical",
+    "conf": 0.6054,
+    "agree": true,
+    "ms": 509.3
+   },
+   {
+    "i": 16,
+    "qid": "needs_legal_review",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.7058,
+    "agree": true,
+    "ms": 1154.8
+   },
+   {
+    "i": 16,
+    "qid": "competitor_claim_risk",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.7452,
+    "agree": false,
+    "ms": 1165.8
+   },
+   {
+    "i": 17,
+    "qid": "severity",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "medium",
+    "conf": 0.5655,
+    "agree": false,
+    "ms": 592.7
+   },
+   {
+    "i": 17,
+    "qid": "action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "communicate-timeline",
+    "answer": "communicate-timeline",
+    "conf": 0.5246,
+    "agree": true,
+    "ms": 1888.1
+   },
+   {
+    "i": 17,
+    "qid": "compliance_issue",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.6572,
+    "agree": true,
+    "ms": 1141.7
+   },
+   {
+    "i": 17,
+    "qid": "fire_risk",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9251,
+    "agree": true,
+    "ms": 1150.3
+   },
+   {
+    "i": 17,
+    "qid": "comms_needed",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.6747,
+    "agree": true,
+    "ms": 1136.0
+   },
+   {
+    "i": 18,
+    "qid": "next_step",
+    "type": "Choice",
+    "k": 4,
+    "ref": "send-bridge-letter-and-questionnaire",
+    "answer": "send-bridge-letter-and-questionnaire",
+    "conf": 0.5506,
+    "agree": true,
+    "ms": 1894.1
+   },
+   {
+    "i": 18,
+    "qid": "deal_blocked",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.9227,
+    "agree": true,
+    "ms": 1136.9
+   },
+   {
+    "i": 18,
+    "qid": "respond_priority",
+    "type": "Score",
+    "k": 3,
+    "ref": "same-day",
+    "answer": "within-2-days",
+    "conf": 0.5328,
+    "agree": false,
+    "ms": 465.5
+   },
+   {
+    "i": 18,
+    "qid": "competitor_pressure",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.952,
+    "agree": true,
+    "ms": 1137.2
+   },
+   {
+    "i": 18,
+    "qid": "security_call_useful",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9496,
+    "agree": true,
+    "ms": 1136.2
+   },
+   {
+    "i": 19,
+    "qid": "investigate",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.7498,
+    "agree": true,
+    "ms": 1137.9
+   },
+   {
+    "i": 19,
+    "qid": "fraud_suspected",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.6719,
+    "agree": false,
+    "ms": 1137.2
+   },
+   {
+    "i": 19,
+    "qid": "severity",
+    "type": "Score",
+    "k": 3,
+    "ref": "elevated",
+    "answer": "elevated",
+    "conf": 0.8028,
+    "agree": true,
+    "ms": 589.6
+   },
+   {
+    "i": 19,
+    "qid": "next_action",
+    "type": "Choice",
+    "k": 4,
+    "ref": "request-police-report",
+    "answer": "request-police-report",
+    "conf": 0.5192,
+    "agree": true,
+    "ms": 1889.5
+   },
+   {
+    "i": 19,
+    "qid": "pay_now_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "medium",
+    "conf": 0.724,
+    "agree": false,
+    "ms": 466.5
+   },
+   {
+    "i": 20,
+    "qid": "respond",
+    "type": "Choice",
+    "k": 4,
+    "ref": "apologize-and-comp",
+    "answer": "take-it-offline-only",
+    "conf": 0.5952,
+    "agree": false,
+    "ms": 1879.0
+   },
+   {
+    "i": 20,
+    "qid": "food_safety_risk",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "No",
+    "conf": 0.7332,
+    "agree": true,
+    "ms": 1143.3
+   },
+   {
+    "i": 20,
+    "qid": "urgency",
+    "type": "Score",
+    "k": 3,
+    "ref": "medium",
+    "answer": "medium",
+    "conf": 0.641,
+    "agree": true,
+    "ms": 543.2
+   },
+   {
+    "i": 20,
+    "qid": "regular_at_risk",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.774,
+    "agree": true,
+    "ms": 1140.2
+   },
+   {
+    "i": 20,
+    "qid": "reply_public",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "No",
+    "conf": 0.5314,
+    "agree": false,
+    "ms": 1135.3
+   },
+   {
+    "i": 21,
+    "qid": "advance",
+    "type": "Choice",
+    "k": 4,
+    "ref": "reject",
+    "answer": "reject",
+    "conf": 0.9214,
+    "agree": true,
+    "ms": 1875.9
+   },
+   {
+    "i": 21,
+    "qid": "plagiarism_concern",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.9955,
+    "agree": true,
+    "ms": 1135.1
+   },
+   {
+    "i": 21,
+    "qid": "integrity_risk",
+    "type": "Score",
+    "k": 3,
+    "ref": "high",
+    "answer": "high",
+    "conf": 0.9657,
+    "agree": true,
+    "ms": 462.7
+   },
+   {
+    "i": 21,
+    "qid": "split_panel_significant",
+    "type": "Noul",
+    "k": 2,
+    "ref": "Yes",
+    "answer": "Yes",
+    "conf": 0.8326,
+    "agree": true,
+    "ms": 1203.3
+   },
+   {
+    "i": 21,
+    "qid": "reference_check",
+    "type": "Noul",
+    "k": 2,
+    "ref": "No",
+    "answer": "Yes",
+    "conf": 0.5611,
+    "agree": false,
+    "ms": 1171.0
+   }
+  ]
+ },
+ "curve_rows": [
+  {
+   "i": 1,
+   "qid": "route",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 1,
+   "qid": "route",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 1,
+   "qid": "route",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 1,
+   "qid": "route",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 124.6
+  },
+  {
+   "i": 1,
+   "qid": "is_security",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 1,
+   "qid": "is_security",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 1,
+   "qid": "needs_callback",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 1,
+   "qid": "needs_callback",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 2,
+   "qid": "route",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 2,
+   "qid": "route",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 2,
+   "qid": "route",
+   "type": "Choice",
+   "m": 3,
+   "agree": true,
+   "ms_per_prefill_full_k": 108.2
+  },
+  {
+   "i": 2,
+   "qid": "refund_eligible",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 2,
+   "qid": "refund_eligible",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 2,
+   "qid": "respond_tone",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 2,
+   "qid": "respond_tone",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 2,
+   "qid": "respond_tone",
+   "type": "Choice",
+   "m": 3,
+   "agree": true,
+   "ms_per_prefill_full_k": 135.3
+  },
+  {
+   "i": 3,
+   "qid": "team",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 3,
+   "qid": "team",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 3,
+   "qid": "team",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 3,
+   "qid": "team",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 123.5
+  },
+  {
+   "i": 3,
+   "qid": "sla_breach",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 3,
+   "qid": "sla_breach",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 3,
+   "qid": "root_cause_likely_backup",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 3,
+   "qid": "root_cause_likely_backup",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 3,
+   "qid": "wake_someone",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 3,
+   "qid": "wake_someone",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 4,
+   "qid": "action",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 4,
+   "qid": "action",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 4,
+   "qid": "action",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 4,
+   "qid": "action",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 123.9
+  },
+  {
+   "i": 4,
+   "qid": "is_targeted",
+   "type": "Noul",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 4,
+   "qid": "is_targeted",
+   "type": "Noul",
+   "m": 2,
+   "agree": false
+  },
+  {
+   "i": 4,
+   "qid": "credential_compromise",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 4,
+   "qid": "credential_compromise",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 4,
+   "qid": "block_payroll_window",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 4,
+   "qid": "block_payroll_window",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 5,
+   "qid": "next_action",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 5,
+   "qid": "next_action",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 5,
+   "qid": "next_action",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 5,
+   "qid": "next_action",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 124.8
+  },
+  {
+   "i": 5,
+   "qid": "customer_visible",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 5,
+   "qid": "customer_visible",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 5,
+   "qid": "root_cause_likely_deploy",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 5,
+   "qid": "root_cause_likely_deploy",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 5,
+   "qid": "status_page_update",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 5,
+   "qid": "status_page_update",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 6,
+   "qid": "folder",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 6,
+   "qid": "folder",
+   "type": "Choice",
+   "m": 2,
+   "agree": false
+  },
+  {
+   "i": 6,
+   "qid": "folder",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 6,
+   "qid": "folder",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 124.3
+  },
+  {
+   "i": 6,
+   "qid": "deal_stage",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 6,
+   "qid": "deal_stage",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 6,
+   "qid": "deal_stage",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 6,
+   "qid": "deal_stage",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 98.5
+  },
+  {
+   "i": 6,
+   "qid": "respond_today",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 6,
+   "qid": "respond_today",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 6,
+   "qid": "competitive",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 6,
+   "qid": "competitive",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 7,
+   "qid": "action",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 7,
+   "qid": "action",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 7,
+   "qid": "action",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 7,
+   "qid": "action",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 125.0
+  },
+  {
+   "i": 7,
+   "qid": "policy_compliant",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 7,
+   "qid": "policy_compliant",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 7,
+   "qid": "pattern_concern",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 7,
+   "qid": "pattern_concern",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 7,
+   "qid": "escalate",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 7,
+   "qid": "escalate",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 8,
+   "qid": "action",
+   "type": "Choice",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 8,
+   "qid": "action",
+   "type": "Choice",
+   "m": 2,
+   "agree": false
+  },
+  {
+   "i": 8,
+   "qid": "action",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 8,
+   "qid": "action",
+   "type": "Choice",
+   "m": 4,
+   "agree": false,
+   "ms_per_prefill_full_k": 125.2
+  },
+  {
+   "i": 8,
+   "qid": "harassment",
+   "type": "Noul",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 8,
+   "qid": "harassment",
+   "type": "Noul",
+   "m": 2,
+   "agree": false
+  },
+  {
+   "i": 8,
+   "qid": "recurring_offender",
+   "type": "Noul",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 8,
+   "qid": "recurring_offender",
+   "type": "Noul",
+   "m": 2,
+   "agree": false
+  },
+  {
+   "i": 8,
+   "qid": "context_mitigates",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 8,
+   "qid": "context_mitigates",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 9,
+   "qid": "theme",
+   "type": "Choice",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 9,
+   "qid": "theme",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 9,
+   "qid": "theme",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 9,
+   "qid": "theme",
+   "type": "Choice",
+   "m": 4,
+   "agree": true
+  },
+  {
+   "i": 9,
+   "qid": "theme",
+   "type": "Choice",
+   "m": 5,
+   "agree": true,
+   "ms_per_prefill_full_k": 119.0
+  },
+  {
+   "i": 9,
+   "qid": "detractor",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 9,
+   "qid": "detractor",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 9,
+   "qid": "needs_reply",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 9,
+   "qid": "needs_reply",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 9,
+   "qid": "save_action",
+   "type": "Choice",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 9,
+   "qid": "save_action",
+   "type": "Choice",
+   "m": 2,
+   "agree": false
+  },
+  {
+   "i": 9,
+   "qid": "save_action",
+   "type": "Choice",
+   "m": 3,
+   "agree": false
+  },
+  {
+   "i": 9,
+   "qid": "save_action",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 127.5
+  },
+  {
+   "i": 10,
+   "qid": "route",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 10,
+   "qid": "route",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 10,
+   "qid": "route",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 10,
+   "qid": "route",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 125.6
+  },
+  {
+   "i": 10,
+   "qid": "blocking_issue",
+   "type": "Noul",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 10,
+   "qid": "blocking_issue",
+   "type": "Noul",
+   "m": 2,
+   "agree": false
+  },
+  {
+   "i": 10,
+   "qid": "needs_legal",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 10,
+   "qid": "needs_legal",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 11,
+   "qid": "action",
+   "type": "Choice",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 11,
+   "qid": "action",
+   "type": "Choice",
+   "m": 2,
+   "agree": false
+  },
+  {
+   "i": 11,
+   "qid": "action",
+   "type": "Choice",
+   "m": 3,
+   "agree": false
+  },
+  {
+   "i": 11,
+   "qid": "action",
+   "type": "Choice",
+   "m": 4,
+   "agree": false,
+   "ms_per_prefill_full_k": 127.9
+  },
+  {
+   "i": 11,
+   "qid": "phishing_likely",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 11,
+   "qid": "phishing_likely",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 11,
+   "qid": "insider_threat",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 11,
+   "qid": "insider_threat",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 11,
+   "qid": "notify_attendees",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 11,
+   "qid": "notify_attendees",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 12,
+   "qid": "intervention",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 12,
+   "qid": "intervention",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 12,
+   "qid": "intervention",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 12,
+   "qid": "intervention",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 128.7
+  },
+  {
+   "i": 12,
+   "qid": "data_export_signal",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 12,
+   "qid": "data_export_signal",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 12,
+   "qid": "exec_escalate",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 12,
+   "qid": "exec_escalate",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 12,
+   "qid": "renewal_forecast",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 12,
+   "qid": "renewal_forecast",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 12,
+   "qid": "renewal_forecast",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 12,
+   "qid": "renewal_forecast",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 125.6
+  },
+  {
+   "i": 13,
+   "qid": "decision",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 13,
+   "qid": "decision",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 13,
+   "qid": "decision",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 13,
+   "qid": "decision",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 128.5
+  },
+  {
+   "i": 13,
+   "qid": "genuine_emergency",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 13,
+   "qid": "genuine_emergency",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 13,
+   "qid": "coverage_exists",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 13,
+   "qid": "coverage_exists",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 13,
+   "qid": "policy_exception",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 13,
+   "qid": "policy_exception",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 14,
+   "qid": "action",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 14,
+   "qid": "action",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 14,
+   "qid": "action",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 14,
+   "qid": "action",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 128.3
+  },
+  {
+   "i": 14,
+   "qid": "signable",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 14,
+   "qid": "signable",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 14,
+   "qid": "missing_dpa_blocking",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 14,
+   "qid": "missing_dpa_blocking",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 14,
+   "qid": "auto_renewal_risk",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 14,
+   "qid": "auto_renewal_risk",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 15,
+   "qid": "fraud",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 15,
+   "qid": "fraud",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 15,
+   "qid": "action",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 15,
+   "qid": "action",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 15,
+   "qid": "action",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 15,
+   "qid": "action",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 127.9
+  },
+  {
+   "i": 15,
+   "qid": "card_present_compromised",
+   "type": "Noul",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 15,
+   "qid": "card_present_compromised",
+   "type": "Noul",
+   "m": 2,
+   "agree": false
+  },
+  {
+   "i": 15,
+   "qid": "first_txn_probe",
+   "type": "Noul",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 15,
+   "qid": "first_txn_probe",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 16,
+   "qid": "action",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 16,
+   "qid": "action",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 16,
+   "qid": "action",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 16,
+   "qid": "action",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 127.1
+  },
+  {
+   "i": 16,
+   "qid": "claims_substantiable",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 16,
+   "qid": "claims_substantiable",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 16,
+   "qid": "needs_legal_review",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 16,
+   "qid": "needs_legal_review",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 16,
+   "qid": "competitor_claim_risk",
+   "type": "Noul",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 16,
+   "qid": "competitor_claim_risk",
+   "type": "Noul",
+   "m": 2,
+   "agree": false
+  },
+  {
+   "i": 17,
+   "qid": "action",
+   "type": "Choice",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 17,
+   "qid": "action",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 17,
+   "qid": "action",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 17,
+   "qid": "action",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 126.7
+  },
+  {
+   "i": 17,
+   "qid": "compliance_issue",
+   "type": "Noul",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 17,
+   "qid": "compliance_issue",
+   "type": "Noul",
+   "m": 2,
+   "agree": false
+  },
+  {
+   "i": 17,
+   "qid": "fire_risk",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 17,
+   "qid": "fire_risk",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 17,
+   "qid": "comms_needed",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 17,
+   "qid": "comms_needed",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 18,
+   "qid": "next_step",
+   "type": "Choice",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 18,
+   "qid": "next_step",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 18,
+   "qid": "next_step",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 18,
+   "qid": "next_step",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 127.0
+  },
+  {
+   "i": 18,
+   "qid": "deal_blocked",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 18,
+   "qid": "deal_blocked",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 18,
+   "qid": "competitor_pressure",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 18,
+   "qid": "competitor_pressure",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 18,
+   "qid": "security_call_useful",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 18,
+   "qid": "security_call_useful",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 19,
+   "qid": "investigate",
+   "type": "Noul",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 19,
+   "qid": "investigate",
+   "type": "Noul",
+   "m": 2,
+   "agree": false
+  },
+  {
+   "i": 19,
+   "qid": "fraud_suspected",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 19,
+   "qid": "fraud_suspected",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 19,
+   "qid": "next_action",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 19,
+   "qid": "next_action",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 19,
+   "qid": "next_action",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 19,
+   "qid": "next_action",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 126.6
+  },
+  {
+   "i": 20,
+   "qid": "respond",
+   "type": "Choice",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 20,
+   "qid": "respond",
+   "type": "Choice",
+   "m": 2,
+   "agree": false
+  },
+  {
+   "i": 20,
+   "qid": "respond",
+   "type": "Choice",
+   "m": 3,
+   "agree": false
+  },
+  {
+   "i": 20,
+   "qid": "respond",
+   "type": "Choice",
+   "m": 4,
+   "agree": false,
+   "ms_per_prefill_full_k": 125.8
+  },
+  {
+   "i": 20,
+   "qid": "food_safety_risk",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 20,
+   "qid": "food_safety_risk",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 20,
+   "qid": "regular_at_risk",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 20,
+   "qid": "regular_at_risk",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 20,
+   "qid": "reply_public",
+   "type": "Noul",
+   "m": 1,
+   "agree": false
+  },
+  {
+   "i": 20,
+   "qid": "reply_public",
+   "type": "Noul",
+   "m": 2,
+   "agree": false
+  },
+  {
+   "i": 21,
+   "qid": "advance",
+   "type": "Choice",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 21,
+   "qid": "advance",
+   "type": "Choice",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 21,
+   "qid": "advance",
+   "type": "Choice",
+   "m": 3,
+   "agree": true
+  },
+  {
+   "i": 21,
+   "qid": "advance",
+   "type": "Choice",
+   "m": 4,
+   "agree": true,
+   "ms_per_prefill_full_k": 126.2
+  },
+  {
+   "i": 21,
+   "qid": "plagiarism_concern",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 21,
+   "qid": "plagiarism_concern",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 21,
+   "qid": "split_panel_significant",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 21,
+   "qid": "split_panel_significant",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  },
+  {
+   "i": 21,
+   "qid": "reference_check",
+   "type": "Noul",
+   "m": 1,
+   "agree": true
+  },
+  {
+   "i": 21,
+   "qid": "reference_check",
+   "type": "Noul",
+   "m": 2,
+   "agree": true
+  }
+ ]
+}
