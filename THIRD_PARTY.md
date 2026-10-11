@@ -24,6 +24,8 @@ source code. Dependencies and model-lineage licenses:
   and for generation in the synthetic-state pipeline. Pinned to 0.32.0 in
   `requirements.txt`: `decide/core/mlx_backend.py` uses non-public mlx-lm
   internals, so a newer release can break it.
+- The transitive `mlx` package itself (Apple's MLX framework; MIT) is also a
+  used dependency — measured with 0.32.3, per `requirements.txt`.
 
 ## Model lineage (covers shipped artifacts)
 
@@ -77,12 +79,15 @@ source code. Dependencies and model-lineage licenses:
 ## Trademarks and affiliation
 
 Independent project, not affiliated with, endorsed by, or sponsored by
-TypeSafe AI (Jev), Alibaba (Qwen), OpenRouter, or AnyJev. "Jev" and "Qwen" are
-used strictly nominatively: to identify the commercial decision API whose
-request style this endpoint follows, and the base model family whose internals
-are read. The comparison results against the Jev API were obtained through
-OpenRouter endpoints; what the terms of each allow is recorded in the Jev
-section above.
+TypeSafe AI (Jev), Alibaba (Qwen), OpenRouter, AnyJev, Cloudflare (Clef), or
+Unsloth. "Jev" and "Qwen" are used strictly nominatively: to identify the
+commercial decision API whose request style this endpoint follows, and the
+base model family whose internals are read. Cloudflare's published
+Clef/Clef-flash figures and Unsloth's published training numbers are cited
+for comparison only; no code, data, or model output from either is used or
+redistributed. The comparison results against the Jev API were obtained
+through OpenRouter endpoints; what the terms of each allow is recorded in the
+Jev section above.
 
 ## Tooling
 
