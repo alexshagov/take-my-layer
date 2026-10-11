@@ -31,6 +31,7 @@ appears only in the shadow/live and serving-layer measurements (the
 - [Decide vs generate](#decide-vs-generate--the-same-model-asked-two-ways-n300): the same model, asked two ways (n=300)
   - [Latency and GPU regimes](#latencygpu-regimes)
 - [Serving-layer measurements](#serving-layer-measurements): state-level prefix sharing, prefix-KV, mass-read removal, 9B mechanics
+- [Speed/precision sweep](#speedprecision-sweep-2026-10-11): batched suffix passes (default), early stopping (opt-in), what did not work, and the exit-layer question
 - [Live re-read](#live-re-read-v3-renderer--promoted-head-2026-10-07): v3 renderer and promoted head
 - [Answer-mass guard measurement](#answer-mass-guard-measurement-non-separating): non-separating
 
@@ -124,7 +125,7 @@ toward the answer we and the judge gave): those two scored rows are
 reference noise as much as our error. Judge also flagged three dataset defects
 (authoring artifacts, none changed its labels): a delivery log with
 impossible dates, a qid that does not match its question text, one
-internally inconsistent metric line — cleanup in the backlog (docs/ROADMAP.md).
+internally inconsistent metric line — cleanup in the backlog (docs/TODO.md, #14).
 The human-label item remains open, shrunk to adjudicating the ~10
 disagreement items — that is the upgrade from judge-agreement to
 accuracy.
@@ -583,6 +584,10 @@ prompt and answer length —
 | long 3.4k-tok prompt, L2 (1 early-exit fwd @ block 16, head layout only) | **1085ms / 902ms GPU** | 2164ms / 1865ms GPU (140 tok) | **readout 2x faster, 2x less GPU** |
 | vs thinking-model tool-call decode, 200-600 tok | ~1.1s | ~8s (historical, docs/DECIDE.md §5) | readout ~7x+ |
 
+The L0 rows above were measured with the suffix passes run one at a time. The
+endpoint now batches them by default: a short 5-question request 1036 → 552 ms,
+a long one 3520 → 2989 ms (4B, "Speed/precision sweep" below).
+
 Reading this honestly: at **L0 with full-K rotations, long contexts are
 compute-expensive** — every rotation re-prefills the whole prompt, so the
 readout's latency scales ~K× the prompt while a 12-token greedy decode
@@ -665,6 +670,8 @@ short 1.65s → 1.07s = 1.55×. Parity: 0/50 argmax flips on the long set;
 documented bf16 cache-boundary wiggle, conf delta ≤ 0.031). L2-routed
 questions keep the ordinary early-exit path; any failure falls back to the
 standard pipeline automatically.
+These numbers were measured with the suffix passes run one at a time (`--no-batch`
+today); the endpoint now batches them, see "Speed/precision sweep" below.
 
 **Prefix-KV (`score_shared`)**: `make_prompt_cache` + per-suffix cache
 copy, HF-parity boundary check with flat fallback. Measured numeric
@@ -695,6 +702,145 @@ fit-on-what-you-serve). 9B latency: typed-decisions p50 2357 vs 1765 ms
 resource-profile note above). Model ~5.95 GB.
 
 ---
+
+## Speed/precision sweep (2026-10-11)
+
+Question asked: which combination of exit layer, rotations and passes keeps the
+readout's precision and makes the endpoint faster? Level: L0 throughout (the
+exit-layer part is L2 and says so). All latencies: Apple M5, 32 GB, GPU
+otherwise idle, 4-bit Qwen3.5 4B unless a row says 9B. Fidelity numbers are
+agreement with the stored Jev answers (aligned with the reference, not
+accuracy); accuracy numbers name their arena.
+
+### What the endpoint does now
+
+- **Batched suffix passes, on by default** (`MLXBackend.prefix_scorer` /
+  `PrefixScorer`): the state is read once, then the suffix passes of a request (one per
+  question and option rotation) run as ONE right-padded forward over the prefix
+  cache broadcast to B rows, each row read at its own last token. Rows per
+  forward are capped by a byte budget (`--kv-budget-gib`, default 1.5; see
+  `decide/core/batching.py`); a prefix too long for two rows, or any batching
+  error, falls back to one pass at a time. `--no-batch` restores the old behaviour.
+- **Every rotation is still read by default.**
+- **Early stopping, opt-in** (`--early-stop`): read one rotation per Choice/Noul
+  question first (Choice: shift 0; yes/no: the "Yes or No" phrasing) and the
+  remaining rotations only where the prior-corrected confidence is below tau
+  (Choice 0.9, yes/no 0.8; `--early-stop-choice-tau`, `--early-stop-noul-tau`),
+  in at most two scoring rounds. Score questions are one pass anyway. It keeps its
+  own per-rotation batch prior, so it does not touch the layout of the full path.
+- Unchanged: L2 head and its layer, `--max-permutations`, the proxy (`--no-mass`
+  is still off by default), the renderer, every frozen artifact.
+
+### Measured on the shipped code
+
+`decide/bench/bench_fast_path.py` -> `results/fast_path.json`. Same 70 requests /
+350 questions as the Jev comparison, scored against the stored Jev answers;
+requests alternate the mode order; one long-lived Decider per dataset and mode.
+
+| mode | short / v2 / long request (ms) | mean ms | passes per request | agreement with Jev | answers changed vs sequential | ECE vs agreement | share of answers at confidence >= 0.9 and their agreement |
+|---|---|---|---|---|---|---|---|
+| sequential (`--no-batch`, the behaviour before today) | 1036 / 1091 / 3520 | 1422 | 11.17 | 76.0% (71.3-80.2) | - | 0.035 | 23%, 96.3% |
+| **batched (default)** | **552 / 628 / 2989** | **942** | 11.17 | 76.0% | 4/350 (2 each way, p = 1.0) | 0.037 | 23%, 96.3% |
+| batched + `--early-stop` | 488 / 571 / 2918 | 881 | 9.04 | 76.0% | 2/350 (1 each way) | 0.046 | 29%, 93.0% |
+
+BANKING77 10-way, gold labels, 4B, 200 items (every second item of the 400-item
+selection; `--bank-n`), one long-lived Decider with the served batch prior:
+
+| mode | accuracy (Wilson 95%) | passes per item | ms per item (mean / p50) |
+|---|---|---|---|
+| batched (default) | 88.0% (82.8-91.8) | 10.0 | 747 / 742 |
+| batched + `--early-stop` | 89.0% (83.9-92.6), +3/-1 vs batched, p = 0.63 | 3.83 | 381 / 194 |
+
+Peak GPU memory of one request (this includes the 2.8 GB of weights): longest
+eval state (9,001 tokens) 3.88 GiB sequential, 3.58 batched; a 5,430-token state
+3.39 vs 3.21. The row cap keeps batching from adding memory. Batched forwards that
+fell back to sequential in the run: 0.
+
+Readings. (1) Batching is a speed change, not a quality change: 1.9x on short
+requests, 1.7x on the second batch, 1.2x on long ones, where the state prefill
+(about 1.6k tokens/s however it is chunked) dominates; agreement is 76.0% in all
+three modes and the answers that differ between sequential and batched (4 of 350)
+are bf16 kernel noise, the class the prefix-KV split already documents (in the
+exploration capture all four sat at confidence 0.50-0.52).
+A repeat of the same request returns identical bytes. (2) Early stopping saves
+another 19% of passes on this mix (52% of the questions are yes/no, which stop after
+one read about 55% of the time; Choice with 3-5 options only 20-30%) and 62% on a
+10-option Choice (3.83 of 10 passes at the same or better accuracy, a difference
+the 200 items cannot separate). Its cost is calibration: the reported confidences
+get a little more optimistic (ECE 0.035 -> 0.046; the answers at confidence >= 0.9
+become 29% of all and agree 93.0% of the time instead of 96.3%), so anyone routing
+on a confidence threshold should keep the default. That is why it is opt-in.
+(3) The 9B was not re-run with the shipped code; the same algorithm in a
+prototype gave short / v2 / long 1854 / 2030 / 6250 ms -> 859 / 1133 / 5625 ms and
+82.0% -> 82.6% agreement with Jev (below). On short and mid-length requests that
+puts the 9B at the 4B's old latency.
+
+### Exploration behind the choice
+
+Prototype scripts, not shipped (a gitignored local copy sits in
+`runs/speed_sweep_2026-10-11/`); every pass of the 350 questions was captured once
+per model and rotation policies were re-marginalized offline with the repo's own
+`marginalize` (re-marginalizing the full set reproduced the captured
+distributions on 350/350 questions).
+
+- **The eval mix and `--max-permutations`.** 181 of the 350 questions are yes/no
+  (always two phrasings), 83 Score (one pass), 86 Choice (K = 3-5): 11.2 passes per
+  request, of which the flag can touch only the Choice rotations. `m = 2` with the
+  adjacent shifts 0 and 1 that the flag uses agrees with Jev -1.7 points at 4B and
+  +1.4 at 9B, with the spread pair (0 and K/2) -1.4 / +0.9 (none of these is
+  significant), 8.8 passes; `m = 1` -4.6 / -3.7. On BANKING77 (K = 10) `m = 2` with
+  adjacent shifts loses 1.75 points at both sizes, while the spread pair (shifts 0
+  and 5) matches full-K (4B 87.5%, 9B 91.0% vs 91.25%).
+- **Dropping the second yes/no phrasing outright** is free at 4B (79.6% on yes/no
+  either way) but costs 3.3 points on yes/no at 9B (89.5 -> 86.2, +4/-10 pooled
+  over all question types, p = 0.18): use the confidence rule, not a fixed cut.
+- **Confidence rule, 4B and 9B pooled (700 questions).** Choice tau 0.9 + yes/no tau
+  0.8: zero answers changed, 8.9 passes (-20%). tau 0.8 / 0.7: 1 of 700 changed, 8.1
+  passes. tau 0.8 / 0.6: 2 gained, 5 lost (-0.4 points), 7.7 passes.
+- **BANKING77 10-way gold (400 items), the batch prior emulated exactly**
+  (the emulation reproduced the repo's recorded decisions 400/400 and the frozen
+  87.5% / 91.25%): one rotation then stop at 0.9 gave 4B 89.5% with 3.95 passes
+  and 9B 93.25% with 3.21 passes, against 87.5% / 91.25% with 10 passes. Of about
+  24 policy variants tried every adaptive one was at or above full-K (+1.0 to
+  +2.5); with that many variants the nominal p-values (0.01-0.1) are not a claim,
+  only "no loss, plausibly a gain".
+- **Cost of one suffix pass:** about 40 ms fixed plus 0.8 ms per token (a request's 11
+  passes take about 1 s); the earlier idea that the GPU idles between passes does
+  not hold: evaluating all passes lazily in one `mx.eval` gained 0.0%, applying the
+  output head to the last position only gained about 4% and is not bit-exact.
+- **Dead ends (measured):** dequantizing to bf16 for prefill (14.3 vs 15.6 TFLOP/s,
+  no gain); prefill chunk size 256 to unchunked (within 5%); sharing the question
+  stem between rotations (-20% suffix tokens but the per-pass cost is fixed-dominated,
+  not implemented); a cross-request prefix cache for the proxy's agent states
+  (1.6x fewer prefill tokens on 340-token prompts, about 50 ms); block skipping
+  for L0 (below).
+- **Block skipping (training-free depth cut, 4B, 11-14% less time).** Four-block
+  windows: skip 24-27 gave BANKING77 m=1 86.5% (full 85.8%) but Jev agreement
+  73.4% (full 76.0%); skip 22-25 80.0% / 76.6%; skip 25-28 86.5% / 70.6%; skip 20-23
+  73.8% / 80.0%; eight-block windows lose 12 to 72 points on BANKING77. The sign
+  flips between arenas, so there is no window to ship.
+- **Exit layer of an L2 head (TODO #9).** On the 73 real replay rows the
+  out-of-fold accuracy is 0.58-0.66 at every layer (majority baseline 0.41; the logged
+  tool agrees with the model's own readout on only 49% of those rows), so that
+  replay cannot rank layers. With the model's own L0 readout as the target
+  (synthetic states from `synth_states.py`, 30 per domain in 5 domains = 150, a
+  closed-form head per layer, five folds over six seeds), teacher agreement is
+  L12 0.51, L16 0.56, L18 0.63, L20 0.70, L22 0.73, L24 0.71, L32 0.72. Paired
+  bootstrap over the 150 states: L20 - L16 = +14.3 points (95% CI +8.8 to +20.1),
+  L22 - L16 = +17.3 (+11.3 to +23.2), L32 - L20 = +2.4 (-3.3 to +8.4). The same
+  shape holds for an LDA-only head, for leave-one-domain-out, in each of the five
+  domains and at 45, 75, 105 and 150 labels (the L20 - L16 gap stays +14 to +17).
+  Early-exit forward at the median 344-token prompt: 142 ms at layer 16, 172 at
+  20, 201 at 22, 291 at full depth. Reading: for a head with few labels the
+  knee is layers 20-22 (59-69% of full-depth cost), later than the shipped layer 16;
+  an earlier exit loses precision. Limits: synthetic states generated by the same
+  4B and labelled by its own readout, n = 150; the shipped head used 1,824 gold
+  labels where layers 16-22 tied, which cannot be retested because the seed is
+  withheld. `LAYERS` in `observe.py` / `fit_registry_head.py` is unchanged.
+- **9B end to end (prototype, same algorithm, 70 requests):** sequential 1854 /
+  2030 / 6250 ms short / v2 / long, 82.0% agreement; batched 1111 / 1327 / 5766,
+  82.3%; batched + early stop (0.9 / 0.8) 859 / 1133 / 5625, 82.6% (2 of 350
+  answers differ from sequential).
 
 ## Live re-read (v3 renderer + promoted head, 2026-10-07)
 

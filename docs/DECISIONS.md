@@ -64,10 +64,19 @@ docs/DECIDE.md + docs/HARNESS.md.
   non-separating on this model (0.92–0.99 mass on every state class).
   Kept gateable for a future model that does separate. RESULTS
   "Answer-mass guard measurement".
-- **Full-K rotations by default, `--max-permutations 2` as the latency
-  mode.** m=2 keeps ~90% of the gain at 3.8× less latency; full K stays
-  the accuracy default until the Jev-agreement impact is re-measured.
-  RESULTS "Rotation budget".
+- **Full-K rotations by default.** The 2026-10-07 plan was
+  `--max-permutations 2` as the latency mode (3.8× on a 10-option Choice).
+  Re-measured 2026-10-11 on the 350 Jev-agreement questions (mostly
+  yes/no and 3-5 option Choices) it costs accuracy at 4B and never touches
+  yes/no or Score, so full K stays the default and `--early-stop` is the
+  latency mode. RESULTS "Rotation budget", "Speed/precision sweep".
+- **Batched suffix passes default ON (2026-10-11); `--early-stop` opt-in.**
+  The passes of a request run as one forward over the shared state cache,
+  under a memory budget (`--kv-budget-gib`); 1.9× on short requests, the
+  same 76.0% agreement with Jev, 4 of 350 answers differ at bf16 noise level.
+  Early stopping saves a further 19% of passes but makes the reported
+  confidences more optimistic (ECE 0.035 → 0.046), so it is off by default.
+  RESULTS "Speed/precision sweep".
 - **State-level prefix sharing default ON.** 5.3× on long requests with
   parity up to the documented bf16 cache-boundary class. RESULTS
   serving-layer.

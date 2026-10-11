@@ -69,6 +69,7 @@ run, compare with `diff runs/X results/X`, then `cp`.
 | `l0_ablation.json` | `decide/bench/l0_ablation.py` | raw vs L0 vs K | raw vs L0 vs rotation-budget K-curve | "L0-vs-raw ablation" |
 | `mass_removal.json` | `decide/bench/bench_mass_removal.py` | L2 | `--no-mass` before/after (2.05× + parity) | "Serving-layer measurements" |
 | `state_share.json` | `decide/bench/bench_state_share.py` | L0 | state-level prefix sharing parity + speed (5.3×) | "Serving-layer measurements" |
-| `synth_gain.json` | `decide/adapt/fit_registry_head.py --synth <regenerated corpus>` | L2 head fit | gold-only vs gold+synth A/B (neutral at n=285) | docs/ROADMAP.md "P1", docs/POLICY.md §3 |
+| `fast_path.json` | `decide/bench/bench_fast_path.py` | L0 | sequential vs batched suffix passes (the default) vs batched + early stop: Jev agreement on 350 questions, BANKING77 gold (200 items), ms, passes, peak memory | "Speed/precision sweep" |
+| `synth_gain.json` | `decide/adapt/fit_registry_head.py --synth <regenerated corpus>` | L2 head fit | gold-only vs gold+synth A/B (neutral at n=285) | docs/TODO.md "Build history", docs/POLICY.md §3 |
 | `shadow_log.v3.jsonl` | proxy runtime (v3 renderer live re-read); read by `decide/bench/shadow_stats.py` | L2 | shadow agreement / router curve / ECE | "Live re-read" |
-| `observe_log.jsonl` | proxy runtime observe() leg; replayed by `decide/adapt/observe.py` | L2 | labeled traffic bank for the adaptation loop | docs/POLICY.md §3, docs/ROADMAP.md "P0" |
+| `observe_log.jsonl` | proxy runtime observe() leg; replayed by `decide/adapt/observe.py` | L2 | labeled traffic bank for the adaptation loop | docs/POLICY.md §3, docs/TODO.md "Build history" |

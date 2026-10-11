@@ -18,6 +18,11 @@ Telemetry: one row per request to logs/systemone_log.jsonl (gitignored)
 (level, conf, answer_mass, ms per question) — the mass-watch for the
 measured non-separating guard (proxy.py MASS_TAU note).
 
+Serving defaults (docs/RESULTS.md, "Speed/precision sweep"): state-level prefix sharing ON; the
+suffix passes of a request run as ONE batched forward (byte-budgeted, falls back to one-by-one;
+--no-batch / --kv-budget-gib); every rotation is read. --early-stop (OFF by default) reads one
+rotation per Choice/Noul question first and the rest only where confidence is below tau.
+
 Memory discipline: ONE MLX instance, eval serialized behind a lock.
 
 Run:  nix develop -c bash -c 'export HF_HOME=$PWD/.hf; \
@@ -57,6 +62,10 @@ API_KEY = os.environ.get("SYSTEMONE_API_KEY") or None
 STATE_SHARED = True          # state-level prefix sharing (bench_state_share.py:
 #                             long 5.3x, short 1.55x, argmax flips only on
 #                             exact 0.50 ties; --no-state-shared disables)
+BATCH_SUFFIXES = True        # one batched forward per scoring round (bench_fast_path.py:
+#                             ~1.9x on short requests; --no-batch disables)
+KV_BUDGET_GIB = 1.5          # cap on the broadcast prefix cache of one batched forward
+EARLY_STOP = None            # EarlyStop(...) when --early-stop is given (default: every rotation)
 
 
 def build(max_permutations=None, prior_strength=None):
@@ -65,6 +74,8 @@ def build(max_permutations=None, prior_strength=None):
     from decide.core.mlx_backend import MLXBackend
 
     be = MLXBackend(MODEL)
+    be.batch_suffixes = BATCH_SUFFIXES
+    be.kv_budget_bytes = int(KV_BUDGET_GIB * 2 ** 30)
     # shared_prefix=True: >=2 permutations of one question share the prefix KV
     # (score_shared) with no minimum-prefix floor — local backend, no round
     # trips, so the HF 256-token floor does not apply.
@@ -86,6 +97,15 @@ def build(max_permutations=None, prior_strength=None):
                                  name=reg["question"]["name"])
         dec.load_artifact(head_q, reg["artifact"])
     return dict(be=be, dec=dec, tok=be.tokenizer, head_q=head_q)
+
+
+def serving_config() -> dict:
+    """What GET /healthz reports about how reads are served (the flags in make_parser())."""
+    return {"state_shared": STATE_SHARED,
+            "batched_suffixes": STATE_SHARED and BATCH_SUFFIXES,
+            "kv_budget_gib": KV_BUDGET_GIB,
+            "early_stop": (None if EARLY_STOP is None else
+                           {"choice_tau": EARLY_STOP.choice_tau, "noul_tau": EARLY_STOP.noul_tau})}
 
 
 def _err(msg: str, code: str = "invalid_request", status: int = 400):
@@ -185,6 +205,7 @@ class Handler(BaseHTTPRequestHandler):
         if self.path == "/healthz":
             self._relay(200, {"ok": True, "model": MODEL,
                               "head": D.get("head_q") is not None,
+                              "serving": serving_config(),
                               "limits": {"max_questions": MAX_QUESTIONS,
                                          "max_state_chars": MAX_STATE_CHARS,
                                          "max_body_bytes": MAX_BODY_BYTES}})
@@ -241,7 +262,7 @@ class Handler(BaseHTTPRequestHandler):
                             merged[d.question.id] = d
                     if rest:
                         merged.update(decide_state_shared(
-                            D["dec"], D["be"], state, rest))
+                            D["dec"], D["be"], state, rest, early_stop=EARLY_STOP))
             except Exception:                       # noqa: BLE001 — any break in the
                 merged = None                       # shared path -> ordinary pipeline
             if merged is None:
@@ -270,6 +291,7 @@ class Handler(BaseHTTPRequestHandler):
                              answer=answers[qid]["answer"],
                              confidence=round(answers[qid]["confidence"], 4),
                              answer_mass=round(float(d.diagnostics.get("answer_mass") or 0.0), 6),
+                             reads=d.diagnostics.get("permutations"),
                              ms=None))
         out = {"model": MODEL, "answers": answers,
                "usage": {"input_tokens": n_tok}}
@@ -283,8 +305,7 @@ class Handler(BaseHTTPRequestHandler):
         self._relay(200, out)
 
 
-def main():
-    global REG, STATE_SHARED, MODEL, D, MAX_STATE_CHARS
+def make_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(
         description="Local decision endpoint: POST /v1/systemone {state, "
                     "questions} -> typed answers with probabilities, read "
@@ -310,6 +331,25 @@ def main():
                     help="disable state-level prefix sharing (one state "
                          "forward shared across the questions of a request; "
                          "bench_state_share.py: long 5.3x)")
+    ap.add_argument("--no-batch", action="store_true",
+                    help="score the suffix passes of a request one after another "
+                         "instead of as one batched forward (the pre-2026-10-11 "
+                         "behaviour; same answers up to bf16 kernel noise, ~1.9x "
+                         "slower on short requests)")
+    ap.add_argument("--kv-budget-gib", type=float, default=KV_BUDGET_GIB,
+                    help="memory cap for one batched forward (the prefix cache is "
+                         "broadcast to one row per suffix); a prefix too long to "
+                         "fit two rows is scored sequentially. Default %(default)s")
+    ap.add_argument("--early-stop", action="store_true",
+                    help="read ONE rotation per Choice/Noul question first and the "
+                         "remaining rotations only where the confidence is below "
+                         "the thresholds (fewer passes, answers essentially "
+                         "unchanged, reported confidences slightly more optimistic; "
+                         "off by default — docs/RESULTS.md)")
+    ap.add_argument("--early-stop-choice-tau", type=float, default=0.9,
+                    help="--early-stop: Choice confidence needed to stop (default %(default)s)")
+    ap.add_argument("--early-stop-noul-tau", type=float, default=0.8,
+                    help="--early-stop: yes/no confidence needed to stop (default %(default)s)")
     ap.add_argument("--prior-strength", type=float, default=None,
                     help="batch-prior correction exponent (default: Decider's "
                          "0.75 partial; 1.0 = full marginal correction)")
@@ -317,6 +357,12 @@ def main():
                     help="registry head to load (default: derived from "
                          "--model; empty -> L0-only serving when that model "
                          "has no artifact)")
+    return ap
+
+
+def main():
+    global REG, STATE_SHARED, MODEL, D, MAX_STATE_CHARS, BATCH_SUFFIXES, KV_BUDGET_GIB, EARLY_STOP
+    ap = make_parser()
     args = ap.parse_args()
     MODEL = args.model
     MAX_STATE_CHARS = args.max_state_chars
@@ -326,6 +372,17 @@ def main():
         REG = ROOT / "registry" / MODEL.replace("/", "__") / "base" / "next_move.json"
     if args.no_state_shared:
         STATE_SHARED = False
+    if args.no_batch:
+        BATCH_SUFFIXES = False
+    if args.kv_budget_gib <= 0:
+        ap.error("--kv-budget-gib must be positive")
+    KV_BUDGET_GIB = args.kv_budget_gib
+    if args.early_stop:
+        from decide.core.state_shared import EarlyStop
+        try:
+            EARLY_STOP = EarlyStop(args.early_stop_choice_tau, args.early_stop_noul_tau)
+        except ValueError as e:
+            ap.error(str(e))
 
     print("loading model + head ...", flush=True)
     D.update(build(max_permutations=args.max_permutations,

@@ -24,17 +24,148 @@ Parity reference: anyjev/backends/hf.py::HFBackend.
 """
 from __future__ import annotations
 
+import copy
 from typing import List, Optional, Sequence, Tuple
 
 import mlx.core as mx
 import numpy as np
 from mlx_lm import load as mlx_load
 from mlx_lm.models.base import create_attention_mask, create_ssm_mask
+from mlx_lm.models.cache import ArraysCache, KVCache, make_prompt_cache
+
+from decide.core.batching import (DEFAULT_BUDGET_BYTES, chunk_sizes, per_row_bytes,
+                                  rows_per_forward)
+
+
+def _kv_bytes_per_token(cache) -> int:
+    return sum(c.keys.shape[1] * c.keys.shape[3] * c.keys.dtype.size
+               + c.values.shape[1] * c.values.shape[3] * c.values.dtype.size
+               for c in cache if isinstance(c, KVCache) and c.keys is not None)
+
+
+def _state_bytes(cache) -> int:
+    return sum(x.nbytes for c in cache if isinstance(c, ArraysCache)
+               for x in c.cache if x is not None)
+
+
+def _expand_cache(cache, rows: int):
+    """The one-row prefix cache broadcast to `rows` rows (lazy views; the rows are
+    materialised by the suffix update, which is what the byte budget accounts for)."""
+    out = []
+    for c in cache:
+        if isinstance(c, KVCache):
+            n = KVCache()
+            n.keys = mx.broadcast_to(c.keys, (rows,) + c.keys.shape[1:])
+            n.values = mx.broadcast_to(c.values, (rows,) + c.values.shape[1:])
+            n.offset = c.offset
+        else:
+            n = ArraysCache(len(c.cache))
+            n.cache = [mx.broadcast_to(x, (rows,) + x.shape[1:]) if x is not None else None
+                       for x in c.cache]
+        out.append(n)
+    return out
+
+
+class PrefixScorer:
+    """One shared prefix prefilled once; `score(pairs)` can be called for several rounds
+    (the early-stop path reads one rotation first and the rest only for unsure questions).
+
+    Each pair is (suffix_text, label_token_ids); the result is the label log-probs read at
+    the last suffix position, in pair order. Same boundary-exactness contract and flat
+    fallback as the HF backend: a pair whose tokenisation does not split at the prefix
+    boundary is scored as a flat prompt (counted in shared_fallbacks).
+
+    The suffixes of a round run as ONE right-padded forward over the prefix cache broadcast
+    to B rows (MLXBackend.batch_suffixes, on by default) when the byte budget allows at
+    least two rows, else one after another from copies of the cache. Right padding is
+    exact for a causal model read at each row's own last real token: attention and the
+    recurrent blocks never look forward. Numerically the two paths agree to the bf16
+    kernel noise the repo already documents for the prefix-KV split (docs/RESULTS.md)."""
+
+    def __init__(self, be: "MLXBackend", prefix: str):
+        self.be, self.prefix = be, prefix
+        self.p_ids = be.tokenizer.encode(prefix, add_special_tokens=False)
+        self._cache = None
+
+    def _prefill(self):
+        if self._cache is None:
+            cache = make_prompt_cache(self.be.model)
+            # NOT evaluated here: left lazy, the prefill is evaluated together with the first
+            # suffix round and peaks ~3 GiB lower on a 9k-token state (3.85 vs 6.73 GiB, same
+            # speed) than an eager mx.eval of the cache. Shapes are all the budget needs.
+            self.be.model(mx.array(self.p_ids)[None], cache=cache)
+            self._cache = cache
+        return self._cache
+
+    def score(self, pairs):
+        be, tok = self.be, self.be.tokenizer
+        sfx = [(s, tok.encode(s, add_special_tokens=False), list(ids)) for s, ids in pairs]
+        bad = {i for i, (s, s_ids, _) in enumerate(sfx)
+               if not s_ids or tok.encode(self.prefix + s, add_special_tokens=False)
+               != self.p_ids + s_ids}
+        results: list = [None] * len(sfx)
+        fast = [i for i in range(len(sfx)) if i not in bad]
+        if fast:
+            cache = self._prefill()
+            if not (be.batch_suffixes and self._score_batched(cache, sfx, fast, results)):
+                self._score_sequential(cache, sfx, fast, results)
+            be.shared_groups += 1
+            be.shared_prompts += len(fast)
+        if bad:
+            order = sorted(bad)
+            lps = be.next_token_logprobs([self.prefix + sfx[i][0] for i in order],
+                                         [sfx[i][2] for i in order])
+            for i, lp in zip(order, lps):
+                results[i] = lp
+            be.shared_fallbacks += len(order)
+        return results
+
+    def _score_sequential(self, cache, sfx, idx, results):
+        model = self.be.model
+        for i in idx:
+            _, s_ids, ids = sfx[i]
+            c = copy.deepcopy(cache)          # arrays are immutable; refs only
+            logits = model(mx.array(s_ids)[None], cache=c)
+            last = logits[:, -1, :].astype(mx.float32)[0]
+            lsm = np.asarray(last - mx.logsumexp(last), dtype=np.float64)
+            results[i] = lsm[np.asarray(ids, dtype=np.int64)]
+
+    def _score_batched(self, cache, sfx, idx, results) -> bool:
+        be = self.be
+        if len(idx) < 2 or not be._can_batch(cache):
+            return False
+        row = per_row_bytes(_kv_bytes_per_token(cache), len(self.p_ids), KVCache.step,
+                            _state_bytes(cache))
+        rows = rows_per_forward(be.kv_budget_bytes, row, len(idx))
+        if rows == 0:
+            return False
+        sizes = chunk_sizes(len(idx), rows)
+        # with several chunks, group similar lengths so right padding wastes little
+        order = sorted(idx, key=lambda i: len(sfx[i][1])) if len(sizes) > 1 else list(idx)
+        try:
+            pos = 0
+            for n in sizes:
+                chunk = order[pos:pos + n]
+                pos += n
+                out = be._batched_label_logprobs(cache, [sfx[i][1] for i in chunk],
+                                                 [sfx[i][2] for i in chunk])
+                for i, o in zip(chunk, out):
+                    results[i] = o
+                be.batched_forwards += 1
+        except Exception:                    # noqa: BLE001 — never break serving: redo one by one
+            be.batched_fallbacks += 1
+            return False
+        return True
 
 
 class MLXBackend:
     def __init__(self, model_path: str, *, adapter_path: str | None = None):
         self.model, self.tokenizer = mlx_load(model_path, adapter_path=adapter_path)
+        # batched suffix passes (PrefixScorer): on by default; --no-batch on the endpoint
+        self.batch_suffixes = True
+        self.kv_budget_bytes = DEFAULT_BUDGET_BYTES
+        self.batched_forwards = 0
+        self.batched_fallbacks = 0
         self.name = model_path
         # mlx_lm model classes carry the HF-style config on `.args` (dict-like
         # ModelArgs; hybrids like qwen3_5 nest the text config) and expose
@@ -117,46 +248,45 @@ class MLXBackend:
 
     # ---- protocol: prefix-KV fast path (score_shared) ----------------------
 
+    def prefix_scorer(self, prefix: str) -> PrefixScorer:
+        """Prefill `prefix` once; the handle scores (suffix, label_ids) pairs in one or more
+        rounds (see PrefixScorer)."""
+        return PrefixScorer(self, prefix)
+
     def score_shared_pairs(self, prefix: str, pairs):
         """State-level prefix sharing across QUESTIONS (and their rotations):
         ONE forward of `prefix` (the state block + template head), then each
-        (suffix_text, token_ids) pair runs from a copy of that cache — the
-        multi-question fan-out fast path (docs/RESULTS.md, state-share). Same
+        (suffix_text, token_ids) pair runs off that cache — batched into one forward
+        when the byte budget allows (batch_suffixes), else from copies of it one by one —
+        the multi-question fan-out fast path (docs/RESULTS.md, state-share). Same
         boundary-exactness contract and flat fallback as score_shared, per
         pair; returns one label-logprob array per pair, in order."""
-        import copy as _copy
+        return self.prefix_scorer(prefix).score(pairs)
 
-        from mlx_lm.models.cache import make_prompt_cache
+    def _can_batch(self, cache) -> bool:
+        """Batched suffixes need the qwen3_5-style layout this backend already assumes
+        (language_model + attention/recurrent caches); anything else scores sequentially."""
+        return (hasattr(self.model, "language_model")
+                and all(isinstance(c, (KVCache, ArraysCache)) for c in cache))
 
-        tok = self.tokenizer
-        p_ids = tok.encode(prefix, add_special_tokens=False)
-        sfx = [(s, tok.encode(s, add_special_tokens=False), list(ids))
-               for s, ids in pairs]
-        fallback = [i for i, (s, s_ids, _) in enumerate(sfx)
-                    if not s_ids or tok.encode(prefix + s, add_special_tokens=False)
-                    != p_ids + s_ids]
-        results: list = [None] * len(sfx)
-        if len(fallback) < len(sfx):
-            cache = make_prompt_cache(self.model)
-            self.model(mx.array(p_ids)[None], cache=cache)
-            for i, (s, s_ids, ids) in enumerate(sfx):
-                if i in fallback:
-                    continue
-                c = _copy.deepcopy(cache)     # arrays are immutable; refs only
-                logits = self.model(mx.array(s_ids)[None], cache=c)
-                last = logits[:, -1, :].astype(mx.float32)[0]
-                lsm = np.asarray(last - mx.logsumexp(last), dtype=np.float64)
-                results[i] = lsm[np.asarray(ids, dtype=np.int64)]
-            self.shared_groups += 1
-            self.shared_prompts += len(sfx) - len(fallback)
-        if fallback:
-            lps = self.next_token_logprobs(
-                [prefix + sfx[i][0] for i in fallback],
-                [sfx[i][2] for i in fallback])
-            for i, lp in zip(fallback, lps):
-                results[i] = lp
-            self.shared_fallbacks += len(fallback)
-        return results
+    def _batched_label_logprobs(self, cache, suffix_ids_list, label_ids_list):
+        """Label log-probs for B suffixes in ONE forward over the prefix cache broadcast to B
+        rows. Suffixes are right-padded; each row is read at its own last real token and only
+        those B final positions go through the output head (not B x S positions)."""
+        rows = len(suffix_ids_list)
+        lens = [len(s) for s in suffix_ids_list]
+        width = max(lens)
+        toks = mx.array([list(s) + [0] * (width - len(s)) for s in suffix_ids_list])      # [B,S]
+        hidden = self._inner()(toks, cache=_expand_cache(cache, rows))                     # [B,S,H]
+        last = hidden[mx.arange(rows), mx.array([n - 1 for n in lens])]                    # [B,H]
+        logits = self._logits_from_last_hidden(last).astype(mx.float32)                    # [B,V]
+        lsm = logits - mx.logsumexp(logits, axis=-1, keepdims=True)
+        k = max(len(i) for i in label_ids_list)
+        pad = mx.array([list(i) + [0] * (k - len(i)) for i in label_ids_list])
+        sel = mx.take_along_axis(lsm, pad, axis=1)                                         # [B,k]
+        mx.eval(sel)
+        sel = np.asarray(sel, dtype=np.float64)
+        return [sel[b, :len(label_ids_list[b])] for b in range(rows)]
 
     def score_suffix_sum(self, prefix: str, suffixes):
         """Multi-token loglikelihood scoring on a shared prefix (the

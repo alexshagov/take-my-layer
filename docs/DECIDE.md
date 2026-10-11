@@ -7,7 +7,7 @@
 > §8 references files deleted at fork (`fixab.py`, `args_extractors.py`,
 > `router_replay.py`, `pipeline/`) and, archived 2026-10-10, the
 > seed-dependent `l0_agreement.py` / `l2_head.py` / `guard_stats.py` —
-> do not chase those; current work is the README roadmap (docs/ROADMAP.md).
+> do not chase those; current work is in docs/TODO.md.
 
 **Status: idea capture only (2026-10-06). Harness/design doc is the NEXT step — deliberately
 not attempted here.** Sources: the AnyJev repository (perused in full), a private

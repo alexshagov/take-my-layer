@@ -182,9 +182,10 @@ Messages seen from the running server:
 ## Cost and limits
 
 - Requests are served one at a time: one MLX instance sits behind a lock, so concurrent requests queue.
-- Latency grows with the state, not with the number of questions. On the M5 the short examples above took 0.2 to 0.8 s, a 32,000-character state with one question took 2.7 s, and the longest evaluation state (17,621 characters, 5 questions) took 7.0 s. The state is read once per request (state-level prefix sharing); `--no-state-shared` turns that off.
+- Latency grows with the state, not with the number of questions. On the M5 the short examples above took 0.2 to 0.8 s (measured before batching; a short 5-question request now takes about 0.55 s against 1.04 s one pass at a time, docs/RESULTS.md "Speed/precision sweep"), a 32,000-character state with one question took 2.7 s, and the longest evaluation state (17,621 characters, 5 questions) took 7.0 s. The state is read once per request (state-level prefix sharing); `--no-state-shared` turns that off.
 - Memory: about 2.8 GB resident for the 4B model, 5.3 GB for the 9B (measured, `results/banking77.*.resources.json`).
-- `GET /healthz` returns the limits in force (`max_questions`, `max_state_chars`, `max_body_bytes`).
+- Within a request the suffix passes (one per question and option rotation) run as one batched forward over the shared state cache, capped by a memory budget (`--kv-budget-gib`, default 1.5); a state too long to fit two rows in the budget, or any batching error, falls back to one pass at a time. Batching is the default since 2026-10-11 and `--no-batch` restores the one-at-a-time behaviour (same answers up to bf16 kernel noise; docs/RESULTS.md, "Speed/precision sweep").
+- `GET /healthz` returns the limits in force (`max_questions`, `max_state_chars`, `max_body_bytes`) and how reads are served (`serving`: `state_shared`, `batched_suffixes`, `kv_budget_gib`, `early_stop`).
 
 ## Server flags
 
@@ -193,9 +194,12 @@ Messages seen from the running server:
 | `--port` | TCP port on 127.0.0.1 (default 8095) |
 | `--model` | any MLX model id or path; a model without a registry head serves L0 only |
 | `--head` | registry head artifact to load (default: derived from `--model`) |
-| `--max-permutations` | cap the option rotations per Choice (default: all). `2` keeps most of the accuracy at about 3.8× less latency (docs/RESULTS.md, "Rotation budget") |
+| `--max-permutations` | cap the option rotations per Choice (default: all). `2` keeps most of the accuracy at about 3.8× less latency on a 10-option Choice (docs/RESULTS.md, "Rotation budget"); with the usual 3-5 options it costs accuracy, and it never affects yes/no (always both phrasings) or Score (one pass). `--early-stop` is the better budget knob |
 | `--max-state-chars` | reject longer states (default 32,000) |
 | `--no-state-shared` | read the state once per question instead of once per request |
+| `--no-batch` | run the suffix passes of a request one after another instead of as one batched forward (the behaviour before 2026-10-11) |
+| `--kv-budget-gib` | memory cap for one batched forward (default 1.5); a prefix that leaves room for fewer than two rows is read sequentially |
+| `--early-stop` | off by default. Read one rotation per Choice/Noul question first and the remaining rotations only where the confidence is below `--early-stop-choice-tau` (default 0.9) / `--early-stop-noul-tau` (default 0.8). Fewer passes, answers essentially unchanged, but the reported confidences are a little more optimistic (docs/RESULTS.md) |
 | `--prior-strength` | batch-prior correction exponent (default 0.75) |
 
 ## Compatibility

@@ -5,7 +5,7 @@ entry per work session, outcomes only. No number changed. Where the
 detail lives: measurements → `docs/RESULTS.md` (+ `results/INDEX.md` for
 the artifacts); decisions and their evidence → `docs/DECISIONS.md`; the
 pre-fork investigation and design records → `docs/DECIDE.md` +
-`docs/HARNESS.md`; current status → `docs/ROADMAP.md` and `docs/TODO.md`.
+`docs/HARNESS.md`; current status → `docs/TODO.md` (the former ROADMAP is merged there).
 
 **2026-10-06 — the investigation sprint (pre-fork).**
 MLX backend for AnyJev 0.2.0 (raw/L0 smoke on the 4B); L0 agreement on
@@ -89,7 +89,7 @@ preflights), docs reorganization into the README + `docs/` shape,
 `docs/API.md` written, the test suite (`tests/`, 32 tests), run-from-
 anywhere anchoring. Renamed to `take-my-layer` (the old name embedded
 two third-party marks; candidates and sweep record in
-`docs/ROADMAP.md`). A wording scrub removed the pre-fork substrate
+`docs/TODO.md`, Build history). A wording scrub removed the pre-fork substrate
 references; `l0_smoke.py` fixtures rewritten to the v3 format.
 
 **2026-10-11 — independent re-verification + friction fixes.**

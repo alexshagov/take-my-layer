@@ -66,8 +66,8 @@ opencode, not only on the single substrate it was born on.
 4. **The fabrication leg was REMOVED at fork (seed-domain-only by
    construction).** The router, when it eventually routes, acts on
    decisions only until a domain-general way to build the call exists:
-   generic extractors or the file-shortlist second-stage head (roadmap
-   H3/P1). The fabrication contract itself (fabricated `tool_calls` SSE
+   generic extractors or the file-shortlist second-stage head (docs/TODO.md,
+   build backlog). The fabrication contract itself (fabricated `tool_calls` SSE
    shape that opencode parses) is proven — see
    `decide/research/stub_server.py` and the pre-fork step-6 record.
 

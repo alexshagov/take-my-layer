@@ -23,6 +23,9 @@ python -m compileall -q decide tests
   `data/eval/` are frozen evidence; replacing a file there needs `--force`.
 - One MLX process at a time on a 32 GB machine: stop the endpoint before
   running a benchmark that loads its own model, and kill what you start.
+- The endpoint batches the suffix passes of a request by default (`--no-batch`
+  is the reference path when checking numerics); `--early-stop` is opt-in
+  because it changes the reported confidences (docs/RESULTS.md).
 - The shadow proxy stays shadow-only (it routes nothing); the answer-mass
   guard stays log-only (`MASS_TAU=0.0`).
 - New numbers follow the wording rules in `docs/RESULTS.md` (fidelity =
@@ -33,4 +36,4 @@ python -m compileall -q decide tests
 [docs/RUNNING.md](docs/RUNNING.md); endpoint reference →
 [docs/API.md](docs/API.md); artifact index →
 [results/INDEX.md](results/INDEX.md); status and open work →
-[docs/ROADMAP.md](docs/ROADMAP.md) + [docs/TODO.md](docs/TODO.md).
+[docs/TODO.md](docs/TODO.md).

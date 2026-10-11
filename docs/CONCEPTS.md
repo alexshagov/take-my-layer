@@ -155,8 +155,8 @@ everything else gets L0; a model without a head (the 9B) serves L0 only.
 
 Why the coding head exists: speed, and precision on its one question.
 Speed is measured: the forward stops at block 16 of 32 and no rotations
-run, so it answers in about 0.2 s, while L0 pays one full prefill per
-option order. Precision is proven only on the head's own holdout (0.826)
+run, so it answers in about 0.2 s, while L0 reads the state once and then
+runs a short pass per question and option order. Precision is proven only on the head's own holdout (0.826)
 and by the observe refit beating the seed head in-domain (64/73 vs 40/73);
 L0 vs L2 on the same held-out task has never been run (docs/TODO.md,
 measurement item 2).
@@ -236,6 +236,6 @@ never been measured. The ladder stops at L2 (no L3).
 
 **Frozen evidence.** `results/`: the measurement artifacts behind every quoted number. Scripts write to `runs/` and never replace these without `--force`.
 
-**Rotations, marginalization.** For a Choice with K options, the L0 readout re-asks the question with the option list rotated and averages the answers, which cancels position bias. `--max-permutations 2` caps it at two rotations.
+**Rotations, marginalization.** For a Choice with K options, the L0 readout re-asks the question with the option list rotated and averages the answers, which cancels position bias. `--max-permutations 2` caps it at two rotations (good for a 10-option Choice, costly with 3-5 options). `--early-stop` reads one rotation first and the rest only where the confidence is below a threshold: fewer passes, essentially the same answers, slightly more optimistic confidences (docs/RESULTS.md, "Speed/precision sweep").
 
-**State-level prefix sharing.** The state is read once per request and every question (and rotation) continues from that cached read.
+**State-level prefix sharing.** The state is read once per request and every question (and rotation) continues from that cached read. Since 2026-10-11 the continuations of a request run as one batched forward (`--no-batch` runs them one by one); this is still the L0 readout, only scheduled differently.

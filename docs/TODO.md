@@ -1,13 +1,299 @@
-# TODO.md — open work: pre-publish checklist + measurement gaps
+# TODO.md — status, backlog and open work
 
-Aggregated gaps from the 2026-10-10 review. The first section is the
-pre-publish checklist (re-verified the same day); the rest is open
-measurement work: benches and proofs that a README or RESULTS claim still
-lacks. Build/status backlog lives in `docs/ROADMAP.md`; where an item
-overlaps, the cross-ref is noted. Wording rules for any new number:
-docs/RESULTS.md header.
+One checklist for the whole project. The former `ROADMAP.md` (build status and
+backlog) was merged in here on 2026-10-11, so there is a single place to look.
+`[x]` = done and checked, `[ ]` = open work or an idea nobody has started.
+**Open** comes first; **Done** keeps the evidence (what was checked, how, with
+which numbers). Dated results live in docs/RESULTS.md; the wording rules for any
+new number are in its header (fidelity = "aligned with the reference", never
+"more correct"; accuracy claims name the arena and model size). The raw session
+log is docs/HISTORY.md. Item ids (`PP-n`, `#n`) are stable: other docs cite them.
 
-## Pre-publish checklist (2026-10-10, re-verified)
+## Open
+
+### Publish
+
+- [ ] **PP-19b GitHub repo.** `git init` and the first commit are done (PP-19a
+  below); there is no remote yet. Repo name `take-my-layer`. About line (241 chars,
+  limit 350): "Jev-style typed decisions (choice, yes/no, score + probabilities) read off a
+  local Qwen's own logits on Apple Silicon. No text generated. Research prototype,
+  benchmarked against the real Jev API. Independent; not affiliated with TypeSafe
+  AI." Topics: mlx, apple-silicon, qwen, logprobs, local-llm. README tagline: "Shut
+  up and take my layer." Keep "one forward pass" out of public copy: it is exact only
+  for the L2 head (an L0 Choice question with K options is K short passes sharing one
+  state prefill); "read off the model's own logits, no text generated" holds at every
+  level. Before pushing: repeat the dry run of `git add -A` against a git-dir outside
+  the repo (2026-10-10: 107 files, 5.17 MB, no caches/venv/archive/pyc/logs/runs, no
+  home path, username, key or token pattern in any of them), then create the GitHub
+  repo with the About line and topics above.
+
+### Measurement gaps (benches and proofs a README or RESULTS claim still lacks)
+
+- [ ] **#1 Determinism proof.** README says re-running anything returns
+   identical answers; `state_share.json` is the only equivalence artifact
+   and `jev_repeat.py` covers the reference side only. Run any bench twice
+   on the same inputs and byte-compare the stored answers. Cost: trivial.
+   Partial 2026-10-11: the new default (batched passes) returned identical bytes on
+   3 of 3 repeats of the README request over HTTP and on 8 requests in process
+   (docs/RESULTS.md, "Speed/precision sweep"); a bench-level proof is still open.
+
+- [ ] **#2 Same-arena ladder: L0 vs L1 vs L2 on one held-out task.** The levels
+   table asserts what each level buys, but L2 has only the `next_move`
+   holdout (0.826) and L1 nothing. Fit a temperature and a head for one
+   benchmark question (e.g. a banking77 or Noul layout) and evaluate all
+   three levels on the same holdout. Cost: one fit plus one eval run.
+
+- [ ] **#3 L1 calibration bench.** The "0.93 knowledge-gap tail" is L1's stated
+   reason to exist with no reliability curve behind it. Fit the temperature
+   and report ECE / reliability on held-out L0 outputs, in-distribution.
+   Covers the former ROADMAP item "L1 temperature calibration for the 0.93 tail +
+   continuous Score values" (caveat: temperature scaling degrades under shift, so
+   it is a tail fix only). Cost: small.
+
+- [ ] **#4 Foreign-domain L2 generalization.** All 73 observe rows and 81 shadow
+   rows are `qjev-sandbox`; the domain-general charter has no evidence
+   outside it. The synth A/B was neutral, and its "real test is
+   foreign-domain agreement" (former ROADMAP P1). Blocked on usage, not code.
+   Next steps once there is foreign observe telemetry: a gold+observed mixed
+   refit, then a τ re-read.
+
+- [ ] **#5 AnyJev parity point.** Their published label-free L0 is BANKING77
+   20-way on Qwen3-8B (0.803 on 300 items). Run the same config on this
+   backend and models for a like-for-like cross-implementation number.
+   Cost: one bench run (a 20-way option on `bench_banking77.py`).
+
+- [ ] **#6 Length sweep.** Latency and accuracy exist for short and long buckets;
+   a 0.5k / 1k / 2k / 4k / 8k curve would back "wins where agents actually
+   work" with a shape instead of two dots. Cost: one GPU session.
+   Partial 2026-10-11: prefill throughput is flat at about 1.6k tokens/s from
+   128 to 4k tokens and for chunk sizes 256 to unchunked.
+
+- [ ] **#7 Concurrency/throughput baseline.** Everything is single-request; the
+   dynamic-batching idea (Build backlog) has no baseline number to beat.
+   Cost: moderate (client plus server under load).
+
+- [ ] **#8 CLINC150 as a second gold-label arena.** banking77 is the only
+   gold-label accuracy bench; CLINC150 sits in the reference ecosystem's
+   training mix. Lower priority. Cost: loader plus bench run.
+
+- [ ] **#9b Real-label check of the L2 exit-layer candidates.** The 2026-10-11 sweep
+  (#9, Done) found that a head fitted on few labels gains 14 points going from layer 16
+  to layer 20 and nothing beyond layer 22, but with synthetic states labelled by the
+  model's own readout. Re-run on real labelled traffic (the observe log once there is
+  foreign telemetry, #4) before changing `LAYERS = [16, 19, 22]` in `observe.py` and
+  `fit_registry_head.py` to about `[20, 22, 24]`. The shipped head (1,824 gold labels,
+  layers 16-22 tied) is unchanged and cannot be refit without the withheld seed.
+
+- [ ] **#10 9B with the shipped fast path.** `python decide/bench/bench_fast_path.py --model
+  mlx-community/Qwen3.5-9B-MLX-4bit --out runs/fast_path.9b.json` (about 15 minutes), then
+  promote to `results/`. The 9B numbers in RESULTS ("Speed/precision sweep") come from the
+  prototype of the same algorithm, not from the shipped code.
+
+- [ ] **#11 Validate `--early-stop` on fresh data before it can become a default.** tau
+  (0.9 Choice / 0.8 yes/no) was chosen on the same 350 + 400 items it was scored on; it
+  also needs a confidence recalibration (ECE rises 0.035 -> 0.046 on the 4B, and the share
+  of answers at confidence >= 0.9 agree 93.0% instead of 96.3%). A fresh arena (CLINC150,
+  #8, or new LLM-authored batches) and a temperature fix would settle it.
+
+- [ ] **#12 1.5B floor test** (cross-model): where the readout degrades toward the
+  untrained line.
+
+- [ ] **#13 Human ground-truth leg and judge noise** (CONTRIBUTING, "the highest-value
+  contribution"). Adjudicate the ~10 disagreement rows in `results/labels_long.scored.json`
+  (about 15 minutes, the highest-leverage version), or run a second judge pass on the 30
+  long items, or label more items with the blind external judge. The judge-leg scoring step
+  was performed outside the repo (CONTRIBUTING says so); ship a script if one-command
+  replication is wanted.
+
+- [ ] **#14 Fix the 3 authoring defects the judge found in `questions_long.jsonl`**
+  (impossible dates, qid/text mismatch, an inconsistent metric line), then re-read whether
+  the stored answers still hold (`author_long.py --check` will report the difference).
+
+### Build backlog and ideas
+
+- [ ] **Close the observe() loop (small build)**: today the loop is
+  self-logging but human-gated — the proxy banks observe rows
+  automatically, but the refit (`decide/adapt/observe.py`) and the
+  promotion (`--head`) are commands a human runs when curious. The last
+  mile is a periodic refit with **canary-gated auto-promotion**:
+  recompute the artifact on a schedule, swap it in ONLY if its holdout
+  metric beats the incumbent's, else keep serving the old one; log every
+  swap. Scope honesty, stated up front: if a deployment ever reaches the
+  point of owning a rich labeled history of its exact decision surface,
+  the crossover verdict (docs/PRIOR_ART.md) says the right next tool is a
+  fine-tune or a classical trained classifier — the auto-loop is for the
+  regime where labels arrive as a sparse trickle of your own traffic, not
+  as a dataset.
+
+- [ ] Truncated-checkpoint serving (blocks 0..b as a standalone MLX model).
+
+- [ ] Upstream the MLX backend to AnyJev (their help-wanted slot), together with the
+  state-share split and the batched suffix passes.
+
+- [ ] Generic call construction (extractors or file-shortlist head) to
+  restore a routing leg.
+
+- [ ] Label-free adaptation (`adapt="routed"`) as the domain-shift test —
+  targets reworded/relisted layouts, so measure before trusting it for
+  domain shift.
+
+- [ ] Flip-rate diagnostics for L2 rows (needs permutation diagnostics that L2 rows do
+  not log; wanted only if the router gate is revisited).
+
+- [ ] Dynamic batching of concurrent requests' reads (about 1.5-2x throughput was the
+  guess), only if multi-agent serving ever matters; baseline is #7. Note the premise
+  "the GPU idles 10-70% between passes" did not hold for one request's suffix passes
+  (2026-10-11: evaluating all passes lazily in one `mx.eval` gained 0.0%).
+
+- [ ] Ideas from the 2026-10-11 sweep, none started:
+  - `--max-permutations`: take the spread shifts (0, K/2, ...) instead of adjacent ones.
+    BANKING77 K=10, m=2: 87.5% vs 85.75% (4B), 91.0% vs 89.5% (9B); mixed and not
+    significant on the Jev set.
+  - Length-aware model choice: the 9B for short and mid-length states, the 4B for long
+    ones (prefill-bound; 9B long requests take 5.6 s against 2.9 s).
+  - A cross-request prefix cache for repeated or growing long states (little for the
+    proxy: 1.6x fewer prefill tokens on 340-token prompts, about 50 ms).
+  - Sharing the question stem between rotations (-20% suffix tokens; per-pass cost is
+    fixed-dominated, so no gain expected).
+
+### Decisions waiting for the maintainer
+
+- [ ] Make the proxy's `--no-mass` the default: 2.05x faster per shadow decision with
+  0/30 answer flips, but the logged `mass` diagnostic disappears (the guard stays log-only
+  either way).
+- [ ] Make `--early-stop` a default: only after #11.
+
+## Done
+
+### Build history (the former ROADMAP)
+
+- [x] `observe()` on shadow telemetry: DONE — the proxy pairs every shadow row
+  that has a mapped `actual_tool` with its FULL rendered state into
+  `logs/observe_log.jsonl` (gitignored; the frozen 73-row copy ships as
+  `results/observe_log.jsonl`); `decide/adapt/observe.py` replays it through
+  `Decider.observe` (auto-solve at 30 labels, refit at 60/120/…) and writes
+  `next_move_observed.json` (the seed is never overwritten; promote via
+  `--head`). This is also the remedy for the live confidence shift
+  (docs/DECIDE.md §8 step 5).
+
+- [x] `level="auto"` fallback: DONE — worker degrades L2 → L0 (broken head
+  path) → pass-through (worker down/slow); only L2 answers carry
+  would_route.
+
+- [x] Answer-mass guard: mechanism shipped (mass read in the same forward,
+  logged per decision, gateable via `--mass-tau`) — but **measured
+  NON-SEPARATING on this model** (seed-state measurement, not shipped;
+  see docs/RESULTS.md): default `MASS_TAU=0.0` = log-only. The practical
+  tripwires remain tau-on-confidence and observe().
+
+- [x] Synthetic state generation + teacher labelling (policy §3): DONE —
+  `decide/adapt/synth_states.py` (5 domains × 2 exemplars → N states at
+  temp 1.0 with a validate/repair pipeline, L0 teacher labels; the
+  2026-10-07 batch accepted 285/300 but is not shipped — regenerate on
+  demand); `decide/adapt/fit_registry_head.py` runs the A/B protocol
+  (gold-only vs gold+synth, grouped-by-task holdout) →
+  `results/synth_gain.json`.
+
+- [x] Renderer generalization: DONE — v3 drops the repo-kind tag and the
+  single-extension glob filter; refit landed in the same change. **Measured** (gold
+  holdout grouped by task, 482 points): gold-only 0.826 (layer 16),
+  gold+285-synth 0.824 — synthetic corpus NEUTRAL at n=285 on a
+  same-domain holdout (the recipe's ≥300 gain bar was just missed, and a
+  same-domain holdout cannot measure domain generality anyway). `next_move_v3.json` promoted →
+  `next_move.json`; the v2 seed kept as `next_move_v2_seed.json`. The
+  synth corpus's real test is foreign-domain agreement — regenerate the
+  corpus and re-run the A/B at larger N if observe telemetry shows drift.
+
+- [x] SystemOne endpoint: DONE — `decide/serve/systemone.py` serves the
+  `POST /v1/systemone` contract (state + Choice/Score/Noul questions →
+  answers + probabilities + input_tokens) on the same Decider: L0 readout
+  for arbitrary questions, L2 for the registry head layout.
+
+- [x] `noul` yes/no questions for termination / done-yet / needs_review:
+  available via the endpoint (`type: "Noul"`), zero build cost.
+
+- [x] `score_shared` prefix-KV in the MLX backend: DONE (2026-10-07) —
+  measured 2.2× on a 368-token prefix × 3 suffixes; endpoint 4-question
+  smoke 2.3s → 0.8s (numbers in docs/RESULTS.md).
+
+- [x] Mass-read removal (`--no-mass`): DONE + measured (2.05×, parity 0/30) —
+  docs/RESULTS.md.
+
+- [x] State-level prefix sharing: DONE + measured (long 5.3×, short 1.55×,
+  default ON, `--no-state-shared` disables) — docs/RESULTS.md.
+
+- [x] Batched suffix passes (endpoint default) + opt-in `--early-stop`: DONE (2026-10-11)
+  — short request 1036 -> 552 ms, agreement with Jev unchanged (76.0%); docs/RESULTS.md
+  "Speed/precision sweep", `results/fast_path.json`, `decide/bench/bench_fast_path.py`,
+  tests/test_fast_path.py. The open items that came out of it are listed above (#9b, #10,
+  #11 and the maintainer decisions).
+
+- [x] Bench metrics: ECE + coverage@tau + routed error are computed per batch by `decide/bench/shadow_stats.py`.
+
+- [x] Cross-model comparisons: the 9B legs are done (docs/RESULTS.md). The 1.5B floor test is #12.
+
+- [x] Zero-training head-to-heads: typed-decisions leg DONE; full-77-way
+  banking77 DONE (docs/RESULTS.md).
+
+- [x] Consider m=2–3 rotation budget as the L0 default (the K-curve says
+  ~90% of the gain at half cost AND it is the main long-context latency
+  lever — measure Jev-agreement impact first, it's one flag).
+  MEASURED 2026-10-11: with 3-5 option Choices the flag costs accuracy and
+  it never touches yes/no or Score; `--early-stop` is the budget knob that
+  held (docs/RESULTS.md "Speed/precision sweep").
+
+- [x] Test the m=2 × state-share compound. (Superseded by the same section.)
+
+- [x] **Rename → `take-my-layer`, publish decision GO** (2026-10-10; `git init` and the
+  first commit followed, PP-19a; the GitHub repo is PP-19b). The rename was the last
+  blocker ("qwen-jev" embedded two third-party marks = the risky pattern under
+  nominative-fair-use doctrine; the -jev namespace is crowded — AnyJev, Mini-Jev,
+  PocketJev, Simple Jev; candidates weighed: haruspex / prefillhead / auspex /
+  take-my-layer, the last chosen for being mark-free and describing the mechanism).
+  Swept: `README.md` title, `flake.nix` description, `decide/serve/systemone.py` (the
+  response `model` is now the served model id), `decide/bench/eval_vs_jev.py`
+  (X-OpenRouter-Title). Left on purpose: the sandbox name `qjev-sandbox` (a data fixture
+  present in every logged state), `docs/HISTORY.md` (historical record), and file names
+  that name the comparison target (`eval_vs_jev.py`, `jev_*.json`). The manual steps
+  (move the repo folder, rebuild `.venv`, whose console scripts embed the absolute path)
+  are done. "Jev"/"Qwen" stay in prose (nominative) + the README disclaimer section.
+
+### Speed/precision sweep (2026-10-11)
+
+- [x] **#9 Layer-left sweep for the L2 head (speed, not RAM).** The exit block is
+   repo-controlled, not an AnyJev property: `mlx_backend.py` owns the
+   early-stop block loop, and the candidate list is the `LAYERS` constant in
+   `observe.py` / `fit_registry_head.py` (today `[16, 19, 22]`; the shipped
+   head landed on 16/32). A/B plan: set `LAYERS = [4, 8, 12, 16, 20, 24,
+   28]`, run `observe.py` per point on the shipped 73-row replay (about a
+   minute each; it prints layer, oof and in-domain hits), take ms/decision
+   from the `bench_mass_removal.py` harness shape, then re-read τ and ECE
+   via `shadow_stats.py` at the winning layer, and compound with
+   `--max-permutations 2`. Guardrail: earlier exit saves compute only —
+   weights stay resident, so RAM is a model-choice lever (4B 2.8 GB /
+   9B 5.3 GB), not a layer lever. Quality n is the 73 replay rows (small);
+   the seed-head holdout cannot be recomputed (seed withheld).
+   **Measured 2026-10-11 (docs/RESULTS.md, "Speed/precision sweep"): do not exit
+   earlier.** The 73-row replay cannot rank layers (OOF 0.58-0.66 at every layer;
+   the logged tool agrees with the model's own readout on only 49% of those rows).
+   With the model's own L0 readout as the target on 150 synthetic states
+   (5 domains, leave-one-domain-out too), teacher agreement is 0.56 at layer 16,
+   0.70 at layer 20, 0.73 at layer 22 and flat to layer 32 (layer 20 minus 16:
+   +14.3 points, 95% CI +8.8 to +20.1); exit@20 costs 172 ms against 142 at
+   layer 16 and 291 at full depth. The plan's "compound with `--max-permutations
+   2`" does not apply: the L2 head is a single pass. Open: a real-label check of
+   the candidate list `[20, 22, 24]` for `observe.py` / `fit_registry_head.py`
+   (`LAYERS` still reads `[16, 19, 22]`; the shipped head, fitted on 1,824 gold
+   labels where layers 16-22 tied, is unchanged).
+
+- [x] Measured and rejected, with numbers in docs/RESULTS.md "Speed/precision sweep":
+  pipelining the suffix passes (0.0%), the last-position output head alone (about 4%, not
+  bit-exact), dequantizing to bf16 for prefill (no gain), prefill chunk size (within 5%),
+  fixed one-phrasing yes/no reads (costs 3.3 points at 9B), L0 block skipping (accuracy
+  swings of -12 to +4 points that flip sign between arenas), `--max-permutations 2` as a
+  latency mode for 3-5 option Choices.
+
+### Pre-publish checklist (2026-10-10, re-verified)
 
 Every item was re-run or re-read against the tree in a scratch copy; the
 review itself did not modify the repo (fixes are marked DONE). File:line
@@ -16,17 +302,11 @@ references are as of 2026-10-10. Tags: **[confirmed]** reproduced as stated,
 re-check. Order: irreversible once pushed > misleads or breaks a stranger's
 first run > clarity > polish.
 
-**Order of operations:** done: everything except PP-19, which is the maintainer's
-last step. The stored Jev answers stay (PP-18, maintainer's decision). `git init`
-is deferred by the maintainer; when it happens: `git init`, `git add flake.nix
-flake.lock` (PP-19), `git add -A` (dry run against a git-dir outside the repo,
-2026-10-10 after the last change: see the file count in PP-19's note; no
-caches/venv/archive/pyc/logs, no home path, username, key or token pattern in
-any of them; re-run it first), first commit, then PP-19. Until then nothing is
-under version control; PP-5 removed the main way to lose evidence by accident
-(scripts write to `runs/` and refuse to replace frozen files).
+**Status:** everything is done except PP-19b (the GitHub repo, in Open). The stored Jev
+answers stay (PP-18, maintainer's decision). PP-5 removed the main way to lose evidence
+by accident (scripts write to `runs/` and refuse to replace frozen files).
 
-### P0 — before the first push
+#### P0 — before the first push
 
 - [x] **PP-1 Scrub the home path from `results/observe_log.jsonl`.** DONE
   2026-10-10. The review's first count (path only) was incomplete: the file
@@ -40,14 +320,14 @@ under version control; PP-5 removed the main way to lose evidence by accident
   `results/INDEX.md`: `results/mass_removal.json` (13 of its 30 states
   changed) and `registry/…/next_move_observed.json` were computed from the
   pre-scrub text. All 73 rows are `qjev-sandbox` (no private work).
-- [x] **PP-2 Rename (the ROADMAP's "last blocker").** DONE 2026-10-10 →
+- [x] **PP-2 Rename (the former ROADMAP's "last blocker").** DONE 2026-10-10 →
   `take-my-layer` (mark-free; "Shut up and take my layer" is the tagline).
   Swept: `README.md` title, `flake.nix` description,
   `decide/bench/eval_vs_jev.py` (`X-OpenRouter-Title: take-my-layer-eval`)
   and `decide/serve/systemone.py` (the response `model` is now the served
   model id instead of the hard-coded `qwen-jev/Qwen3.5-4B-MLX-4bit`; checked
   live: the 4B and 9B servers each report their own id, answers unchanged).
-  The dev shell still builds with the new `flake.nix`; the ROADMAP and
+  The dev shell still builds with the new `flake.nix`; the roadmap and
   `AGENTS.md` pointers were updated. Left on purpose: the sandbox name
   `qjev-sandbox` (725 hits in the two logs plus `.gitignore` and
   `RESULTS.md`; a data fixture, and renaming it would change the state text
@@ -56,7 +336,7 @@ under version control; PP-5 removed the main way to lose evidence by accident
   steps are done too (folder renamed, `.venv` rebuilt, direnv reloaded): no
   `qwen-jev` path is left in `.venv/bin`, `pyvenv.cfg` or `.direnv`.
 
-### P1 — before linking it anywhere
+#### P1 — before linking it anywhere
 
 - [x] **PP-3 Install prerequisites are wrong.** DONE 2026-10-10. [confirmed]
   README and the flake comment said Python ≥3.10, but mlx-lm 0.32.0 needs ≥3.11
@@ -127,7 +407,7 @@ under version control; PP-5 removed the main way to lose evidence by accident
   and `results/observe_log.jsonl` is byte-identical afterwards; `--help` of
   both scripts shows the new defaults. The one local telemetry row moved to
   `logs/`. Docs updated: README (layout, `observe.py` line), AGENTS.md,
-  `results/INDEX.md`, ROADMAP; DECIDE.md and HISTORY.md keep the old paths on
+  `results/INDEX.md`, the roadmap; DECIDE.md and HISTORY.md keep the old paths on
   purpose (historical record).
 - [x] **PP-7 First screen, names, links.** DONE 2026-10-10. The README is now a
   front page of 88 lines (it was 485): the plain definition of "state" and
@@ -220,7 +500,7 @@ under version control; PP-5 removed the main way to lose evidence by accident
   Nix venv, in a fresh pip venv, and with MLX made unimportable (9 skipped).
   The workflow itself has not run (no repo yet); only its YAML was parsed.
 
-### P2 — polish
+#### P2 — polish
 
 - [x] **PP-13 `systemone.py` / `proxy.py` details.** DONE 2026-10-10. (The
   hard-coded response `model` was fixed with PP-2.) `GET /v1/systemone` is a 405
@@ -302,24 +582,11 @@ under version control; PP-5 removed the main way to lose evidence by accident
     `banking77*.json`) and the "reproduces from frozen artifacts" claims in
     `results/INDEX.md`. Optional certainty: ask TypeSafe for a written OK
     (`support@typesafe.ai`, the contact in its AUP).
-- [ ] **PP-19 GitHub setup.** Repo name `take-my-layer`. About line (241
-  chars, limit 350): "Jev-style typed decisions (choice, yes/no, score +
-  probabilities) read off a local Qwen's own logits on Apple Silicon. No text
-  generated. Research prototype, benchmarked against the real Jev API.
-  Independent; not affiliated with TypeSafe AI." Topics: mlx, apple-silicon,
-  qwen, logprobs, local-llm. README tagline: "Shut up and take my layer."
-  (in the README since PP-7, and the README no longer says "one prefill" or
-  "one forward pass"). Keep "one forward pass" out of public copy: it is exact only for the L2
-  head (an L0 Choice question with K options is K short passes sharing one
-  state prefill); "read off the model's own logits, no text generated" holds
-  at every level. On the first `git init`, run `git add flake.nix
-  flake.lock` before `nix develop` / direnv (reproduced: Nix errors "not
-  tracked by Git" and prints the exact command; negligible). The dry run of
-  `git add -A` (git-dir outside the repo) on 2026-10-10, after the last change:
-  107 files, 5.17 MB, no caches/venv/archive/pyc/logs/runs, no home path,
-  username, key or token pattern in any of them. Order at publish time: dry run
-  again, `git init`, `git add flake.nix flake.lock`, `git add -A`, first commit,
-  then create the GitHub repo with the About line and topics above.
+
+- [x] **PP-19a `git init` and the first commit.** Done: two commits (`Init env`, `Initial release`),
+  107 tracked files including `flake.nix` and `flake.lock` (Nix refuses an untracked flake;
+  that is why they are added before the first `nix develop`). The GitHub half is PP-19b.
+
 - [x] **PP-20 Option-cap wording (20 vs 26).** DONE 2026-10-10. anyjev 0.2.0's
   letter readout caps Choice at 26 options (`MAX_OPTIONS`); the endpoint accepted
   21 and rejected 30 with "at most 26 options in letter readout". The wording is
@@ -328,7 +595,7 @@ under version control; PP-5 removed the main way to lose evidence by accident
   `decide/bench/banking77_full77.py`, the `systemone.py` docstring, the README
   sentence and `docs/API.md`. No number changed.
 
-### Open checks from the 2026-10-10 review (all done)
+#### Open checks from the 2026-10-10 review (all done)
 
 - [x] Cold-cache first run: done 2026-10-10 from a fresh pip venv with an empty
   `HF_HOME`: the endpoint downloaded the 4B model (2.9 GB) and was ready after
@@ -342,7 +609,7 @@ under version control; PP-5 removed the main way to lose evidence by accident
   correct; the README example was served at L0, since the 9B has no head).
 - [x] TypeSafe's output terms (PP-18): read 2026-10-10, see PP-18.
 
-### Verified, no action
+#### Verified, no action
 
 README example reproduces exactly (0.5955 / 0.4039 / 0.0006, 140 tokens; 3
 runs byte-identical; ready in 1.6 s at 2.8 GB; a mixed Choice/Noul/Score
@@ -363,66 +630,6 @@ External sources re-checked 2026-10-10:
 [AnyJev CHANGELOG](https://github.com/nokia-applied-research/AnyJev/blob/main/CHANGELOG.md),
 [OpenRouter terms](https://openrouter.ai/terms).
 
-## Highest value, lowest cost
-
-1. **Determinism proof.** README says re-running anything returns
-   identical answers; `state_share.json` is the only equivalence artifact
-   and `jev_repeat.py` covers the reference side only. Run any bench twice
-   on the same inputs and byte-compare the stored answers. Cost: trivial.
-2. **Same-arena ladder: L0 vs L1 vs L2 on one held-out task.** The levels
-   table asserts what each level buys, but L2 has only the `next_move`
-   holdout (0.826) and L1 nothing. Fit a temperature and a head for one
-   benchmark question (e.g. a banking77 or Noul layout) and evaluate all
-   three levels on the same holdout. Cost: one fit plus one eval run.
-3. **L1 calibration bench.** The "0.93 knowledge-gap tail" is L1's stated
-   reason to exist with no reliability curve behind it. Fit the temperature
-   and report ECE / reliability on held-out L0 outputs, in-distribution.
-   Also on the ROADMAP backlog ("L1 temperature calibration"). Cost: small.
-
-## Measurement coverage
-
-4. **Foreign-domain L2 generalization.** All 73 observe rows and 81 shadow
-   rows are `qjev-sandbox`; the domain-general charter has no evidence
-   outside it. The synth A/B was neutral, and its "real test is
-   foreign-domain agreement" (ROADMAP P1). Blocked on usage, not code.
-5. **AnyJev parity point.** Their published label-free L0 is BANKING77
-   20-way on Qwen3-8B (0.803 on 300 items). Run the same config on this
-   backend and models for a like-for-like cross-implementation number.
-   Cost: one bench run (a 20-way option on `bench_banking77.py`).
-6. **Length sweep.** Latency and accuracy exist for short and long buckets;
-   a 0.5k / 1k / 2k / 4k / 8k curve would back "wins where agents actually
-   work" with a shape instead of two dots. Cost: one GPU session.
-7. **Concurrency/throughput baseline.** Everything is single-request; the
-   ROADMAP dynamic-batching direction has no baseline number to beat.
-   Cost: moderate (client plus server under load).
-8. **CLINC150 as a second gold-label arena.** banking77 is the only
-   gold-label accuracy bench; CLINC150 sits in the reference ecosystem's
-   training mix. Lower priority. Cost: loader plus bench run.
-9. **Layer-left sweep for the L2 head (speed, not RAM).** The exit block is
-   repo-controlled, not an AnyJev property: `mlx_backend.py` owns the
-   early-stop block loop, and the candidate list is the `LAYERS` constant in
-   `observe.py` / `fit_registry_head.py` (today `[16, 19, 22]`; the shipped
-   head landed on 16/32). A/B plan: set `LAYERS = [4, 8, 12, 16, 20, 24,
-   28]`, run `observe.py` per point on the shipped 73-row replay (about a
-   minute each; it prints layer, oof and in-domain hits), take ms/decision
-   from the `bench_mass_removal.py` harness shape, then re-read τ and ECE
-   via `shadow_stats.py` at the winning layer, and compound with
-   `--max-permutations 2`. Guardrail: earlier exit saves compute only —
-   weights stay resident, so RAM is a model-choice lever (4B 2.8 GB /
-   9B 5.3 GB), not a layer lever. Quality n is the 73 replay rows (small);
-   the seed-head holdout cannot be recomputed (seed withheld).
-
-## Already tracked elsewhere
-
-- 1.5B floor test (ROADMAP, cross-model comparisons): where the readout
-  degrades toward the untrained line.
-- Human-label leg and judge-noise repeat (CONTRIBUTING, "the highest-value
-  contribution"): a second judge pass on the 30 long items or the ~10-row
-  human adjudication.
-- The 36/33 pre-training numbers exist only in the frozen
-  `results/typed_decisions*.json` reference lines; re-verify the Unsloth
-  guide before quoting them anywhere public. Re-verified 2026-10-10: the
-  guide confirms 0.8B 36% → 73% and 2B 33% → 78%; what still needs fixing is
-  the README wording (PP-4).
-- The judge-leg scoring step was performed outside the repo (CONTRIBUTING
-  says so now); ship a script if one-command replication is wanted.
+- [x] The Unsloth 36/33 pre-training numbers (they exist only in the frozen
+  `results/typed_decisions*.json` reference lines) were re-verified 2026-10-10: the guide
+  confirms 0.8B 36% -> 73% and 2B 33% -> 78%; the README wording was fixed in PP-4.

@@ -19,6 +19,11 @@ concretely measured on this artifact (details in docs/RESULTS.md):
   calibration is the targeted in-distribution fix, and temperature
   scaling itself degrades under shift, so it calibrates the tail but does
   not license autonomy.
+- **`--early-stop` trades calibration for speed.** Answers stay (2 of 350
+  changed against the full read) but the confidences get more optimistic: ECE
+  0.035 → 0.046, and the answers at confidence ≥ 0.9 agree with Jev 93.0% of the
+  time instead of 96.3%. It is opt-in for that reason; keep the default if
+  anything routes on a confidence threshold.
 - **Small + quantized**: quantization hits small models harder than large
   ones (Dettmers & Zettlemoyer, arXiv:2212.09720). Every number is
   measured on the exact served 4-bit artifact ("fit on what you serve"),

@@ -125,6 +125,11 @@ class HandlerWithoutModel(unittest.TestCase):
                                           "max_state_chars": S.MAX_STATE_CHARS,
                                           "max_body_bytes": S.MAX_BODY_BYTES})
 
+    def test_healthz_reports_how_reads_are_served(self):
+        _, data, _ = self.request("GET", "/healthz")
+        self.assertEqual(data["serving"], {"state_shared": True, "batched_suffixes": True,
+                                           "kv_budget_gib": 1.5, "early_stop": None})
+
     def test_get_on_the_endpoint_is_405_with_allow(self):
         status, data, hdrs = self.request("GET", "/v1/systemone")
         self.assertEqual(status, 405)

@@ -23,9 +23,9 @@ curl -s localhost:8095/v1/systemone -d '{"state": "Ticket #4821 from Dana (Pro p
 ```text
 -> {"model": "mlx-community/Qwen3.5-4B-MLX-4bit",
     "answers": {
-       "route": {"type": "Choice", "answer": "platform-oncall", "confidence": 0.8425, "probabilities": {"billing": 0.0809, "platform-oncall": 0.8425, "account-management": 0.0592, "docs": 0.0175}},
+       "route": {"type": "Choice", "answer": "platform-oncall", "confidence": 0.8516, "probabilities": {"billing": 0.0744, "platform-oncall": 0.8516, "account-management": 0.0579, "docs": 0.0161}},
        "escalate_now": {"type": "Noul", "answer": true, "confidence": 0.637, "probabilities": {"Yes": 0.637, "No": 0.363}},
-       "urgency": {"type": "Score", "answer": "critical", "confidence": 0.6637, "probabilities": {"low": 0.0051, "medium": 0.0177, "high": 0.3135, "critical": 0.6637}}},
+       "urgency": {"type": "Score", "answer": "critical", "confidence": 0.6651, "probabilities": {"low": 0.0051, "medium": 0.0156, "high": 0.3142, "critical": 0.6651}}},
     "usage": {"input_tokens": 526}}
 ```
 
@@ -43,6 +43,7 @@ Local 4-bit Qwen3.5 4B (9B where noted), label-free, zero training, on an Apple 
 | BANKING77, all 77 intents | 9B 66.4% beats greedy 60.8% (p = 0.0034); 4B 63.4% sits below greedy 66.8% (p = 0.068); Jev 78.6% |
 | [typed-decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions), scored with zero training | 61.6% (4B), 60.4% (9B), vs 73% and 78% for 0.8B and 2B models [trained on it](https://unsloth.ai/docs/basics/train-your-own-decision-model-with-unsloth) |
 | Latency, long input, 5 questions in one request | 22.2 s down to **3.7 s** mean (5.3× mean per-request speedup; state read once); the coding head answers in about 0.2 s |
+| Batched suffix passes (the default), 70 requests / 350 questions | short request 1036 → **552 ms**, long 3520 → 2989 ms, mean over all 70 requests 1422 → **942 ms (1.5×)**; agreement with Jev unchanged (76.0%); opt-in `--early-stop` reads 19% fewer passes ([RESULTS](docs/RESULTS.md#speedprecision-sweep-2026-10-11)) |
 
 The losses are expected: a trained model beats a zero-training readout whenever labels and a fixed label set exist. This is for questions and options you cannot list ahead of time, on a machine where the data cannot leave. Why the numbers look like this, and what "label-free" means: [docs/CONCEPTS.md](docs/CONCEPTS.md).
 
@@ -58,7 +59,7 @@ python decide/serve/systemone.py --port 8095        # first start downloads the 
 python decide/doctor.py                            # optional preflight: versions, pins, cache, ports
 ```
 
-Then run the `curl` above. With Nix, use `nix develop -c python decide/serve/systemone.py --port 8095` instead. The shadow proxy for a coding agent, the adaptation loop, every benchmark command and the repository map are in [docs/RUNNING.md](docs/RUNNING.md).
+Then run the `curl` above. With Nix, use `nix develop -c python decide/serve/systemone.py --port 8095` instead. The server batches the passes of a request by default; `--early-stop` (fewer passes, slightly more optimistic confidences) and `--no-batch` are in [docs/API.md](docs/API.md#server-flags). The shadow proxy for a coding agent, the adaptation loop, every benchmark command and the repository map are in [docs/RUNNING.md](docs/RUNNING.md).
 
 ## Docs
 
@@ -77,7 +78,7 @@ Then run the `curl` above. With Nix, use `nix develop -c python decide/serve/sys
 - [docs/DECISIONS.md](docs/DECISIONS.md): what was chosen and why
 - [docs/PRIOR_ART.md](docs/PRIOR_ART.md): prior art, credits, train-in vs read-out
 - [docs/POLICY.md](docs/POLICY.md): domain-general policy and the calibration bright line
-- [docs/ROADMAP.md](docs/ROADMAP.md), [docs/TODO.md](docs/TODO.md): status, backlog and open measurement work
+- [docs/TODO.md](docs/TODO.md): one checklist for status, backlog and open work (open items first, done items ticked)
 - [docs/DECIDE.md](docs/DECIDE.md), [docs/HARNESS.md](docs/HARNESS.md), [docs/HISTORY.md](docs/HISTORY.md): historical investigation and session records
 
 **Project**

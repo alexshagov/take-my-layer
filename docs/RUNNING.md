@@ -39,7 +39,9 @@ question type, the errors and the limits are in `docs/API.md`. Serving flags, wi
 measured tradeoffs in docs/RESULTS.md:
 
 ```bash
-python decide/serve/systemone.py --max-permutations 2   # latency mode: ~90% of the gain, 3.8x faster
+python decide/serve/systemone.py --early-stop           # fewer passes: one rotation first, the rest only where unsure
+python decide/serve/systemone.py --no-batch             # one suffix pass at a time (the pre-2026-10-11 behaviour)
+python decide/serve/systemone.py --max-permutations 2   # 10-option Choice: ~90% of the gain, 3.8x faster; fewer-option Choices lose accuracy
 python decide/serve/systemone.py --model mlx-community/Qwen3.5-9B-MLX-4bit   # L0 only, no registry head
 ```
 
@@ -138,6 +140,7 @@ python decide/bench/banking77_greedy.py                 # greedy leg on the 400 
 python decide/bench/l0_ablation.py                      # raw vs L0 vs K-curve (~3 min)
 python decide/bench/rotation_budget.py                  # rotation-budget curve (~20 min)
 python decide/bench/bench_state_share.py                # state-share parity and speed (~5 min)
+python decide/bench/bench_fast_path.py                  # sequential vs batched vs batched + early stop: Jev agreement, BANKING77 gold, ms, memory (~9 min, 4B)
 python decide/bench/bench_mass_removal.py               # --no-mass before/after (<1 min)
 
 # no model: CPU only, or the Jev API only
@@ -188,7 +191,8 @@ decide/                     the Python package (scripts find the repo root; run 
 ├── core/                   readout engine
 │   ├── mlx_backend.py        AnyJev Backend protocol on MLX (logprobs, early-stop
 │   │                         hidden states, prefix-KV + multi-token scoring)
-│   ├── state_shared.py       state-level prefix sharing (one state forward per request)
+│   ├── state_shared.py       state-level prefix sharing (one state forward per request) + early stopping
+│   ├── batching.py           byte budget / row chunks for batched suffix passes (no MLX)
 │   ├── state_feed.py         renderer: live messages / trace points -> state text
 │   ├── trace_states.py       trace -> decision-point dataset (seed loader; raises,
 │   │                         the gold seed is not shipped)
@@ -214,6 +218,7 @@ decide/                     the Python package (scripts find the repo root; run 
 │   ├── pool_evals.py         pool eval batches + paired McNemar
 │   ├── shadow_stats.py       shadow-log re-read (agreement/router/ECE)
 │   ├── bench_state_share.py  state-share parity + speed
+│   ├── bench_fast_path.py    sequential vs batched vs batched + early stop (agreement, gold, ms, memory)
 │   └── bench_mass_removal.py --no-mass before/after
 ├── research/               runnable smoke scripts (l0_smoke.py) +
 │   │                         stub_server.py (zero-MLX contract test)
