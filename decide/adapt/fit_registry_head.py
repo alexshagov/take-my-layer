@@ -1,4 +1,6 @@
-"""Fit the production head and write it to the registry (docs/HARNESS.md §3.2/§6).
+"""Fit the production head and write it to the registry.
+
+See docs/DESIGN.md, 'Renderer and head registry'.
 
 NOTE (release prep): the gold seed (data/traces/) is no longer shipped —
 running this requires regenerating a labeled corpus first (synth_states.py
@@ -48,7 +50,7 @@ from decide.runio import RUNS, check_out
 MODEL = "mlx-community/Qwen3.5-4B-MLX-4bit"
 SEED = 0
 HOLDOUT_FRAC = 0.2
-TAU = 0.8                       # from the H1 router replay (docs/DECIDE.md §8 step 4)
+TAU = 0.8                       # from the H1 router replay (docs/DESIGN.md, 'Router replay')
 # cheap-depth candidates only (the layer-32 pick costs 0.3-10s/decide and
 # churns Metal; folds at 16-22 held OOF 0.81-0.85)
 LAYERS = [16, 19, 22]

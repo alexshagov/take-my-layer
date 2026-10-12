@@ -1,8 +1,8 @@
-# registry/ — fitted head artifacts
+# registry/ (fitted head artifacts)
 
 One directory per model, one subdirectory per adapter state: `registry/<model id with / as __>/base/` is the untouched base model. A head reads the hidden state of exactly that quantized artifact ("fit on what you serve"), so it must not be used with another quant, a truncated build or an SFT-tuned adapter.
 
-All four files answer the same question, `next_move` ("What should the agent do next?", options `inspect`, `run`, `modify`). The head was built as an experiment for a coding-agent harness — the one place the fitted L2 level is demonstrated on real agent traffic (the shadow proxy); it is not a general capability of the endpoint. Each file is a linear map (method `head:lda`, solved in closed form, no gradient steps) from the last-position hidden state at block 16 of 32 (hidden size 2560) to the three options, plus a fitted temperature.
+All four files answer the same question, `next_move` ("What should the agent do next?", options `inspect`, `run`, `modify`). The head was built as an experiment for a coding-agent harness: the one place the fitted L2 level is demonstrated on real agent traffic (the shadow proxy); it is not a general capability of the endpoint. Each file is a linear map (method `head:lda`, solved in closed form, no gradient steps) from the last-position hidden state at block 16 of 32 (hidden size 2560) to the three options, plus a fitted temperature.
 
 | file | what it is | served |
 |---|---|---|

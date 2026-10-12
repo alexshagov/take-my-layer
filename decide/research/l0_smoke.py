@@ -1,8 +1,10 @@
-"""L0 zero-label smoke (docs/DECIDE.md §5.2).
+"""L0 zero-label smoke.
+
+See docs/DESIGN.md, 'Feasibility on the prototype's data'.
 
 Runs the AnyJev pipeline (raw + L0) through the MLX backend against the local
 Qwen3.5-4B on hand-written coding-agent states, prints distributions, and
-measures prefill throughput (docs/DECIDE.md §6 assumption: ~500–1000 tok/s local
+measures prefill throughput (assumed ~500–1000 tok/s local
 prefill — first local number).
 
 Run:  nix develop -c bash -c 'python decide/research/l0_smoke.py'

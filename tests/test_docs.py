@@ -78,6 +78,36 @@ class Links(unittest.TestCase):
                 self.assertIn(anchor, linked)
 
 
+URL = re.compile(r"https?://\S+")
+MD_NAME = re.compile(r"(?<![*\w./-])[\w./-]*[\w-]\.md\b")   # not the tail of a glob like *.sheet.md
+FOREIGN = ("mlx_lm/",)                                          # files that live in other packages
+SKIP_DIRS = {".venv", ".hf", ".direnv", ".cache", ".uv-cache", "archive", "runs", "logs", "__pycache__"}
+# wording that points a stranger at material they cannot reach
+LEAKS = re.compile(
+    r"/Users/\w+|/home/\w+"
+    r"|\bprivate (?:single-domain |production |reference )?(?:prototype|decision-server|server|seed)\b"
+    r"|\bperused in full\b|\bresearch_log\b", re.I)
+
+
+class Hygiene(unittest.TestCase):
+    """The docs may not cite files that do not exist, or leak where they came from."""
+
+    def test_named_markdown_files_exist(self):
+        existing = {p.name for p in ROOT.rglob("*.md") if not SKIP_DIRS & set(p.relative_to(ROOT).parts)}
+        for md in DOCS:
+            text = URL.sub("", strip_code(md.read_text()))
+            cited = {m.group(0) for m in MD_NAME.finditer(text) if not m.group(0).startswith(FOREIGN)}
+            for name in sorted({c.rsplit("/", 1)[-1] for c in cited}):
+                with self.subTest(f"{md.relative_to(ROOT)} names {name}"):
+                    self.assertIn(name, existing, f"{md.name} cites {name}, which is not in the repository")
+
+    def test_no_private_provenance_or_local_paths(self):
+        for md in DOCS:
+            for m in LEAKS.finditer(md.read_text()):
+                with self.subTest(f"{md.relative_to(ROOT)}: {m.group(0)}"):
+                    self.fail(f"{md.name} contains {m.group(0)!r}")
+
+
 class Readme(unittest.TestCase):
     def test_readme_is_short(self):
         n = len((ROOT / "README.md").read_text().splitlines())

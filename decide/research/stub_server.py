@@ -1,4 +1,6 @@
-"""Contract test stub (HARNESS §8.1 / Q2): serves ONLY fabricated responses.
+"""Contract test stub: serves only fabricated responses.
+
+See docs/DESIGN.md, 'Shadow proxy and the supervised worker'.
 
 Isolates the @ai-sdk parsing question from all MLX/memory issues. Variant
 selected by env STUB_VARIANT: v1 = the fabricated tool_calls shape the

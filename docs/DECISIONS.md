@@ -1,15 +1,14 @@
-# DECISIONS.md — the decision record
+# DECISIONS.md: the decision record
 
 One entry per decision that shaped the artifact: what was chosen, why, and
-where the evidence lives. Measured numbers: docs/RESULTS.md. Raw
-session-by-session detail: docs/HISTORY.md. Historical design reasoning:
-docs/DECIDE.md + docs/HARNESS.md.
+where the evidence lives. Measured numbers: docs/RESULTS.md. Where the
+design comes from: docs/DESIGN.md. Open work: docs/TODO.md.
 
 ## Method & scope
 
 - **Read the decision out of the model instead of generating it.** The
   agent step was ~8 s of decoding a ~200-token tool call; a readout is one
-  prefill. Evidence: DECIDE.md §1/§8 steps 1–3; RESULTS "Decide vs
+  prefill. Evidence: DESIGN.md "The idea", "Feasibility on the prototype's data"; RESULTS "Decide vs
   generate".
 - **Deploy AnyJev's method (`anyjev==0.2.0`), build the missing MLX
   backend ourselves.** AnyJev never shipped an MLX backend (their
@@ -22,13 +21,14 @@ docs/DECIDE.md + docs/HARNESS.md.
   the coarse-label policy, the renderer-v3 generalization, and the
   seed-removal below. POLICY.md header.
 - **Coarse question vocabulary: inspect / run / modify.** Fine tool
-  identity measured as label noise twice — at L0 (read↔grep = 31/65
+  identity measured as label noise twice: at L0 (read↔grep = 31/65
   errors) and at L2 (6-tool merged ≡ 3-class exact). Evidence:
-  DECIDE.md §8 steps 2–3; POLICY.md §2.
+  DESIGN.md "Coarse questions"; POLICY.md §2.
 - **Two surfaces; benchmarks on the decision endpoint only.** The endpoint
-  is deterministic and never adapts (re-runs bit-identical); the proxy is
+  is deterministic and never refits (replaying a request sequence on a fresh
+  server is bit-identical; its only state is the running batch prior); the proxy is
   shadow-only. Routing was measured unsafe on foreign live traffic
-  (routed error 37% at 59% coverage) — shadow-only stays correct until a
+  (routed error 37% at 59% coverage): shadow-only stays correct until a
   domain-general call-construction leg exists and τ is re-read per
   surface. docs/CONCEPTS.md "The two surfaces"; RESULTS "Live re-read"; POLICY §4.
 - **The fabrication leg was removed at fork** (it was seed-domain-only by
@@ -41,20 +41,20 @@ docs/DECIDE.md + docs/HARNESS.md.
   project don't belong in a public release. The heads ship as fitted
   artifacts with lineage; refits go through synth_states.py + observe().
   POLICY.md "Provenance".
-- **Calibration bright line: L1/L2 fit only on the serving surface's own
-  observe() outcomes** — never benchmark train splits, never another
+- **Calibration rule: L1/L2 fit only on the serving surface's own
+  observe() outcomes**, never benchmark train splits, never another
   model's answers (that would be distillation, or capacity-free
   fine-tuning). Benchmarks are quoted at zero-training L0; the
   trained-vs-readout gap is reported as a finding. POLICY §3.
 - **Never synthetic-only; supplement, don't replace.** AnyJev's recipe:
   gold stays the strong corpus, synthetic supplements at ≥300; ours
-  measured NEUTRAL at 285 on a same-domain holdout. POLICY §3;
+  measured neutral at 285 on a same-domain holdout. POLICY §3;
   `results/synth_gain.json`.
 - **observe() fits a readout adapter, not a fine-tune.** No base weight is
   updated; nothing of ours enters the forward pass. A deployment owning a
   rich labeled history of its exact decision surface should graduate to
-  real fine-tuning — the train-in vs read-out crossover verdict.
-  docs/CONCEPTS.md "The two surfaces" (the flywheel); PRIOR_ART.md.
+  real fine-tuning: the train-in vs read-out crossover verdict.
+  docs/CONCEPTS.md "The two surfaces" (the observe() loop); PRIOR_ART.md.
 
 ## Serving
 
@@ -82,8 +82,8 @@ docs/DECIDE.md + docs/HARNESS.md.
   serving-layer.
 - **The decide worker is a supervised subprocess with a hard timeout.**
   Born from the measured OOM/wedge postmortem (an in-process decide once
-  held the Head lock and silenced every later request). DECIDE.md §8
-  step 6.
+  held the Head lock and silenced every later request). DESIGN.md
+  "Shadow proxy and the supervised worker".
 
 ## Claims & wording
 
@@ -94,8 +94,7 @@ docs/DECIDE.md + docs/HARNESS.md.
   9B ahead +5.6, p=0.0034). RESULTS header + "Decide vs generate".
 - **External numbers are citation-audited before publish** (Clef table,
   Unsloth set, dataset licenses, arXiv IDs, OpenRouter terms), and
-  unverifiable citations are deleted rather than kept. The audit log:
-  HISTORY.md, Session 2026-10-08 #4.
-- **The private reference server was read for methodology only** and
-  anonymized at release prep — never a dependency, no code used.
+  unverifiable citations are deleted rather than kept.
+- **A non-public decision server was read for methodology only:**
+  never a dependency, no code used.
   POLICY.md provenance note.

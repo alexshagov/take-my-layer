@@ -11,8 +11,8 @@ tests` green; for a new number, follow "Changing measurement code" below.
 
 ## The rule that bounds everything
 
-Calibration artifacts (L1/L2 heads, temperatures) are fitted ONLY from the
-serving surface's own observe() telemetry — never on public benchmark
+Calibration artifacts (L1/L2 heads, temperatures) are fitted only from the
+serving surface's own observe() telemetry, never on public benchmark
 train splits, never against another model's answers (docs/POLICY.md §3).
 Benchmarks are quoted at zero-training L0. If a task looks like "labels →
 train a classifier", that is fine-tuning territory (cf. Unsloth), not this
@@ -23,11 +23,11 @@ project.
 The shipped evaluations carry no human ground truth (docs/RESULTS.md,
 "Evaluation disclosure"): items were authored with LLM assistance and the
 project's authors built the system under evaluation. The single most
-useful contribution is an independent, human-labeled read — even
+useful contribution is an independent, human-labeled read, even
 adjudicating just the ~10 disagreement rows in
 `results/labels_long.scored.json`. The items and stored answers ship
 in-repo and every headline bench number replicates with one command per
-leg (docs/RUNNING.md); the blind-judge leg is the one exception — its
+leg (docs/RUNNING.md); the blind-judge leg is the one exception: its
 sheets and scored rows ship, but the scoring step was performed outside
 the repo.
 

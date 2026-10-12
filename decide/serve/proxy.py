@@ -1,4 +1,6 @@
-"""Shadow proxy (docs/HARNESS.md §5 H2 phase 0) + the safety/adaptation legs.
+"""Shadow proxy + the safety/adaptation legs.
+
+See docs/DESIGN.md, 'Shadow proxy and the supervised worker'.
 
 Transparent pass-through in front of mlx_lm.server. Routes NOTHING: while the
 upstream generates, the proxy renders the conversation through the v2
@@ -63,7 +65,7 @@ MASS_TAU = 0.0           # answer-mass guard floor. MEASURED NON-SEPARATING on
 def _worker_main(reg_path, model_path, q_req, q_rep, mass_tau, no_mass=False):
     """Runs in its own process: owns the ONLY extra MLX instance. A wedged
     forward here can only cost the parent one timeout, never the request path
-    (docs/DECIDE.md §8 step-6 postmortem: an in-process decide held the Head
+    (docs/DESIGN.md, 'Shadow proxy and the supervised worker': an in-process decide held the Head
     lock and silenced every later request for the rest of the batch).
 
     L2 read = ONE forward: the hidden state for the registry head at its exit

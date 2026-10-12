@@ -1,4 +1,4 @@
-# CONCEPTS.md — what this is, how it differs, and the vocabulary
+# CONCEPTS.md: what this is, how it differs, and the vocabulary
 
 The README is the short version. This page holds the longer explanations: who this is for, how it relates to Jev, Unsloth, Cloudflare Clef and a plain classifier, the two ways to run it, the readout levels, and a glossary.
 
@@ -35,7 +35,7 @@ MLX backend for Macs, one HTTP endpoint, the observe() loop, and the
 measurements. If you do not need Mac or this packaging, start with the
 library, with one caveat: AnyJev 0.3.0 (2026-10-06) removed the
 label-trained levels (L1, L2, heads, `observe`, `level="auto"`). The L2
-head and the observe() flywheel here need `anyjev==0.2.0`, which
+head and the observe() loop here need `anyjev==0.2.0`, which
 `requirements.txt` pins; the current library covers the label-free L0
 readout that every benchmark here uses.
 
@@ -57,11 +57,11 @@ A language model normally *writes* an answer, one word at a time. This
 project skips the writing: it shows the model the question and reads the
 answer straight off the model's internal state, like reading the gauge on
 a machine instead of waiting for a written report. One look returns the
-answer AND how confident the model is about every option. The model itself
+answer and how confident the model is about every option. The model itself
 stays exactly as it downloaded.
 
-**Why bother.** It is deterministic (same question → same answer, every
-time), it returns full confidence distributions instead of a string, it
+**Why bother.** It is deterministic (the same request sequence to a fresh
+server gives the same answers; docs/API.md, "Repeatability"), it returns full confidence distributions instead of a string, it
 runs on a laptop with no data leaving the machine, and it improves from
 its own traffic: while it shadows real work it quietly records "what I
 predicted" next to "what actually happened", and those free outcomes
@@ -87,7 +87,7 @@ long contexts, or any answer longer than a word.
   this repo is useful to the community, that glue-and-measurement layer,
   not method novelty, is why.
 
-**Charter: the layer is DOMAIN-GENERAL.** It must keep working when the
+**Charter: the layer is domain-general.** It must keep working when the
 repo is Python, the tests are pytest, the task is sysadmin work, or the
 agent harness is not opencode, and it must generalize off the substrate
 it was born on.
@@ -107,7 +107,7 @@ One readout core, two faces. Almost every published number is Face 1.
    generation server), with the `next_move` L2 head (inspect/run/modify).
    Shadow-only: it routes nothing, it logs what the head would have done
    against what the model actually called. This is where the **observe()
-   flywheel** lives: the proxy banks every real decision together with
+   loop** lives: the proxy banks every real decision together with
    the tool that was *actually called next* (a free label, since the
    outcome is observable in agent traffic), and `decide/adapt/observe.py`
    refits the head from that bank on demand.
@@ -115,10 +115,10 @@ One readout core, two faces. Almost every published number is Face 1.
 Scope note: **nothing improves "for
 free" on benchmark or judgment questions**, because their truth is not
 observable in traffic, re-running is bit-identical, and fitting heads on
-benchmark labels is the docs/POLICY.md §3 bright line. The flywheel turns
+benchmark labels is the calibration rule in docs/POLICY.md §3. The loop turns
 only where reality grades you for free.
 
-**What the flywheel is, and is not.** The observe() loop fits a **readout
+**What the observe() loop is, and is not.** The observe() loop fits a **readout
 adapter**: a linear map (e.g. 2560×3 ≈ 7.7k parameters) plus a
 temperature, solved in closed form on CPU from extracted hidden states.
 It is *not* fine-tuning and *not* a LoRA, on two structural grounds: **no
@@ -131,7 +131,7 @@ measured bound in docs/RESULTS.md, typed-decisions), one frozen base
 serves many hot-swappable heads, and every other behavior of the base
 stays bit-identical. The concession: a deployment owning a rich
 labeled history of its exact decision surface should graduate to real
-fine-tuning (the crossover verdict, docs/PRIOR_ART.md); the flywheel is
+fine-tuning (the crossover verdict, docs/PRIOR_ART.md); the observe() loop is
 the tool for everything short of that point.
 
 ## The levels (readout ladder)
@@ -139,15 +139,15 @@ the tool for everything short of that point.
 In plain words, before the precise version: every level is a way of getting
 the answer's probability out of the model without generating text and
 without changing its weights. **raw** asks once and reads the letter
-probabilities — but the model favors whichever option is listed first.
+probabilities, but the model favors whichever option is listed first.
 **L0** is "shuffle and average": list the options in several orders, ask
 once per order, average; the position bias cancels and what survives is
-genuine preference — zero labels, works for any question out of the box.
+genuine preference: zero labels, works for any question out of the box.
 **L1** is L0 plus a thermostat: one fitted number that makes "80% sure"
 mean 80% right (confidence only, never which answer wins). **L2** is a tiny
 gauge fitted beside the model for one repeated question: it peeks at an
-early internal layer, faster than a full pass and sharper on its home turf
-— the coding `inspect/run/modify` head is the only one shipped, an
+early internal layer, faster than a full pass and sharper on its home turf.
+The coding `inspect/run/modify` head is the only one shipped, an
 experiment for a coding-agent harness (the shadow proxy), not a general
 capability. The
 endpoint picks automatically: the coding head's exact options get L2,
@@ -161,7 +161,7 @@ and by the observe refit beating the seed head in-domain (64/73 vs 40/73);
 L0 vs L2 on the same held-out task has never been run (docs/TODO.md,
 measurement item 2).
 
-All levels read the BASE model's internals in prefills; no weights are
+All levels read the base model's internals in prefills; no weights are
 changed at any level. `level="auto"` = serve the best available per
 question: L2 where a head routes, else L1, else L0 (the proxy/endpoint
 degradation chain).
@@ -220,17 +220,17 @@ never been measured. The ladder stops at L2 (no L3).
 
 **Shadow proxy, shadow-only.** The proxy sits in front of a generation server and passes every request through unchanged. It also asks the head what it would do next and logs that against what the model actually did. It routes nothing.
 
-**Flywheel, `observe()`.** The loop that turns shadow traffic into labels: the proxy pairs each rendered state with the tool the model actually called next, and `decide/adapt/observe.py` refits the head from that bank (first solve at 30 labels, refit at 60, 120, ...). It only works where outcomes are observable for free, which benchmarks are not.
+**The `observe()` loop.** Turns shadow traffic into labels: the proxy pairs each rendered state with the tool the model actually called next, and `decide/adapt/observe.py` refits the head from that bank (first solve at 30 labels, refit at 60, 120, ...). It only works where outcomes are observable for free, which benchmarks are not.
 
 **Tau (τ).** The confidence threshold (0.8) above which the head's answer *would* be acted on (`would_route` in the shadow log). The value was set on the coding domain where the head was fitted; re-read it per surface before any routing use (LIMITATIONS.md).
 
 **Answer mass.** The total probability the model puts on the answer labels at the answer position. Low mass would mean "not a readable decision". Measured non-separating on this model, so it is logged only (`MASS_TAU=0.0`).
 
-**Bright line.** The rule in POLICY.md section 3: calibration artifacts are fitted only from the serving surface's own observed traffic, never from public benchmark training splits and never against another model's answers. Benchmarks are quoted at zero-training L0.
+**Calibration rule.** The rule in POLICY.md section 3: calibration artifacts are fitted only from the serving surface's own observed traffic, never from public benchmark training splits and never against another model's answers. Benchmarks are quoted at zero-training L0.
 
 **Fidelity vs accuracy.** Agreement with Jev measures fidelity to a reference. Accuracy is agreement with gold labels (BANKING77, typed-decisions). The docs keep the two words apart.
 
-**Fork, "at fork".** This repository was forked from a private single-domain prototype on 2026-10-07 (POLICY.md, "Provenance"). "Removed at fork" means removed in that split. It does not mean a GitHub fork.
+**Fork, "at fork".** This repository was forked from an unpublished single-domain prototype on 2026-10-07 (POLICY.md, "Provenance"). "Removed at fork" means removed in that split. It does not mean a GitHub fork.
 
 **Gold seed.** The recorded coding sessions (2,306 decision points) the shipped head was fitted on. Withheld from the repo, so the head cannot be reproduced from it.
 

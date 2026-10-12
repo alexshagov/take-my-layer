@@ -1,4 +1,4 @@
-"""Renderer v2 / the one-pipeline bridge (docs/HARNESS.md §3.1).
+"""Renderer v2 / the one-pipeline bridge (docs/DESIGN.md, 'Renderer and head registry').
 
 Both worlds converge on the same canonical call list before rendering:
   live proxy:  OpenAI messages[] -> calls_from_messages()

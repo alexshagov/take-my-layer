@@ -1,10 +1,10 @@
-# RUNNING.md — install, run, benchmark
+# RUNNING.md: install, run, benchmark
 
 The README has the short start. This page is the full guide: install, the decision endpoint, the shadow proxy for a coding agent, the adaptation loop, every benchmark command, and a map of the repository.
 
 Requirements: an Apple Silicon Mac on macOS 14 or newer, and Python 3.11 or
-newer (mlx-lm 0.32.0 needs it; the Nix shell uses 3.12 — install a newer
-Python or use Nix). Memory, measured: the
+newer (mlx-lm 0.32.0 needs it; the Nix shell uses 3.12). Install a newer
+Python or use Nix. Memory, measured: the
 4B model is a 2.9 GB download and about 2.8 GB resident, the 9B 5.6 GB and
 5.3 GB; 32 GB is comfortable when a benchmark runs next to a server. The
 4-bit model downloads on first start into the Hugging Face cache.
@@ -15,7 +15,7 @@ With Nix, `nix develop` builds `.venv`, installs `requirements.txt` and sets
 ```bash
 python3.12 -m venv .venv && . .venv/bin/activate   # any Python >= 3.11
 pip install -r requirements.txt   # mlx-lm==0.32.0, anyjev==0.2.0
-export HF_HOME=$PWD/.hf HF_HUB_CACHE=$PWD/.hf/hub   # optional: keep the model cache in the project; export BOTH — an inherited HF_HUB_CACHE (direnv, CI) silently overrides HF_HOME
+export HF_HOME=$PWD/.hf HF_HUB_CACHE=$PWD/.hf/hub   # optional: keep the model cache in the project; export both, because an inherited HF_HUB_CACHE (direnv, CI) silently overrides HF_HOME
 ```
 
 `python decide/doctor.py` is a stdlib preflight (no model load): Python
@@ -97,15 +97,15 @@ streaming preamble a real server sends), and `proxy.py --upstream
 http://127.0.0.1:8091` shadows it. The proxy still loads its own 4B model for
 the head.
 
-## The adaptation loop (the flywheel)
+## The adaptation loop
 
-What a fresh clone runs: label-free **L0** for every question — except a
+What a fresh clone runs: label-free **L0** for every question, except a
 Choice with exactly the options `inspect`, `run`, `modify`, which the
 shipped L2 coding head answers (loaded by default; `--head` swaps it). The
 loop below is how that head, not a new one, gets sharper on your traffic;
 a head for a *different* question means writing your own fitting step on
 the anyjev 0.2.0 machinery (`fit_head`, the backend's hidden states,
-`decide/core/labels.py` as the pattern) — fitted only on your own serving
+`decide/core/labels.py` as the pattern): fitted only on your own serving
 telemetry (docs/POLICY.md §3).
 
 ```bash
@@ -197,7 +197,7 @@ decide/                     the Python package (scripts find the repo root; run 
 │   ├── trace_states.py       trace -> decision-point dataset (seed loader; raises,
 │   │                         the gold seed is not shipped)
 │   └── labels.py             the coarse inspect/run/modify vocabulary (one source)
-├── serve/                  ENTRY POINTS
+├── serve/                  entry points
 │   ├── systemone.py          POST /v1/systemone decision endpoint (Face 1)
 │   └── proxy.py              shadow proxy :8090 -> upstream :8080 (Face 2)
 ├── adapt/                  head fitting / the adaptation loop
@@ -209,7 +209,7 @@ decide/                     the Python package (scripts find the repo root; run 
 │   ├── eval_vs_jev.py        ours vs the real Jev API (+ the shared client/stats utils)
 │   ├── bench_vs_generate.py  readout vs greedy, same model
 │   ├── bench_banking77.py    10-way gold benchmark (+ item loaders/macro-F1)
-│   ├── banking77_full77.py   full-77-way unlock (multi-token option scoring)
+│   ├── banking77_full77.py   full-77-way readout (multi-token option scoring)
 │   ├── banking77_full77_jev.py / banking77_greedy.py   the live-Jev / greedy legs
 │   ├── bench_typed_decisions.py  typed-decisions head-to-head
 │   ├── rotation_budget.py    m=1/2/3/adaptive rotation-budget curve

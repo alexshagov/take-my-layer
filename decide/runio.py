@@ -1,5 +1,5 @@
 """Output and preflight policy shared by the benchmark, fitting and authoring
-scripts (docs/TODO.md PP-5, PP-17).
+scripts.
 
 results/ holds frozen, quoted evidence and registry/ the shipped head artifacts.
 A fresh run therefore writes to runs/ (gitignored) unless --out says otherwise,

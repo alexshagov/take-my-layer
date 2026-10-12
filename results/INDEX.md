@@ -1,4 +1,4 @@
-# results/ — artifact index
+# results/ (artifact index)
 
 Frozen measurement artifacts behind the numbers quoted in `docs/RESULTS.md`.
 One entry per file: what wrote it, at which readout level, what it measures,
@@ -29,7 +29,7 @@ non-`state` field identical). `mass_removal.json` (13 of its 30 states
 changed) and `registry/…/next_move_observed.json` were computed from the
 pre-scrub text, so a rerun on the scrubbed log can differ: measured
 2026-10-11, `observe.py` on the shipped log refits to oof 0.650 with 60/73
-in-domain hits (frozen: 0.683, 64/73; the seed head's 40/73 is unchanged) —
+in-domain hits (frozen: 0.683, 64/73; the seed head's 40/73 is unchanged),
 a small drift, more than last digits.
 
 One artifact predates the current code and does not re-measure exactly:
@@ -70,6 +70,6 @@ run, compare with `diff runs/X results/X`, then `cp`.
 | `mass_removal.json` | `decide/bench/bench_mass_removal.py` | L2 | `--no-mass` before/after (2.05× + parity) | "Serving-layer measurements" |
 | `state_share.json` | `decide/bench/bench_state_share.py` | L0 | state-level prefix sharing parity + speed (5.3×) | "Serving-layer measurements" |
 | `fast_path.json` | `decide/bench/bench_fast_path.py` | L0 | sequential vs batched suffix passes (the default) vs batched + early stop: Jev agreement on 350 questions, BANKING77 gold (200 items), ms, passes, peak memory | "Speed/precision sweep" |
-| `synth_gain.json` | `decide/adapt/fit_registry_head.py --synth <regenerated corpus>` | L2 head fit | gold-only vs gold+synth A/B (neutral at n=285) | docs/TODO.md "Build history", docs/POLICY.md §3 |
+| `synth_gain.json` | `decide/adapt/fit_registry_head.py --synth <regenerated corpus>` | L2 head fit | gold-only vs gold+synth A/B (neutral at n=285) | docs/POLICY.md §3 |
 | `shadow_log.v3.jsonl` | proxy runtime (v3 renderer live re-read); read by `decide/bench/shadow_stats.py` | L2 | shadow agreement / router curve / ECE | "Live re-read" |
-| `observe_log.jsonl` | proxy runtime observe() leg; replayed by `decide/adapt/observe.py` | L2 | labeled traffic bank for the adaptation loop | docs/POLICY.md §3, docs/TODO.md "Build history" |
+| `observe_log.jsonl` | proxy runtime observe() leg; replayed by `decide/adapt/observe.py` | L2 | labeled traffic bank for the adaptation loop | docs/POLICY.md §3 |

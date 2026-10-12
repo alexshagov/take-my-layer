@@ -1,10 +1,12 @@
-"""Traces -> decision points + compact state rendering (docs/DECIDE.md §5.2 / §8 step 2).
+"""Traces -> decision points + compact state rendering.
+
+See docs/DESIGN.md, 'Feasibility on the prototype's data'.
 
 A "decision point" is the moment just before a tool call: the state the agent
 saw (task + action history so far) and the tool it actually called next (the
 label). Reused later by L2 head fitting — keep rendering deterministic.
 
-Fidelity notes (documented lower bound, docs/DECIDE.md §6):
+Fidelity notes (a documented lower bound, same DESIGN.md section):
 - Full tool outputs existed in the agent's context (file bodies, spec runs);
   we render compact summaries: paths, commands, exit codes, tails, diffs.
   A production renderer with real file access would only have MORE signal.

@@ -1,4 +1,4 @@
-"""MLX backend for AnyJev (docs/DECIDE.md §5.1).
+"""MLX backend for AnyJev (docs/DESIGN.md, 'The method and the backend').
 
 Implements the Backend protocol (anyjev/backends/base.py): a backend does
 exactly one thing — next-token log-probs of requested token ids from the
@@ -290,7 +290,7 @@ class MLXBackend:
 
     def score_suffix_sum(self, prefix: str, suffixes):
         """Multi-token loglikelihood scoring on a shared prefix (the
-        lm-evaluation-harness standard, and the >26-option unlock): ONE
+        lm-evaluation-harness standard, and what scores more than 26 options): ONE
         forward of `prefix`, then each suffix runs from a copy of that cache
         and we return SUM log-softmax over EVERY suffix token, i.e.
         log p(suffix | prefix). The FIRST suffix token's logprob comes from

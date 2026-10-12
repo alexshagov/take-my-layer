@@ -1,25 +1,25 @@
-# PRIOR_ART.md — prior art, credits, and the train-in vs read-out axis
+# PRIOR_ART.md: prior art, credits, and the train-in vs read-out axis
 
-The mechanisms are established techniques; what's ours is the composition
-— one typed-question endpoint + a fixed early-exit head + the observe()
-refit loop, all on one local 4-bit artifact — not any single part.
+The mechanisms are established techniques; what's ours is the composition:
+one typed-question endpoint + a fixed early-exit head + the observe()
+refit loop, all on one local 4-bit artifact, not any single part.
 (Measured consequences live in docs/RESULTS.md.)
 
 - **Label-logprob readout (L0)**: verbalizers / pattern-verbalizer pairs /
-  cloze-style prompting — PET (Schick & Schütze, EACL 2021,
+  cloze-style prompting: PET (Schick & Schütze, EACL 2021,
   arXiv:2001.07676) and "Small Language Models Are Also Few-Shot Learners"
   (NAACL 2021, arXiv:2009.07118, the small-model precedent); automatic
-  label-word search — LM-BFF (Gao et al., ACL 2021, arXiv:2012.15723);
+  label-word search: LM-BFF (Gao et al., ACL 2021, arXiv:2012.15723);
   abstractions codified in OpenPrompt (Ding et al., ACL 2022 demo
   paper, github.com/thunlp/OpenPrompt); loglikelihood scoring is the
   lm-evaluation-harness default for decoder-only models
   (github.com/EleutherAI/lm-evaluation-harness).
-- **L0 debiasing**: prior correction — contextual calibration (Zhao et
-  al., ICML 2021, arXiv:2102.09690); answer-option-order sensitivity —
+- **L0 debiasing**: prior correction: contextual calibration (Zhao et
+  al., ICML 2021, arXiv:2102.09690); answer-option-order sensitivity:
   Pezeshkpour & Hruschka (2023, arXiv:2308.11483); few-shot
-  demonstration-order sensitivity — Lu et al. (ACL 2022,
-  arXiv:2104.08786); the cheap permutation+prior combination — PriDe
-  (Zheng et al., ICLR 2024 spotlight, arXiv:2309.03882); the unified view —
+  demonstration-order sensitivity: Lu et al. (ACL 2022,
+  arXiv:2104.08786); the cheap permutation+prior combination: PriDe
+  (Zheng et al., ICLR 2024 spotlight, arXiv:2309.03882); the unified view:
   Batch Calibration (Zhou et al., ICLR 2024, arXiv:2309.17249). Permutation
   marginalization + prior correction is that lineage; PriDe is the cheaper
   cousin of our K-prefill scheme. A trained-in cousin exists: PACT
@@ -28,29 +28,29 @@ refit loop, all on one local 4-bit artifact — not any single part.
   13.8% → 9.8%) where we marginalize label-free; closest published
   setting to ours. Measured here on the 105-question eval
   (`decide/bench/l0_ablation.py`): marginalization is worth **+4.7 points**
-  over the naive single-prompt read (the letter-logit read Mini-Jev ships) —
+  over the naive single-prompt read (the letter-logit read Mini-Jev ships):
   5 answers flip to the reference, 0 away; the K-curve shows m=2 of K
   rotations already captures ~90% of the gain; and the Zhao-style
-  content-free prior HURT on this eval's single-shot layouts (−6.6 vs
+  content-free prior hurt on this eval's single-shot layouts (−6.6 vs
   marginalization alone), which is why the served default keeps it off
   until a layout repeats (min 8 states).
 - **Linear head on hidden states (L2)**: the probing literature (Hewitt &
   Liang 2019, arXiv:1909.03368; Belinkov, *Computational Linguistics*
   2022, arXiv:2102.12452) criticizes probes as *evidence about what a
-  model understands* — a criticism of claims, not of architecture. A
+  model understands*: a criticism of claims, not of architecture. A
   production head is judged by held-out task accuracy on the served
   artifact (ours: 0.826); we make no interpretability claims. Linear =
   high selectivity is the defensible capacity choice.
 - **Early exit**: CALM (Schuster et al., NeurIPS 2022, arXiv:2207.07061)
   exits per token by confidence; our fixed half-depth exit for one head is
   the layer-pruning family, not adaptive exit. MLX precedents
-  (re-surveyed 2026-10-08): exactly ONE static case — NeoJev
+  (re-surveyed 2026-10-08): exactly one static case: NeoJev
   (`dowands/NeoJev-Qwen3.8-27B-L56-MLX`, Apache-2.0) keeps 56/64 layers
   of a 4-bit Qwen3.8-27B with a self-distilled label-free readout head
   (0.727 mean accuracy, 310 ms p50 on an M5 Pro; a plain logit lens at
-  layer 56 reads only 0.663 — same head-over-raw gap we measure for L2);
+  layer 56 reads only 0.663: same head-over-raw gap we measure for L2);
   no dynamic/CALM-style exit exists in MLX, and mlx-lm exposes no
-  intermediate-layer hooks (issue #1053) — a hand-rolled layer loop like
+  intermediate-layer hooks (issue #1053): a hand-rolled layer loop like
   ours remains the only route, hence the upstream-the-MLX-backend
   backlog item.
 - **Routing ≠ this**: RouteLLM (LMSYS, arXiv:2406.18665,
@@ -67,9 +67,9 @@ refit loop, all on one local 4-bit artifact — not any single part.
   decisions endpoints, and the local-MLX cluster (NeoJev's layer-56
   readout, mlx-decision serving Clef-class weights on Apple Silicon,
   laya-mlx's tiny full-depth decision models).
-- **Train-in vs read-out — the axis this project sits on** (assessed
+- **Train-in vs read-out: the axis this project sits on** (assessed
   2026-10-08): Unsloth's "Train your own Decision Model" is the
-  fine-tune-to-decide route — LoRA plus a Clef-design head trained on the
+  fine-tune-to-decide route: LoRA plus a Clef-design head trained on the
   public `LocalLLaMA/typed-decisions` mix, and it is their mechanism at
   every model size (the 0.8B/2B cost table is the marketing; their code
   example is the 4B). Source-level (verified 2026-10-10): under LoRA the
@@ -83,27 +83,27 @@ refit loop, all on one local 4-bit artifact — not any single part.
   Qwen3.5-0.8B), and a tiny base suffices (0.8B ≈ 2B ≈ 78%), so base
   competence is not the binding substrate there. This repo *reads out*
   capability the frozen base already
-  has — zero gradient steps — so base competence is the binding
-  constraint, and model SIZE, not training, sits on our quality axis.
-  Working hypothesis, MEASURED 2026-10-08 (see docs/RESULTS.md,
+  has, with zero gradient steps, so base competence is the binding
+  constraint, and model size, not training, sits on our quality axis.
+  Working hypothesis, measured 2026-10-08 (see docs/RESULTS.md,
   typed-decisions): the train-in vs read-out crossover is
   **regime-dependent, not size-only**. On typed-decisions (fixed layouts,
   in-distribution gold) our zero-training readout reads 61.6% (4B) / 60.4%
-  (9B) vs their trained 73–78% — fine-tuning wins at every size we can
+  (9B) vs their trained 73–78%: fine-tuning wins at every size we can
   afford, and base size does not move the number. On zero-shot tasks
   (BANKING77, Jev-agreement) base capacity is the lever: the same 9B
-  gained +3.75 points and halved the Jev gap — and on the full-77-way
-  unlock the 9B readout (+3.0 over the 4B) BEATS greedy generation
+  gained +3.75 points and halved the Jev gap, and on the full-77-way
+  readout the 9B (+3.0 over the 4B) beats greedy generation
   (+5.6, p=0.0034) while the 4B does not (p=0.068): capacity flips the
   readout-vs-generation accuracy comparison on the same task. Open
   size-axis point: the 1.5B floor test, where read-out should degrade
   toward the untrained line (their before-training reads sit at chance).
   Caveat that bounds every such comparison: banking77 is IN their
   training mix (test decontaminated but in-distribution), and their
-  74%/58% (0.8B/2B) are 77-way accuracy on their 500-row cut — our
+  74%/58% (0.8B/2B) are 77-way accuracy on their 500-row cut: our
   matching 77-way run reads 63.4% (4B) / 66.4% (9B) zero-training on our
 own 500-row selection (between their two trained lines; the row
-selections differ — exact protocol in docs/RESULTS.md). As of
+selections differ: exact protocol in docs/RESULTS.md). As of
 2026-10-10 no third party publishes a label-free logits readout on
 typed-decisions: the dataset card's zero-shot table lists zero-shot
 general models, and its only label-free reference points are the
@@ -115,33 +115,31 @@ The repo is public (pushed 2026-10-11), so this is no longer a
 "re-verify before publish" gate. Each box records whether the claim was
 re-read against the primary source, with the date and the evidence
 pointer; open boxes are carried from the original survey without a
-re-check — verify them before quoting their numbers anywhere new.
+re-check: verify them before quoting their numbers anywhere new.
 
-- [x] **Cloudflare Clef / Clef-flash** — verified 2026-10-10 (blog
-  re-read; docs/TODO.md "External sources re-checked 2026-10-10"; the
-  Clef table was also re-verified in the 2026-10-08 #4 citation audit,
-  docs/HISTORY.md). Publish-sooner pressure; blog 2026-10-01: Clef =
+- [x] **Cloudflare Clef / Clef-flash**: verified 2026-10-10 (blog
+  re-read; the Clef table was also re-verified in the 2026-10-08 citation
+  audit). Publish-sooner pressure; blog 2026-10-01: Clef =
   Qwen3.8-27B, Clef-flash = Qwen3.5-9B, Apache-2.0 open weights,
   Jev-API compatible, 64k context, median latency 209ms / flash 38.8ms
-  vs Jev 524ms; leads the "Jev Decision Index" public-benchmark subset —
+  vs Jev 524ms; leads the "Jev Decision Index" public-benchmark subset;
   on the index's blended full score Jev still leads, 60.11 vs 53.08.
-- [x] **Unsloth "Train your own Decision Model"** — verified 2026-10-10
-  at two levels: the guide's numbers (docs/TODO.md, PP-4 and the Unsloth
-  re-verification note at the end of the pre-publish checklist) and the
+- [x] **Unsloth "Train your own Decision Model"**: verified 2026-10-10
+  at two levels: the guide's numbers (as quoted in the README table) and the
   source itself (the train-in vs read-out bullet above). Fourth player;
   trains-in capability so small bases suffice.
-- [x] **NeoJev** — the one static MLX early-exit precedent, re-surveyed
+- [x] **NeoJev**: the one static MLX early-exit precedent, re-surveyed
   2026-10-08 (the Early exit bullet above): 27B 4-bit ~15GB; no
   dynamic-exit MLX precedent, and mlx-lm still exposes no layer hooks.
-- [ ] **OpenDecider** — not re-checked since the original survey.
-- [ ] **Mini-Jev** (github.com/deep-diver/mini-jev, letter-logit read) —
+- [ ] **OpenDecider**: not re-checked since the original survey.
+- [ ] **Mini-Jev** (github.com/deep-diver/mini-jev, letter-logit read):
   not re-checked; our measurement against that read style (+4.7 points
   for marginalization, L0 debiasing bullet above) is ours and holds
   independently of their repo.
 - [ ] **mlx-decision (PyPI), laya-mlx (13ms), the awesomejev MLX
-  entries** — not re-checked since the original survey.
+  entries**: not re-checked since the original survey.
 
-Differentiators that survive all of them: the SMALL-memory end
+Differentiators that survive all of them: the small-memory end
 (4B ≈ 3GB), the observe() adaptation loop (nobody ships fit-on-your-traffic
 heads), zero-training deployment, and the measured fidelity/latency story.
-"Only local readout" claims are outdated — do not use them.
+"Only local readout" claims are outdated: do not use them.

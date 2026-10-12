@@ -6,11 +6,19 @@ A decision layer for a local language model on Apple Silicon: zero training, plu
 
 It deploys the method of [AnyJev](https://github.com/nokia-applied-research/AnyJev) (Nokia Applied Research) on an original MLX backend, and measures itself against [Jev](https://typesafe.ai), TypeSafe AI's hosted decision API. Independent; not affiliated with either.
 
-**Status: research prototype.** The Jev-agreement numbers use LLM-authored questions with no human labels; the BANKING77 and typed-decisions rows use public gold labels. The one fitted head we ship (for coding agents) cannot be reproduced from this repo, because its training seed is withheld. If you have a fixed label set and training data, train a classifier instead. See [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
+**Status: research prototype.**
+
+- The Jev-agreement numbers use LLM-authored questions with no human labels. The BANKING77 and typed-decisions rows use public gold labels.
+- The one fitted head we ship (for coding agents) cannot be reproduced from this repo, because its training seed is withheld.
+- If you have a fixed label set and training data, train a classifier instead.
+
+More in [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
 
 ## Benchmarks
 
-Local 4-bit Qwen3.5 4B (9B where noted), label-free, zero training, on an Apple M5 with 32 GB. Each row is a frozen artifact in `results/` and reproduces with one command ([docs/RUNNING.md](docs/RUNNING.md); one exception: the typed-decisions 4B run predates a code change and re-measures 0.3 points higher, see [results/INDEX.md](results/INDEX.md)); tables with confidence intervals are in [docs/RESULTS.md](docs/RESULTS.md).
+Local 4-bit Qwen3.5 4B (9B where noted), label-free, zero training, on an Apple M5 with 32 GB.
+
+Each row is a frozen artifact in `results/` and reproduces with one command ([docs/RUNNING.md](docs/RUNNING.md)). One exception: the typed-decisions 4B run predates a code change and re-measures 0.3 points higher ([results/INDEX.md](results/INDEX.md)). Tables with confidence intervals are in [docs/RESULTS.md](docs/RESULTS.md).
 
 | what was measured | result |
 |---|---|
@@ -20,7 +28,9 @@ Local 4-bit Qwen3.5 4B (9B where noted), label-free, zero training, on an Apple 
 | BANKING77, all 77 intents | 9B 66.4% beats greedy 60.8% (p = 0.0034); 4B 63.4% sits below greedy 66.8% (p = 0.068); Jev 78.6% |
 | [typed-decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions), scored with zero training | 61.6% (4B), 60.4% (9B), vs 73% and 78% for 0.8B and 2B models [trained on it](https://unsloth.ai/docs/basics/train-your-own-decision-model-with-unsloth) |
 | Latency, long input, 5 questions in one request | 22.2 s down to **3.7 s** mean (5.3× mean per-request speedup; state read once); the coding head answers in about 0.2 s |
-| Batched suffix passes (the default), 70 requests / 350 questions | short request 1036 → **552 ms**, long 3520 → 2989 ms, mean over all 70 requests 1422 → **942 ms (1.5×)**; agreement with Jev unchanged (76.0%); opt-in `--early-stop` reads 19% fewer passes ([RESULTS](docs/RESULTS.md#speedprecision-sweep-2026-10-11)) |
+| Batched suffix passes (the default), 70 requests / 350 questions | short request 1036 → **552 ms**, long 3520 → 2989 ms, mean over all 70 requests 1422 → **942 ms (1.5×)**; agreement with Jev unchanged (76.0%) |
+
+Opt-in `--early-stop` reads 19% fewer passes, at slightly more optimistic confidences ([RESULTS](docs/RESULTS.md#speedprecision-sweep-2026-10-11)).
 
 The losses are expected: a trained model beats a zero-training readout whenever labels and a fixed label set exist. This is for questions and options you cannot list ahead of time, on a machine where the data cannot leave. Why the numbers look like this, and what "label-free" means: [docs/CONCEPTS.md](docs/CONCEPTS.md).
 
@@ -45,7 +55,9 @@ curl -s localhost:8095/v1/systemone -d '{"state": "Ticket #4821 from Dana (Pro p
     "usage": {"input_tokens": 526}}
 ```
 
-Real output of the 4B model on an Apple M5 (probabilities shortened to four decimals; the server returns full precision). The same request returns the same bytes every time. No labels, no fitting, no text generated. Question types, errors and limits: [docs/API.md](docs/API.md).
+Real output of the 4B model on an Apple M5 (probabilities shortened to four decimals; the server returns full precision). No labels, no fitting, no text generated.
+
+A freshly started server returns the same bytes for the same request; later in a server's life the confidences can shift ([repeatability](docs/API.md#repeatability)). Question types, errors and limits: [docs/API.md](docs/API.md).
 
 ## Run it
 
@@ -54,12 +66,14 @@ Needs an Apple Silicon Mac on macOS 14 or newer and Python 3.11 or newer (instal
 ```bash
 python3.12 -m venv .venv && . .venv/bin/activate   # any Python >= 3.11 works
 pip install -r requirements.txt
-export HF_HOME=$PWD/.hf HF_HUB_CACHE=$PWD/.hf/hub   # keep the model (2.9 GB) in the project; export BOTH (an exported HF_HUB_CACHE silently overrides HF_HOME)
+export HF_HOME=$PWD/.hf HF_HUB_CACHE=$PWD/.hf/hub   # keep the model (2.9 GB) in the project; export both (an exported HF_HUB_CACHE silently overrides HF_HOME)
 python decide/serve/systemone.py --port 8095        # first start downloads the 4B model (2.9 GB)
 python decide/doctor.py                            # optional preflight: versions, pins, cache, ports
 ```
 
-Then run the `curl` above. With Nix, use `nix develop -c python decide/serve/systemone.py --port 8095` instead. The server batches the passes of a request by default; `--early-stop` (fewer passes, slightly more optimistic confidences) and `--no-batch` are in [docs/API.md](docs/API.md#server-flags). The shadow proxy for a coding agent, the adaptation loop, every benchmark command and the repository map are in [docs/RUNNING.md](docs/RUNNING.md).
+Then run the `curl` above. With Nix, use `nix develop -c python decide/serve/systemone.py --port 8095` instead.
+
+The server batches the passes of a request by default; `--early-stop` (fewer passes, slightly more optimistic confidences) and `--no-batch` are in [docs/API.md](docs/API.md#server-flags). The shadow proxy for a coding agent, the adaptation loop, every benchmark command and the repository map are in [docs/RUNNING.md](docs/RUNNING.md).
 
 ## Docs
 
@@ -77,12 +91,12 @@ Then run the `curl` above. With Nix, use `nix develop -c python decide/serve/sys
 **Decisions and background**
 - [docs/DECISIONS.md](docs/DECISIONS.md): what was chosen and why
 - [docs/PRIOR_ART.md](docs/PRIOR_ART.md): prior art, credits, train-in vs read-out
-- [docs/POLICY.md](docs/POLICY.md): domain-general policy and the calibration bright line
-- [docs/TODO.md](docs/TODO.md): one checklist for status, backlog and open work (open items first, done items ticked)
-- [docs/DECIDE.md](docs/DECIDE.md), [docs/HARNESS.md](docs/HARNESS.md), [docs/HISTORY.md](docs/HISTORY.md): historical investigation and session records
+- [docs/POLICY.md](docs/POLICY.md): domain-general policy and the calibration rule
+- [docs/TODO.md](docs/TODO.md): open work (measurement gaps, build backlog, decisions to make)
+- [docs/DESIGN.md](docs/DESIGN.md): where the design comes from, with the measurements behind it
 
 **Project**
-- [CONTRIBUTING.md](CONTRIBUTING.md): the bright line, the most useful contribution, development setup
+- [CONTRIBUTING.md](CONTRIBUTING.md): the calibration rule, the most useful contribution, development setup
 - [AGENTS.md](AGENTS.md): the short guide for coding agents
 - [THIRD_PARTY.md](THIRD_PARTY.md): dependencies, licenses, model lineage, Jev answers, trademarks
 

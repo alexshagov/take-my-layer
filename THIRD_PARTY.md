@@ -6,7 +6,7 @@ source code. Dependencies and model-lineage licenses:
 ## anyjev == 0.2.0 (PyPI dependency, unmodified)
 
 - License: Apache-2.0 (Nokia Applied Research; verified 2026-10-08 on PyPI
-  and github.com/nokia-applied-research/AnyJev — which also publishes a
+  and github.com/nokia-applied-research/AnyJev, which also publishes a
   technical report, arXiv:2610.00831). Imported at runtime; no
   files from the package are copied or vendored into this repository.
 - Used for: the readout machinery (Decider L0 marginalization/priors,
@@ -14,7 +14,7 @@ source code. Dependencies and model-lineage licenses:
   (`observe()` / `fit_head()` / `level="auto"`). Pinned in
   `requirements.txt` because 0.3.0 removed the L1/L2 head machinery this
   repo is built on.
-- This repo's `decide/core/mlx_backend.py` is an ORIGINAL implementation of
+- This repo's `decide/core/mlx_backend.py` is an original implementation of
   anyjev's documented Backend protocol for Apple MLX (upstream
   contribution of it is on the roadmap).
 
@@ -25,32 +25,32 @@ source code. Dependencies and model-lineage licenses:
   `requirements.txt`: `decide/core/mlx_backend.py` uses non-public mlx-lm
   internals, so a newer release can break it.
 - The transitive `mlx` package itself (Apple's MLX framework; MIT) is also a
-  used dependency — measured with 0.32.3, per `requirements.txt`.
+  used dependency: measured with 0.32.3, per `requirements.txt`.
 
 ## Model lineage (covers shipped artifacts)
 
 - Base model: `mlx-community/Qwen3.5-4B-MLX-4bit` (auto-downloaded to the
-  local HF cache on first run; NOT redistributed in this repo). The base
+  local HF cache on first run; not redistributed in this repo). The base
   model's license governs the weights; check the model card on Hugging
   Face for its terms (the Qwen base-model family ships Apache-2.0; the
   4B and 9B MLX conversions' cards both declare apache-2.0, verified
   2026-10-08).
-- Derived artifacts shipped here — the registry heads
+- Derived artifacts shipped here inherit the base model's license terms
+  for model-generated content: the registry heads
   (`registry/…/next_move*.json`, small linear probes fit on hidden
   states), `data/eval/questions.jsonl` (LLM-authored eval set), and the
-  observe telemetry logs — inherit the base model's license terms for
-  model-generated content.
+  observe telemetry logs.
 
 ## Evaluation datasets (cached in-repo; licenses permit redistribution)
 
-- `mteb/banking77` — test split cached at `data/eval/banking77/test.jsonl`
+- `mteb/banking77`: test split cached at `data/eval/banking77/test.jsonl`
   (3,080 rows) alongside the dataset card: MIT (verified 2026-10-08).
-- `LocalLLaMA/typed-decisions` — cached at
+- `LocalLLaMA/typed-decisions`: cached at
   `data/eval/typed_decisions/test.jsonl`: Apache-2.0 (verified
   2026-10-08). Gold labels are teacher-derived (mean of three
   temperature-0.7 teacher passes), not human-annotator majorities.
 
-## Jev API answers (TypeSafe AI) — stored as evaluation references
+## Jev API answers (TypeSafe AI): stored as evaluation references
 
 - `results/` keeps the Jev API's answers (for typed questions also its
   confidences) on this repo's own eval items, fetched through OpenRouter
@@ -70,7 +70,7 @@ source code. Dependencies and model-lineage licenses:
   imitate the Services, or develop a similar or competing product.
 - Use here: evaluation references only (agreement and accuracy scoring). No
   head or other trained artifact in this repo is fitted or distilled on these
-  answers (the benchmark bright line, docs/POLICY.md §3: heads are fitted
+  answers (the calibration rule, docs/POLICY.md §3: heads are fitted
   only from the serving surface's own observe() telemetry), and they are not
   offered as training data. This is a reading of public terms, not legal
   advice.
@@ -92,4 +92,4 @@ Jev section above.
 ## Tooling
 
 - Resource profiling in `decide/bench/eval_vs_jev.py` uses only stock macOS
-  tools (`ps`, `ioreg`) — no third-party monitoring code.
+  tools (`ps`, `ioreg`), no third-party monitoring code.

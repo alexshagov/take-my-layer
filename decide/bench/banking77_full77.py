@@ -1,4 +1,4 @@
-"""BANKING77 full-77-way readout — the >26-option unlock.
+"""BANKING77 full-77-way readout, past the 26-option cap.
 
 The 10-way bench (bench_banking77.py) tied readout vs greedy on accuracy
 (4B 87.5/87.75, 9B 91.25/92.25 — banking77_greedy artifacts). This is the

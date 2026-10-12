@@ -1,4 +1,4 @@
-# AGENTS.md — notes for coding agents
+# AGENTS.md: notes for coding agents
 
 The short version of what an agent needs to work here without breaking
 anything. Humans: [README.md](README.md) is the front page; the long-form
@@ -15,7 +15,7 @@ python -m compileall -q decide tests
 ```
 
 **Ground rules** (break these and the artifact silently degrades):
-- `anyjev` stays pinned to 0.2.0 — 0.3.0 removed the L1/L2 machinery this
+- `anyjev` stays pinned to 0.2.0: 0.3.0 removed the L1/L2 machinery this
   repo serves (`requirements.txt` says why).
 - Fit on what you serve: heads read hidden states of the exact served
   model artifact; never mix quants or adapters.

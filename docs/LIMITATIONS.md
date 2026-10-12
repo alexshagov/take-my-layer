@@ -1,4 +1,4 @@
-# LIMITATIONS.md — intended use and measured limits
+# LIMITATIONS.md: intended use and measured limits
 
 **Intended use**: decision *support* (triage, routing, prioritization,
 done-yet checks) on a local machine, returning full probability
@@ -19,6 +19,12 @@ concretely measured on this artifact (details in docs/RESULTS.md):
   calibration is the targeted in-distribution fix, and temperature
   scaling itself degrades under shift, so it calibrates the tail but does
   not license autonomy.
+- **Confidences depend on the server's history.** The endpoint keeps a running
+  prior per question layout and applies it from the 8th request with that layout. The
+  README ticket request, sent 12 times to one server, changed from route
+  confidence 0.85 to 0.41 at the 8th send; a fresh server reproduces the first
+  response exactly. A long run of near-identical requests flattens confidences;
+  restart to reset (docs/API.md, "Repeatability").
 - **`--early-stop` trades calibration for speed.** Answers stay (2 of 350
   changed against the full read) but the confidences get more optimistic: ECE
   0.035 → 0.046, and the answers at confidence ≥ 0.9 agree with Jev 93.0% of the

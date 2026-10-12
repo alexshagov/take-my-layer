@@ -1,4 +1,4 @@
-# API.md — the decision endpoint
+# API.md: the decision endpoint
 
 `decide/serve/systemone.py` serves one POST. You send a **state** (what is going on) and up to eight **typed questions**. You get an answer and the full probability distribution for each question, read off the model's own logits. No text is generated.
 
@@ -43,7 +43,7 @@ Each question is an object with a `type`:
 | `answers.<name>.probabilities` | every option or level (`Yes` and `No` for `Noul`); they sum to 1 |
 | `usage.input_tokens` | tokens of the state plus one readout prompt per question: the prefill the request cost, not generated tokens |
 
-The same request gives the same response, bit for bit. The examples below are real output from the 4B model on an Apple M5, with probabilities rounded to four decimals for display; the server returns full precision.
+A freshly started server gives the same response, bit for bit, to the same request ([Repeatability](#repeatability) covers what changes later). The examples below are real output from the 4B model on an Apple M5, with probabilities rounded to four decimals for display; the server returns full precision.
 
 ## Examples
 
@@ -134,7 +134,7 @@ curl -s localhost:8095/v1/systemone -d '{"state": {"ticket": {"id": 4821, "plan"
 
 ### The coding head (L2)
 
-A Choice with exactly the options `inspect`, `run`, `modify` is served by the shipped coding head instead of the label-free readout. The head exists as an experiment for a coding-agent harness (the shadow proxy, docs/RUNNING.md): the fitted L2 level demonstrated on real agent traffic. It is not a capability of the endpoint in general — every other question, on every other option set, is label-free L0.
+A Choice with exactly the options `inspect`, `run`, `modify` is served by the shipped coding head instead of the label-free readout. The head exists as an experiment for a coding-agent harness (the shadow proxy, docs/RUNNING.md): the fitted L2 level demonstrated on real agent traffic. It is not a capability of the endpoint in general. Every other question, on every other option set, is label-free L0.
 
 ```bash
 curl -s localhost:8095/v1/systemone -d '{"state": "Repo: demo. Task: fix the failing test in tests/test_x.py. Actions so far: 1. read tests/test_x.py",
@@ -186,6 +186,14 @@ Messages seen from the running server:
 - Memory: about 2.8 GB resident for the 4B model, 5.3 GB for the 9B (measured, `results/banking77.*.resources.json`).
 - Within a request the suffix passes (one per question and option rotation) run as one batched forward over the shared state cache, capped by a memory budget (`--kv-budget-gib`, default 1.5); a state too long to fit two rows in the budget, or any batching error, falls back to one pass at a time. Batching is the default since 2026-10-11 and `--no-batch` restores the one-at-a-time behaviour (same answers up to bf16 kernel noise; docs/RESULTS.md, "Speed/precision sweep").
 - `GET /healthz` returns the limits in force (`max_questions`, `max_state_chars`, `max_body_bytes`) and how reads are served (`serving`: `state_shared`, `batched_suffixes`, `kv_budget_gib`, `early_stop`).
+
+## Repeatability
+
+Reads are deterministic: the same sequence of requests sent to a freshly started server returns the same bytes. Checked on 2026-10-12 by replaying the 70 requests of `data/eval/questions{,_v2,_long}.jsonl` in order on two fresh server processes (4B, default batched mode) and comparing the responses with `cmp`: identical. Requests are served one at a time under a lock, so concurrent clients change only the order in which requests are seen.
+
+The server is not stateless, though. For each question layout (the same instructions and options, whatever the state) it keeps a running average of its own raw readouts and, from the 8th time it has seen that layout, corrects the probabilities by it (the label-free batch prior; `--prior-strength`, default 0.75). So one request can get different confidences later in a server's life. Example: sending the ticket request from the README 12 times in a row gave identical bytes for sends 1 to 7; from the 8th every confidence dropped (route 0.8516 to 0.4123, `escalate_now` 0.637 to 0.535, urgency 0.6651 to 0.3974) while the answers stayed the same. A fresh server reproduced the first response exactly.
+
+With varied states the prior is meant to remove the model's lean toward particular options or positions, estimated from your own traffic with no labels. A long run of near-identical requests is the case where it distorts the confidences, as above. Restart the server to reset it. `--early-stop` keeps a similar per-rotation prior (from the code; not measured), and the coding head (L2) was not part of this check.
 
 ## Server flags
 
