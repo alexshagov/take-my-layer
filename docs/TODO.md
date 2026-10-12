@@ -11,22 +11,6 @@ log is docs/HISTORY.md. Item ids (`PP-n`, `#n`) are stable: other docs cite them
 
 ## Open
 
-### Publish
-
-- [ ] **PP-19b GitHub repo.** `git init` and the first commit are done (PP-19a
-  below); there is no remote yet. Repo name `take-my-layer`. About line (241 chars,
-  limit 350): "Jev-style typed decisions (choice, yes/no, score + probabilities) read off a
-  local Qwen's own logits on Apple Silicon. No text generated. Research prototype,
-  benchmarked against the real Jev API. Independent; not affiliated with TypeSafe
-  AI." Topics: mlx, apple-silicon, qwen, logprobs, local-llm. README tagline: "Shut
-  up and take my layer." Keep "one forward pass" out of public copy: it is exact only
-  for the L2 head (an L0 Choice question with K options is K short passes sharing one
-  state prefill); "read off the model's own logits, no text generated" holds at every
-  level. Before pushing: repeat the dry run of `git add -A` against a git-dir outside
-  the repo (2026-10-10: 107 files, 5.17 MB, no caches/venv/archive/pyc/logs/runs, no
-  home path, username, key or token pattern in any of them), then create the GitHub
-  repo with the About line and topics above.
-
 ### Measurement gaps (benches and proofs a README or RESULTS claim still lacks)
 
 - [ ] **#1 Determinism proof.** README says re-running anything returns
@@ -302,7 +286,8 @@ references are as of 2026-10-10. Tags: **[confirmed]** reproduced as stated,
 re-check. Order: irreversible once pushed > misleads or breaks a stranger's
 first run > clarity > polish.
 
-**Status:** everything is done except PP-19b (the GitHub repo, in Open). The stored Jev
+**Status:** everything is done, including PP-19b (the GitHub push, 2026-10-11
+— see its entry under P2). The stored Jev
 answers stay (PP-18, maintainer's decision). PP-5 removed the main way to lose evidence
 by accident (scripts write to `runs/` and refuse to replace frozen files).
 
@@ -586,6 +571,19 @@ by accident (scripts write to `runs/` and refuse to replace frozen files).
 - [x] **PP-19a `git init` and the first commit.** Done: two commits (`Init env`, `Initial release`),
   107 tracked files including `flake.nix` and `flake.lock` (Nix refuses an untracked flake;
   that is why they are added before the first `nix develop`). The GitHub half is PP-19b.
+
+- [x] **PP-19b GitHub repo.** DONE 2026-10-11: public at
+  github.com/alexshagov/take-my-layer (remote `origin`, `main`; local HEAD =
+  the public HEAD, confirmed via `git ls-remote`; four commits, 110 tracked
+  files against the audit's 107 — net delta since the first release: the
+  2026-10-11 fast-path batch (+`batching.py`, `bench_fast_path.py`,
+  `test_fast_path.py`, `fast_path.json`) minus `docs/ROADMAP.md`, merged
+  into this file). The README
+  tagline is live ("Shut up and take my layer."). Two deviations from the
+  plan, read off the live repo page 2026-10-12: the About line is the short
+  "Zero-training decision layer for a local LLM on Apple Silicon", not the
+  planned 241-char Jev-style line, and the page lists no topics (planned:
+  mlx, apple-silicon, qwen, logprobs, local-llm).
 
 - [x] **PP-20 Option-cap wording (20 vs 26).** DONE 2026-10-10. anyjev 0.2.0's
   letter readout caps Choice at 26 options (`MAX_OPTIONS`); the endpoint accepted

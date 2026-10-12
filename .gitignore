@@ -28,3 +28,7 @@ data/repos/*
 archive/
 # local agent notes (the detailed local scratch version; the shipped AGENTS.md is the short guide)
 AGENTS.local.md
+# emacs: backup files, auto-saves, lockfiles
+*~
+#*#
+.#*

@@ -109,18 +109,39 @@ typed-decisions: the dataset card's zero-shot table lists zero-shot
 general models, and its only label-free reference points are the
 input-ignoring prior (0.470) and uniform (0.308).
 
-## Ecosystem watch (re-verify before publish)
+## Ecosystem watch (verification status)
 
-Cloudflare Clef/Clef-flash (publish-sooner pressure; blog 2026-10-01:
-Clef = Qwen3.8-27B, Clef-flash = Qwen3.5-9B, Apache-2.0 open weights,
-Jev-API compatible, 64k context, median latency 209ms / flash 38.8ms vs
-Jev 524ms; leads the "Jev Decision Index" public-benchmark subset — on the
-index's blended full score Jev still leads, 60.11 vs 53.08), Unsloth
-"Train your own Decision Model" (fourth player; trains-in capability so
-small bases suffice), OpenDecider, Mini-Jev (github.com/deep-diver/mini-jev,
-letter-logit read), and the local-MLX decision cluster (NeoJev 27B 4-bit
-~15GB, mlx-decision on PyPI, laya-mlx 13ms, plus the awesomejev MLX
-entries). Differentiators that survive all of them: the SMALL-memory end
+The repo is public (pushed 2026-10-11), so this is no longer a
+"re-verify before publish" gate. Each box records whether the claim was
+re-read against the primary source, with the date and the evidence
+pointer; open boxes are carried from the original survey without a
+re-check — verify them before quoting their numbers anywhere new.
+
+- [x] **Cloudflare Clef / Clef-flash** — verified 2026-10-10 (blog
+  re-read; docs/TODO.md "External sources re-checked 2026-10-10"; the
+  Clef table was also re-verified in the 2026-10-08 #4 citation audit,
+  docs/HISTORY.md). Publish-sooner pressure; blog 2026-10-01: Clef =
+  Qwen3.8-27B, Clef-flash = Qwen3.5-9B, Apache-2.0 open weights,
+  Jev-API compatible, 64k context, median latency 209ms / flash 38.8ms
+  vs Jev 524ms; leads the "Jev Decision Index" public-benchmark subset —
+  on the index's blended full score Jev still leads, 60.11 vs 53.08.
+- [x] **Unsloth "Train your own Decision Model"** — verified 2026-10-10
+  at two levels: the guide's numbers (docs/TODO.md, PP-4 and the Unsloth
+  re-verification note at the end of the pre-publish checklist) and the
+  source itself (the train-in vs read-out bullet above). Fourth player;
+  trains-in capability so small bases suffice.
+- [x] **NeoJev** — the one static MLX early-exit precedent, re-surveyed
+  2026-10-08 (the Early exit bullet above): 27B 4-bit ~15GB; no
+  dynamic-exit MLX precedent, and mlx-lm still exposes no layer hooks.
+- [ ] **OpenDecider** — not re-checked since the original survey.
+- [ ] **Mini-Jev** (github.com/deep-diver/mini-jev, letter-logit read) —
+  not re-checked; our measurement against that read style (+4.7 points
+  for marginalization, L0 debiasing bullet above) is ours and holds
+  independently of their repo.
+- [ ] **mlx-decision (PyPI), laya-mlx (13ms), the awesomejev MLX
+  entries** — not re-checked since the original survey.
+
+Differentiators that survive all of them: the SMALL-memory end
 (4B ≈ 3GB), the observe() adaptation loop (nobody ships fit-on-your-traffic
 heads), zero-training deployment, and the measured fidelity/latency story.
 "Only local readout" claims are outdated — do not use them.
